@@ -1,0 +1,27 @@
+show_dashboard_rs_archivos_rs_homepage:
+    path:     /show-dashboard/archivoRS
+    defaults: { _controller: ShowDashboardRSArchivosRSBundle:ArchivosRS:ArchivosRS }
+
+insert_archivo_rs:
+    path:     /show-dashboard/insertArchivoRS
+    defaults: { _controller: ShowDashboardRSArchivosRSBundle:ArchivosRS:insertArchivosRS }
+
+archivo_visitantetipo_rs:
+    path:     /show-dashboard/visitanteTipoArchivoRS
+    defaults: { _controller: ShowDashboardRSArchivosRSBundle:ArchivosRS:tipoVisitanteArchivosRS }
+    
+archivoTexto_rs:
+    path:     /show-dashboard/textoArchivoRS
+    defaults: { _controller: ShowDashboardRSArchivosRSBundle:ArchivosRS:ArchivoTexto }
+
+insert_archivoTexto_rs:
+    path:     /show-dashboard/insertTextoArchivoRS
+    defaults: { _controller: ShowDashboardRSArchivosRSBundle:ArchivosRS:insertArchivoTexto }
+    
+insert_archivoTextoAPP_rs:
+    path:     /show-dashboard/insertTextoArchivoAppRS
+    defaults: { _controller: ShowDashboardRSArchivosRSBundle:ArchivosRS:insertArchivoTextoAPP }
+
+insert_visitantetipo_rs:
+    path:     /show-dashboard/insertVisitanteTipoArchivoRS
+    defaults: { _controller: ShowDashboardRSArchivosRSBundle:ArchivosRS:insertArchivoVisitanteTipo }           

@@ -1,0 +1,14 @@
+{#---
+{% set lang =  app.session.get('lang') %}
+<div style="width: 100%;display: inline-block;padding-right: 8px;padding-top: 6px;padding-bottom: 2px;">
+    <table style="float: right;" cellspacing="3" cellpadding="3" style="background: #ECECEC;">
+        <tr><td></td><td></td><td align="right"><h4>{{content['section_text']['sas_subtotalStand'] | raw}}</h4></td><td align="right">{{content['contrato']['SubtotalStand']|number_format(2, '.', ',')}}</td></tr>
+        <tr><td></td><td></td><td align="right"><h4>{{content['section_text']['sas_descuento'] | raw}}</h4></td><td align="right">{{content['contrato']['DescuentoCantidad']|number_format(2, '.', ',')}}</td></tr>
+        <tr><td></td><td></td><td align="right"><h4>{{content['section_text']['sas_otrosConceptos'] | raw}}</h4></td><td align="right">{{content['contrato']['OtrosConceptosCantidad']|number_format(2, '.', ',')}}</td></tr>
+        <tr><td></td><td></td><td align="right"><h4>{{content['section_text']['sas_decoracion'] | raw}}</h4></td><td align="right">{{content['contrato']['DecoracionCantidad']|number_format(2, '.', ',')}}</td></tr>
+        <tr><td></td><td></td><td align="right"><h4>{{content['section_text']['sas_subtotal'] | raw}}</h4></td><td align="right">{{content['contrato']['SubtotalOpcionPago']|number_format(2, '.', ',')}}</td></tr>
+        <tr><td></td><td></td><td align="right"><h4>{{content['section_text']['sas_iva'] | raw}}</h4></td><td align="right">{{content['contrato']['IvaOpcionPago']|number_format(2, '.', ',')}}</td></tr>
+        <tr><td></td><td></td><td align="right"><h3>{{content['section_text']['sas_total'] | raw}}</h3></td><td align="right">{{content['contrato']['TotalOpcionPago']|number_format(2, '.', ',')}}</td></tr>
+    </table>
+</div>
+ ---#}

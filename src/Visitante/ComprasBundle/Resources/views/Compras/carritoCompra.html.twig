@@ -1,0 +1,120 @@
+<table class="responsive-table resumen-compra">
+    <thead>
+        <tr>
+            <th>{{ content['template_text']['ae_descripcion'] }}</th>
+            <th class="right-align">{{ content['template_text']['ae_cantidad'] }}</th>
+            <th class="right-align">{{ content['template_text']['ae_precioUnitario'] }} ({{ content['template_text']['ae_mxn'] }})</th>
+                {% set break = false %}    
+                {% for producto in content['compra']['CompraDetalle'] if not break %}
+                    {% if producto['Descuento'] is defined and producto['Descuento'] > 0 %}
+                    <th class="right-align">{{ content['template_text']['ae_descuento']}} ({{ content['template_text']['ae_mxn'] }})</th>
+                        {% set break = true %}
+                    {% endif %}
+                {% endfor %}
+                {% if not break %}
+                <th></th>
+                {% endif %}
+            <th class="right-align">{{ content['template_text']['ae_precio'] }} ({{ content['template_text']['ae_mxn'] }})</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if content['programas'] is defined and content['programas'] is not empty %}
+            {# Compra por paquete #}
+            {% set idPrograma = "" %}
+            {% for paquete in content['compra']['CompraDetalle'] %}
+                {% if idPrograma != paquete['idPrograma'] %}
+                    <tr>
+                        <td colspan="3">
+                            <i class="grey-text">{{ content['programas'][paquete['idPrograma']]['Programa' ~ lang|upper] }}</i>
+                        </td>
+                    </tr>
+                    {% set idPrograma = paquete['idPrograma'] %}
+                {% endif %}
+                <tr>
+                    <td>
+                        {{ paquete['Paquete' ~ lang|upper] }}
+                        {% if paquete['PaqueteDescripcion' ~ lang|upper] != "" %}
+                            <label class="paquete-descripcion">{{ paquete['PaqueteDescripcion' ~ lang|upper] }}</label>
+                        {% endif %}
+                        {% if paquete['CompraPaqueteProducto'] is defined and paquete['CompraPaqueteProducto']|length > 0 %}
+                            <ul class="browser-default paquete-productos">
+                                <li>
+                                    {%- for producto in paquete['CompraPaqueteProducto'] -%}
+                                    {{ producto['Producto' ~ lang|upper] }}{% if loop.last == false %}; {% endif %}
+                                    {%- endfor -%}
+                                </li>
+                            </ul>
+                        {% endif %}
+                    </td>
+                    <td class="right-align">{{ paquete['Cantidad'] }}</td>
+                    <td class="right-align">$ {{ paquete['PrecioUnitario']|number_format(2, '.', ',') }}</td>
+                    <td class="right-align"></td>
+                    <td class="right-align">$ {{ paquete['Precio']|number_format(2, '.', ',') }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {# Compra por producto #}
+            {% for producto in content['compra']['CompraDetalle'] %}
+                <tr>
+                    <td>
+                        {{ producto['Producto' ~ lang|upper] }}
+                        {% if producto['ProductoDescripcion' ~ lang|upper] != "" %}
+                            <label class="paquete-descripcion">{{ producto['ProductoDescripcion' ~ lang|upper] }}</label>
+                        {% endif %}
+                        {% if producto['CompraProducto'] is defined and producto['CompraProducto']|length > 0 %}
+                            <ul class="browser-default paquete-productos">
+                                <li>
+                                    {%- for producto in paquete['CompraProducto'] -%}
+                                    {{ producto['Producto' ~ lang|upper] }}{% if loop.last == false %}; {% endif %}
+                                    {%- endfor -%}
+                                </li>
+                            </ul>
+                        {% endif %}
+                    </td>
+                    <td class="right-align">{{ producto['Cantidad'] }}</td>
+                    <td class="right-align">$ {{ producto['PrecioUnitario']|number_format(2, '.', ',') }}</td>
+                    {% if producto['Descuento'] is defined and producto['Descuento'] > 0 %}
+                        <td class="right-align">$ {{ producto['Descuento']|number_format(2, '.', ',') }}</td>
+                    {%elseif break %}
+                        <td class="right-align">$ {{ 0|number_format(2, '.', ',') }}</td>
+                    {%elseif not break %}
+                        <th></th>
+                    {% endif %}
+                    <td class="right-align">$ {{ producto['Precio']|number_format(2, '.', ',') }}</td>
+                </tr>
+            {% endfor %}
+            {% if content['compra']['Descuento'] is defined and content['compra']['Descuento'] > 0 %}
+                <tr>
+                    <td colspan="4">
+                        {% if content['compra']['Cupon'] is defined %}
+                            {{ content['compra']['Cupon'] }}
+                            <label class="paquete-descripcion">{{ content['compra']['DescuentoDescripcion' ~ lang|upper] }}</label>
+                        {% endif %}
+                    </td>
+                    <td class="right-align">- $ {{ content['compra']['Descuento']|number_format(2, '.', ',') }}</td>
+                </tr>
+            {% endif %}
+        {% endif %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <p class="right-align">{{ content['template_text']['ae_subtotal'] }}</p>
+                <p class="right-align">{{ content['template_text']['ae_iva'] }}</p>
+                {#% if content['compra']['Descuento'] is defined and content['compra']['Descuento'] > 0 %}
+                    <p class="right-align">{{ content['template_text']['ae_descuento'] }}</p>
+                {% endif %#}
+                <p class="right-align"><b>{{ content['template_text']['ae_total'] }}</b></p>
+            </td>
+            <td style="border-top: 1px solid #F00;">
+                <p class="right-align">$ {{ content['compra']['SubTotal']|number_format(2, '.', ',') }}</p>
+                <p class="right-align">$ {{ content['compra']['IVA']|number_format(2, '.', ',') }}</p>
+                {#% if content['compra']['Descuento'] is defined and content['compra']['Descuento'] > 0 %}
+                    <p class="right-align">$ {{ content['compra']['Descuento']|number_format(2, '.', ',') }}</p>
+                {% endif %#}
+                <p class="right-align"><b>$ {{ content['compra']['Total']|number_format(2, '.', ',') }} {#{ content['template_text']['ae_mxn'] }#}</b></p>
+            </td>
+        </tr>
+    </tbody>
+</table>

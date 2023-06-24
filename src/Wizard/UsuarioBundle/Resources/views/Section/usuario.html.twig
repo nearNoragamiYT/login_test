@@ -1,0 +1,67 @@
+{% extends 'WizardWizardBundle:Wizard:showWizard.html.twig' %}
+
+{% set ruta_asset_section = 'resources/Wizard/UsuarioBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset_section ~ 'css/usuario.css') }}">
+{% endblock %}
+
+{% block content_step %}
+    <section id="wizard-usuario">
+        <h5 class="wizard-title-step">{{ content['section_text']['sas_tituloPaso8'] }}</h5>
+        <table id="tbl-usuarios" class="highlight responsive-table">
+            <thead>
+                <tr>
+                    <th>{{ content['admon_text']['sas_id'] }}</th>
+                    <th>{{ content['admon_text']['sas_tipoUsuario'] }}</th>
+                    <th>{{ content['admon_text']['sas_emailUsuario'] }}</th>
+                    <th>{{ content['admon_text']['sas_nombreUsuario'] }}</th>
+                    <th>{{ content['admon_text']['sas_puestoUsuario'] }}</th>
+                    <th>{{ content['admon_text']['sas_eventos'] }}</th>
+                </tr>
+            </thead>
+            {% for usuario in content['usuarios'] %}
+                <tr id-usuario="{{usuario['idUsuario']}}"
+                    {% if usuario['Activo'] == false %}
+                        class="inactivo"
+                    {% endif %}
+                    >
+                    <td>{{ usuario['idUsuario'] }}</td>
+                    <td>{{ usuario['TipoUsuario'] }}</td>
+                    <td>{{ usuario['Email'] }}</td>
+                    <td>{{ usuario['Nombre'] }}</td>
+                    <td>{{ usuario['Puesto'] }}</td>
+                    <td>
+                        {% if usuario['Ediciones'] is defined %}
+                            {% for idEdicion, permisos in usuario['Ediciones'] if content['ediciones'][idEdicion] is defined %}
+                                <div class="chip"
+                                     title="{{ content['ediciones'][idEdicion]['Edicion_' ~ lang|upper] }}"
+                                     >{{ content['ediciones'][idEdicion]['Abreviatura'] }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            <tbody>
+        </table>
+        <p class="orange-text text-darken-4">{{ content['section_text']['sas_administrarPermisosWizard']|raw }}</p>
+        <div class="nav-buttons">
+            <a href="{{ path('wizard_producto') }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['general_text']['sas_atras'] }}</a>
+            <a href="{{ path("dashboard") }}" class="btn waves-effect waves-light green show-loader-wrapper">
+                {{ content['general_text']['sas_terminar'] }}
+            </a>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var usuarios = {{ content['usuarios']|length ? content['usuarios']|json_encode()|raw : '{}' }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset_section ~ 'js/usuario.js') }}"></script>
+{% endblock %}

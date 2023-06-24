@@ -1,0 +1,19 @@
+entidad_fiscal:
+    path:     /administracion-global/entidad-fiscal
+    defaults: { _controller: AdministracionGlobalEntidadFiscalBundle:EntidadFiscal:entidadFiscal }
+
+entidad_fiscal_insert:
+    path:     /administracion-global/entidad-fiscal/nuevo
+    defaults: { _controller: AdministracionGlobalEntidadFiscalBundle:EntidadFiscal:entidadFiscalNuevo }
+
+entidad_fiscal_update:
+    path:     /administracion-global/entidad-fiscal/editar/{idEntidadFiscal}
+    defaults: { _controller: AdministracionGlobalEntidadFiscalBundle:EntidadFiscal:entidadFiscalEditar, idEntidadFiscal: 0}
+    requirements:
+        idEntidadFiscal : \d+
+
+entidad_fiscal_delete:
+    path:     /administracion-global/entidad-fiscal/eliminar/{idEntidadFiscal}
+    defaults: { _controller: AdministracionGlobalEntidadFiscalBundle:EntidadFiscal:entidadFiscalEliminar, idEntidadFiscal: 0 }
+    requirements:
+        idEntidadFiscal : \d+

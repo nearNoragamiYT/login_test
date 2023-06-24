@@ -1,0 +1,34 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: symfony
+    database_user: root
+    database_password: null
+    mailer_encryption: tls
+    mailer_transport: smtp
+    mailer_host: mail.infoexpo.com.mx
+    mailer_user: antad@infoexpo.com.mx
+    mailer_password: '?Oi&xVzn?znZ'
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+    security.encoder.digest.class: LoginBundle\Model\IxpoEncoder
+
+    PGSQL_SAS:
+        db_name:           ANTAD_SAS
+        db_user:           php_Antad
+        db_password:       Sr>6myfG2pNPk5
+        #Usar localhost cuando se usara el dominio de.infoexpo.com.mx
+        #db_server:         localhost
+        db_server:         10.80.10.10
+        db_port:           5432
+
+    PGSQL_SAS_FACTURACION:
+        db_name:           SAS_FACTURACION
+        db_user:           php_Facturacion
+        db_password:       )w35su8sdgaMSedfu
+        #Usar localhost cuando se esta hospedado en hd3.infoexpo.com.mx
+        db_server:         10.80.10.10
+        #db_server:         10.52.1.100 
+        #db_server:         hd3.infoexpo.com.mx
+        db_port:            5432

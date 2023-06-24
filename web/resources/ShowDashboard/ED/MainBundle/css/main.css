@@ -1,0 +1,76 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Jun 30, 2017, 8:27:44 AM
+    Author     : Eduardo
+*/
+/*-- start css with id --*/
+#content-dashboard{
+    padding: 10px;
+    width: 95%;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
+/*-- end css with id --*/
+/*-- start css with class --*/
+.spinner{
+    display: none;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    opacity: 0.8;
+    top: 0%;
+    left: 0px;
+    position: absolute;
+    cursor: wait;
+
+}
+.chart-container{ /*-- Importatn for responsive charts --*/
+    position: relative;
+    margin: auto;
+    height: auto;
+    width: auto;
+}
+.card .badge, .total-only{
+    margin: .7rem 0rem;
+    border-radius: 3px;
+}
+.total-only:first-child{
+    margin-top: 0px;
+}
+.total-only:last-child{
+    margin-bottom: 0px;
+}
+.refresh{
+    position: absolute;
+    right: -14px;
+    top: -14px;
+    z-index: 4;
+    opacity:1;
+    transition:opacity .3s linear;
+}
+.content-stats{
+    padding: 10px;
+}
+.card-title .badge{
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    font-style: italic !important;
+}
+.card-total{
+    font-size: 1.5rem;
+}
+.progress{
+    padding-top: 1px;
+    height: 5px;
+}
+/*-- end css with class --*/
+/*-- start css with tag --*/
+a.update {
+    opacity:0;
+}
+/*-- end css with tag --*/

@@ -1,0 +1,107 @@
+<table cellpadding="5">
+    <tr style="white-space:nowrap;" >
+        <td colspan="4">
+            {% if app.environment == 'dev'%}
+                <img style="width: 350px;"  src="{{asset("images/lectoras.png")}}" alt="lectoras">
+            {% else %}
+                <img style="width: 350px;"  src="{{content["ruta"] ~ '/images/lectoras.png'}}" alt="lectoras">
+            {% endif %}
+        </td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td style="text-align: justify" colspan="4">
+            Por medio de este documento me comprometo a hacer buen uso del equipo que me ha sido entregado y que estaré usando en
+            <strong>{{app.session.get('edicion')['Edicion_' ~ content['lang']|upper]}}</strong> y este estará bajo mi responsabilidad.
+        </td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td style="text-align: justify" colspan="4">
+            Así mismo acepto que el equipo me fue entregado en buenas condiciones por lo que debo entregarlo de la misma manera;
+            si no fuera así, me vería obligado a pagar el importe del equipo lector de gafetes dañado o incompleto, de acuerdo a la siguiente lista:
+        </td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td colspan="4" style="padding-bottom: 2rem;"></td>
+    </tr>
+    {#--- pone las lectoras ---#}
+    <tr style="white-space:nowrap;" >
+        <td colspan="4" style="text-align: center;">
+            <table style="width: 100%; display: inline-table;">
+                {% set scanners = content['data']["DetalleEntregaScannerJSON"]['EquiposEntregados'] %}
+                {% for scanner  in scanners %}
+                    <tr style="font-weight: bold;">
+                        <td style="text-align: left; width: 30%;">Equipo</td>
+                        <td style="text-align: left; width: 30%;">Codigo</td>
+                        <td style="text-align: left; width: 40%;">Precio por unidad</td>
+                    </tr>
+                    {% for det in scanner.ScannerDetalle %}
+                        <tr style="border-bottom: 2px #000000 solid;">
+                            <td style="text-align: left; width: 30%; border-bottom: 2px #dddddd solid;" colspan="2">{{scanner['ScannerTipo']}}</td>
+                            <td style="text-align: left; width: 30%; border-bottom: 2px #dddddd solid;">{{det['CodigoScanner']}}</td>
+                            <td style="text-align: left; width: 40%; border-bottom: 2px #dddddd solid;">{{scanner['PrecioScanner'] ~ " " ~ scanner['MonedaScanner']}}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr style="white-space:nowrap;" >
+                        <td colspan="4" style="padding-bottom: 2rem;"></td>
+                    </tr>
+                    {% for equipo in scanner.Equipos %}
+                        {% if loop.first %}
+                            <tr style="font-weight: bold;">
+                                <td style="text-align: left; width: 30%;">Cantidad</td>
+                                <td style="text-align: left; width: 30%;">Equipo adicional</td>
+                                <td style="text-align: left; width: 40%;">Precio por unidad</td>
+                            </tr>
+                        {% endif %}
+                        <tr style="border-bottom: 2px #000000 solid;">
+                            <td style="text-align: left; width: 30%; border-bottom: 2px #dddddd solid;">{{equipo["Cantidad"]}}</td>
+                            <td style="text-align: left; width: 30%; border-bottom: 2px #dddddd solid;">{{equipo['EquipoAdicional']}}</td>
+                            <td style="text-align: left; width: 40%; border-bottom: 2px #dddddd solid;">{{(equipo['Total'] / equipo['Cantidad'])}} {{equipo['Moneda']}}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td colspan="4" style="padding-bottom: 2rem;"></td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td style="text-align: justify" colspan="4">
+            En caso de no entregar el equipo al término del evento en la fecha que Infoexpo lo indica,
+            acepto pagar por concepto de demora en entrega de equipo de 50 USD por día.
+        </td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td colspan="4" style="padding-bottom: 2rem;"></td>
+    </tr>
+    {% set entrega = content['data']['DetalleEntregaScannerJSON']['Entrega'] %}
+    <tr style="white-space:nowrap;" >
+        <td>Nombre:</td>
+        <td colspan="3">{{entrega['Nombre']}}</td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td>Empresa:</td>
+        <td colspan="3">{{entrega['Empresa']}}</td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td>Fecha:</td>
+        <td colspan="3">{{entrega['FechaEntrega']}}</td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td>Celular:</td>
+        <td colspan="3">{{entrega['Celular']}}</td>
+    </tr>
+    {# {% if entrega["Email"] is defined and entrega["Email"] != "" %}
+        <tr style="white-space:nowrap;" >
+            <td>Email en este correo llegará la base (solo OPN):</td>
+            <td colspan="3">{{entrega['Email']}}</td>
+        </tr>
+    {% endif %} #}
+    <tr style="white-space:nowrap;" >
+        <td colspan="4" style="padding-bottom: 2rem;"></td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td style="text-align:left">Firma:</td>
+        <td colspan="3" style="border-bottom: 3px #000 solid; margin-top: 4rem"></td>
+    </tr>
+</table>

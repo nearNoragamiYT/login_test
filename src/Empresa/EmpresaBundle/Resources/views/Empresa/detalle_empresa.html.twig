@@ -1,0 +1,39 @@
+<div class="row card-panel" style="margin-bottom: 25px;">
+    <div class="col s7">
+        <h5>{{content["header"]["DC_NombreComercial"]}}</h5>
+        <h6>
+            {% if not(content["header"]["idEtapa"] is defined) %}
+                {{ content["section_text"]["sas_prospecto"] }}
+            {% elseif content["header"]["idEtapa"] == 1 %}
+                {{ content["section_text"]["sas_precontratos"] }}
+            {% elseif content["header"]["idEtapa"] == 2 %}
+                {{ content["section_text"]["sas_expositor"] }}
+            {% endif %}
+        </h6>
+        {% if content["header"]["EMSTDListadoStand"] is defined %}
+            <h6>{{ "Stands: " ~ content["header"]["EMSTDListadoStand"] }}</h6>
+        {% endif %}
+    </div>
+    <div class="col s5" style="text-align:right;">
+        {% if content["header"]["CodigoCliente"] is defined and content["header"]["CodigoCliente"] != "" %}
+            <h5>{{"Código ANTAD: " ~ content["header"]["CodigoCliente"] }}</h5>
+        {% endif %}
+        {% if content["header"]["Password"] is defined %}
+            <h6>{{ "Email: " ~ content["header"]["Email"] }} </h6>
+            <h6>{{" Password: " ~ content["header"]["Password"] }}</h6>
+        {% endif %}
+    </div>
+    {% if app.request.get("_route") == "empresa_empresa_contrato" and content["header"]["idPaquete"] is defined and content["header"]["idPaquete"] != "" and content["header"]["idEtapa"] is defined and content["header"]["idEtapa"] == 2 %}
+        <div class="col l5 offset-l7 m5 offset-m5 s12" style="text-align:right;">
+            <h5 id="header-paquete">
+                <a class="btn waves-effect-waves-light green tooltipped"
+                   id="change-upgrade"
+                   data-tooltip= "{{ content["section_text"]["sas_seleccionarPaqueteMKF"] }}"
+                   data-position="left"
+                   data-delay="50">
+                    {{ "Upgrade: " ~ content["packages"][content["header"]["idPaquete"]]["Paquete" ~ content["lang"]|upper] }}
+                </a>
+            </h5>
+        </div>
+    {% endif %}
+</div>

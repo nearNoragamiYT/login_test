@@ -1,0 +1,23 @@
+.company-menu {
+    height: 40px;
+    line-height: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: fixed;
+    z-index: 10;
+    display: inline-table;
+}
+nav ul li.active {
+    background-color: lightslategrey !important;
+    border-radius: 15px 15px 0px 0px;
+}
+.company-menu .nav-wrapper {
+    position: sticky;
+}
+.company-menu + div{
+    margin-top: 5% !important;
+}
+
+.nav-wrapper a:first-child {
+    padding-left: 5px !important;
+}

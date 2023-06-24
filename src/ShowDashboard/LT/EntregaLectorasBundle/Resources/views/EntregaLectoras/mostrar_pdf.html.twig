@@ -1,0 +1,7 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-mostrar-pdf", "fixed": true, "textColor":"white-text", "size": "modal-l", "color": "blue", "idButton": "imprimir", "showButton": false } %}
+{% block title %}{{content['section_text']['sas_responsiva']}}{% endblock %}
+{% block body %}
+    <embed id="mostrar-pdf" src="" type="application/pdf">
+{% endblock%}
+{% block button %}{{content['general_text']['sas_imprimir']}}{% endblock %}

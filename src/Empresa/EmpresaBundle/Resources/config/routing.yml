@@ -1,0 +1,40 @@
+empresa:
+    path:     /empresa
+    defaults: { _controller: EmpresaEmpresaBundle:Empresa:companies}
+
+empresa_email_bienvenida_ed:
+    path:     /empresa/empresa-enviar-email
+    defaults: { _controller: EmpresaEmpresaBundle:Empresa:sendWelcomeEmail }
+    
+empresa_get_to_datatable:
+    path:  /empresa/get-datatable
+    defaults: { _controller: EmpresaEmpresaBundle:Empresa:getToDataTable }
+    
+empresa_get_to_datatable_filtro:
+    path:  /empresa/get-datatable-filter
+    defaults: { _controller: EmpresaEmpresaBundle:Empresa:getToDataTableFilter }
+    
+empresa_export_data:
+    path:  /empresa/export-empresa
+    defaults: { _controller: EmpresaEmpresaBundle:Empresa:exportEmpresaData }
+    
+empresa_set_session:
+    path:  /empresa/set_session
+    defaults: { _controller: EmpresaEmpresaBundle:Empresa:setSessionData }
+   
+empresa_get_session:
+    path:  /empresa/get_session
+    defaults: { _controller: EmpresaEmpresaBundle:Empresa:getSessionData }
+
+empresa_update_floorplan:
+    path:  /empresa/updatefp
+    defaults: { _controller: EmpresaEmpresaBundle:Empresa:updateFloorplan }
+    
+empresa_download_logos:
+    path:  utilerias/empresa/download-logos
+    defaults: { _controller: EmpresaEmpresaBundle:Empresa:downloadLogos}
+    methods: POST
+    
+empresa_exist_compress_logos:
+    path:  utilerias/empresa/exist-compress-logos
+    defaults: { _controller: EmpresaEmpresaBundle:Empresa:existCompressLog}

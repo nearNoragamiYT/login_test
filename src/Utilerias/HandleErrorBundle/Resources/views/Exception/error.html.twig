@@ -1,0 +1,67 @@
+{% set lang = content['lang'] %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Error Ixpo SAS{% endblock %}</title>
+        <!--Import Google Icon Font-->
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.min.css') }}" media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/default.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/system-error.css') }}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body id="scene">
+        <div class="container-fluid error-content">
+            <div class="row">
+                <div class="col s12 m5 l4 center-align">
+                    <img class="astronauta layer" data-depth="1.50" src="{{ asset('images/astronauta.png') }}" alt="Astronauta">
+                </div>
+                <div class="col s12 m7 l8">
+                    <h1 class="error-code">{{ content['code'] }}</h1>
+                    <h4 class="error-msj">{{ content['textos']['lb_error_sorry'][lang] }}</h4>
+                    <div class="error z-depth-1">
+                        <div class="error-url">
+                            <span>
+                                <i class="material-icons left">public</i> 
+                                {{ app.request.uri }}
+                            </span>
+                        </div>
+                        <p class="error-txt">{{ content['message']|raw }}</p>
+                        <p>{{ content['textos']['lb_at'][lang] }} {{ content['file'] }} {{ content['textos']['lb_line'][lang] }} <b>{{ content['line'] }}</b></p>
+                    </div>
+                    <h4 class="error-ayuda">{{ content['textos']['lb_error_notify'][lang] }}</h4>
+                    <div class="row">
+                        <div class="col s12 m4 l4 padding-col">
+                            <a href="{% if content['referer'] is defined and content['referer'] != "" %}{{ content['referer'] }}{% else %}{{ path('login', { 'lang':lang }) }}{% endif %}" class="waves-effect waves-light btn green darken-2"><i class="material-icons left">arrow_back</i> {{ content['textos']['lb_return_back'][lang] }}</a>
+                        </div>
+                        <div class="col s12 m4 l4 padding-col">
+                            <a href="{{ path('login', { 'lang':lang } ) }}" class="waves-effect waves-light btn green darken-2"><i class="material-icons left">home</i> {{ content['textos']['lb_home_page'][lang] }}</a>
+                        </div>
+                        <div class="col s12 m4 l4 padding-col">
+                            <a href="{{ app.request.uri }}" class="waves-effect waves-light btn green darken-2"><i class="material-icons left">refresh</i> {{ content['textos']['lb_try_again'][lang] }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" id="scene2">
+            <div class="row">
+                <div class="col s12 m12 l12 center-align padding-col">
+                    <img class="layer infoexpo" data-depth="0.60" src="{{ asset('images/infoexpo.png') }}" alt="Infoexpo">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m12 l12 center-align">
+                    <img class="layer face-to-face" data-depth=".90" src="{{ asset('images/facetoface.png') }}" alt="Face to face">
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="{{ asset('js/jquery-3.0.0.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+        <script src="{{ asset('js/parallax.min.js') }}"></script>
+        <script type="text/javascript">
+            var parallax = new Parallax(document.getElementById('scene'));
+        </script>
+    </body>
+</html>

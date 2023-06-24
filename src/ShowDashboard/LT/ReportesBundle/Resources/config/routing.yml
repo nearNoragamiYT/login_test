@@ -1,0 +1,30 @@
+lectoras_reportes:
+    path: /lectoras/reportes
+    defaults: { _controller: ShowDashboardLTReportesBundle:Reportes:reportesLectorasList}
+
+lectoras_reporte_seguimiento:
+    path: /lectoras/reporte/seguimiento
+    defaults: { _controller: ShowDashboardLTReportesBundle:Reportes:reportSeguimientoLectoras}
+
+lectoras_reporte_global: # Excel de global report
+    path: /lectoras/reporte/global
+    defaults: { _controller: ShowDashboardLTReportesBundle:Reportes:reportGlobal}
+
+lectoras_reporte_global_detalle: # Mostramos la vista twig donde se mostrará el detalle perteneciente al global report
+    path: /lectoras/reporte/global_grid/detalle/{id}
+    defaults: { _controller: ShowDashboardLTReportesBundle:Grid:detalleGlobalReport}
+
+########################################### Grid global report ##################################################
+lectoras_reporte_global_grid: # Mostramos la vista twig donde se mostrará el grid(react-table)
+    path: /lectoras/reporte/global_grid
+    defaults: { _controller: ShowDashboardLTReportesBundle:Grid:globalReportGrid}
+
+lectoras_reporte_global_grid_config: # Traemos la configuración de textos que tendrá el grid
+   path:  /lectoras/reporte/grid-leads
+   defaults: { _controller: ShowDashboardLTReportesBundle:Grid:configGrid}
+   methods: [GET]
+
+lectoras_reporte_global_leads: # Traemos los datos para el reporte
+   path:  /lectoras/reporte/global-leads
+   defaults: { _controller: ShowDashboardLTReportesBundle:Grid:globalLeads}
+   methods: [GET]

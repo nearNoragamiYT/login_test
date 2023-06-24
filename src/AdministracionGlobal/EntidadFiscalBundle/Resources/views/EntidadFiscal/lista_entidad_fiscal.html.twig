@@ -1,0 +1,81 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/AdministracionGlobal/EntidadFiscalBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/EntidadFiscal.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>{{content['general_text']['sas_entidadFiscal']}}</h5>
+        <div class="z-depth-1 white">
+            <table id="tbl_billing_entity" class="highlight responsive-table">
+                <thead>
+                    <tr >
+                        <th>{{content['general_text']['sas_ID']}}</th>
+                        <th>{{content['general_text']['sas_razonSocial']}}</th>
+                        <th>{{content['general_text']['sas_rfc']}}</th>
+                        <th>{{content['section_text']['sas_representanteLegal']}}</th>
+                        <th>{{content['general_text']['sas_email']}}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {% for entity in content['entity'] %}
+                    <tr id="{{entity['idEntidadFiscal']}}">
+                        <td>{{ entity['idEntidadFiscal'] }}</td>
+                        <td>{{ entity['RazonSocial'] }}</td>
+                        <td>{{ entity['RFC'] }}</td>
+                        <td>{{ entity['RepresentanteLegal'] }}</td>
+                        <td>{{ entity['Email'] }}</td>
+                        <td>
+                            <i class="material-icons edit-record" id-record="{{ entity['idEntidadFiscal'] }}">mode_edit</i>
+                        </td>
+                        <td>
+                            <i class="material-icons delete-record" id-record="{{ entity['idEntidadFiscal'] }}">delete_forever</i>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tbody>
+            </table>
+        </div>
+        <div class="nav-floating-buttons">
+            <button class="add-record btn-floating waves-effect waves-light right green">
+                <i class="material-icons tooltipped" data-tooltip="{{ content['section_text']['sas_añadirEntidadFiscal'] }}">add</i>
+            </button>
+        </div>
+    </div>
+    {#--- Modal de confirmacion para eliminar ---#}           
+    <div id="modal_delete" class="modal">
+        <div class="modal-content">
+            <h4>{{content['section_text']['sas_eliminarEntidadFiscal']}}</h4>
+            <div class="divider"></div>
+            <p>{{content['section_text']['sas_eliminaEntidadFiscal']|raw}}</p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+            <button id="delete_entity" type="button" class="modal-action waves-effect waves-gray btn-flat red white-text" data-action="delete">{{content['general_text']['sas_eliminar']}}</button>
+        </div>
+    </div>
+    {% include 'AdministracionGlobalEntidadFiscalBundle:EntidadFiscal:form_entidad_fiscal.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var co = {{ content|length ? content|json_encode()|raw : '{}' }};
+        var url_insert_entity = '{{path('entidad_fiscal_insert')}}';
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var url_update_entity = '{{path('entidad_fiscal_update')}}';
+        var url_delete_entity = '{{path('entidad_fiscal_delete')}}';
+        var url_get_estados = "{{ path('pecc_estados', {'idPais': "0000"}) }}";
+        var url_get_pecc = "{{ path('pecc_codigo_postal', {'codigoPostal': "00000"}) }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/EntidadFiscal.js') }}"></script>
+{% endblock %}

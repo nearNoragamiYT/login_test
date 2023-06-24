@@ -1,0 +1,17 @@
+comite_organizador:
+    path:     /administracion-global/comite-organizador
+    defaults: { _controller: AdministracionGlobalComiteOrganizadorBundle:ComiteOrganizador:comiteOrganizador }
+
+comite_organizador_nuevo:
+    path:     /administracion-global/comite-organizador/nuevo
+    defaults: { _controller: AdministracionGlobalComiteOrganizadorBundle:ComiteOrganizador:comiteOrganizadorNuevo }
+
+comite_organizador_editar:
+    path:     /administracion-global/comite-organizador/{idComiteOrganizador}
+    defaults: { _controller: AdministracionGlobalComiteOrganizadorBundle:ComiteOrganizador:comiteOrganizadorEditar }
+    requirements:
+        idComiteOrganizador: '\d+'
+
+comite_organizador_eliminar:
+    path:     /administracion-global/comite-organizador/eliminar
+    defaults: { _controller: AdministracionGlobalComiteOrganizadorBundle:ComiteOrganizador:comiteOrganizadorEliminar }

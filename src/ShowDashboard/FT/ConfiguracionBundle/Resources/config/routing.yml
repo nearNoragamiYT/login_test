@@ -1,0 +1,14 @@
+show_dashboard_facturacion_configuracion:
+  path: /facturacion/configuracion
+  defaults:
+    { _controller: ShowDashboardFTConfiguracionBundle:Configuracion:index }
+
+show_dashboard_facturacion_insertDatosConfiguracion:
+  path: /facturacion/insertDatosConfiguracion
+  defaults:
+    { _controller: ShowDashboardFTConfiguracionBundle:Configuracion:insertDatos }
+
+show_dashboard_facturacion_subirimagen:
+  path: /facturacion/insertimagen
+  defaults:
+    { _controller: ShowDashboardFTConfiguracionBundle:Configuracion:uploadFiles }

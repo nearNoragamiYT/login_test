@@ -1,0 +1,321 @@
+{% extends 'WizardWizardBundle:Wizard:showWizard.html.twig' %}
+
+{% set ruta_asset_section = 'resources/Wizard/EntidadFiscalBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset_section ~ 'css/entidadFiscal.css') }}">
+{% endblock %}
+
+{% block content_step %}
+    <section id="wizard-informacion-general">
+        <h5 class="wizard-title-step">{{ content['section_text']['sas_tituloPaso3'] }}</h5>
+        <div class="entidades-fiscales" {% if content['entidadesFiscales']|length == 0 %}style="display: none;"{% endif %}>
+            <div class="row">
+                {% for entidadFiscal in content['entidadesFiscales'] %}
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="fixed-action-btn horizontal click-to-toggle right">
+                                    <a class="btn-floating waves-effect transparent z-depth-0">
+                                        <i class="material-icons black-text ">more_vert</i>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a class="btn-floating blue white-text">
+                                                <i class="material-icons edit" 
+                                                   id-entidad-fiscal="{{ entidadFiscal['idEntidadFiscal'] }}"
+                                                   title="{{ content['general_text']['sas_editar'] }}"
+                                                   >edit</i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn-floating red white-text">
+                                                <i class="material-icons delete" 
+                                                   id-entidad-fiscal="{{ entidadFiscal['idEntidadFiscal'] }}"
+                                                   title="{{ content['general_text']['sas_eliminar'] }}"
+                                                   >delete_forever</i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="card-title"><h5>{{ entidadFiscal['RazonSocial'] }}</h5></span>
+                                <p>{{ entidadFiscal['RFC'] }}</p>
+                                <p class="secondary-info">
+                                    {{ entidadFiscal['Calle'] }}
+                                    {{ entidadFiscal['NumeroExterior'] }}
+                                    {% if entidadFiscal['NumeroInterior'] != "" %}{{ entidadFiscal['NumeroInterior'] }},{% endif %}
+                                    {% if entidadFiscal['Colonia'] != "" %}{{ entidadFiscal['Colonia'] }},{% endif %}
+                                    {% if entidadFiscal['Delegacion'] != "" %}{{ entidadFiscal['Delegacion'] }},{% endif %}
+                                    {{ entidadFiscal['Ciudad'] }},
+                                    <br>
+                                    {{ entidadFiscal['Estado'] }},
+                                    {{ entidadFiscal['CodigoPostal'] }},
+                                    {{ entidadFiscal['Pais'] }}
+                                </p>
+                                <p class="bottom-info">
+                                    {{ entidadFiscal['RepresentanteLegal'] }}
+                                    <br>
+                                    <a href="mailto: {{ entidadFiscal['Email'] }}">{{ entidadFiscal['Email'] }}</a>
+                                </p>
+                            </div>
+                        </div>
+                        {% if loop.last%}
+                            <button class="btn-floating btn-large waves-effect waves-light right green btn-new-ef" title="{{ content['section_text']['sas_nuevaEntidadFiscal'] }}"><i class="material-icons">add</i></button>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="nav-buttons">
+                <a href="{{ path('wizard_comite_organizador') }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['general_text']['sas_atras'] }}</a>
+                <a href="{{ path('wizard_contacto') }}" class="btn waves-effect waves-light green show-loader-top">{{ content['general_text']['sas_siguiente'] }}</a>
+            </div>
+        </div>
+        <div class="frm-entidad-fiscal" {% if content['entidadesFiscales']|length > 0 %}style="display: none;"{% endif %}>
+            <form id="frm-entidad-fiscal" action="{{ path('wizard_entidad_fiscal') }}" method="post">
+                <input type="hidden" 
+                       id="idEntidadFiscal" 
+                       name="idEntidadFiscal"
+                       {% if content['entidadFiscal']['idEntidadFiscal'] is defined %}
+                           value="{{ content['entidadFiscal']['idEntidadFiscal'] }}"
+                       {% endif %}
+                       >
+                <input type="hidden" 
+                       id="idComiteOrganizador" 
+                       name="idComiteOrganizador"
+                       {% if content['configuration']['idComiteOrganizador'] is defined %}
+                           value="{{ content['configuration']['idComiteOrganizador'] }}"
+                       {% endif %}
+                       >
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="RazonSocial" 
+                               name="RazonSocial"
+                               type="text" 
+                               class="validate" 
+                               {% if content['entidadFiscal']['RazonSocial'] is defined %}
+                                   value="{{ content['entidadFiscal']['RazonSocial'] }}"
+                               {% endif %}
+                               >
+                        <label for="RazonSocial">{{ content['general_text']['sas_razonSocial'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="RepresentanteLegal" 
+                               name="RepresentanteLegal"
+                               type="text" 
+                               class="validate" 
+                               {% if content['entidadFiscal']['RepresentanteLegal'] is defined %}
+                                   value="{{ content['entidadFiscal']['RepresentanteLegal'] }}"
+                               {% endif %}
+                               >
+                        <label for="RepresentanteLegal">{{ content['section_text']['sas_representanteLegal'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="RFC" 
+                               name="RFC"
+                               type="text" 
+                               class="validate" 
+                               {% if content['entidadFiscal']['RFC'] is defined %}
+                                   value="{{ content['entidadFiscal']['RFC'] }}"
+                               {% endif %}
+                               >
+                        <label for="RFC">{{ content['general_text']['sas_rfc'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="Email" 
+                               name="Email"
+                               type="text" 
+                               class="validate" 
+                               {% if content['entidadFiscal']['Email'] is defined %}
+                                   value="{{ content['entidadFiscal']['Email'] }}"
+                               {% endif %}
+                               >
+                        <label for="Email">{{ content['section_text']['sas_emailFacturacion'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        {% if content['paises'] is defined and content['paises']|length > 0 %}
+                            <select id="idPais" 
+                                    name="idPais"
+                                    class="browser-default validate"
+                                    loader-element=".progress-estado"
+                                    >
+                                <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                {% for pais in content['paises'] %}
+                                    <option value="{{ pais['idPais'] }}"
+                                            {% if content['entidadFiscal']['idPais'] is defined and pais['idPais'] == content['entidadFiscal']['idPais']%}selected{% endif %}
+                                            >{{ pais['Pais_' ~ lang|upper] }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="Pais" class="active">{{ content['general_text']['sas_pais'] }}</label>
+                        {% else %}
+                            <input id="idPais" 
+                                   name="idPais" 
+                                   type="hidden"
+                                   {% if content['entidadFiscal']['Pais'] is defined %}
+                                       value="{{ content['entidadFiscal']['Pais'] }}"
+                                   {% endif %}
+                                   >
+                            <input id="Pais" 
+                                   name="Pais"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['entidadFiscal']['Pais'] is defined %}
+                                       value="{{ content['entidadFiscal']['Pais'] }}"
+                                   {% endif %}
+                                   >
+                            <label for="Pais">{{ content['general_text']['sas_pais'] }}</label>
+                        {% endif %}
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <div class="progress-pecc">
+                            <div class="progress indigo lighten-4"><div class="indeterminate indigo lighten-1"></div></div>
+                        </div>
+                        <input id="CodigoPostal" 
+                               name="CodigoPostal"
+                               type="text" 
+                               class="validate" 
+                               loader-element=".progress-pecc"
+                               autocomplete="off"
+                               {% if content['entidadFiscal']['CodigoPostal'] is defined %}
+                                   value="{{ content['entidadFiscal']['CodigoPostal'] }}"
+                               {% endif %}
+                               >
+                        <label for="CodigoPostal">{{ content['general_text']['sas_codigoPostal'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <div class="progress-estado">
+                            <div class="progress indigo lighten-4"><div class="indeterminate indigo lighten-1"></div></div>
+                        </div>
+                        <select id="idEstado" name="idEstado" class="browser-default validate">
+                            <option value="">{{ content['general_text']['sas_sinOpcion'] }}</option>
+                            {% for estado in content['estados'] %}
+                                <option value="{{ estado['idEstado'] }}"
+                                        {% if content['entidadFiscal']['idEstado'] is defined and estado['idEstado'] == content['entidadFiscal']['idEstado']%}selected{% endif %}
+                                        >{{ estado['Estado'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="Estado" class="active">{{ content['general_text']['sas_estado'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="Ciudad" 
+                               name="Ciudad"
+                               type="text" 
+                               class="validate" 
+                               {% if content['entidadFiscal']['Ciudad'] is defined %}
+                                   value="{{ content['entidadFiscal']['Ciudad'] }}"
+                               {% endif %}
+                               >
+                        <label for="Ciudad">{{ content['general_text']['sas_ciudad'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="Colonia" 
+                               name="Colonia"
+                               type="text" 
+                               class="validate" 
+                               {% if content['entidadFiscal']['Colonia'] is defined %}
+                                   value="{{ content['entidadFiscal']['Colonia'] }}"
+                               {% endif %}
+                               >
+                        <label for="Colonia">{{ content['general_text']['sas_colonia'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="Delegacion" 
+                               name="Delegacion"
+                               type="text" 
+                               class="validate" 
+                               {% if content['entidadFiscal']['Delegacion'] is defined %}
+                                   value="{{ content['entidadFiscal']['Delegacion'] }}"
+                               {% endif %}
+                               >
+                        <label for="Delegacion">{{ content['general_text']['sas_delegacion'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="Calle" 
+                               name="Calle"
+                               type="text" 
+                               class="validate" 
+                               {% if content['entidadFiscal']['Calle'] is defined %}
+                                   value="{{ content['entidadFiscal']['Calle'] }}"
+                               {% endif %}
+                               >
+                        <label for="Calle">{{ content['general_text']['sas_calle'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m3">
+                        <input id="NumeroExterior" 
+                               name="NumeroExterior"
+                               type="text" 
+                               class="validate" 
+                               {% if content['entidadFiscal']['NumeroExterior'] is defined %}
+                                   value="{{ content['entidadFiscal']['NumeroExterior'] }}"
+                               {% endif %}
+                               >
+                        <label for="NumeroExterior">{{ content['general_text']['sas_numeroExterior'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m3">
+                        <input id="NumeroInterior" 
+                               name="NumeroInterior"
+                               type="text" 
+                               class="validate" 
+                               {% if content['entidadFiscal']['NumeroInterior'] is defined %}
+                                   value="{{ content['entidadFiscal']['NumeroInterior'] }}"
+                               {% endif %}
+                               >
+                        <label for="NumeroInterior">{{ content['general_text']['sas_numeroInterior'] }}</label>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    {% if content['entidadesFiscales']|length > 0 %}
+                        <button type="button" class="btn-link waves-effect btn-flat left btn-cancel-submit">{{ content['general_text']['sas_cancelar'] }}</button>
+                    {% else %}
+                        <a href="{{ path('wizard_comite_organizador') }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['general_text']['sas_atras'] }}</a>
+                        <a href="{{ path('wizard_entidad_fiscal_omitir') }}" class="btn-link waves-effect btn-flat show-loader-top">{{ content['general_text']['sas_omitir'] }}</a>
+                    {% endif %}
+                    <button type="submit" class="btn waves-effect waves-light green">
+                        {% if content['entidadesFiscales']|length > 0 %}
+                            {{ content['general_text']['sas_guardar'] }}
+                        {% else %}
+                            {{ content['general_text']['sas_siguiente'] }}
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <div id="modal-delete-ef" class="modal">
+        <form id="frm-entidad-fiscal-eliminar" action="{{ path('wizard_entidad_fiscal_eliminar') }}" method="post">
+            <input type="hidden" id="idEntidadFiscal" name="idEntidadFiscal" value="" >
+            <div class="modal-content">
+                <h4>{{ content['section_text']['sas_eliminarEntidadFiscal'] }}</h4>
+                <p>{{ content['section_text']['sas_eliminarEntidadFiscalAdvertencia'] }} "<b class="entidad-fiscal"></b>"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_cancelar'] }}</button>
+                <button type="submit" class="btn waves-effect waves-light red show-loader-wrapper">{{ content['general_text']['sas_eliminar'] }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var entidadesFiscales = {{ content['entidadesFiscales']|length ? content['entidadesFiscales']|json_encode()|raw : '{}' }};
+        var url_get_estados = "{{ path('pecc_estados', {'idPais': "0000"}) }}";
+        var url_get_pecc = "{{ path('pecc_codigo_postal', {'codigoPostal': "00000"}) }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset_section ~ 'js/entidadFiscal.js') }}"></script>
+{% endblock %}

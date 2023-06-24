@@ -1,0 +1,33 @@
+{% set ruta_asset = 'resources/ShowDashboard/RS/ArchivosRSBundle/' %}
+{# empty Twig template #}
+
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/menu_ArchivosRS.css') }}" media="screen,projection"/>
+{% endblock %}
+
+<nav class="socio-menu indigo">
+    <div class="col s12 m6 right hide-on-large-only">
+        <a id="dropdown-menu"  data-activates='dropdown-items' href="#" class="btn-flat waves-effect waves-light white-text"></a>
+        <ul id='dropdown-items' class='dropdown-content'>
+        </ul>
+    </div>
+    <div class="nav-wrapper">
+        <ul class="left hide-on-med-and-down">
+            <li id="scanner-tipo" {% if ruta is defined and ruta == "show_dashboard_rs_archivos_rs_homepage" %} class="active" {% endif %}>
+                <a href="{{path('show_dashboard_rs_archivos_rs_homepage')}}">
+                    {{ content['general_text']['sas_ArchivoBD']}}
+                </a>
+            </li>
+            <li id="scanner-tipo" {% if ruta is defined and ruta == "archivo_visitantetipo_rs" %} class="active" {% endif %}>
+                <a href="{{path('archivo_visitantetipo_rs')}}">
+                    {{ content['general_text']['sas_AchivoVisTip']}}
+                </a>
+            </li>
+            <li id="scanner-tipo" {% if ruta is defined and ruta == "archivoTexto_rs" %} class="active" {% endif %}>
+                <a href="{{path('archivoTexto_rs')}}">
+                    {{ content['general_text']['sas_ArchivoLecturas']}}
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

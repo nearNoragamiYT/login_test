@@ -1,0 +1,60 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/LT/LectorasBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/lectoras_sf.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div id="expositores-lectoras" class="container">
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <table id="expositores-lectoras-table" class="highlight bordered">
+                <thead class="grey lighten-4">
+                    <tr>
+                        {% for header in content["expositores_metadata"] %}
+                            {% if header["is_visible"] == true %}
+                                <th>{{ header["text"] }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        <th style="width: 5%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expositores in content["expositores"] %}
+                        <tr>
+                            {% for key, value in expositores %}
+                                {% if content["expositores_metadata"][key] is defined and content["expositores_metadata"][key]["is_visible"] == true %}
+                                    {%if content["expositores_metadata"][key]["values"] is defined%}
+                                        <td> {{ content["expositores_metadata"][key]["values"][value]}} </td>
+                                    {% else %}
+                                        <td> {{ value }} </td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content['general_text']['sas_editar'] }}" data-id="{{expositores['idEmpresa']}}">edit</i>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ content['lang'] ~ '.json')}}";
+        var url_edit_empresa_data = "{{ path("show_dashboard_lt_solicitud_lectoras_mostrar") }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/lectoras_sf.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,40 @@
+#tablaAPC {
+    width: 300px !important;
+    display: none;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+#Compras{
+    padding: 5px;
+    text-align: center;
+    background-color: rgb(69, 179, 157 );
+    border: solid 1px #c3c3c3;
+    width: 300px !important;
+    color:white;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+#comprasCompletas{
+    background-color: rgb(39, 174, 96);
+    -webkit-border-radius: 1000px;
+    -moz-border-radius: 1000px;
+    border-radius: 1000px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#comprasCanceladas{
+    background-color: rgb(231, 76, 60);
+    -webkit-border-radius: 1000px;
+    -moz-border-radius: 1000px;
+    border-radius: 1000px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+}

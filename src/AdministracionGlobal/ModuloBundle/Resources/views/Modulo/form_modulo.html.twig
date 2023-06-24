@@ -1,0 +1,66 @@
+<div id="mdl-module" class="modal modal-fixed-footer">
+    <form id="frm-module" method="post" action="{{ path('modulo') }}">
+        <div class="modal-content">
+            <h4>{{content['general_text']['sas_modulo']}}</h4>
+            <div class="modal-body">
+                <input type="hidden" id="idModuloIxpo" name="idModuloIxpo" value="">
+                <input type="hidden" id="Nivel" name="Nivel" value="1">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <label for="idPlataformaIxpo" class="active">{{content['general_text']['sas_plataforma']}}</label>
+                        <select id="idPlataformaIxpo" name="idPlataformaIxpo" class="browser-default">
+                            <option value="">{{content['general_text']['sas_seleccionaOpcion']}}</option>
+                            {% for pl in content['pl'] %}
+                                <option value="{{ pl['idPlataformaIxpo'] }}" >{{ pl['PlataformaIxpo'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <p class="switch">
+                            <label>
+                                {{ content['section_text']['sas_publicado'] }}
+                                <input type="checkbox" id="Publicado" name="Publicado" value="1">
+                                <span class="lever"></span>
+                            </label>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <label for="idPadre" class="active">{{content['section_text']['sas_moduloPadre']}}</label>
+                        <select id="idPadre" name="idPadre" class="browser-default">
+                            <option value="0">{{ content['section_text']['sas_sinModuloPadre'] }}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="Ruta" name="Ruta" type="text" class="validate">
+                        <label for="Ruta">{{content['section_text']['sas_ruta']}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="Modulo_ES" name="Modulo_ES" type="text" class="validate">
+                        <label for="Modulo_ES">{{content['section_text']['sas_moduloEs']}}</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="Modulo_EN" name="Modulo_EN" type="text" class="validate">
+                        <label for="Modulo_EN">{{content['section_text']['sas_moduloEn']}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="Orden" name="Orden" type="text" class="validate">
+                        <label for="Orden">{{content['section_text']['sas_orden']}}</label>
+                    </div>
+                    <div class="input-field col s12 m6 eliminar-modulo-block">
+                        <a class="btn-flat waves-effect waves-red red-text ver-eliminar-modulo"><i class="left material-icons">delete_forever</i> {{ content['section_text']['sas_eliminarModulo'] }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</button>
+            <button type="submit" class="modal-action btn waves-effect waves-green green save-record">{{content['general_text']['sas_guardar']}}</button>
+        </div>
+    </form>
+</div>

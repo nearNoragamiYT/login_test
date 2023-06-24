@@ -1,0 +1,206 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Visitante/ReportesBundle/' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>Reportes Generales</h5>
+        <div class="z-depth-1 white">
+            <table id="tbl-report" class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>{{content['general_text']['sas_reporte']}}</th>
+                        <th>{{content['general_text']['sas_descripcion']}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% if content['user']['idUsuario'] == 1 or  content['user']['idUsuario'] == 55 or content['user']['idUsuario'] == 35 %}
+                        <tr>
+                            <td>Reporte de Transacciones de Compras</td>
+                            <td>Detalle de las transacciones realizadas en el sistema de visitantes</td>
+                            <td>
+                                <a href="{{ path('visitante_reportes_transaccion') }}">
+                                    <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif%}
+                    {% if content['user']['idUsuario'] == 1  or content['user']['idUsuario'] == 35 or content['user']['idUsuario'] == 66 %}
+                    <tr>
+                        <td>Reporte de Asociados(Productos de Interés)</td>
+                        <td>Detalle de los asociados,con los productos de interés seleccionados</td>
+                        <td>
+                            <a href="{{ path('visitante_reportes_asociado_producto') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endif%}
+                        {% if content['user']['idUsuario'] != 58 and content['user']['idUsuario'] != 59 and content['user']['idUsuario'] != 69 %}
+                            {% if content['user']['idUsuario'] != 51 and content['user']['idUsuario'] != 69  %}
+                                <tr>
+                                    <td>Reporte de Compras de Visitantes</td>
+                                    <td>Detalle de las compras realizadas en el sistema de visitantes</td>
+                                    <td>
+                                        <a href="{{ path('visitante_reportes_compra') }}">
+                                            <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% if content['user']['idUsuario'] != 60 and content['user']['idUsuario'] != 69  %}
+                                    <tr>
+                                        <td>Reporte de Compras(Gafetes)</td>
+                                        <td>Detalle de las compras de Gafetes realizadas en el sistema de visitantes</td>
+                                        <td>
+                                            <a href="{{ path('visitante_reportes_compra',{"idProducto":"4" }) }}">
+                                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endif%}
+                                {% if content['user']['idUsuario'] != 64 and content['user']['idUsuario'] != 60 %}
+                                    <tr>
+                                        <td>Reporte de Compras(Torneo de Golf)</td>
+                                        <td>Detalle de las compras de Torneo de Golf realizadas en el sistema de visitantes</td>
+                                        <td>
+                                            <a href="{{ path('visitante_reportes_compra',{"idProducto":"5" }) }}">
+                                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% if content['user']['idUsuario'] != 64 and content['user']['idUsuario'] != 60 %}
+                                    <tr>
+                                        <td>Reporte de Compras(Torneo de Tenis)</td>
+                                        <td>Detalle de las compras de Torneo de Tenis realizadas en el sistema de visitantes</td>
+                                        <td>
+                                            <a href="{{ path('visitante_reportes_compra',{"idProducto":"6" }) }}">
+                                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                
+                            {% endif%}
+                            {% if content['user']['idUsuario'] != 64 and content['user']['idUsuario'] != 60 %}
+                                <tr>
+                                    <td>Reporte de Compras(Tour CEDIS)</td>
+                                    <td>Detalle de las compras de Tour CEDIS realizadas en el sistema de visitantes</td>
+                                    <td>
+                                        <a href="{{ path('visitante_reportes_compra',{"idProducto":"1" }) }}">
+                                            <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            
+                        {% endif%}
+                        {% if content['user']['idUsuario'] == 1 or  content['user']['idUsuario'] == 64 or content['user']['idUsuario'] == 8 or 
+                           content['user']['idUsuario'] == 52  %}
+                        <tr>
+                            <td>Reporte de Compras(Encuentros de Negocios)</td>
+                            <td>Detalle de las compras de Encuentros de Negocios realizadas en el sistema de visitantes</td>
+                            <td>
+                                <a href="{{ path('visitante_reportes_compra',{"idProducto":"13" }) }}">
+                                    <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif%}
+                        {% if content['user']['idUsuario'] == 1 or content['user']['idUsuario'] == 52 or content['user']['idUsuario'] == 50 or content['user']['idUsuario'] == 58
+                          or content['user']['idUsuario'] == 59 or content['user']['idUsuario'] == 35 or content['user']['idUsuario'] == 51 %}
+                            <tr>
+                                <td>Comprador Invitado/EDN</td>
+                                <td>Detalle de registros de Compradores Invitados</td>
+                                <td>
+                                    <a href="{{ path('visitante_reporte_general_compradores_invitados') }}">
+                                        <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            
+                        {% endif %}
+                        {% if content['user']['idUsuario'] == 1 or content['user']['idUsuario'] == 52 or content['user']['idUsuario'] == 50 or content['user']['idUsuario'] == 58
+                          or content['user']['idUsuario'] == 59 or content['user']['idUsuario'] == 35 or content['user']['idUsuario'] == 51 %}
+                            <tr>
+                                <td>Asociados/EDN</td>
+                                <td>Detalle de registros de Asociados</td>
+                                <td>
+                                    <a href="{{ path('visitante_reporte_general_asociados') }}">
+                                        <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            
+                        {% endif %}
+                        {% if content['user']['idUsuario'] == 1 or content['user']['idUsuario'] == 52 or content['user']['idUsuario'] == 50 or content['user']['idUsuario'] == 58
+                          or content['user']['idUsuario'] == 59 or content['user']['idUsuario'] == 35 %}
+                            <tr>
+                                <td>Visitantes/EDN</td>
+                                <td>Detalle de registros de Visitantes Generales</td>
+                                <td>
+                                    <a href="{{ path('visitante_reporte_general_sin_compras') }}">
+                                        <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                        {% if content['user']['idUsuario'] == 1 or content['user']['idUsuario'] == 69 or content['user']['idUsuario'] == 35 %}
+                            <tr>
+                                <td>Compradores / Clicker</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('visitante_reporte_compradores_clicker') }}">
+                                        <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if content['user']['idUsuario'] == 1 or content['user']['idUsuario'] == 69 or content['user']['idUsuario'] == 35 %}
+                            <tr>
+                                <td>Visitantes / Clicker</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('visitante_reporte_visitantes_clicker') }}">
+                                        <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if content['user']['idUsuario'] == 1 or content['user']['idUsuario'] == 69 or content['user']['idUsuario'] == 35 %}
+                            <tr>
+                                <td>Asociados / Clicker</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('visitante_reporte_asociados_clicker') }}">
+                                        <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endblock %}
+
+                {% block javascripts %}
+                    {{ parent() }}
+                    <script type="text/javascript">
+                        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                        var general_text
+                        = {{ content['general_text']|json_encode()|raw }};
+                    </script>
+                    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+                    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+                    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+                    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+                {% endblock %}

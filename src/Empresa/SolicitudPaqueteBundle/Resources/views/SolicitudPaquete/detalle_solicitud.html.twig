@@ -1,0 +1,10 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-show-details", "fixed": true, "size": "modal-m", "color": "green", "idButton": "accept-request" } %}
+{% block title %}{{content['general_text']['sas_informacion']}}{% endblock %}
+{% block body %}
+    <div id="details-request" class="col s12">
+    </div>
+{% endblock %}
+{% block button %}
+    {{content['section_text']['sas_aprobar']}}
+{% endblock %}

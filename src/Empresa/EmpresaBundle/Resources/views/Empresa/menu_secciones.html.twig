@@ -1,0 +1,71 @@
+{% set ruta_asset = 'resources/Empresa/EmpresaBundle/' %}
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/menu_secciones.css') }}" media="screen,projection">
+{% endblock %}
+<nav class="company-menu indigo">
+    <div class="nav-wrapper">
+        <ul class="left">
+            {% if content['Adicional'] is not defined or content['Adicional'] == false %}
+                <li id="empresa-fiscal">
+                    <a href="{{ path('empresa_empresa_fiscal', {'idEmpresa': content["idEmpresa"]}) }}">
+                        {{ content["section_text"]["sas_entidadesFiscales"] }}
+                    </a>
+                </li>
+            {% endif %}
+            <li id="empresa-comercial">
+                <a href="{{ path('empresa_empresa_comercial', {'idEmpresa': content["idEmpresa"]}) }}">
+                    {{ content["section_text"]["sas_informacionComercial"] }}
+                </a>
+            </li>
+            <li id="empresa-contacto-general">
+                <a href="{{ path('empresa_empresa_contacto_general', {'idEmpresa': content["idEmpresa"]}) }}">
+                    {{ content["section_text"]["sas_contactosGenerales"] }}
+                </a>
+            </li>
+            {% if content["header"]["EMSTDListadoStand"] is defined %}
+                <li id="empresa-contacto-edicion">
+                    <a href="{{ path('empresa_empresa_contacto_edicion', {'idEmpresa': content["idEmpresa"]}) }}">
+                        {{ content["section_text"]["sas_contactosEdicion"] }}
+                    </a>
+                </li>
+            {% endif %}
+            {% if content['Adicional'] is not defined or content['Adicional'] == false %}
+                <li id="empresa-contrato">
+                    <a href="{{ path('empresa_empresa_contrato', {'idEmpresa': content["idEmpresa"]}) }}">
+                        {{ content["section_text"]["sas_contratos"] }}
+                    </a>
+                </li>
+            {% endif %}
+            {% if content["header"]["EMSTDListadoStand"] is defined %}
+                {% if content['Adicional'] is not defined or content['Adicional'] == false %}
+                    <li id="empresa-datos-adicionales">
+                        <a href="{{ path('empresa_empresa_datos_adicionales', {'idEmpresa': content["idEmpresa"]}) }}">
+                            {{ content["section_text"]["sas_datosAdicionales"] }}
+                        </a>
+                    </li>
+                {% endif %}
+                {% if content['Adicional'] is not defined or content['Adicional'] == false %}
+                    <li id="empresa-solicitudes-modificacion">
+                        <a href="{{ path('empresa_empresa_solicitud_modificacion_list', {'idEmpresa': content["idEmpresa"]}) }}">
+                            {{ content["section_text"]["sas_solicitudesModificacion"] }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endif %}
+            {% if content["header"]["EMSTDListadoStand"] is defined %}
+                <li id="empresa-formas">
+                    <a href="{{ path('empresa_empresa_formas_mostrar', {'idEmpresa': content["idEmpresa"]}) }}">
+                        {{ content["section_text"]["sas_formas"] }}
+                    </a>
+                </li>
+            {% endif %}
+            {% if content["header"]["EMSTDListadoStand"] is defined  and content["header"]["idEtapa"] == 2 %}               
+                <li id="empresa-invitaciones">
+                    <a href="{{ path('empresa_empresa_invitaciones', {'idEmpresa': content["idEmpresa"]}) }}">
+                        {{ content["section_text"]["sas_invitaciones_electronicas"] }}
+                    </a>
+                </li>               
+            {% endif %}
+        </ul>
+    </div>
+</nav>

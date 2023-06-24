@@ -1,0 +1,103 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 23, 2016, 10:54:04 AM
+    Author     : Javier
+*/
+
+section{
+    padding: 10px;
+}
+
+.cambiar-password{
+    margin-top: 0px;
+}
+
+.cambiar-password label{
+    color: #039be5;
+}
+
+.btn-generate-password{
+    cursor: pointer;
+}
+
+.ediciones{
+    max-height: 130px;
+    overflow-y: scroll;
+}
+
+.ediciones .edicion-item{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.tab-edicion{
+    display: none;
+}
+
+table thead{
+    background: #FFF;
+}
+
+table tr td{
+    padding: 2px;
+}
+
+table p{
+    margin: 0px;
+    text-align: center
+}
+
+table p [type="checkbox"]+label{
+    padding: 0px;
+    line-height: 16px;
+    height: 16px;
+}
+
+table tr.plataforma-ixpo{
+    background-color: #f2f2f2;
+    color: #000;
+    cursor: default;
+    font-size: 0.9rem;
+}
+
+table tr.modulo-ixpo label.lbl-modulo{
+    font-size: 0.85rem;
+    color: rgba(0,0,0,0.87);
+}
+
+table tr.submodulo-ixpo label.lbl-modulo{
+    margin-left: 15px;
+}
+
+.permisos-edicion{
+    max-height: 350px; 
+    overflow-y: auto;
+}
+
+.permisos-edicion input[type="checkbox"]{
+    position: relative;
+    left: initial;
+    opacity: 1;
+}
+
+.permisos-edicion .th-check{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.control-password{
+    font-size: 12px;
+}
+
+.control-password .material-icons{
+    font-size: 20px;
+}
+
+.control-password label{
+    top: initial;
+    font-size: 12px;
+}

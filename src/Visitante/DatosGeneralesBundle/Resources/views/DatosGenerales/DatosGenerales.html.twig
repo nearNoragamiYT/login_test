@@ -1,0 +1,49 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Visitante/DatosGeneralesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/datosgenerales.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% include 'VisitanteVisitanteBundle:Visitante:menu_secciones.html.twig' %}
+    <div class="container">
+        {% if content['view'] == "elite" %}       
+            {% include 'VisitanteDatosGeneralesBundle:DatosGenerales:formDataDisable.html.twig' %}
+        {% endif %}
+        {% if content['view'] == "visitante" or  content['view'] == "asociados" or  content['view'] == "compradores" or  content['view'] == "prensa" or  content['view'] == "registro_multiple" or content['view'] == "encuentro_negocios" or content['view'] == "visitantes_generales" %}       
+            {% include 'VisitanteDatosGeneralesBundle:DatosGenerales:formData.html.twig' %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+                url_visitante_datos_generales = "{{ path('visitante_datos_generales') }}",
+                url_update_datosgenerales = "{{ path('visitante_datos_generales_update') }}",
+                url_get_estados = "{{ path('pecc_estados', {'idPais': "0000"}) }}",
+                url_get_pecc = "{{ path('pecc_codigo_postal', {'codigoPostal': "00000"}) }}";
+        var Edicion
+                = {{ content['idEdicion']|json_encode()|raw }};
+
+        var Usuario
+                = {{ content['user']|json_encode()|raw }};
+        var idModuloIxpo
+                = {{ content['idModuloIxpo']|json_encode()|raw }};
+        var visitante
+                = {{ content['visitante']|json_encode()|raw }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/datosgenerales.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/pecc.js') }}"></script>
+{% endblock %}
+

@@ -1,0 +1,34 @@
+{
+    "lb_error_sorry": {
+        "es": "Lo sentimos, hemos detectado un problema al procesar tu información.",
+        "en": "Sorry, there is a problem processing your information."
+    },
+    "lb_error_notify": {
+        "es": "No te preocupes, el equipo de soporte técnico ha sido notificado del problema.",
+        "en": "But do not worry, the support team has been notified about the problem."
+    },
+    "lb_try": {
+        "es": "Por favor intenta lo siguiente:",
+        "en": "Please try the following:"
+    },
+    "lb_return_back": {
+        "es": "Regresar",
+        "en": "Back"
+    },
+    "lb_home_page": {
+        "es": "Inicio",
+        "en": "Home page"
+    },
+    "lb_try_again": {
+        "es": "Reintentar",
+        "en": "Reload"
+    },
+    "lb_at": {
+        "es": "En",
+        "en": "At"
+    },
+    "lb_line": {
+        "es": "línea",
+        "en": "ine"
+    }
+}

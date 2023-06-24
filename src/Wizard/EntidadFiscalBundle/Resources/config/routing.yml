@@ -1,0 +1,13 @@
+wizard_entidad_fiscal:
+    path:     /asistente/entidad-fiscal
+    defaults: { _controller: WizardEntidadFiscalBundle:EntidadFiscal:entidadFiscal }
+
+wizard_entidad_fiscal_eliminar:
+    path:     /asistente/entidad-fiscal/eliminar
+    defaults: { _controller: WizardEntidadFiscalBundle:EntidadFiscal:entidadFiscalEliminar }
+    requirements:
+        _method:  POST
+
+wizard_entidad_fiscal_omitir:
+    path:     /asistente/entidad-fiscal/omitir
+    defaults: { _controller: WizardEntidadFiscalBundle:EntidadFiscal:entidadFiscalOmitir }

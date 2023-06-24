@@ -1,0 +1,133 @@
+
+{% set ruta_asset = 'resources/Empresa/ReportesBundle/' %}
+{% set edicion = content['idEdicion'] %}
+{% set i=1%}
+
+
+
+{% block stylesheets %}
+    <style>
+
+        .container{
+            width: 215mm;
+            height: 282mm;
+            overflow: hidden;
+            margin-bottom: 0px;
+            margin-top: 0px;
+
+        }
+        .row{
+            width: 210mm;
+            height: 10mm;
+            font-size: 12px;
+            text-align: justify;
+            font-family: sans-serif;
+        }
+        .rowright{
+            float: right;
+        }
+        .rowleft{
+            float: left;
+        }
+        .pba {
+            page-break-before: always;
+        }
+
+        p{
+            font-size: 16px;
+        }
+        img{
+            margin-top: 0px;
+            width: 100%;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    <div id="content">
+        {% set c=0%}
+        {% for key,item in content['data'] %}
+            {% set index=0%}
+            {% set c=c+1%}
+
+            {% for key1,item1 in item %}
+            {% if i == 23 %}{% set i=1%}{% endif %}
+            {% if i == 1 %}
+                <div class="container pba">                    
+                    <img src="{{ asset('images/reportes/header_pdf_' ~ edicion ~ '.png') }}"><br/><br/>
+                {% endif %}
+                {% if index == 0 %}
+                    <div class="row" style="font-size: 14px;"><b>{{item1['DC_Pais']}}</b></div>
+                            {% set i=i+1 %}
+                        {% endif %}
+                <div class="row">
+                    {{item1['DC_NombreComercial']}}
+                    <div style="float:right">{{item1['EMSTDListadoStand']}}</div>
+                </div>
+                {% if i == 22 or c==content['limite'] %}
+                    {#<img src="{{ asset('images/reportes/footer_pdf_' ~ edicion ~ '.png') }}">#}
+                </div>
+            {% endif %}
+            {% set i=i+1 %}
+            {% set index=1 %}
+        {% endfor %}
+    {% endfor %}
+    {% endblock %}
+
+    {% block javascripts %}
+        <script type="text/javascript">
+            window.print();
+            setTimeout(function () {
+                window.history.back();
+            }, 3000);
+
+        </script>
+        {#
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+
+                <script type="text/javascript" src="{{ asset('js/jquery-3.0.0.min.js') }}"></script>
+                <script type="text/javascript">
+                    demoFromHTML();
+                    function demoFromHTML() {
+                        var pdf = new jsPDF('p', 'pt', 'a4');
+                        // source can be HTML-formatted string, or a reference
+                        // to an actual DOM element from which the text will be scraped.
+                        source = $('#content')[0];
+
+                        // we support special element handlers. Register them with jQuery-style
+                        // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
+                        // There is no support for any other type of selectors
+                        // (class, of compound) at this time.
+                        specialElementHandlers = {
+                            // element with id of "bypass" - jQuery style selector
+                            '#bypassme': function (element, renderer) {
+                                // true = "handled elsewhere, bypass text extraction"
+                                return true
+                            }
+                        };
+                        margins = {
+                            top: 0,
+                            bottom: 0,
+                            left: 15,
+                            width: 210
+                        };
+                        // all coords and widths are in jsPDF instance's declared units
+                        // 'inches' in this case
+                        pdf.fromHTML(
+                                source, // HTML string or DOM elem ref.
+                                margins.left, // x coord
+                                margins.top, {// y coord
+                                    'width': margins.width, // max width of content on PDF
+                                    'elementHandlers': specialElementHandlers
+                                },
+                                function (dispose) {
+                                    // dispose: object with X, Y of the last line add to the PDF
+                                    //          this allow the insertion of new lines after html
+                                    pdf.save('Test.pdf');
+                                }, margins
+                                );
+                    }
+                </script>#}
+    {% endblock %}
+

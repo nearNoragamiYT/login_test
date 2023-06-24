@@ -1,0 +1,39 @@
+{% extends 'StatLinkEstadisticaBundle::base_estadistica.html.twig' %}
+{% set ruta_asset = 'resources/StatLink/EstadisticaBundle/' %}
+{% block title %}{{content['section_text']['sl_tituloDia']}}{% endblock %}
+
+{% block chartTitle %}{{ content['breadcrumb'][0]['Modulo_' ~ lang|upper] }}: {{content['section_text']['sl_tituloDia']}}{% endblock %}
+
+{% block table %}
+    <thead>
+    <th>{{content['section_text']['sl_tablaIndice']}}</th>
+    <th>{{content['section_text']['sl_tablaDia']}}</th>
+    <th>{{content['section_text']['sl_tablaPreregistro']}}</th>
+    <th>{{content['section_text']['sl_tablaAcumulado']}}</th>
+</thead>
+<tbody>
+    {% for record in content['result'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ record['Dia'] }}</td>
+            <td>{{ record['Preregistro'] }}</td>
+            <td>{{ record['PreregistroAcumulado'] }}</td>
+        </tr>
+    {% endfor %}    
+</tbody>
+{% endblock %}
+
+{% block textscript %}
+    <script>
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var data_graph = {{ content['result']|json_encode()|raw }};
+        var left_label = "{{content['section_text']['sl_tablaPreregistro']}}", 
+            right_label= "{{content['section_text']['sl_tablaAcumulado']}}", 
+            horizontal_label="{{content['section_text']['sl_tablaDia']}}";
+    </script>
+{% endblock %}
+
+{% block actionscript %}
+    <script src="{{ asset(ruta_asset ~'js/dia.js') }}"></script>
+{% endblock %}
+

@@ -1,0 +1,155 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set asset_path = 'resources/Visitante/ComprasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/comprobante.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/resumenCompra.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h4 class="header-panel no-print">Administrador de Compras</h4>
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title">{#{ content['template_text']['ae_tuInformacion'] }#}Información</div>
+                <div class="row visitor-data">
+                    <div class="col s12 m7">
+                        <p>
+                            <label class="lbl-visitor-data">{{ content['template_text']['ae_nombre'] }}:</label>
+                            <b>{{ content['visitante']['Nombre'] }} {{ content['visitante']['ApellidoPaterno'] }} {{ content['visitante']['ApellidoMaterno'] }}</b>
+                        </p>
+                        {% if content['visitante']['DE_RazonSocial'] is defined and content['visitante']['DE_RazonSocial'] != "" %}
+                            <p>
+                                <label class="lbl-visitor-data">{{ content['template_text']['ae_empresa'] }}:</label>
+                                {{ content['visitante']['DE_RazonSocial'] }}
+                            </p>
+                        {% endif %}
+                        {% if content['visitante']['DE_Cargo'] is defined and content['visitante']['DE_Cargo'] != "" %}
+                            <p>
+                                <label class="lbl-visitor-data">{{ content['template_text']['ae_cargo'] }}:</label>
+                                {{ content['visitante']['DE_Cargo'] }}
+                            </p>
+                        {% endif %}
+                        <p>
+                            <label class="lbl-visitor-data">Telefono:</label>
+                            {{ '+' ~ content['visitante']['DE_AreaPais'] ~ ' ' ~ content['visitante']['DE_AreaCiudad'] ~ ' ' ~ content['visitante']['DE_Telefono'] }}
+                        </p>
+                        <p>
+                            <label class="lbl-visitor-data">Email Corporativo: </label>
+                            <a href='mailto:{{ content['visitante']['Email'] }}'> {{ content['visitante']['Email'] }}</a>
+                        </p>
+                        <p>
+                            <label class="lbl-visitor-data">{{ content['template_text']['ae_id'] }}:</label>
+                            <b>{{ content['visitante']['idVisitante'] }}</b>
+                        </p>
+                    </div>
+                    <div class="col s12 m5 center-align barcode">                        
+                        <a class="waves-effect waves-light btn blue no-print" target="_blank"
+                           {#{% if content['edicion']['idEdicion'] is defined %} #}                        
+                               href=" {{content['LinkAE']~'utilerias/comprobante/ver/' ~ content['visitante']['idVisitante'] ~ '/' ~ content['lang'] }}" >
+                           {#{% endif %}#}
+                           <i class="material-icons right">print</i>{{ content['template_text']['ae_imprimirComprobante'] }}
+                        </a>
+                        <button class="waves-effect btn white blue-text reenviar no-print add-btn">
+                            <i class="material-icons right">send</i>{{ content['template_text']['ae_reenviarComprobante'] }}
+                        </button><br>
+                        {#<a id="mostrar" class="waves-effect btn white blue-text" id-compra="{{content['compras'][0]['idCompra']}}">
+                            <i class="material-icons right">visibility</i>{{ content['template_text']['ae_visualizarVaucher'] }}
+                        </a>#}
+                         {#{%if content['compras'][0]['idCompraStatus'] == 2 and content['compras'][0]['ReqFactura'] == true and content['compras'][0]['Total'] >0 %}
+                          <button class="waves-effect btn white blue-text reenviar-ticket no-print">
+                            <i class="material-icons right">description</i>{{ content['template_text']['ae_reenviarTicket'] }}
+                        </button>
+                        {%endif%}#}
+                    </div>
+                </div>
+            </div>
+            {% include 'VisitanteComprasBundle:Compras:compras.html.twig' %}
+        </div>
+    </div>
+
+    <div id="modal-conferencias" class="modal modal-m">
+        <div class="modal-content">
+            <h4>{{ content['general_text_ae']['ae_programaConferencias'] }}</h4>
+            <p>{{ content['template_text']['ae_interesConferencias']|replace({'%edicion%': content['edicion']['Edicion_' ~ lang|upper]}) }}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['template_text']['ae_noGracias'] }}</button>
+            <a href="{#{ path('ae_tienda_programa_conferencias', {lang: lang}) }#}" class="modal-action modal-close btn waves-effect waves-light show-loader-top ver-conferencias">{{ content['template_text']['ae_verConferencias'] }}</a>
+        </div>
+    </div>
+
+    <div id="modal-status-compra" class="modal modal-m">
+        <div class="modal-content">
+            <h4>Cambiar Estatus de la Compra</h4>
+            <p id='mensaje-statusCompra'></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-close btn-link waves-effect btn-flat left">No, Actualizar Compra</button>
+            <a href class="btn waves-effect waves-light show-loader-processing procesar-status-compra blue">Sí, Actualizar Compra</a>
+        </div>
+    </div>
+
+    <div id="modal-forma-pago" class="modal modal-m">
+        <div class="modal-content">
+            <h4>Cambiar Forma de Pago</h4>
+            <p id='mensaje-formaPago'></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-close btn-link waves-effect btn-flat left">No, Actualizar Compra</button>
+            <a href class="btn waves-effect waves-light show-loader-processing procesar-forma-pago blue">Sí, Actualizar Compra</a>
+        </div>
+    </div>     
+
+    <div id="modal-compra-facturada" class="modal modal-m">
+        <div class="modal-content">
+            <h4>Facturar Compra</h4>
+            <p id='mensaje-compraFacturada'></p><br>
+            <div class="input-field col s12 m6">
+                <input 
+                    type="text"
+                    id="FolioFactura"
+                    name="FolioFactura"
+                    class="required"                                                       
+                    {% for compra in content['compras'] %}
+                        {% if compra['FolioFactura'] is defined %} 
+                            value="{{ compra['FolioFactura'] }}"         
+                        {% endif%}
+                    {%endfor%}                            
+                    />
+                <label for="FolioFactura">{{ "Número de Factura" }}</label>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="modal-close btn-link waves-effect btn-flat left">No, Actualizar Compra</button>
+            <a href class="btn waves-effect waves-light show-loader-processing procesar-compra-facturada blue">Sí, Actualizar Compra</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var template_text = {{ content['template_text']|json_encode()|raw }};
+                var visitante = {{ content['visitante'] is defined ? content['visitante']|json_encode()|raw : '{}' }};
+                var compras = {{ content['compras'] is defined ? content['compras']|json_encode()|raw : '{}' }};
+                var formas_pago = {{ content['formas_pago']|json_encode()|raw }};
+        var url_sas_comprobante_reenviar = "{{ path('sas_comprobante_reenviar') }}";
+        var url_sas_view_file = "{{ path('view_file') }}";
+        var url_sas_ticket_reenviar = "{{ path('sas_ticket_reenviar') }}";
+        var sas_status_compra = "{{ path("sas_status_compra", {"idVisitante": content['visitante']['idVisitante'], "idCompra": content['compras'][0]['idCompra']}) }}";
+        var sas_formas_pago = "{{ path("sas_status_compra", {"idVisitante": content['visitante']['idVisitante'], "idCompra": content['compras'][0]['idCompra']}) }}";
+        var Edicion
+                = {{ content['idEdicion']|json_encode()|raw }};
+
+        var Usuario
+                = {{ content['user']|json_encode()|raw }};
+        var idModuloIxpo
+                = {{ content['idModuloIxpo']|json_encode()|raw }};
+    </script>
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/comprobante.js') }}"></script>
+
+{% endblock %}

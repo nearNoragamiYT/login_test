@@ -1,0 +1,4 @@
+services:
+#visitante_comprador.example:
+#        class:Visitante\CompradorBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

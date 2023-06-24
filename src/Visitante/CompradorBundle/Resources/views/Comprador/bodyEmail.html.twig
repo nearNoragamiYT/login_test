@@ -1,0 +1,344 @@
+{% set sponsor = 'display: block; position: relative; width: 100%; height: auto; text-align: center;background: #f1f1f1;' %}
+{% set sponsor_image = 'max-width: 100%;max-height: 100px;' %}
+{% set lbl_visitor_data = 'font-size: 0.8rem; color: #9e9e9e; width: 70px; display: inline-block;' %}
+{% set p_visitor_data = 'margin-top: 0px; margin-bottom: 5px;' %}
+{% set lang = 'es' %}
+{% if app.session.get('lang') is defined and app.session.get('lang') != "" %}
+    {% set lang = app.session.get('lang') %}
+{% elseif content['lang'] is defined and content['lang'] != "" %}
+    {% set lang = content['lang'] %}
+{% endif %}
+{% set body = 'font-family: "Roboto", sans-serif, "Open Sans"; background: #fff; font-size: 13px;' %}
+{% set main_table = 'margin: 0 auto; border: none; width: 1000px; border-collapse:collapse;' %}
+{% set footer = "height: 100px;background-color: #F5F5F5;border-top: 1px solid #CCC;font-size: 10px;color: #808080; text-align: right;font-weight: normal;" %}
+{% set header_thead = "color: white;" %}
+{% if content['general_text']['ae_colorFondoHeader'] is defined and content['general_text']['ae_colorFondoHeader'] != "" %}
+    {% set header_thead = header_thead ~ " background-color: " ~ content['general_text']['ae_colorFondoHeader'] ~ ";" %}
+{% endif %}
+{% set header_panel = "font-weight: lighter;" %}
+{% if content['general_text']['ae_colorTextoSeccion'] is defined and content['general_text']['ae_colorTextoSeccion'] != "" %}
+    {% set header_panel = header_panel ~ " color: " ~ content['general_text']['ae_colorTextoSeccion'] ~ ";" %}
+{% endif %}
+{% set responsive_img = 'width: auto; max-width: 100%;' %}
+{% set header_img = 'max-height: 100px; vertical-align: middle;' %}
+{% set card = 'display: block; position: relative; width: 96%; padding: 2%; height: auto; border-radius: 0 0 2px 2px; background-color: #FFF; margin-bottom: 20px;' %}
+{% set card_title = 'font-weight: lighter;' %}
+{% if content['general_text']['ae_colorTituloCard'] is defined and content['general_text']['ae_colorTituloCard'] != "" %}
+    {% set card_title = card_title ~ ' color: ' ~ content['general_text']['ae_colorTituloCard'] ~ ';' %}
+{% endif %}
+{% set sponsor = 'display: block; position: relative; width: 100%; height: auto; text-align: center;background: #f1f1f1;' %}
+{% set sponsor_image = 'max-width: 100%;max-height: 100px;' %}
+{% set lbl_visitor_data = 'font-size: 0.8rem; color: #9e9e9e; width: 70px; display: inline-block;' %}
+{% set p_visitor_data = 'margin-top: 0px; margin-bottom: 5px;' %}
+
+<<<<<<< HEAD
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body style="{{ body }}">
+        <table style="{{ main_table }}">
+            <thead>
+                <tr style="{{ header_thead }}">
+                    <th style="text-align: left;">
+                        <img src="{{ absolute_url(asset('images/Header_ANTAD_2022.png'  )) }}" alt="logo_EAAM21-con-fondo" style="{{ header_img }}">
+                    </th>
+                    <th style="text-align: center;">
+                    </th>
+                    <th style="text-align: right;">
+                        <div style="color:#3c9888!important">
+                            <p style="margin-top:14px;margin-bottom:0px;text-align:center;font-size:35px"><b>{{ content['template_text']['ae_compradorEmail'] | raw }}</b></p> 
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="3">
+                        {{ content['template_text']['ae_emailRegistroAprobado'] | raw }}
+                    </td>
+                </tr>
+            <td colspan="3">
+
+                <div style="text-align: center;font-size: 25px;">{{content['template_text']['ae_estimado']  ~ ' ' }}<b>{{ content['datosVis'][0]['Nombre'] ~ ' ' }} {{ content['datosVis'][0]['ApellidoPaterno'] }} {{ content['datosVis'][0]['ApellidoMaterno'] }}</b></div><br>
+                <table style="display:flex;align-items:center;width:88%;margin-left: 23%;">
+                    <tr>
+                    <div>
+                        <p>
+                            <label class="lbl-visitor-data">Fecha Registro:</label>
+                            <b>{{ content['datosVis'][0]['FechaAlta']|date("m/d/Y") }}</b>
+                        </p>
+                        {% if content['datosVis'][0]['DE_RazonSocial'] is defined and content['datosVis'][0]['DE_RazonSocial'] != "" %}
+                            <p>
+                                <label class="lbl-visitor-data">{{ content['template_text']['ae_empresa'] }}:</label>
+                                {{ content['datosVis'][0]['DE_RazonSocial'] }}
+                            </p>
+                        {% endif %}
+                        <p>
+                            <label class="lbl-visitor-data">{{ content['template_text']['ae_nombre'] }}:</label>
+                            <b>{{ content['datosVis'][0]['Nombre'] }} {{ content['datosVis'][0]['ApellidoPaterno'] }} {{ content['datosVis'][0]['ApellidoMaterno'] }}</b>
+                        </p>
+                        <p>
+                            <label class="lbl-visitor-data">{{ content['general_text']['ae_email'] }}:</label>
+                            <a href='mailto:content['datosVis'][0]['Email'] }}'>{{ content['datosVis'][0]['Email'] }}</a>
+                        </p>
+                    </div>
+                    </tr>
+                </table>
+                <table id="info" style="align-items:center;width:100%;">
+                    <tr>
+                        <td colspan="3">
+                            {# ae_emailIdPersonal #}
+                            {{ content['template_text']['ae_emailIdPersonal'] | raw }}
+                            {# <div>
+                                <p style="margin-top: 14px;margin-bottom: 0px;text-align: center;font-size: 25px" >Esta es tu Clave de Confirmación para participar en el evento. </p>
+                                <p style="margin-top: 14px;margin-bottom: 0px;text-align: center;font-size: 25px" >Próximamente recibirás por email tu <b>gafete digital</b>, pórtalo en tu dispositivo móvil y muéstralo al ingreso del recinto. Este es <b>personal e intrasferible</b></p>
+                            </div> #}
+                            {# EN #}
+                            {# <div>
+                                <p style="margin-top: 14px;margin-bottom: 0px;text-align: center;font-size: 25px" >This is your Confirmation Code, to participate in the event. </p>
+                                <p style="margin-top: 14px;margin-bottom: 0px;text-align: center;font-size: 25px" >Soon you will receive your <b>digital badge</b> by email, show it on your mobile device and at the entrance of the venue. This badge is <b>personal and non-transferable.</b></p>
+                            </div> #}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            {# ae_emailCompradorFechaHoras #}
+                            {{ content['template_text']['ae_emailCompradorFechaHoras'] | raw }}
+                            {# <div class="col s12  center-align barcode" style="margin-bottom: 20px;font-size: 19px; text-align: center;">
+                                <p style="margin-top: 14px;margin-bottom: 0px;" ><b>18 al 20, octubre 2021</b></p>
+                                <p style="margin-top: 14px;margin-bottom: 0px;" ><b>Horario: 9:00 a 18:00 hrs.</b></p>
+                            </div> #}
+                            {# EN #}
+                            {# <div class="col s12  center-align barcode" style="margin-bottom: 20px;font-size: 19px; text-align: center;">
+                                <p style="margin-top: 14px;margin-bottom: 0px;" ><b>October 18 al 20, 2021</b></p>
+                                <p style="margin-top: 14px;margin-bottom: 0px;" ><b>From 9:00 to 18:00 hrs.</b></p>
+                            </div> #}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="col s12 center-align barcode" style="text-align:center;">
+                                <p style="font-size: 40px;"><b>ID: {{ content['datosVis'][0]['idVisitante'] }}</b></p>
+                            </div>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td colspan="3">
+                            <div class="col s12 center-align barcode" style="text-align:center;">
+                                                           <a href="https://expoantad.com.mx/encuentros-de-negocios/" ><img  style="width:25%;" class="responsive-img" src="{{ absolute_url(asset('images/logo_EncuentroNegocios.png' )) }}" ></a>
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            {# ae_emailActividadGeneral #}
+                            {{ content['template_text']['ae_emailActividadGeneral'] | raw }}
+                            {# <div class="col s12 center-align" style="text-align:center;">
+                                <p style="text-align: center;font-size: 25px; color: #7030A0;"><b>Actividades Generales</b></p>
+                            </div> #}
+                            {# EN #}
+                            {# <div class="col s12 center-align" style="text-align:center;">
+                                <p style="text-align: center;font-size: 25px; color: #7030A0;"><b>General Activities</b></p>
+                            </div> #}
+                        </td>
+                    </tr>
+                    <tr style="text-align:center;">
+                        <td style="text-align:center;">
+                            <a target="_blank" href="https://expoantad.com.mx/actividades/#" style="text-align:center;"><img class="responsive-img" src="{{ absolute_url(asset("images/RetailTalk.png" )) }}"></a>
+                        </td>
+                        <td style="text-align:center;">
+                            <a target="_blank" href="mailto:foodconnections@antad.net" style="text-align:center;"><img class="responsive-img" src="{{ absolute_url(asset("images/Food_Connections.jpg" )) }}"></a>
+                        </td>
+                        <td style="text-align:center;">
+                            <a target="_blank" href="mailto:ccorona@antad.org.mx" style="text-align:center;"><img class="responsive-img" src="{{ absolute_url(asset("images/Logo_Retail_Tech.jpg" )) }}"></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            {# ae_emailPoliticasGenerales #}
+                            {{ content['template_text']['ae_emailPoliticasGenerales'] | raw }}
+                            {# <div class="col s12 center-align" style="text-align:center;">
+                                <p style="text-align: center;font-size: 25px; color: #7030A0;"><b>Políticas Generales</b></p>
+                            </div> #}
+                            {# EN #}
+                            {# <div class="col s12 center-align" style="text-align:center;">
+                                <p style="text-align: center;font-size: 25px; color: #7030A0;"><b>General Policies</b></p>
+                            </div> #}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {# ae_emailListaAccess #}
+                            {{ content['template_text']['ae_emailListaAccess'] | raw }}
+                            {# <div class="col s6 center-align" style="text-align: center;">
+                                <p style="font-size: 19px;">Access</p>
+                                <ul style="font-size: 14px;">
+                                    <li>Present an <b>Official Identification</b>.</li>
+                                    <li>Access only for <b>adults</b> (+18 years).</li>
+                                </ul>
+                            </div> #}
+                            {# ES #}
+                            {# <div class="col s6 center-align" style="text-align: center;">
+                                <p style="font-size: 19px;">Acceso</p>
+                                <ul style="font-size: 14px;">
+                                    <li>Presentar una <b>Identificación Oficial</b>.</li>
+                                    <li>Acceso únicamente para <b> mayores de edad </b> (+18 años, estricta protección civil).</li>
+                                </ul>
+                            </div> #}
+                        </td>
+                        <td></td>
+                        <td>
+                            {# ae_emailListaBadge #}
+                            {{ content['template_text']['ae_emailListaBadge'] | raw }}
+                            {# <div class="col s6 center-align" style="text-align: center;">
+                                <p style="font-size: 19px;">Badges</p>
+                                <ul style="font-size: 14px;">
+                                    <li><b>Personal and non-transferable</b>.</li>
+                                    <li><b>Without Exception, there are no changes, replacements, refunds or returns</b>.</li>
+                                </ul>
+                            </div> #}
+                            {# ES #}
+                            {# <div class="col s6 center-align" style="text-align: center;">
+                                <p style="font-size: 19px;">Gafetes</p>
+                                <ul style="font-size: 14px;">
+                                    <li><b>Personal e intransferible</b>.</li>
+                                    <li>Sin excepción, <b>no hay cambios, reposiciones</b>, reembolsos ni devoluciones.</li>
+                                </ul>
+                            </div> #}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            {# ae_emailProtocolosSanitarios #}
+                            {{ content['template_text']['ae_emailProtocolosSanitarios'] | raw }}
+                            {# <div class="col s12 center-align" >
+                                <p style="text-align: center;font-size: 25px; color: #7030A0;"><b>Protocolo Sanitario</b></p>
+                            </div> #}
+                            {# EN #}
+                            {# <div class="col s12 center-align" >
+                                <p style="text-align: center;font-size: 25px; color: #7030A0;"><b>Sanitary Protocol</b></p>
+                            </div> #}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            {# ae_emailEscudoSanitario #}
+                            {{ content['template_text']['ae_emailEscudoSanitario'] | raw }}
+                            {# <div class="col s12 center-align">
+                                <p style="text-align: center;font-size: 25px;"><b>10 MEASURES TO GUARANTEE A SANITARY SHIELD AT THE EVENT</b></p>
+                                <ul style="font-size: 14px;">
+                                    <li>Mandatory use of face shields</li>
+                                    <li>Ease of hand washing</li>
+                                    <li>Use of sanitizing gel</li>
+                                    <li>Taking temperature</li>
+                                    <li>Healthy distance</li>
+                                    <li>Automated registration - Digital Badge</li>
+                                    <li>Unique registration QR codes for access</li>
+                                    <li>Sanitation of common areas</li>
+                                    <li>Corridors with one-way traffic</li>
+                                    <li>Sanitizing tunnels</li>
+                                </ul>
+                            </div> #}
+                            {# ES #}
+                            {# <div class="col s12 center-align">
+                                <p style="text-align: center;font-size: 25px;"><b>10 MEDIDAS PARA GARANTIZAR UN BLINDAJE SANITARIO EN EL EVENTO</b></p>
+                                <ul style="font-size: 14px;">
+                                    <li>Uso obligatorio de cubrebocas</li>
+                                    <li>Facilidad para lavado de manos</li>
+                                    <li>Uso de gel sanitizante</li>
+                                    <li>Tomando la temperatura</li>
+                                    <li>Sana distancia</li>
+                                    <li>Regístro automatizado - Gafete Digital</li>
+                                    <li>Códigos QR únicos de registro para el acceso</li>
+                                    <li>Sanitización de áreas comunes</li>
+                                    <li>Pasillos con circulación en una sola dirección</li>
+                                    <li>Túneles sanitizantes</li>
+                                </ul>
+                            </div> #}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            {# ae_emailGraciasParticipacion #}
+                            {{ content['template_text']['ae_emailGraciasParticipacion'] | raw }}
+                            {# <div class="col s12 center-align">
+                                <p style="text-align: center;font-size: 25px; color: #7030A0;">Thank you for your participation!</p>
+                            </div> #}
+                            {# ES #}
+                            {# <div class="col s12 center-align">
+                                <p style="text-align: center;font-size: 25px; color: #7030A0;">¡Gracias por tu participación!</p>
+                            </div> #}
+                        </td>
+                    </tr>
+
+                </table>
+                {# <table id="Politicas" style="align-items:center;width:100%;">
+                    <tr colspan ="3" >
+                        <td>
+                            <a href="http://talks.expoantad.com.mx/" target="_blank"><img  style="margin-left: 50px;" class="responsive-img" src="{{ absolute_url(asset("images/Top-Talks.png" )) }}" ></a>
+                        </td>
+                        <td>
+                            <a href="http://talks.expoantad.com.mx/" target="_blank"><img  style="" class="responsive-img" src="{{ absolute_url(asset("images/Marketing-&-Media-Talks.png" )) }}" ></a>
+                        </td>
+                        <td>
+                            <a href="http://talks.expoantad.com.mx/" target="_blank"><img  style="" class="responsive-img" src="{{ absolute_url(asset("images/Tech-Talks.png" )) }}" ></a>
+                        </td>
+                    </tr>
+                    <tr colspan ="3" >
+                        <td>
+                            <img  style="margin-left: 50px;" class="responsive-img" src="{{ absolute_url(asset("images/Consumable-Products-Hubs.png" )) }}" > 
+                        </td>
+                        <td>
+                            <img  style="" class="responsive-img" src="{{ absolute_url(asset("images/Cooking-&-Beverages-Experience.png" )) }}" >
+                        </td>
+                        <td>
+                            <img  style="" class="responsive-img" src="{{absolute_url( asset("images/Store-Tour-Innovation.png" )) }}" >
+                        </td>
+                    </tr>
+                    <tr colspan ="3" >
+                        <td>
+
+                        </td>
+                        <td>
+                            <a href="http://talks.expoantad.com.mx/" target="_blank"> <img  style="" class="responsive-img" src="{{ absolute_url(asset("images/Produce-Talks.png" )) }}" > </a>
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </table> #}<br>
+
+                <br>
+
+                <table id="info" style="align-items:left;width:100%;">
+                    <tr style="text-align: left!important;">
+                        <td>
+                            <div class="" style=" text-align: left!important; ">
+                                <p><b>{{content['template_text']['ae_Agradecimiento']| raw}}</b></p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="text-align: left!important;">
+                        <td>
+                            <div class="" style="text-align: left!important;">
+                                <p><b>{{ content['general_text']['ae_aceptoPoliticasDigital']|raw }}</b></p> 
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                </tr>
+                </tbody>
+            <tfoot>
+                <tr>
+                    <th style="{{ footer }}"  colspan="3">
+                        <img src="{{ absolute_url(asset("images/logos-co/antad_logo.png")) }}" alt="Antad" style="vertical-align: middle;" width="120" height="90"> 
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </body>
+</html>

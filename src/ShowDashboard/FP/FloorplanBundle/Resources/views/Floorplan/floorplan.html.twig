@@ -1,0 +1,184 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/FP/FloorplanBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/main.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/supported_browsers/supportedbrowsers.css') }}">
+{% endblock %}
+
+{% block title %}Plano{% endblock %}
+{% block content %}
+    <div id="mainFP" style="display: none">
+        <nav id="toolbar" id="nav-header-fp">
+            <div id="fp-wrapper" class="nav-wrapper">
+                <div class="row">
+                    <div id="booth-control" class="col s4">
+                        <button id="new-booth" class="btn waves-effect waves-light blue darken-2">
+                            <i class="material-icons close left">add_circle_outline</i>
+                            <span id="label-new-booth">{{ content["textos"]["fp_nuevoStand"]}}</span>
+                        </button>
+                        <button id="remove" class="right-align btn waves-effect waves-light red darken-2 disabled">
+                            <i class="material-icons close left">delete_forever</i>
+                            <span id="label-remove">{{ content["textos"]["fp_eliminarStand"]}}</span>
+                        </button>
+                    </div>
+                    <div id="center-select" class="col s4">
+                        <div class="row">
+                            <div class="col s2">
+                                <span id="evento-label" class="black-text">Sala:</span> 
+                            </div>
+                            <div class="col s10">
+                                <form id="hall-form" action="#" class="center-align">
+                                    <div class='input-field'>
+                                        <select class="browser-default black-text" id="hall-select" name="hall-id">
+                                        </select>
+                                    </div>
+                                </form>                            
+                            </div>
+                        </div>
+                    </div>
+                    <div id="search" class="col s4">
+                        <div class='row right'>
+                            <div class='col s2'>
+                                <span class="black-text">{{ content["textos"]["fp_etiquetaBuscar"]}}</span>
+                            </div>
+                            <div class='col s6'>                            
+                                <form id="search-form"> 
+                                    <input id="number2search" class="black-text" type="search" required data-activates='search-list' autocomplete="off">
+                                    <ul class="dropdown-content hide " id="search-list">
+                                    </ul>
+                                </form>  
+                            </div>
+                            <div class='col s2'>
+                                <a id="print" class="waves-effect waves-light black-text tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content["textos"]["fp_exportarPNG"]}}">
+                                    <i class="material-icons">print</i>
+                                </a>
+                            </div>
+                            <div class='col s2'>
+                                <a id="pdf" class="waves-effect waves-light black-text tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content["textos"]["fp_exportarPDF"]}}">
+                                    <i class="material-icons">picture_as_pdf</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="fp-controls" class="right">
+            <a id="zoom-in" class="btn-floating btn-large waves-effect waves-light red tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content["textos"]["fp_acercar"]}}">
+                <i class="material-icons large">zoom_in</i>
+            </a>
+            <div class="row"><br></div>
+            <a id="zoom-out" class="btn-floating btn-large waves-effect waves-light red tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content["textos"]["fp_alejar"]}}">
+                <i class="large material-icons ">zoom_out</i>
+            </a>
+        </div>
+        <div id="frm-booth" class="grey lighten-5">
+            <div id="stand" class="row">
+                <form class="col s12" id="booth-details">
+                    <div class="row">
+                        <div class='col s12'>
+                            <label>Pabellon:</label>
+                            <select class="browser-default black-text" id="pavilion" name="pavilion">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col s12'>
+                            <label>Tipo de Stand:</label>
+                            <select class="browser-default black-text" id="stand_type" name="stand_type">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="number" name="number" type="text" disable size="5">
+                            <label for="number">{{ content["textos"]["fp_etiquetaNumero"]}}</label>
+                        </div>
+                    </div>
+                    <p id="id" class="hidden"></p>
+                    <p id="x" class="hidden"></p>
+                    <p id="y" class="hidden"></p>
+                    <p id="status" class="hidden"></p>
+                    <p id="hall" class="hidden"></p>
+                    <div class="row">
+                        <div class="input-field col s8">
+                            <input id="width" name="width" type="number" step="any" min="0" max="50" disable size="5">
+                            <label for="width">{{ content["textos"]["fp_etiquetaFrente"]}}</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <label>{{ content["textos"]["fp_etiquetaUnidadDeMedida"]}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s8">
+                            <input id="height" name="height" type="number" step="any" min="0" max="50" maxlength="5" disable size="5">                            
+                            <label for="height">{{ content["textos"]["fp_etiquetaLargo"]}}</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <label>{{ content["textos"]["fp_etiquetaUnidadDeMedida"]}}</label>
+                        </div>
+                    </div>
+                    <div id="etiqueta-label" class="row">
+                        <div class="input-field col s12">
+                            <input id="label" name="label" type="text" disable size="5">
+                            <label for="label">{{ content["textos"]["fp_etiquetaStand"]}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button id="save" class="modal-action btn waves-effect waves-light blue col s12" type="submit">
+                                {{ content["textos"]["fp_guardarStand"]}}
+                            </button>
+                            <div class="col s12"><br></div>
+                            <button id="cancel" class="modal-action btn waves-effect waves-light grey col s12" type="button">
+                                {{ content["textos"]["fp_cerrarEdicionStand"]}}
+                            </button>
+                            <div class="col s12"><br></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <canvas id="floorplan" class="canvas" width="1000" height="700" ></canvas>
+        <div id="mdl-delete-module" class="modal">
+            <div class="modal-content">
+                <h4>{{ content["textos"]["fp_confirmacionTitulo"]}}</h4>
+                <p id='text-modal'></p>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{ content["textos"]["fp_confirmacionBotonCancelar"]}}</a>
+                <button id="delete-stand" type="button" class="modal-action waves-effect waves-red btn-flat red white-text" data-action="delete">{{ content["textos"]["fp_confirmacionBotonBorrar"]}}</button>
+            </div>
+        </div>
+    </div>
+    {% include 'ShowDashboardFPFloorplanBundle:supported_browsers:supported_browsers.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}"/>
+    <script src="{{ asset('js/modernizr-2.6.2.min.js')}}"></script>
+    <script src="{{ asset('js/hammer.min.js')}}"></script>
+    <script src="{{ asset('js/jquery.validate.min.js')}}"></script>
+    <script src="{{ asset('js/jspdf.js')}}"></script>
+    <script type="text/javascript">
+        var url_layout = "{{  asset(ruta_asset ~ 'images/') }}";
+        var url_hall = "{{ path('admin_floorplan_pavilion') }}";
+        var url_halls = "{{ path('admin_floorplan_pavilions') }}";
+        var url_create = "{{ path('admin_floorplan_create') }}";
+        var url_update = "{{ path('admin_floorplan_update') }}";
+        var url_destroy = "{{ path('admin_floorplan_destroy') }}";
+        var url_dashboard = "{{ path('dashboard') }}";
+        var language ={{ content["textos"]|json_encode()|raw }} ;
+        $('#number2search').dropdown({
+            constrain_width: true,
+            hover: false,
+            gutter: 0,
+            belowOrigin: true
+        });
+    </script>
+    <script src="{{asset(ruta_asset ~ 'js/observable.js')}}"></script>
+    <script src="{{asset(ruta_asset ~ 'js/util.js')}}"></script>
+    <script src="{{asset(ruta_asset ~ 'js/main.js')}}"></script>
+{% endblock %}

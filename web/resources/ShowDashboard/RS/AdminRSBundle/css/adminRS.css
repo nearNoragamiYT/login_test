@@ -1,0 +1,17 @@
+#add-estado-modal{
+    overflow-y: hidden;
+    height:900px !important;
+    width: 800px !important;
+}
+
+#delete-estado-modal {
+    height: 200px;
+    width: 500px;
+}
+
+#HeaderConfigNodes {
+    margin-top: -17px;
+    margin-bottom: -34px;
+}
+
+

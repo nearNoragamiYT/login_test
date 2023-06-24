@@ -1,0 +1,19 @@
+.container {
+    max-width: none;
+    width: 90%;
+    font-size: 13px;
+}
+.space-label{
+    padding-bottom: 5px;
+}
+/*------------------------------------------------------------------------*/
+.paging_listbox > select{
+    height: 2rem !important;
+}
+.dataTables_length > label > select{
+    height: 2rem !important;
+}
+/*------------------------------------------------------------------------*/
+#delete-record-modal{
+    max-width: 30%;
+}

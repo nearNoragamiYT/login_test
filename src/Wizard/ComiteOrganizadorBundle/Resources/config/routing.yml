@@ -1,0 +1,3 @@
+wizard_comite_organizador:
+    path:     /asistente/comite-organizador
+    defaults: { _controller: WizardComiteOrganizadorBundle:ComiteOrganizador:comiteOrganizador }

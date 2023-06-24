@@ -1,0 +1,122 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 29, 2016, 9:15:55 AM
+    Author     : Javier, Juan Jesus, Jesus, Sergio, Ricardo
+*/
+
+/* Estilos para twig base */
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background: #f5f5f5;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+header, main, footer {
+    padding-left: 300px;
+}
+
+.primary-navbar{
+    background: #3f5364;
+}
+
+.primary-navbar .primary-navbar-item{
+    font-size: 1.5rem;
+}
+
+.primary-navbar .brand-logo{
+    padding: 0px 20px;
+}
+
+.primary-navbar .brand-logo:hover{
+    background-color: rgba(0,0,0,0.1);
+}
+
+footer.page-footer{
+    background-color: rgba(50,50,50,0.08);
+    padding: 10px;
+    margin-top: 0px;
+}
+
+.nav-wrapper a:first-child{
+    padding-left: 15px;
+}
+
+.side-nav li>a>i, .side-nav li>a>[class^="mdi-"], .side-nav li>a>[class*="mdi-"], .side-nav li>a>i.material-icons{
+    margin: 0px;
+}
+
+.side-nav-header a{
+    width: 100%;
+    height: 100%;
+}
+
+.side-nav-header img{
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 1%;
+}
+
+.side-nav .divider{
+    margin: 0px;
+}
+
+.side-nav a{
+    font-weight: normal;
+}
+
+a.card{
+    width: 100%;
+}
+
+/* Menu lateral */
+.side-nav .collapsible-body>ul:not(.collapsible)>li.active, .side-nav.fixed .collapsible-body>ul:not(.collapsible)>li.active{
+    background-color: rgba(0,0,0,0.1);
+}
+
+.side-nav .collapsible-body>ul:not(.collapsible)>li.active a, 
+.side-nav.fixed .collapsible-body>ul:not(.collapsible)>li.active a,
+.side-nav li.active a.active, 
+.side-nav.fixed li.active a.active
+{
+    color: #1f9bde;
+}
+
+.side-nav li>a{
+    padding-left: 15px;
+    font-weight: 400;
+}
+
+.side-nav li.active a.active.selected{
+    border-left: 4px solid;
+}
+
+.side-nav .subheader{
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.card-header {
+    color: #2196F3;
+    font-weight: 500;
+    padding: 10px 0px;
+    display: inline-block;
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+}

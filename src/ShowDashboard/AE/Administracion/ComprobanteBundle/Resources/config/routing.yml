@@ -1,0 +1,3 @@
+show_dashboard_ae_administracion_comprobante:
+    path:     /show-dashboard/ae/administracion/comprobante
+    defaults: { _controller: ShowDashboardAEAdministracionComprobanteBundle:Comprobante:comprobante }

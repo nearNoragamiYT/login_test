@@ -1,0 +1,107 @@
+{% extends '::base_email.html.twig' %}
+
+{% set lang = (content['lang'] is defined and content['lang'] != "") ? content['lang'] : "es" %}
+
+{% set btn = "
+text-decoration: none;
+    color: #fff;
+    background-color: #435464;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: .2s ease-out;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 60px;
+    line-height: 20px;
+    padding: 0 2rem;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+    margin-right: 4px;"
+%}
+
+{% set insignia = "
+width: 200px;
+    margin-left: 10px;
+    margin-top: 10px;
+"
+%}
+
+
+{% block body %}
+    <tr>
+        <td colspan="3">
+            <a style="{{btn}}" href="{{content['section_text']['sas_linkVideo']}}" target="_blank"> <img style="width: 25px;  margin-left: 10px; margin-top: 6px;" src="{{absolute_url(asset('/images/iconos/eye.svg'))}}" ><br>{{content['section_text']['sas_comoActivarLicencia']}}</a>
+            <a style="{{btn}}" href="{{content['section_text']['sas_linkInstructivo']}}" target="_blank"> <img style="width: 25px;  margin-left: 10px; margin-top: 6px;" src="{{absolute_url(asset('/images/iconos/link.svg'))}}" ><br>{{content['section_text']['sas_intructivoDescargaApp']}}</a>
+            <a style="{{btn}}" href="{{content['section_text']['sas_linkFaq']}}" target="_blank"> <img style="width: 25px;  margin-left: 10px; margin-top: 6px;" src="{{absolute_url(asset('/images/iconos/file-pdf-o.svg'))}}" ><br>{{content['section_text']['sas_preguntasFrecuentes']}}</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1" style="text-align: center;">
+            <h2>{{content['section_text']['sas_descargaLaApp']}}</h2>
+            <a  href="{{content['section_text']['sas_linkApp']}}" target="_blank"> <img style="{{insignia}}" src="{{absolute_url(asset('/images/iconos/google_play.png'))}}" ></a>
+            {# <a  href="{{content['section_text']['sas_linkApp']}}" target="_blank"> <img style="{{insignia}}" src="{{absolute_url(asset('/images/iconos/google-play-badge-'~lang~'.png'))}}" ></a> #}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1" style="text-align: left;">
+            <span style="color: #000000;">{{content['section_text']['sas_expositor']}}: {{content['empresa']['DC_NombreComercial']}}</span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1" style="text-align: left;">
+            <span style="color: #000000;">{{content['section_text']['sas_listadoStands']}}: {{content['empresa']['EMSTDListadoStand']}}</span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: left;">
+            <h3 style="color: #000000; font-size: 20px;">{{content['section_text']['sas_notaLicenciasMail']|raw}}</h3>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1" style="text-align: left;" >
+            <span style="color: #000000;"><b>Showcode:</b> {{content['showCode']}}</span>
+        </td>
+    </tr>
+    {% for licencia in content['licencias']%}
+        <tr><td colspan="3">&nbsp;<td></tr>
+        <tr>
+            <td colspan="1" style="text-align: left;" >
+                <span style="color: #000000;"><b>{{content['section_text']["sas_licencia"]}}:</b> {{licencia['textoLicencia']}}</span>
+            </td>
+            <td rowspan="6" colspan="2" style="border-bottom: 1pt solid; ">
+                <img src={{absolute_url(asset('resources/Utilerias/QrCodeBundle/qrcode/main.php?qrcode='~licencia['qr']~'&size=8'))}}>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1" style="text-align: left;">
+                <span style="color: #000000;"><b>{{content['section_text']['sas_correoEtiqueta']}}: </b>{{licencia['etiquetaUsuario']}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1" style="text-align: left; ">
+                <span style="color: #000000;"><b>{{content['section_text']['sas_disponibilidad']}}: </b>{% if licencia['estadoDisponibilidad'] == "true" %}{{content['section_text']['sas_disponible']}}{%else%}{{content['section_text']['sas_enUso']}}{%endif%}</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1" style="text-align: left;">
+                <span style="color: #000000;"><b>{{content['section_text']['sas_ultimoDispositivo']}}: </b> {{licencia['device']}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1" style="text-align: left; ">
+                <span style="color: #000000;"><b>{{content['section_text']['sass_fechaExpiracion']}}: </b>{% if licencia['fechaExpiracion']!= ""%}{{licencia['fechaExpiracion']}}{%else%}{{content['section_text']['sas_sinInicioSesion']}}{%endif%}</span>
+            </td>
+        <tr>
+            <td colspan="1" style="text-align: left;  border-bottom: 1pt solid black;">
+                <span style="color: #000000;"><b>{{content['section_text']['sas_estadoActivacion']}}: </b>  {% if licencia['estadoActivacion'] == "true" %}{{content['section_text']['sas_vigente']}}{%elseif licencia['fechaExpiracion']== "" %}{{content['section_text']['sas_sinInicioSesion']}}{%else%}{{content['section_text']['sas_expirada']}}{%endif%} </span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                
+            </td>
+    {% endfor %}
+{% endblock %}

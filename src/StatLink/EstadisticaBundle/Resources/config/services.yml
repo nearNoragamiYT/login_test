@@ -1,0 +1,4 @@
+services:
+#    stat_link_estadistica.example:
+#        class: StatLink\EstadisticaBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

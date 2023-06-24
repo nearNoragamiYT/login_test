@@ -1,0 +1,26 @@
+visitante_compras_torneo:
+    path:     /comprasTorneo
+    defaults: { _controller:VisitanteComprasTorneoBundle:ComprasTorneo:comprasTorneo }
+    
+compras_torneo_get_to_datatable:
+    path:  /comprasTorneo/get-datatable
+    defaults: { _controller: VisitanteComprasTorneoBundle:ComprasTorneo:getToDataTable }
+    
+compras_torneo_get_to_datatable_filtro:
+    path:  /comprasTorneo/get-datatable-filter
+    defaults: { _controller: VisitanteComprasTorneoBundle:ComprasTorneo:getToDataTableFilter }
+    
+compras_torneo_set_session:
+    path:  /comprasTorneo/set_session
+    defaults: { _controller: VisitanteComprasTorneoBundle:ComprasTorneo:setSessionData }
+   
+compras_torneo_get_session:
+    path:  /comprasTorneo/get_session
+    defaults: { _controller: VisitanteComprasTorneoBundle:ComprasTorneo:getSessionData }
+    
+    
+compras_torneo_export_data:
+    path:  /comprasTorneo/export-data
+    defaults: { _controller: VisitanteComprasTorneoBundle:ComprasTorneo:exportComprasTorneoData }    
+    
+    

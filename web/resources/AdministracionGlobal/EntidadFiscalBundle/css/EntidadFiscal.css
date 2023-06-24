@@ -1,0 +1,41 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5/08/2016, 11:51:06 AM
+    Author     : Richard
+*/
+#modal_delete{
+    top: 25% !important;
+    width: 30%;
+}
+
+/*.modal{
+     border-radius: 10px;
+}*/
+
+#mdl_billing_entity .progress{
+    margin: 0px;
+    display: none;
+}
+
+#mdl_billing_entity .progress .determinate{
+    width: 0%;
+}
+
+.progress-estado,
+.progress-pecc{
+    display: block;
+    position: absolute;
+    width: calc(100% - 1.5rem);
+    height: 4px;
+}
+
+.autocomplete-content{
+    display: block;
+    position: absolute;
+    opacity: 1;
+    max-height: 250px;
+}

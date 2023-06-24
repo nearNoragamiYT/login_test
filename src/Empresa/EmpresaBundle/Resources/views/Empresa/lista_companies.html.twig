@@ -1,0 +1,88 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/datatables.responsive.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/dynamic_table.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div id="companies" class="container">
+        <div id="slide-list-div" style="margin-top: 20px">
+            <div class="row">
+                <div id="cover-Empresa-table" class="col-xs-12"></div>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-action-btn" style="bottom: 60px; right: 150px;">
+        <a class="btn-floating btn-large blue tooltipped" 
+           id="update-floorplan"
+           data-tooltip="{{ content["section_text"]["sas_actualizarPlano"] }}" 
+           data-position="left" 
+           data-delay="50" 
+           >
+            <i class="material-icons">replay_5</i>
+        </a>
+    </div>
+    {#<div class="fixed-action-btn" style="bottom: 60px; right: 90px;">
+        <a class="btn-floating btn-large green tooltipped"
+           id="send-email-to-all"
+           data-tooltip="{{ content["section_text"]["sas_enviarBienvenidaEDTodos"] }}"
+           data-position="left"
+           data-delay="50"
+           >
+            <i class="material-icons">mail</i>
+        </a>
+    </div>#}
+    <div id="delete-record-modal" class="modal">
+        <div class="modal-content">
+            <h6>{{content['section_text']['sas_eliminarRegistro']}}</h6>
+            <p id="deleteText"></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+            <button id="delete-record" type="button" class="modal-action waves-effect waves-red btn-flat red white-text" data-action="delete">{{content['general_text']['sas_eliminar']}}</button>
+        </div>
+    </div>
+    {% include 'EmpresaEmpresaBundle:Empresa:enviar_email_todos.html.twig' %}
+    {% include 'EmpresaEmpresaBundle:Empresa:otros_modales.html.twig' %}
+    {% include 'EmpresaEmpresaBundle:Empresa:gafetes_modales.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var lang = {{ content['lang']|json_encode()|raw }},
+                url_lang = "{{asset('js/dataTablesLang/' ~ content['lang'] ~ '.json')}}",
+                Empresa_table_columns = {{ content['Empresa_table_columns']|json_encode()|raw }},
+                Empresa_table_column_categories = {{ content['Empresa_table_column_categories']|json_encode()|raw }};
+        {#companies = {{ content['companies']|json_encode()|raw }};#}
+
+            var url_empresa_get_to_dt = "{{ path("empresa_get_to_datatable") }}",
+                    url_empresa_get_to_dt_filtro = "{{ path("empresa_get_to_datatable_filtro") }}",
+                    url_export_empresa_data = "{{ path("empresa_export_data") }}",
+                    url_edit_empresa_data = "{{ path("empresa_empresa_fiscal") }}",
+                    url_edit_empresa_additional_data = "{{ path("empresa_empresa_comercial") }}",
+                    url_set_session = "{{ path("empresa_set_session") }}",
+                    url_get_session = "{{ path("empresa_get_session") }}",
+                    url_company_send_welcome_ed = "{{ path('empresa_email_bienvenida_ed') }}",
+                    url_update_floorplan = "{{ path('empresa_update_floorplan') }}",
+                    img_excel = "{{ asset("images/excel.png") }}";
+    </script>
+
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.responsive.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.columnFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/selectFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.customFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/dynamic_table.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+
+{% endblock %}

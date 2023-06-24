@@ -1,0 +1,125 @@
+{% extends '::base_email.html.twig' %}
+{% set digi_header = 'width="25%" !important; height="25%" !important;' %}
+{% set digi_footer = 'width= 190px !important; height= 40px !important;' %}
+{% set lang = (content['lang'] is defined and content['lang'] != "") ? content['lang'] : "es" %}
+{% set button = "text-decoration: none; color: #fff; background-color: #26a69a; text-align: center; letter-spacing: .5px; cursor: pointer; display: inline-block; line-height: 2em; padding: 0 2rem; vertical-align: middle;" %}
+{% set aux_link_desc = "color: #b5b4b4;font-size: .8em;" %}
+{% set aux_link = "font-size: .8em; color: #2ab9ff; text-decoration: underline; display: block;" %}
+{% set request_date = "color: #b5b4b4;" %}
+{% set request_note = "color: red;" %}
+
+{% block body %}
+    {% if content['tipoCorreo'] == "0" %} 
+        <table style="width: 80%;" >
+            <tbody>
+                <tr>
+                    <td colspan="3">
+                        {{ content['section_text']['sas_emailBienvenidaED']|replace(
+                                {"%exhibitor_name%": content['exhibitor']['DC_NombreComercial'],
+                                 "%code%": content['exhibitor']['CodigoCliente'],
+                                 "%event%": content['editions'][content['exhibitor']["idEdicion"]]["Edicion_" ~ content["lang"]], 
+                                 "%user%": content['exhibitor']['Email'], 
+                                 "%password%": content['exhibitor']['Password'],
+                                 "%asesor%": content['exhibitor']['Vendedores'],
+                                 "%link_ed%": content['editions'][content['exhibitor']["idEdicion"]]["LinkED"] ~ content["lang"]|lower}
+                    )|raw }}
+                    </td>
+                </tr>       
+            </tbody>
+        </table>
+    {%elseif content['tipoCorreo'] == "1" %}
+        <div class="card-content">
+            <div class=" container">
+                {#<div class="row left">
+                    <div class="col s12">
+                        <div class="col s12 m6">
+                            <img  style="width:25%;" class="responsive-img" src="{{ absolute_url(asset("images/header/ebs1.png" )) }}" >
+                        </div>
+                    </div>
+                </div>#}
+                <div style="text-align: center;font-size: 25px;">{#{{content['template_text']['ae_estimado']}}#} Estimado(a): <b>{{content['exhibitor']['Nombre']}}</b>
+                </div>
+                <br>
+                <div >
+                    {#<p>
+                        <label class="lbl-visitor-data">{{ content['template_text']['ae_fechaPreregistro'] }}</label>
+                        <b>{{ content['datosVis']['FechaAlta']|date("m/d/Y") }}</b>
+                    </p>#}
+  {#                  {% if content['datosVis']['DE_RazonSocial'] is defined and content['datosVis']['DE_RazonSocial'] != "" %}#}
+                        <p>
+                            <label class="lbl-visitor-data">{{ content["section_text"]["sas_empresa"] }}:</label>
+                            {{ content['exhibitor']['DC_NombreComercial'] }}
+                        </p>
+ {#                   {% endif %}#}
+                    <p>
+                        <label class="lbl-visitor-data">{{ content["section_text"]["sas_email"]  }}:</label>
+                        <a href='mailto:{{ content['exhibitor']['Email'] }}'>{{ content['exhibitor']['Email'] }}</a>
+                    </p>
+                </div>
+                <div class="card-content" style="text-align: center">
+                    <div class="left-align textoColorEvento">
+                        {{content["section_text"]["sas_mensajeValidacion"]|raw}}
+                    </div>
+                </div>
+                <div class="col s12  center-align barcode" style="margin-bottom: 20px;font-size: 23px;text-align: center;">
+                    {{content["section_text"]["sas_horaEvento"]|raw}}
+                </div>
+                <div class="row">
+                   
+                </div>
+                <table id="info" style="align-items:center;width:100%;">
+                    <tr>
+                    <div class="card-title" style="color: #6f32a2;font-size: 19px;"><b>{{ content["section_text"]["sas_politicas"] }}</b></div>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="col s6 push-s2">{{content["section_text"]["sas_accesos"]}}</div>
+                        </td>
+                        <td>
+                            <div class="col s6 push-s1">{{content["section_text"]["sas_gafetes"]}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="col s6">{{content["section_text"]["sas_politicasAcceso"]| raw}}</div>
+                        </td>
+                        <td>
+                            <div class="col s6">{{content["section_text"]["sas_politicasGafetes"]| raw}}</div>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <table id="Politicas" style="align-items:center;width:100%;">
+                    <tr>
+                        <td>
+                            <div class="card-title" style="color: #6f32a2;font-size: 19px;">{{ content["section_text"]["sas_protocoloSanitario"] }}</div>
+                            <div>
+                                {#{{content['template_text']["sas_protocolos"]|replace({'%edicion%' : content['exhibitor']["idEdicion"]]["Edicion_" ~ content["lang"]})|raw}}#}
+                                {{content["section_text"]["sas_protocolos"]|raw}}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+
+                <table id="info" style="align-items:center;width:100%;">
+                    <tr style="text-align: center!important;">
+                        <td>
+                            <div class="" style=" text-align: center!important; ">
+                                <p><b>{{content["section_text"]["sas_agradecimientoComite"]| raw}}</b></p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="text-align: right!important;">
+                        <td>
+                            <div class="" >
+                                <img  style="height: 106px;" class="responsive-img" src="{{ absolute_url(asset("images/ANTAD-logo-curvas.jpg" )) }}" >
+                                <p style="margin-right: 9px;"><b>FON-29 REV. 6</b></p> 
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    {%endif%}
+{% endblock %}

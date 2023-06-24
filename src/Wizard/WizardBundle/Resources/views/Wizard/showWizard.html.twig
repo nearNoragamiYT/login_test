@@ -1,0 +1,67 @@
+{% extends '::base_main_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Wizard/WizardBundle/' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/wizard.css') }}">
+{% endblock %}
+
+{% block title %}{{ content['general_text']['sas_wizard'] }} - {{ parent() }}{% endblock %}
+
+{% block breadcrumbs %}<a class="breadcrumb">{{ content['section_text']['sas_asistenteConfiguracion'] }}</a>{% endblock %}
+
+{% block content %}
+    <ol class="wizard-steps">
+        <li class="show-loader-top completed {% if content['current_step'] == "informacionGeneral" %} current-step {% endif %}">
+            <a href="{{ path('wizard_informacion_general') }}"><i class="btn-floating waves-effect waves-light">1</i> {{ content['general_text']['sas_infoGeneral'] }}</a>
+        </li>
+        <li class="show-loader-top
+            {% if content['configuration']['ComiteOrganizador'] is defined and content['configuration']['ComiteOrganizador'] == true %}completed{% endif %}
+            {% if content['current_step'] == "comiteOrganizador" %}current-step{% endif %}
+            "
+            ><a href="{{ path('wizard_comite_organizador') }}"><i class="btn-floating waves-effect waves-light">2</i> {{ content['general_text']['sas_comiteOrganizador'] }}</a>
+        </li>
+        <li class="show-loader-top
+            {% if content['configuration']['EntidadFiscal'] is defined and content['configuration']['EntidadFiscal'] == true %}completed{% endif %}
+            {% if content['current_step'] == "entidadFiscal" %}current-step{% endif %}
+            "
+            ><a href="{{ path('wizard_entidad_fiscal') }}"><i class="btn-floating waves-effect waves-light">3</i> {{ content['general_text']['sas_entidadFiscal'] }}</a>
+        </li>
+        <li class="show-loader-top
+            {% if content['configuration']['Contacto'] is defined and content['configuration']['Contacto'] == true %}completed{% endif %}
+            {% if content['current_step'] == "contacto" %}current-step{% endif %}
+            "
+            ><a href="{{ path('wizard_contacto') }}"><i class="btn-floating waves-effect waves-light">4</i>{{ content['general_text']['sas_contacto'] }}</a></li>
+        <li class="show-loader-top
+            {% if content['configuration']['Evento'] is defined and content['configuration']['Evento'] == true %}completed{% endif %}
+            {% if content['current_step'] == "evento" %}current-step{% endif %}
+            "
+            ><a href="{{ path('wizard_evento') }}"><i class="btn-floating waves-effect waves-light">5</i> {{ content['general_text']['sas_evento'] }}</a></li>
+        <li class="show-loader-top
+            {% if content['configuration']['Edicion'] is defined and content['configuration']['Edicion'] == true %}completed{% endif %}
+            {% if content['current_step'] == "edicion" %}current-step{% endif %}
+            "
+            ><a href="{{ path('wizard_edicion') }}"><i class="btn-floating waves-effect waves-light">6</i> {{ content['general_text']['sas_edicion'] }}</a></li>
+        <li class="show-loader-top
+            {% if content['configuration']['Producto'] is defined and content['configuration']['Producto'] == true %}completed{% endif %}
+            {% if content['current_step'] == "producto" %}current-step{% endif %}
+            "
+            ><a href="{{ path('wizard_producto') }}"><i class="btn-floating waves-effect waves-light">7</i> {{ content['general_text']['sas_productos'] }}</a></li>
+        <li class="show-loader-top
+            {% if content['configuration']['Usuario'] is defined and content['configuration']['Usuario'] == true %}completed{% endif %}
+            {% if content['current_step'] == "usuario" %}current-step{% endif %}
+            "
+            ><a href="{{ path('wizard_usuario') }}"><i class="btn-floating waves-effect waves-light">8</i> {{ content['general_text']['sas_cuentas'] }}</a></li>
+    </ol>
+    <div class="container z-depth-1">
+        <div class="wizard-content">{% block content_step %}{% endblock %}</div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $("a[href='{{ path("wizard") }}']").addClass("active selected").parent("li").addClass("active");
+    </script>
+{% endblock %}

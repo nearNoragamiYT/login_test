@@ -1,0 +1,23 @@
+show_dashboard_rs:
+    path:     /show-dashboard/adminRS
+    defaults: { _controller: ShowDashboardRSAdminRSBundle:Default:admin }
+    
+estado_sistema_rs:
+    path:     /show-dashboard/estadoRS
+    defaults: { _controller: ShowDashboardRSAdminRSBundle:Default:estado }
+    
+update_sistema_rs:
+    path:     /show-dashboard/ActualizaEstadoRS
+    defaults: { _controller: ShowDashboardRSAdminRSBundle:Default:UpdateEstado }
+
+delete_sistema_rs:
+    path:     /show-dashboard/deleteEstadoRS
+    defaults: { _controller: ShowDashboardRSAdminRSBundle:Default:DeleteEstado }
+    
+update_general_sistema_rs:
+    path:     /show-dashboard/update-general
+    defaults: { _controller: ShowDashboardRSAdminRSBundle:Default:UpdateGeneral }
+    
+get_general_configuracion_rs:
+    path:     /show-dashboard/get-configuracion
+    defaults: { _controller: ShowDashboardRSAdminRSBundle:Default:getConfiguracion }    

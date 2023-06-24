@@ -1,0 +1,7 @@
+empresa_empresa_comercial:
+    path:     /empresa/empresa-comercial/{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaComercialBundle:EmpresaComercial:comercialCompany, idEmpresa: 0}
+
+empresa_empresa_comercial_guardar:
+    path:     /empresa/empresa-comercial-guardar
+    defaults: { _controller: EmpresaEmpresaComercialBundle:EmpresaComercial:saveComercialCompany }

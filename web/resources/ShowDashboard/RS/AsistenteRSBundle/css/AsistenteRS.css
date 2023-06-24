@@ -1,0 +1,35 @@
+.edition-section-title{
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 1.1rem;
+    display: block;
+    width: 100%;
+    padding: 10px 0px;
+    text-transform: uppercase;
+    background: rgba(221, 221, 221, 0.38);
+}
+.co-logo{
+    width: 50% !important;
+    height: 50% !important;
+}
+
+.img-lang{
+    width: 20px !important;
+}
+
+#HeaderAsistente {
+    margin-top: -17px;
+    margin-bottom: -34px;
+    font-size: 18px;
+}
+/*#ColorHeader {
+    border-radius: 18px;
+    padding: 20px; 
+    width: 200px;
+    height: 15px;    
+}
+#ColorButton {
+    border-radius: 18px;
+    padding: 20px; 
+    width: 200px;
+    height: 15px;    
+}*/

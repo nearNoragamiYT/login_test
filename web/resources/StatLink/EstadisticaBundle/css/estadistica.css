@@ -1,0 +1,32 @@
+main{
+    background-color: white;
+}
+
+#chart{
+    padding-top: 20px;
+    width: inherit;
+    margin: auto auto 0 auto;
+}
+
+#geochart{
+    padding-top: 20px;
+    width: border-box;
+    margin: auto auto 0 120px;
+}
+.container{
+    width: inherit !important;
+}
+@media (max-width : 992px) {
+    .form-control.input-sm{
+        width: 55% !important;
+        margin-right: 5%;
+    }
+    #chart{
+        margin: auto auto 0 50px;
+    }
+    #geochart{
+        padding-top: 20px;
+        width: inherit;
+        margin-left: 2%;
+    }
+}

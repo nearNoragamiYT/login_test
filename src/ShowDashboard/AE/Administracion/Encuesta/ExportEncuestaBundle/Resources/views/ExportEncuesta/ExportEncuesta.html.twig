@@ -1,0 +1,91 @@
+{% extends 'ShowDashboardAEAdministracionConfiguracionBundle:Base:baseAdministracion.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/AE/Administracion/Encuesta/ExportEncuestaBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/ExportEncuesta.css') }}"/>
+{% endblock %}
+{% block content %}
+    <h5>{{ content['section_text']['ae_exportarEncuesta'] }} <b>{{ content['edicion']['Edicion_' ~ lang|upper] }}</b></h5>
+    <div class="row">
+        <div class="col s6 m4 l3">
+            <div class="card horizontal">
+                <div class="img_card card-image">
+                    <img src="{{ asset('images/excel.png') }}">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p>{{ content['section_text']['ae_encuesta'] }}</p>
+                    </div>
+                    <div class="card-action right-align sinborder">
+                        <a class="waves-effect waves-light btn green" href="{{ path('quiz') }}">{{ content['section_text']['ae_descargar'] }}</a>
+                    </div>
+                </div>         
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card horizontal">
+                <div class="img_card card-image">
+                    <img src="{{ asset('images/excel.png') }}">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p>{{ content['section_text']['ae_pregunta'] }}</p>
+                    </div>
+                    <div class="card-action right-align sinborder">
+                        <a class="waves-effect waves-light btn green" href="{{ path('preg') }}">{{ content['section_text']['ae_descargar'] }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card horizontal">
+                <div class="img_card card-image">
+                    <img src="{{ asset('images/excel.png') }}">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p>{{ content['section_text']['sas_respuesta'] }}</p>
+                    </div>
+                    <div class="card-action right-align sinborder">
+                        <a class="waves-effect waves-light btn green" href="{{ path('resp') }}">{{ content['section_text']['ae_descargar'] }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card horizontal">
+                <div class="img_card card-image">
+                    <img src="{{ asset('images/excel.png') }}">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p>{{ content['section_text']['ae_ap'] }}</p>
+                    </div>
+                    <div class="card-action right-align sinborder">
+                        <a class="waves-effect waves-light btn green" href="{{ path('ap') }}">{{ content['section_text']['ae_descargar'] }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card horizontal">
+                <div class="img_card card-image">
+                    <img src="{{ asset('images/excel.png') }}">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p>{{ content['section_text']['ae_valp'] }}</p>
+                    </div>                    
+                    <div class="card-action right-align sinborder">
+                        <a class="waves-effect waves-light btn green" href="{{ path('valp') }}">{{ content['section_text']['ae_descargar'] }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

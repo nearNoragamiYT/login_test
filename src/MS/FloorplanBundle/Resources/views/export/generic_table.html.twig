@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>    
+        <table>
+            <thead>
+                <tr>
+                    {% for column in columns %}
+                        <th style="border: 1px solid #ccc">{{ column }}</th>
+                        {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in rows %}
+                    <tr>      
+                        {% for field in record %}
+                            <td style="border: 1px solid #ccc">{{ field }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>           
+        </table>
+    </body>
+</html>

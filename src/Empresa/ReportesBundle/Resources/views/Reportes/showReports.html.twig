@@ -1,0 +1,87 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/ReportesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/reportes.css') }}" media="screen,projection">
+
+    <style>
+        table.striped.table-bordered.nowrap.no-footer.dataTable.DTFC_Cloned{
+            margin-top: 0px!important;
+            margin-bottom: 0px!important;
+        }
+        .DTFC_LeftWrapper{
+            top: 6px!important;
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row" style="margin-bottom:-55px">
+            <div class="col s6 left"> <h5>{{content['title']}}</h5></div>
+            <div class="col s6 right"><a href="{{ path(content['path'], {status: 'descargar'}) }}" id="dowload-report" class="btn waves-light green right">
+                    <i class="material-icons">file_download</i> {{content['section_text']['sas_descargar']}}
+                </a>
+                <a href="{{ path('empresa_reportes') }}" id="return" class="btn btn-flat waves-effect blue-text waves-gray right">
+                    <i class="material-icons">keyboard_return</i> {{content['section_text']['sas_regresar']}}
+                </a></div>
+        </div>
+        <div class="row col s9 input-field" style="float:left; top:59px;left:12px;">
+            <select class="col s9" id="colfixed">
+                <option value="0" disabled selected>Columnas Fijas</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            <label>Columnas Fijas</label>
+        </div>
+        <div class="row col s12" id="view-report" style="display:none;margin-bottom: -20px;" >
+            <div id="content-table" class="col s12" >
+                <table id="table-report" class="table striped table-bordered nowrap" cellspacing="0" width="100%" style="background-color: #FFFFFF;border: 2px;">
+                    <thead id="header" style="color:white;background: #3f5364">
+                        <tr>
+                            {% for header in content["headers"] %}
+                                <th>{{ header }}</th>
+                                {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contact in content["data"] %}
+                            <tr>
+                                {% for key, value in contact %}
+                                    <td> {{ value }} </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <br>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+                general_text = {{ content['general_text']|json_encode()|raw }},
+                section_text ={{ content['section_text']|json_encode()|raw }} ;
+                var headers = {{content['headers']|json_encode()|raw}};
+                var data = {{content['data']|json_encode()|raw}};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/reportes.js') }}"></script>
+{% endblock %}
+

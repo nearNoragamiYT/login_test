@@ -1,0 +1,41 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 15, 2016, 3:33:17 PM
+    Author     : Jesus
+*/
+
+#tbl-module .tooltipped{
+    cursor: default;
+}
+
+.dd .progress{
+    margin: 0px;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+}
+
+.dd .progress + div{
+    opacity: 0.5;
+}
+
+.dd-item .dd-expand{
+    display: none;
+}
+
+.dd-item.dd-collapsed .dd-collapse{
+    display: none;
+}
+
+.dd-item.dd-collapsed .dd-expand{
+    display: inline-block;
+}
+
+.edit-modulo{
+    font-size: 20px;
+    cursor: pointer;
+}

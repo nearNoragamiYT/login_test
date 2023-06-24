@@ -1,0 +1,75 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/CRM/AsesoresComercialesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/asesores_comerciales.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div id="commertial-advisors" class="container-fluid">
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <h5 class="title">{{content['section_text']['sas_asesoresComerciales']}}</h5>
+            <div class="col s12 right-align">
+                <span id="show-modal-adviser" class="btn waves-effect waves-light green text-white">{{content['section_text']['sas_agregarAsesor']}}</span>
+            </div>
+            <div class="col s12">
+                <table id="commertial-advisors-table">
+                    <thead class="grey lighten-2">
+                        <tr>
+                            <th data-orderable="false">{{content['section_text']['sas_activo']}}</th>
+                            <th>{{content['section_text']['sas_nombreCompleto']}}</th>
+                            <th>{{content['general_text']['sas_email']}}</th>
+                            <th>{{content['general_text']['sas_telefono']}}</th>
+                            <th>{{content['section_text']['sas_numeroEmpresas']}}</th>
+                            <th data-orderable="false">{{content['general_text']['sas_editar']}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asesor in content['asesoresComerciales'] %}
+                            {% set checked = "" %}
+                            <tr id="tr-{{asesor['idUsuario']}}">
+                                <td>
+                                    {% if asesor['Activo'] is defined and asesor['Activo'] == 1  %}
+                                        {% set checked = 'checked="checked"' %}
+                                    {% endif %}
+                                    <div class="switch">
+                                        <label>
+                                            {{content['general_text']['sas_no']}}
+                                            <input data-id="{{asesor['idUsuario']}}" class="actived-adviser" type="checkbox" {{checked}} value="1">
+                                            <span class="lever"></span>
+                                            {{content['general_text']['sas_si']}}
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>{{asesor["Nombre"]}}</td>
+                                <td>{{asesor["Email"]}}</td>
+                                <td>{{asesor["Telefono"]}}</td>
+                                <td>{{asesor["CantidadEmpresas"]}}</td>
+                                <td><i class="material-icons edit-record" data-id="{{asesor['idUsuario']}}">edit</i></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% include 'ShowDashboardCRMAsesoresComercialesBundle:AsesoresComerciales:modal_asesor_comercial.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_add_edit_advisor = "{{ path('show_dashboard_crm_asesores_comerciales_agregar_editar') }}";
+        var url_actived_advisor = "{{ path('show_dashboard_crm_asesores_comerciales_activar') }}";
+        var advisors
+        ={{content["asesoresComerciales"]|json_encode()|raw}} ;
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/asesores_comerciales.js') }}"></script>
+{% endblock %}
+

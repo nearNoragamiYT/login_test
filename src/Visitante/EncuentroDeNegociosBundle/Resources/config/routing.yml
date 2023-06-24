@@ -1,0 +1,48 @@
+encuentro_negocios:
+    path:     /encuentro_negocios
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:encuentros}
+    
+
+visitante_encuentros:
+    path:     /visitante/encuentros/{idVisitante}
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:showEncuentros, idVisitante: 0 }
+
+visitante_encuentros_update_status:
+    path:     /visitante/encuentros-update-status
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:updateStatusEncuentros}
+
+get_encuentros:
+    path:     /get-data-encuentros
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:getDataTable }
+    
+update_encuentros:
+    path:     /update-encuentros
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:updateStatusEncuentrosList }    
+    
+encuentros_email_rechazo:
+    path:     /email_rechazo
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:emailRechazo}
+    
+encuentros_email_confirmacion:
+    path:     /email_validacion
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:emailConfirmacion}    
+        
+encuentros_export_encuentros:
+    path:     /export-data-encuentros
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundleEncuentroDeNegocios:exportDataTable }    
+
+encuentros_send_digibage:
+    path:     /send-digibage
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:sendDigibage }
+
+encuentros_descargar_gafete:
+    path:    /download-gafete
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:downloadDigibadge }
+
+encuentros_update_status:
+    path:    /update-status-encuentro
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:updateEncuentro }
+    
+encuentros_update_status_cancelar:
+    path:    /update-status-encuentro-cancelar
+    defaults: { _controller: VisitanteEncuentroDeNegociosBundle:EncuentroDeNegocios:updateEncuentroCancelar }

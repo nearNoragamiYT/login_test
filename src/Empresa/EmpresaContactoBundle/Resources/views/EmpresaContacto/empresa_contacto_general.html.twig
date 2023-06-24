@@ -1,0 +1,125 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaContactoBundle/' %}
+{% set menu = 'general' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_contacto.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% include 'EmpresaEmpresaBundle:Empresa:menu_secciones.html.twig' %}
+    <div id="contacts" class="container contacts">
+        {% include 'EmpresaEmpresaBundle:Empresa:detalle_empresa.html.twig' %}
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <h5 style="margin: 0px;">
+                {{content['section_text']['sas_contactosGenerales']}}
+                <a id="add-contact" class="btn waves-effect waves-light green right">{{ content["section_text"]["sas_agregarContacto"] }}</a>
+            </h5>
+            <table id="contacts-table" class="highlight bordered">
+                <thead class="grey lighten-4">
+                    <tr>
+                        {% for header in content["contact_metadata"] %}
+                            {% if header["is_visible"] == true %}
+                                <th>{{ header["text"] }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        <th style="width: 5%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in content["contacts"] %}
+                        <tr id="{{contact['idContacto']}}">
+                            {% for key, value in contact %}
+                                {% if content["contact_metadata"][key] is defined and content["contact_metadata"][key]["is_visible"] == true %}
+                                    {%if content["contact_metadata"][key]["values"] is defined%}
+                                        <td> {{ content["contact_metadata"][key]["values"][value]}} </td>
+                                    {% else %}
+                                        <td> {{ value }} </td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content['general_text']['sas_editar'] }}" data-id="{{contact['idContacto']}}">mode_edit</i>
+                                <i class="material-icons delete-record tooltipped" data-position="right" data-delay="50" data-tooltip="{{ content['general_text']['sas_eliminar'] }}" data-id="{{contact['idContacto']}}">delete_forever</i>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    {#---
+        <div class="fixed-action-btn" style="bottom: 60px; right: 30px;">
+        <a class="btn-floating btn-large green tooltipped"
+        id="add-contact"
+        data-tooltip="{{ content["section_text"]["sas_agregarContacto"] }}"
+        data-position="left"
+        data-delay="50"
+        >
+        <i class="material-icons">add</i>
+        </a>
+        </div>
+    ---#}
+    <div id="delete-record-modal" class="modal">
+        <div class="modal-content">
+            <h6>{{content['section_text']['sas_eliminarRegistro']}}</h6>
+            <p id="deleteText"></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+            <button id="delete-record" type="button" class="modal-action waves-effect waves-red btn-flat red white-text" data-action="delete">{{content['general_text']['sas_eliminar']}}</button>
+        </div>
+    </div>
+    {% include 'EmpresaEmpresaContactoBundle:EmpresaContacto:agregar_editar_contacto_general.html.twig' %}
+    {% include 'EmpresaEmpresaContactoBundle:EmpresaContacto:cambiar_contacto_principal.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_contact_add = "{{ path('empresa_empresa_contacto_agregar') }}";
+        var url_contact_update = "{{ path('empresa_empresa_contacto_editar') }}";
+        var url_contact_delete = "{{ path('empresa_empresa_contacto_borrar') }}";
+        var url_contact_change = "{{ path('empresa_empresa_contacto_cambiar') }}";
+    </script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                var general_text = {{ content['general_text']|json_encode()|raw }};
+                var section_text = {{ content['section_text']|json_encode()|raw }};
+                var contacts = {{ content['contacts']|json_encode()|raw }};
+                var menu = {{ menu|json_encode()|raw  }};
+                var idEmpresa = {{ content["idEmpresa"]|json_encode()|raw }};
+        {% if content["header"]["idEtapa"] is defined %}
+            var idEtapa = {{ content["header"]["idEtapa"]|json_encode()|raw }};
+        {% else %}
+            var idEtapa = "";
+        {% endif %}
+        {% if content['Adicional'] is defined and content['Adicional'] == true %}
+            $(document).find('input, textarea, button, select, option').not('#confirm-cancel, .x-close').attr('disabled', true);
+            $(document).find('.modal .waves-green, .delete-record, .green').addClass('no-action');
+            var items = document.getElementsByClassName('no-action');
+            $.each(items, function (i, v) {
+                var id = $(this).attr('id');
+                if (id !== undefined) {
+                    document.getElementById(id).addEventListener('click', function (e) {
+                        e.stopPropagation();
+                    }, true);
+                } else {
+                    v.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                    }, true);
+                }
+            });
+        {% endif %}
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_contacto.js') }}"></script>
+{% endblock %}
+

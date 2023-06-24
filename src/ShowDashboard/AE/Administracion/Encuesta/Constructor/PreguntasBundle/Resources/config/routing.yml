@@ -1,0 +1,19 @@
+show_dashboard_ae_administracion_encuesta_constructor_preguntas:
+    path:     /show-dashboard/ae/administracion/encuesta/{idEncuesta}/preguntas/{lang}
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaConstructorPreguntasBundle:Preguntas:preguntas, lang: es }
+    requirements:
+        lang: es|en
+
+show_dashboard_ae_administracion_encuesta_constructor_pregunta_eliminar:
+    path:     /show-dashboard/ae/administracion/encuesta/{idEncuesta}/pregunta/eliminar/{lang}
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaConstructorPreguntasBundle:Preguntas:eliminarPregunta, lang: es }
+    requirements:
+        lang: es|en
+
+show_dashboard_ae_administracion_encuesta_constructor_respuesta_eliminar:
+    path:     /show-dashboard/ae/administracion/encuesta/respuesta/eliminar
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaConstructorPreguntasBundle:Preguntas:eliminarRespuesta }
+
+show_dashboard_ae_administracion_encuesta_constructor_reordenar:
+    path:     /show-dashboard/ae/administracion/encuesta/reordenar
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaConstructorPreguntasBundle:Preguntas:reordenar }

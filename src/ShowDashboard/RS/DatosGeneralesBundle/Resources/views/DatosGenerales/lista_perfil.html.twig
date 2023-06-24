@@ -1,0 +1,93 @@
+{# empty Twig template #}
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/RS/DatosGeneralesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/fixedColumns.dataTables.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/visitante_perfil.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col s12 m9 l10">
+            <div id="menu-slide" class="fixed-action-btn horizontal" style="display: none;">
+                <a data-activates="slide" class="btn-floating btn-collapse blue btn-large waves-effect"><i class="material-icons">menu</i></a>
+            </div>
+        </div>
+    </div>    
+    <div id="visitor" class="container-fluid">
+        <div id="slide-list-div" style="margin-top: 10px">
+            <div class="row">
+                <div id="cover-table" class="col-xs-12">
+                    <div id="leyend" class="div-dinamic-table">{{content['section_text']['sas_filtroLeyenda']}}</div>
+                    <div id="div-dinamic-table" class="div-dinamic-table">
+                        <div class="row" id="tab-dmmografic">   
+                            <div class="col s12">
+                                <ul class="tabs">                                    
+                                    <li class="tab col s2"><a id="tab" class="active" href="#tab_id">Tabla</a></li>
+                                    <li class="tab col s2"><a id="graphics"  href="#graficas-swipe">Estadisticas</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="graficas-swipe" ></div>
+                        <table id="tbl-demografic" class="highlight">
+                            <thead>
+                                <tr>                                     
+                                    <th class="center-align" colspan="{{ content['filtros_generales']|length }}"></th>
+                                        {% for pregunta in content['encuesta']['encuesta'] %}
+                                        <th class="center-align" style="border-left: 2px solid #D0D0D0" colspan="{{ pregunta['PreguntaAbierta'] ? pregunta['Respuestas']|length + 1 : pregunta['Respuestas']|length }}">
+                                            {{ pregunta['Pregunta' ~ content['lang']|upper] }}</th>
+                                        {% endfor %}
+                                </tr>
+                                <tr>
+                                    {% for filtro in content['filtros_generales'] %}
+                                        <th> {{ filtro['text'] }}</th>   
+                                        {% endfor %}
+                                        {% for pregunta in content['encuesta']['encuesta'] %}
+                                            {% for key, respuesta in pregunta['Respuestas'] %}                                           
+                                                {% if loop.index == 1 %}
+                                                <th style="border-left: 2px solid #D0D0D0; padding-left: 10px;">{{ respuesta['Respuesta' ~ content['lang']|upper] }}</th>
+                                                {% else %}
+                                                <th>{{ respuesta['Respuesta' ~ content['lang']|upper] }}</th>
+                                                {% endif %}
+                                                {{ respuesta['RespuestaAbierta'] == 1 ? "<th>Respuesta Abierta</th>" }}
+                                            {% endfor %}
+                                        {% endfor %}
+                                </tr> 
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <ul class="side-nav" id="slide" >
+        <li><a class="waves-effect" href="#"><i class="material-icons icon-user">face</i>Perfil Vistante</a></li>
+        <li><div class="divider"></div></li>
+    </ul>                                 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var lang = {{ content['lang']|json_encode()|raw }};
+                var filtros = {{ content['filtros_generales']|json_encode()|raw }};
+                var encuesta = {{ content['encuesta']|json_encode()|raw }};
+        var url_get_dt = "{{ path("visitante_perfil_getdatatable_rs") }}";
+        var url_get_stats = "{{ path("visitante_perfil_stats_rs") }}";
+        var url_lang = "{{ asset('js/dataTablesLang/' ~ lang ~ '.json') }}";
+                var texto_perfil = {{ content['section_text']|json_encode()|raw }};
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.fixedColumns.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/visitante_perfil.js') }}"></script>
+{% endblock %}
+

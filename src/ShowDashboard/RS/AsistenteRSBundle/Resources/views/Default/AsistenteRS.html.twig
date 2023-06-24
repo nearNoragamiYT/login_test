@@ -1,0 +1,325 @@
+{% extends '::base_dashboard.html.twig' %}
+
+{% set asset_path = 'resources/ShowDashboard/RS/AsistenteRSBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/AsistenteRS.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/colorpicker.css') }}" media="screen,projection"/>
+    {#    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/layout.css') }}" media="screen,projection"/>#}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-content">
+                <form id="configuracionEdicion" enctype="multipart/form-data">
+                    <div class="card-panel blue-grey" id="">
+                        <span class="card-title white-text center" id="HeaderAsistente">{{content['general_text']['sas_ConfigEdicion']}}</span>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <select id="idEdicion" name="idEdicion" disabled>
+                                <option value="" disabled selected>{{content['general_text']['sas_SeleccioneEdicion']}}</option>
+                                {% for Edicion in content['Edicion'] %}
+                                    <option value="{{Edicion['idEdicion']}}"{% if content['Configuracion']['idEdicion'] is defined and content['Configuracion']['idEdicion'] == Edicion['idEdicion'] %}selected="selected" {% endif %}>{{Edicion['Edicion_ES']}}</option>
+                                {% endfor %}
+                            </select>
+                            <label>{{content['general_text']['sas_Edicion']}}</label>{# demo-component-example  demo-component #}
+                        </div>
+                        <div class="input-field col s4">
+                            <input placeholder="Nombre abreviado de la Edici�n" id="Abreviatura"name="Abreviatura" type="text" class="validate" value="{% if content['Configuracion']['Abreviatura'] is defined %}{{ content['Configuracion']['Abreviatura'] }}{% endif %}">
+                            <label for="EdicionAbreviada">{{content['general_text']['sas_NombreEdicion']}}</label>
+                        </div>
+                        {# Color inputs #}
+                        <div class="input-field col s4">
+                            <input id="ColorHeader" name="ColorHeader" type="text" class="color" 
+                                   readonly="readonly">
+                            <label for="ColorFondoHeader" class="active label-color">{{content['general_text']['sas_ColorHeader']}}</label>
+                        </div>
+                    </div>                                
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input type="text" class="datepicker" id="FechaInicio" name="FechaInicio" placeholder="Fecha de Inicio"
+                                   value="{% if content['Configuracion']['FechaInicio'] is defined %}{{ content['Configuracion']['FechaInicio'] }}{% endif %}">                        
+                            <label for="FechaInicio">{{content['general_text']['sas_FechaInicio']}}</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input type="text" class="datepicker" id="FechaFin" name="FechaFin" placeholder="Fecha de Termino"
+                                   value="{% if content['Configuracion']['FechaFin'] is defined %}{{ content['Configuracion']['FechaFin'] }}{% endif %}">
+                            <label for="FechaFin">{{content['general_text']['sas_FechaTermino']}}</label>
+                        </div>                    
+                        <div class="input-field col s4">
+                            <input placeholder="Llave de Encriptaci�n" id="LlaveEncriptacion"name="LlaveEncriptacion" type="text" class="validate"
+                                   value="{% if content['Configuracion']['KeyEncriptacion'] is defined %}{{ content['Configuracion']['KeyEncriptacion'] }}{% endif %}" 
+                                   hidden>
+                            <label for="keyEncriptacion" hidden>{{content['general_text']['sas_Encriptacion']}}</label>
+                        </div>
+                        {# second color picker #}
+                        <div class="input-field col s4">
+                            <input id="ColorButton" name="ColorButton" type="text" class="color" value="{% if content['Configuracion']['ColorButton'] is defined %}{#{{content['Configuracion']['ColorButton']}}#}{% else %}{% endif %}" readonly="readonly">
+                            <label for="ColorFondo" class="active label-color">{{content['general_text']['sas_ColorButton']}}</label>
+                        </div>
+                        {#<button type="button" class="btn btn-sm waves-effect waves-light right btn-generate-encryption-key">
+                            Generar
+                            <i class="material-icons left">enhanced_encryption</i>
+                        </button> #}                                                                                                                                                                                                                                                                                                                              
+                    </div>
+                    <div class="row">
+                        {#<form class="col s12">#}
+                        <div class="input-field col s12">
+                            <textarea id="Descripcion" name="Descripcion" class="materialize-textarea" value="{% if content['Configuracion']['Descripcion'] is defined  and content['Configuracion']['Descripcion'] != ''%}{{ content['Configuracion']['Descripcion'] }}{% endif %}"></textarea>
+                            <label for="Descripcion">{{content['general_text']['sas_DescripcionEvento']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">{#seccion español#}
+                        <div class="edition-section-title">
+                            <img src="{{asset('images/logos-co/mexico.png')}}" alt="es" class="img-lang" id="mexFlag">
+                            <label> Español</label>
+                            <div class="switch right">
+                                <label>
+                                    <input type="checkbox" checked disabled>
+                                    <span class="lever">
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">                                  
+                        <div class="col s12">                        
+                            <div class="col s4  input-field">
+                                <div class="content-image-preview col s12">
+                                    <img id="preview-image-1-es" src="{% if content['Configuracion']['Logo_ES_1'] is defined and content['Configuracion']['Logo_ES_1'] != "" %}{{ asset( 'images/logos-co/' ~ content['Configuracion']['Logo_ES_1'])}}{% else %} {{ asset('images/no-image.png') }}{% endif %}"alt="Logo" class="co-logo">
+                                </div>
+                                <div class="file-field input-field col s12">
+                                    <div class="btn btn-medium col s12 m3">
+                                        <span>Logotipo</span>
+                                        <input type="file" id="Logo_Es_1" name="Logo_Es_1"class="validate"rel-preview="preview-image-1-es">
+                                    </div>
+                                    <div class="file-path-wrapper col s12 m9">
+                                        <input id="Logo_Es_1_name" name="Logo_Es_1_name" class="file-path validate" type="text"{% if content['Configuracion']['Logo_ES_1'] is defined and content['Configuracion']['Logo_ES_1'] != "" %} value="{{ content['Configuracion']['Logo_ES_1'] }}"{% endif %}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s4  input-field">
+                                <div class="content-image-preview col s12">
+                                    <img id="preview-image-2-es" src="{% if content['Configuracion']['Logo_ES_2'] is defined%}{% if content['Configuracion']['Logo_ES_2'] != "" %}{{ asset( 'images/logos-co/' ~ content['Configuracion']['Logo_ES_2'])}}{% else %}{{ asset('images/no-image.png') }}{% endif %}{% else %}{{ asset('images/no-image.png') }} {% endif %}"alt="Logo" class="co-logo">
+                                </div>
+                                <div class="file-field input-field col s12">
+                                    <div class="btn btn-medium col s12 m3">
+                                        <span>Logotipo</span>
+                                        <input type="file" id="Logo_Es_2" name="Logo_Es_2" class="validate" rel-preview="preview-image-2-es">
+                                    </div>
+                                    <div class="file-path-wrapper col s12 m9">
+                                        <input id="Logo_Es_2_name" class="file-path validate" type="text"{% if content['Configuracion']['Logo_ES_2'] is defined and content['Configuracion']['Logo_ES_2'] != "" %}value="{{ content['Configuracion']['Logo_ES_2'] }}"{% endif %}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s4  input-field">
+                                <div class="content-image-preview col s12">
+                                    <img id="preview-image-3-es" src="{% if content['Configuracion']['Logo_ES_3'] is defined%}{% if content['Configuracion']['Logo_ES_3'] != "" %}{{ asset( 'images/logos-co/' ~ content['Configuracion']['Logo_ES_3'])}}{% else %}{{ asset('images/no-image.png') }}{% endif %}{% else %}{{ asset('images/no-image.png') }}{% endif %}" alt="Logo" class="co-logo">
+                                </div>
+                                <div class="file-field input-field col s12">
+                                    <div class="btn btn-medium col s12 m3">
+                                        <span>Logotipo</span>
+                                        <input type="file" 
+                                               id="Logo_Es_3" 
+                                               name="Logo_Es_3"
+                                               class="validate"
+                                               rel-preview="preview-image-3-es"
+                                               >
+                                    </div>
+                                    <div class="file-path-wrapper col s12 m9">
+                                        <input id="Logo_Es_3_name" 
+                                               class="file-path validate" 
+                                               type="text"
+                                               {% if content['Configuracion']['Logo_ES_3'] is defined and content['Configuracion']['Logo_ES_3'] != "" %}
+                                                   value="{{ content['Configuracion']['Logo_ES_3'] }}"
+                                               {% endif %}
+                                               >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {#seccion ingles#}                                               
+                    <div class="row">
+                        <div class="edition-section-title">
+                            <img src="{{asset('images/logos-co/eu.png')}}" alt="en" class="img-lang">
+                            Ingles
+                            <div class="switch right">
+                                <label>
+                                    <input type="checkbox" id="enCheckbox" class="enCheckbox" value="" {% if content['Configuracion']['Edicion_EN'] is defined and content['Configuracion']['Edicion_EN'] != null %}checked {% else %} unchecked {% endif %}>
+                                    <span class="lever">
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {#...#}
+                    <div class="row" id="rowEn">
+                        <div class="col s12">                        
+                            <div class="col s4  input-field">
+                                <div class="content-image-preview col s12">
+                                    <img id="preview-image-1-en" 
+                                         src="{% if content['Configuracion']['Logo_EN_1'] is defined and content['Configuracion']['Logo_EN_1'] != "" %}
+                                         {{ asset( 'images/logos-co/' ~ content['Configuracion']['Logo_EN_1'])}}
+                                         {% else %} 
+                                             {{ asset('images/no-image.png') }} 
+                                             {% endif %}" 
+                                                 alt="Logo" 
+                                                 class="co-logo"
+                                                 >
+                                         </div>
+                                         <div class="file-field input-field col s12">
+                                             <div class="btn btn-medium col s12 m3">
+                                                 <span>Logotipo</span>
+                                                 <input type="file" 
+                                                        id="Logo_En_1" 
+                                                        name="Logo_En_1"
+                                                        class="validate"
+                                                        rel-preview="preview-image-1-en"
+                                                        >
+                                             </div>
+                                             <div class="file-path-wrapper col s12 m9">
+                                                 <input id="Logo_En_1_name" 
+                                                        name="Logo_En_1_name"
+                                                        class="file-path validate" 
+                                                        type="text"
+                                                        {% if content['Configuracion']['Logo_ES_1'] is defined and content['Configuracion']['Logo_ES_1'] != "" %}
+                                                            value="{{ content['Configuracion']['Logo_ES_1'] }}"
+                                                        {% endif %}
+                                                        >
+                                             </div>
+                                         </div>
+                                    </div>
+                                    <div class="col s4  input-field">
+                                        <div class="content-image-preview col s12">
+                                            <img id="preview-image-2-en" 
+                                                 src="{% if content['Configuracion']['Logo_EN_2'] is defined%}
+                                                 {% if content['Configuracion']['Logo_EN_2'] != "" %}
+                                                     {{ asset( 'images/logos-co/' ~ content['Configuracion']['Logo_EN_2'])}}
+                                                 {% else %}
+                                                     {{ asset('images/no-image.png') }}
+                                                 {% endif %}
+                                                 {% else %}
+                                                     {{ asset('images/no-image.png') }} 
+                                                     {% endif %}" 
+                                                         alt="Logo" 
+                                                         class="co-logo"
+                                                         >
+                                                 </div>
+                                                 <div class="file-field input-field col s12">
+                                                     <div class="btn btn-medium col s12 m3">
+                                                         <span>Logotipo</span>
+                                                         <input type="file" 
+                                                                id="Logo_En_2" 
+                                                                name="Logo_En_2"
+                                                                class="validate"
+                                                                rel-preview="preview-image-2-en"
+                                                                >
+                                                     </div>
+                                                     <div class="file-path-wrapper col s12 m9">
+                                                         <input id="Logo_En_2_name" 
+                                                                class="file-path validate" 
+                                                                type="text"
+                                                                {% if content['Configuracion']['Logo_EN_2'] is defined and content['Configuracion']['Logo_EN_2'] != "" %}
+                                                                    value="{{ content['Configuracion']['Logo_EN_2'] }}"
+                                                                {% endif %}
+                                                                >
+                                                     </div>
+                                                 </div>
+                                            </div>
+                                            <div class="col s4  input-field">
+                                                <div class="content-image-preview col s12">
+                                                    <img id="preview-image-3-en" 
+                                                         src="{% if content['Configuracion']['Logo_EN_3'] is defined%}
+                                                         {% if content['Configuracion']['Logo_EN_3'] != "" %}
+                                                             {{ asset( 'images/logos-co/' ~ content['Configuracion']['Logo_EN_3'])}}
+                                                         {% else %}
+                                                             {{ asset('images/no-image.png') }}
+                                                         {% endif %}
+                                                         {% else %}
+                                                             {{ asset('images/no-image.png') }} 
+                                                             {% endif %}" 
+                                                                 alt="Logo" 
+                                                                 class="co-logo"
+                                                                 >
+                                                         </div>
+                                                         <div class="file-field input-field col s12">
+                                                             <div class="btn btn-medium col s12 m3">
+                                                                 <span>Logotipo</span>
+                                                                 <input type="file" 
+                                                                        id="Logo_En_3" 
+                                                                        name="Logo_En_3"
+                                                                        class="validate"
+                                                                        rel-preview="preview-image-3-en"
+                                                                        >
+                                                             </div>
+                                                             <div class="file-path-wrapper col s12 m9">
+                                                                 <input id="Logo_En_3_name" 
+                                                                        class="file-path validate" 
+                                                                        type="text"
+                                                                        {% if content['Configuracion']['Logo_EN_3'] is defined and content['Configuracion']['Logo_EN_3'] != "" %}
+                                                                            value="{{ content['Configuracion']['Logo_EN_3'] }}"
+                                                                        {% endif %}
+                                                                        >
+                                                             </div>
+                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="nav-buttons">
+                                                <button type="button" class="btn-link waves-effect btn-flat left btn-cancel-submit"> {{content['general_text']['sas_cancelar']}} </button>
+                                                {% if content['Configuracion']['Edicion_ES'] is defined and content['Configuracion']['Edicion_ES'] != '' %}
+                                                    <button id="{{content['Configuracion']['idConfiguracion']}}" class="btn waves-effect waves-light green btnUpdateConfig">{{content['general_text']['sas_Modificar']}}</button>
+                                                {% else %}
+                                                    <button id="btnGuardarConfig" class="btn waves-effect waves-light green">{{content['general_text']['sas_Guardar']}}</button>
+                                                {% endif %}
+
+                                            </div>
+                                            {#                                            <input placeholder="Placeholder" idConfiguracion="" name="idConfiguracion" type="text" value="{{content['Configuracion']['idConfiguracion']}}"class="validate" hidden>#}
+                                        </form>                
+                                    </div>
+                                </div>
+                            </div>
+                            {#                        <input type="hidden" id="idedicion" name="idedicion" value="{{content['Configuracion']['idEdicion']}}"/>#}
+                            {% endblock %}
+                                {% block javascripts %}
+                                    {{ parent() }}
+
+                                    <script type="text/javascript">
+                                        var insert_configuracion
+                                                = "{{path('insert_configuracion_rs')}}"
+                                                ,
+                                                Configuracion
+                                                = {{ content['Configuracion']|length ? content['Configuracion']|json_encode()|raw : '{}' }};
+                                        {% if content['Configuracion']['ColorButton'] is defined  %}
+                                                    ColorButton = "{{content['Configuracion']['ColorButton']}}",
+                                        {% else %}
+                                                    ColorButton = "rgb(255, 255, 255)",
+                                        {% endif %}
+                                        {% if content['Configuracion']['ColorHeader'] is defined  %}
+                                                    ColorHeader = "{{content['Configuracion']['ColorHeader']}}";
+                                        {% else %}
+                                            ColorHeader = "rgb(255, 255, 255)";
+                                        {% endif %}
+
+                                    </script>
+
+                                    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/AsistenteRS.js') }}"></script>                    
+                                    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/colorpicker.js') }}"></script>
+                                    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/eye.js') }}"></script>
+                                    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/layout.js') }}"></script>
+                                    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/utils.js') }}"></script>                
+                                    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+                                    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+                                    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+                                    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+                                    <script type="text/javascript" src="{{asset('js/jqColorPicker.min.js')}}"></script>
+                                    <script type="text/javascript">
+                                        var update_configuracion
+                                                = "{{path('update_configuracion_rs')}}";</script>
+                                {% endblock %}

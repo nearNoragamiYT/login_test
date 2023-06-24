@@ -1,0 +1,110 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/AdministracionGlobal/ComiteOrganizadorBundle/' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/comite_organizador.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5 class="card-title">{{ content['section_text']['sas_informacionCO'] }}</h5>
+        <div class="card-panel z-depth-1">
+            <form id="frm-comite-organizador" action="{{ content['action'] }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" 
+                       id="idComiteOrganizador" 
+                       name="idComiteOrganizador"
+                       {% if content['co']['idComiteOrganizador'] is defined %}
+                           value="{{ content['co']['idComiteOrganizador'] }}"
+                       {% endif %}
+                       >
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="input-field">
+                            <input id="ComiteOrganizador" 
+                                   name="ComiteOrganizador"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['co']['ComiteOrganizador'] is defined %}
+                                       value="{{ content['co']['ComiteOrganizador'] }}"
+                                   {% endif %}
+                                   >
+                            <label for="ComiteOrganizador">{{ content['section_text']['sas_nombreCO'] }}</label>
+                        </div>
+                        {% if content['user']['idTipoUsuario'] in [1,2] %}
+                            <div class="input-field">
+                                <input id="Licencias" 
+                                       name="Licencias"
+                                       type="number" 
+                                       class="validate"
+                                       {% if content['co']['Licencias'] is defined %}
+                                           value="{{ content['co']['Licencias'] }}"
+                                       {% endif %}
+                                       >
+                                <label for="Licencias">{{ content['section_text']['sas_numeroLicencias'] }}</label>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col s12 m6">
+                        <div class="content-image-preview">
+                            {% if content['co']['Logo'] is defined and content['co']['Logo'] != "" %}
+                                <img id="preview-image" 
+                                     src="{{ asset('images/logos-co/' ~ content['co']['Logo']) }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            {% else %}
+                                <img id="preview-image" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            {% endif %}
+                        </div>
+                        <div class="file-field input-field">
+                            <div class="row">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logo</span>
+                                    <input type="file" 
+                                           id="Logo" 
+                                           name="Logo"
+                                           class="validate"
+                                           rel-preview="preview-image"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['co']['Logo'] is defined and content['co']['Logo'] != "" %}
+                                               value="{{ content['co']['Logo'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note">{{ content['section_text']['sas_requisitosLogoCO']|raw }}</div>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <a href="{{ path('comite_organizador') }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['general_text']['sas_atras'] }}</a>
+                    <button type="submit" class="btn waves-effect waves-light green">
+                        {{ content['general_text']['sas_guardar'] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_no_image = "{{ asset('images/no-image.png') }}";
+        var url_image_fail = "{{ asset('images/fail-image.png') }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/comite_organizador.js') }}"></script>
+{% endblock %}

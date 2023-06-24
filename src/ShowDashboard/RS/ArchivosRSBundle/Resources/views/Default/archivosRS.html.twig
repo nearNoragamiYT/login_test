@@ -1,0 +1,70 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set asset_path = 'resources/ShowDashboard/RS/ArchivosRSBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/ArchivosRS.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    {% include 'ShowDashboardRSArchivosRSBundle:Default:menu_archivoRS.html.twig' with {ruta:app.request.attributes.get('_route')} %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-content ">
+                <form id="archivosRS" enctype="multipart/form-data">
+                    <div class="card-panel blue-grey center" id="">
+                        <span class="card-title white-text" id="HeaderArchivosBD">{{content['general_text']['sas_SeleccioneArchivo']}}</span>
+                    </div>
+                    <div class="row">
+                        <div class="col s6  input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="archivo" 
+                                     src="{{ asset('images/no-file.png') }}"
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Archivo</span>
+                                    <input type="file" 
+                                           id="fileSelected" 
+                                           name="fileSelected"
+                                           class="validate"
+                                           rel-preview="preview-image-1-es"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="path"
+                                           name="path"
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-buttons">
+                        <button id="btnSubirArchivo" class="btn waves-effect waves-light green">{{content['general_text']['sas_Subir']}}</button>
+                    </div>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock%}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var insert_archivo
+                = "{{path('insert_archivo_rs')}}";
+        var asset_path_img = '{{ app.request.getBaseURL() }}';
+    </script>
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/ArchivosRS.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}

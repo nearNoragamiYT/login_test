@@ -1,0 +1,47 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-history", "fixed": true, "size": "modal-l", "color": "green", "idButton": "btn-hide-history" } %}
+{% block title %}{{content['section_text']['sas_historial']}}{% endblock %}
+{% block body %}
+    <div class="col s1 btn-emarketing-hitory-export" title="Export Excel"><a href="{{path('empresa_emarketing_history_export', {'id':content['idEMarketing']})}}"><label>{{content['section_text']['sas_exportar']}}</label><img src="{{asset("images/excel.png")}}" class="img-export"></a></div>
+    <table id="tbl-history" class="highlight">
+        <thead>
+            <tr>
+                <th>{{content['section_text']['sas_nombreComercial']}}</th>
+                <th>{{content['section_text']['sas_email']}}</th>
+                <th>{{content['section_text']['sas_copiaOculta']}}</th>
+                <th>{{content['section_text']['sas_estatus']}}</th>
+                <th>{{content['section_text']['sas_fechaEnvio']}}</th>
+                <th>{{content['section_text']['sas_visto?']}}</th>
+                <th>{{content['section_text']['sas_ultimaVista']}}</th>
+                <th>{{content['section_text']['sas_vistas']}}</th>
+                <th>{{content['section_text']['sas_pais']}}</th>
+                <th>{{content['section_text']['sas_region']}}</th>
+                <th>{{content['section_text']['sas_ciudad']}}</th>
+                <th>{{content['general_text']['sas_plataforma']}}</th>
+                <th>{{content['section_text']['sas_navegador']}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in content['historial'] %}
+                <tr>
+                    <td>{{item['DC_NombreComercial']}}</td>
+                    <td>{{item['Email']}}</td>
+                    <td>{{item['CopiaOculta']}} </td>
+                    <td>{% if item['Estatus'] == 1 %}{{content['general_text']['sas_enviado']}}{% else %}{{content['general_text']['sas_falloEnvio']}}{% endif %}</td>
+                    <td>{{item['FechaEnvio']}}</td>
+                    <td>{% if item['Vista'] == true %}{{content['section_text']['sas_si']}}{% else %}{{content['section_text']['sas_no']}}{% endif %}</td>
+                    <td>{{item['FechaUltimaVista']}}</td>
+                    <td>{{item['NumeroVistas']}}</td>
+                    <td>{{item['Pais']}}</td>
+                    <td>{{item['Region']}}</td>
+                    <td>{{item['Ciudad']}}</td>
+                    <td>{{item['Plataforma']}}</td>
+                    <td>{{item['Navegador']}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock %}

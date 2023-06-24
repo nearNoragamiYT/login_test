@@ -1,0 +1,23 @@
+<div class="modal fade" id="formdetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 100%;">
+    <div class="modal-dialog" style="width: 100%;">
+        <div class="modal-content" style="width: 100%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4>
+                    <span style="font-weight: bold;">{{content['textosGenerales']['lb_expositor']}}:</span><span class="exhibitor-name"></span>
+                    <span style="font-weight: bold; margin-left: 30px;">{{content['textosGenerales']['lb_forma']}}:</span><span class="form-name"></span>
+                </h4>
+            </div>
+            <form id="frm-forma">
+                <div class="modal-body" style="overflow: hidden;">
+                    <div id="form-detail-ex" class="col-xs-12">
+                        <iframe id="iframe" class="embed-responsive-item col-xs-12" src="about:blank" style="height: 750px; padding: 15px;"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">{{ content['textosGenerales']['bt_cerrar'] }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

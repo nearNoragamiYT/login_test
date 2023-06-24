@@ -1,0 +1,4 @@
+services:
+#    empresa_empresa_invitaciones.example:
+#        class: Empresa\EmpresaInvitacionesBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

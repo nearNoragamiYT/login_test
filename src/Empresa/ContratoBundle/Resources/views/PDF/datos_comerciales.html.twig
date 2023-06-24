@@ -1,0 +1,136 @@
+{% set contacto = content['contrato']['Contactos'][1] %}
+<tr>
+    <td colspan="4">
+        <table border="1" width="100%">
+            <tr style="background-color: #eee;">
+                <td colspan="5" style="color: black;font-size: 14px;">
+                    {{content['section_text']['sas_informacionComercial']|raw|upper}}
+                </td>
+                <td  colspan="1" style="color: white;font-size: 14px; background-color: black; text-align: center;">
+                    2
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_nombreComercial']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['empresa']['DC_NombreComercial']}}
+                </td>
+            </tr>
+            <tr>
+                {#<td rowspan="2" style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['section_text']['sas_contacto']}} - {{content['section_text']['sas_llenadoDirectorioExpositores']}}
+                </td>#}
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_nombreContacto']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{contacto["Nombre"] ~ " " ~ contacto["ApellidoPaterno"] ~ " " ~ contacto["ApellidoMaterno"]}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_puestoContacto']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{contacto["Puesto"]}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_correo']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{contacto["Email"]}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_dcCalleNum']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['empresa']['DC_CalleNum']}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_colonia']}}
+                </td>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['empresa']['DC_Colonia']}}
+                </td>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_codigoPostal']}}
+                </td>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: left; ">
+                    {{content['empresa']['DC_CodigoPostal']}}
+                </td>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_ciudad']}}
+                </td>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['empresa']['DC_Ciudad']}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_estado']}}
+                </td>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: left; ">
+                    {{content['empresa']['DC_Estado']}}
+                </td>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_pais']}}
+                </td>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['empresa']['DC_Pais']}}
+                </td>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_telefono']}}
+                </td>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: left;">
+                    + {{content['empresa']['DC_TelefonoAreaPais']}} ({{content['empresa']['DC_TelefonoAreaCiudad']}}) {{content['empresa']['DC_Telefono']}}
+                </td>
+                {#---
+                <td  style="color: black;font-size: 10px; text-align: left;">
+                </td>
+                <td colspan="3" style="color: black;font-size: 10px; text-align: left;">
+                </td>
+                 ---#}
+            </tr>
+            <tr>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_paginaWeb']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['empresa']['DC_PaginaWeb']}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" style="font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_categorias']}}
+                </td>
+                {% for cat in content['empresa_categoria'] %}
+                    <td   style="color: black;font-size: 10px; text-align: left; ">
+                        {{cat['NombreCategoria' ~ lang|upper]}}
+                        {% if cat['DC_TextoCategoria'] is defined and cat['DC_TextoCategoria'] != "" %} - {{cat['DC_TextoCategoria']}}{% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td colspan="1" style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_descripcion']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['empresa']['DC_Descripcion' ~ lang|upper]}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" style="color: black;font-size: 10px; text-align: left; display: block;">
+                    {{content['section_text']['sas_notaContratoComercial']|raw}}
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>

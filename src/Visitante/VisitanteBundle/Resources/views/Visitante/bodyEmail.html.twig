@@ -1,0 +1,131 @@
+{# {% set section_block = 'width: 100mm !important;height: 180mm !important;' %} #}
+{% set digi_header = 'width="25%" !important; height="25%" !important;' %}
+{% set digi_footer = 'width= 190px !important; height= 40px !important;' %}
+
+
+{% if app.environment == 'prod' %}
+    {% set path = app.request.baseUrl  ~ '/' %}
+{% else %}
+    {% set path = app.request.baseUrl ~ '/../'   %}
+{% endif %}
+{% set lang = app.session.get('lang') %}
+
+{% block body %}
+    <div class="card-content">
+        <div class=" container">
+            <div class="row left">
+                <div class="col s12">
+                    <div class="col s12 m6">
+                        <img  style="width:100%;" class="responsive-img" src="{{ absolute_url(asset('images/Header_ANTAD_2022.png' )) }}" >
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;font-size: 25px;">{#{{content['template_text']['ae_estimado']}}#} Estimado(a): <b>{{content['datosVis'][0]['NombreCompleto']}}</b>
+            </div>
+            <br>
+            <div >
+                <p>
+                    <label class="lbl-visitor-data">Fecha Registro</label>
+                    <b>{{ content['datosVis'][0]['FechaAlta']|date("m/d/Y") }}</b>
+                </p>
+                {% if content['datosVis'][0]['DE_RazonSocial'] is defined and content['datosVis'][0]['DE_RazonSocial'] != "" %}
+                    <p>
+                        <label class="lbl-visitor-data">Empresa:</label>
+                        {{ content['datosVis'][0]['DE_RazonSocial'] }}
+                    </p>
+                {% endif %}
+                <p>
+                    <label class="lbl-visitor-data">E-mail:</label>
+                    <a href='mailto:{{ content['datosVis'][0]['Email'] }}'>{{ content['datosVis'][0]['Email'] }}</a>
+                </p>
+            </div>
+            <div class="card-content" style="margin-bottom: 20px;font-size: 23px;text-align: center;">
+                <div class="left-align textoColorEvento">
+                    Esta es tu Clave de Confirmación para participar en el evento, adjunto encontrarás tu gafete<br> digital, mismo que deberás mostrar en tu dispositivo móvil para ingresar al recinto.
+
+
+                </div>
+            </div>
+            <div class="col s12  center-align barcode" style="margin-bottom: 20px;font-size: 23px;text-align: center;">
+                17 al 19 de mayo, 2022
+                Horario: 9:00 a 18:00 hrs.
+
+            </div>
+            <div class="row">
+            </div>
+            <table id="info" style="align-items:center;width:100%;">
+                <tr>
+                <div class="card-title" style="color: #3c9888;font-size: 19px;"><b>POLITICAS GENERALES</b></div>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="col s6 push-s2"><b>ACCESO</b></div>
+                    </td>
+                    <td>
+                        <div class="col s6 push-s1" ><b>GAFETES</b></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="col s6">
+                            <lu>
+                                <li>Presentar <b>Identificación Oficial y Vigente de la Cadena Asociada</b>.</li>
+                                <li>Acceso únicamente para <b>mayores de edad</b> (+18 Años, estricta protección civil).</li>
+                            </lu>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col s6">
+                            <ol style="list-style-type: disc;">
+                                <li><b>Personal e Intransferible</b>.</li>
+                                <li>Sin Excepción, <b>no hay cambios, reposiciones, reembolsos ni devoluciones</b>.</li>
+                            </ol>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table id="Politicas" style="align-items:center;width:100%;">
+                <tr>
+                    <td>
+                        <div class="card-title" style="color: #3c9888;font-size: 19px;">PROTOCOLO SANITARIO</div>
+                        <div>
+                            <p style="">10 MEDIDAS PARA GARANTIZAR UN BLINDAJE SANITARIO EN EL EVENTO</p>
+                            <ol style="list-style: disc;">
+                                <li>Uso obligatorio de Cubrebocas</li>
+                                <li>Facilidad para lavado de manos</li>
+                                <li>Uso de gel sanitizante</li>
+                                <li>Toma de temperatura</li>
+                                <li>Sana distancia</li>
+                                <li>Registro automatizado – Gafete Digital</li>
+                                <li>Códigos QR únicos de registro para el acceso</li>
+                                <li>Sanitización de áreas comunes</li>
+                                <li>Pasillos con circulación en una sola dirección</li>
+                                <li>Túneles sanitizantes</li>
+                            </ol>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+
+            <table id="info" style="align-items:center;width:100%;">
+                <tr style="text-align: center!important;">
+                    <td>
+                        <div class="" style=" text-align: center!important; ">
+                            <p><b>Agradecemos su Participacion</b></p>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="text-align: right!important;">
+                    <td>
+                        <div class="" >
+                            <img  style="height: 106px;" class="responsive-img" src="{{ absolute_url(asset("images/ANTAD-logo-curvas.jpg" )) }}" >
+                            <p style="margin-right: 9px;"><b>FON-29 REV. 6</b></p> 
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}

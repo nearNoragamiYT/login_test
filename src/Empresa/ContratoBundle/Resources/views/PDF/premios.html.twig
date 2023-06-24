@@ -1,0 +1,42 @@
+{% set lang = content['lang'] %}
+<table cellspacing="3" cellpadding="3">
+    <tr>
+        <td colspan="2" style="padding-bottom: 9px;margin: 40px 0 20px;border-bottom: 1px solid #eee;color: black;font-size: 16px;">
+            {{content['section_text']['sas_premiosExcelencia'] | raw }}:
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p><b>{{content['section_text']['sas_premiosExcelenciaNota']}}:</b></p>
+        </td>
+    </tr>
+    {% for v in content['contrato']['Premios'] %}
+        {% if v['idPremio']==4 %}  
+            <tr>
+                <td colspan="2">
+                    <p><b>{{content['section_text']['sas_premioResponsabilidadSocial']}}</b></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {% if v['ResponsableSocial'] == 1 %}
+                        {{content['section_text']['sas_si']}}
+                    {% else %}
+                        {{content['section_text']['sas_no']}}
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>
+
+                    {{v['Premio'~lang|upper]}}
+
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+     <tr><td style="width: 55%;">&nbsp;</td></tr>
+     <tr><td style="width: 55%;">&nbsp;</td></tr>
+     <tr><td style="width: 55%;">&nbsp;</td></tr>
+</table>

@@ -1,0 +1,110 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div id="companies" class="container">
+        <h5 style="margin: 0px;">{{content['section_text']['sas_empresas']}}</h5>
+        <table id="companies-table" class="highlight bordered">
+            <thead class="grey lighten-4">
+                <tr>
+                    {% for header in content["companies_metadata"] %}
+                        {% if header["is_visible"] == true %}
+                            <th>{{ header["text"] }}</th>
+                        {% endif %}
+                    {% endfor %}
+                    <th style="width: 10%;"></th>
+                </tr> 
+            </thead>
+            <tbody>
+                {% for company in content["companies"] %}
+                    <tr>
+                        {% for key, value in company %}
+                            {% if content["companies_metadata"][key] is defined and content["companies_metadata"][key]["is_visible"] == true %}
+                                {%if content["companies_metadata"][key]["values"] is defined%}
+                                    <td> {{ content["companies_metadata"][key]["values"][value]}} </td>
+                                {% elseif key == "EMSTDListadoStand" %}
+                                    {% if value == "" %}
+                                        <td>
+                                            <span id=" {{ "add-" ~  company["idEmpresa"] }} " class="edit-record">
+                                                <a href="{{ path('empresa_contrato_home', {'idEmpresa': company["idEmpresa"]}) }}">{{ content["section_text"]["sas_agregarContrato"] }}</a>
+                                            </span>
+                                        </td>
+                                    {% else %}
+                                        <td style="width: 12%;">
+                                            {{ value }} {#<span id=" {{ "add-" ~  company["idEmpresa"] }} "><a href="#!">+</a></span>#}
+                                        </td>
+                                    {% endif %}
+                                {% elseif key == "idPaquete" %}
+                                    {% if value != "" %}
+                                        <td>{{ content["packages"][company["idPaquete"]]["Paquete" ~ lang|upper] }}</td>
+                                    {% else %}
+                                        <td> {{ value }} </td>
+                                    {% endif %}    
+                                {% else %}
+                                    <td> {{ value }} </td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        <td>
+                            <a href="{{ path('empresa_empresa_comercial', {'idEmpresa': company['idEmpresa']}) }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content['general_text']['sas_editar'] }}" data-id="{{company['idEmpresa']}}">mode_edit</i>
+                            </a>
+                            {% if company["idEtapa"] == 1 or company["idEtapa"] == 2 %}
+                                <i class="material-icons email-record tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content['section_text']['sas_enviarEmailBienvenida'] }}" data-id="{{company['idEmpresa']}}">email</i>
+                            {% endif %}   
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+    <div class="fixed-action-btn" style="bottom: 60px; right: 30px;">
+        <a class="btn-floating btn-large green tooltipped" 
+           id="send-email-to-all"
+           data-tooltip="{{ content["section_text"]["sas_enviarBienvenidaEDTodos"] }}" 
+           data-position="left" 
+           data-delay="50" 
+           >
+            <i class="material-icons">mail</i>
+        </a>
+    </div>
+    <div id="delete-record-modal" class="modal">
+        <div class="modal-content">
+            <h6>{{content['section_text']['sas_eliminarRegistro']}}</h6>
+            <p id="deleteText"></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+            <button id="delete-record" type="button" class="modal-action waves-effect waves-red btn-flat red white-text" data-action="delete">{{content['general_text']['sas_eliminar']}}</button>
+        </div>
+    </div>
+    {% include 'EmpresaEmpresaBundle:Empresa:enviar_email_todos.html.twig' %}
+    {% include 'EmpresaEmpresaBundle:Empresa:otros_modales.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_company_send_welcome_ed = "{{ path('empresa_email_bienvenida_ed') }}";
+    </script>
+
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                var general_text = {{ content['general_text']|json_encode()|raw }};
+                var section_text = {{ content['section_text']|json_encode()|raw }};
+                var companies = {{ content['companies']|json_encode()|raw }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa.js') }}"></script>
+{% endblock %}

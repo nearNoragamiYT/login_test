@@ -1,0 +1,15 @@
+admin_encuesta:
+    path:     /show-dashboard/adminEncuesta
+    defaults: { _controller: ShowDashboardRSAdminEncuestaBundle:AdminEncuesta:adminEncuesta }
+
+admin_encuesta_get_answers:
+    path:     /show-dashboard/getAnsweres
+    defaults: { _controller: ShowDashboardRSAdminEncuestaBundle:AdminEncuesta:pollAnswers }
+
+update_answers:
+    path:     /show-dashboard/updateAnswers
+    defaults: { _controller: ShowDashboardRSAdminEncuestaBundle:AdminEncuesta:updateMultipleAnswers }
+
+question_deactivation:
+    path:     /show-dashboard/deactQuestion
+    defaults: { _controller: ShowDashboardRSAdminEncuestaBundle:AdminEncuesta:deactivateQuestion }

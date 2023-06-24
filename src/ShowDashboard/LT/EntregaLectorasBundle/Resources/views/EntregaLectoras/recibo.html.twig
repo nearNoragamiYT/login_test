@@ -1,0 +1,84 @@
+{% set devolucion = content["data"]["DetalleEntregaScannerJSON"]["Devolucion"] %}
+<table cellspacing="10" style="width: 100%; line-height: 150%;">
+    <tr style="white-space:nowrap;" >
+        <td colspan="2">
+            {% if app.environment == 'dev'%}
+                <img style="width: 350px;"  src="{{asset("images/lectoras.png")}}" alt="lectoras">
+            {% else %}
+                <img style="width: 350px;"  src="{{content["ruta"] ~ '/images/lectoras.png'}}" alt="lectoras">
+            {% endif %}
+        </td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td style="text-align: justify" colspan="2">
+            Infoexpo Acepta haber recibido el(los) lector(es) de gafetes de la empresa <strong>{{devolucion["Empresa"]}}</strong>
+            en buenas condiciones, usado en <em>{{app.session.get("edicion")["Edicion_" ~ content["lang"]|upper]}}</em>.
+        </td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td colspan="2" style="padding-bottom: 2rem;"></td>
+    </tr>
+    {% set scanners = content["data"]["DetalleEntregaScannerJSON"]['EquiposDevueltos'] %}
+    {% for scanner in scanners %}
+        <tr style="font-weight: bold;">
+            <td>Equipo</td>
+            <td>Codigo</td>
+        </tr>
+        {% if scanner.ScannerDetalle is defined and scanner.ScannerDetalle != "" %}
+            {% for det in scanner.ScannerDetalle %}
+                <tr style="white-space:nowrap;" >
+                    <td style="margin: 5px; border-bottom: 3px #000 solid;">{{scanner['ScannerTipo']}}</td>
+                    <td style="margin: 5px; border-bottom: 3px #000 solid;">{{det['CodigoScanner']}}</td>
+                </tr>
+            {% endfor %}
+            {% if scanner.ScannersNoDevueltos is defined and scanner.ScannersNoDevueltos != "" %}
+                {% for det in scanner.ScannersNoDevueltos %}
+                    <tr style="white-space:nowrap;" >
+                        <td style="margin: 5px; border-bottom: 3px #000 solid;">{{scanner['ScannerTipo']}}</td>
+                        <td style="margin: 5px; border-bottom: 3px #000 solid;">No devuelto</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        {% else %}
+            <tr style="white-space:nowrap;" >
+                <td style="margin: 5px; border-bottom: 3px #000 solid;">{{scanner['ScannerTipo']}}</td>
+                <td style="margin: 5px; border-bottom: 3px #000 solid;">No devuelto</td>
+            </tr>
+        {% endif %}
+        {% for equipo in scanner.Equipos %}
+            {% if loop.first %}
+                <tr style="font-weight: bold;">
+                    <td>Equipo</td>
+                    <td>Cantidad</td>
+                </tr>
+            {% endif %}
+            <tr style="white-space:nowrap;" >
+                <td style="margin: 5px; border-bottom: 3px #000 solid;">{{equipo['EquipoAdicional']}}</td>
+                <td style="margin: 5px; border-bottom: 3px #000 solid;">{{equipo['Cantidad']}}</td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+    <tr style="white-space:nowrap;" >
+        <td colspan="2" style="padding-bottom: 2rem;"></td>
+    </tr>
+    <tr style="white-space:nowrap;">
+        <td colspan="2" style="text-align: justify">La base de datos se descarga desde el manual del expositor:
+            <a href="https://expoantad.infoexpo.com.mx/2022/ed/web/">https://expoantad.infoexpo.com.mx/2022/ed/web/</a>
+        </td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td colspan="2" style="text-align: justify">Para dudas o comentarios favor de comunicarse a los teléfonos +52 (55) 59051250 o al correo <u>lectoras@infoexpo.com.mx</u></td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td colspan="2" style="text-align: justify">Atención con Samuel Villa.</td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td colspan="2" style="padding-bottom: 2rem;"></td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td colspan="2" style="padding-bottom: 2rem; border-bottom: 3px #000 solid;"></td>
+    </tr>
+    <tr style="white-space:nowrap;" >
+        <td colspan="2" style="text-align: center">Recibido</td>
+    </tr>
+</table>

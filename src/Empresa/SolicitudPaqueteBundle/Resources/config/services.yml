@@ -1,0 +1,4 @@
+services:
+#    empresa_solicitud_paquete.example:
+#        class: Empresa\SolicitudPaqueteBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

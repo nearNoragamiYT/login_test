@@ -1,0 +1,75 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/LT/LectorasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {# <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}"> #}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_lectoras_reporte.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>Global Report</h5>
+        <div class="row">
+            <div class="col s12 m8">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Detalle solicitud</span>
+                        <div class="row">
+                            <ul class="col s6 collection">
+                                <a class="collection-item"><label>ID de la Empresa: </label><span class="secondary-content">{{ data[0]['idEmpresa']}}</span></a>
+                                <a class="collection-item"><label>Nombre comercial: </label><span class="secondary-content">{{ data[0]['DC_NombreComercial']}}</span></a>
+                                <a class="collection-item"><label>Contacto contratación: </label><span class="secondary-content">{{ data[0]['nombrecontactocontratacion']}}</span></a>
+                                <a class="collection-item"><label>Email contratación: </label><span class="secondary-content">{{ data[0]['Contacto_Contratacion_Email']}}</span></a>
+                                <a class="collection-item"><label>Telefono contratación: </label><span class="secondary-content">{{ data[0]['Contacto_Contratacion_Telefono']}}</span></a>
+                                <a class="collection-item"><label>APP, SIN EQUIPO SOLICITADAS:</label><span class="secondary-content new badge yellow darken-2" data-badge-caption="Solicitadas">{{ data[0]['app_sin_equipo_solicitadas']}}</span></a>
+                                <a class="collection-item"><label>APP + EQUIPO (CELULAR) SOLICITADAS:</label><span class="secondary-content new badge yellow darken-2" data-badge-caption="Solicitadas">{{ data[0]['app_mas_equipo_celular_solicitadas']}}</span></a>
+                            </ul>
+                            <ul class="col s6 collection">
+                                <a class="collection-item"><label>PAQUETE A DE 3 A 5 APP ́s SIN EQUIPO SOLICITADAS:</label><span class="secondary-content new badge yellow darken-2" data-badge-caption="Solicitadas">{{ data[0]['paquete_a_de_3_a_5_apps_sin_equipo_solicitadas']}}</span></a>
+                                <a class="collection-item"><label>PAQUETE B DE 6 A 10 APP ́s SIN EQUIPO SOLICITADAS:</label><span class="secondary-content new badge yellow darken-2" data-badge-caption="Solicitadas">{{ data[0]['paquete_b_de_6_a_10_apps_sin_equipo_solicitadas']}}</span></a>
+                                <a class="collection-item"><label>MINI SCAN WIRELESS SOLICITADAS:</label><span class="secondary-content new badge yellow darken-2" data-badge-caption="Solicitadas">{{ data[0]['mini_scan_wireless_solicitadas']}}</span></a>
+                                <a class="collection-item"><label>APP + EQUIPO ASIGNADAS:</label><span class="secondary-content new badge" data-badge-caption="Asignadas">{{ data[0]['app_mas_equipo_asignada']}}</span></a>
+                                <a class="collection-item"><label>APP ASIGNADAS:</label><span class="secondary-content new badge" data-badge-caption="Asignadas">{{ data[0]['app_asignadas']}}</span></a>
+                                <a class="collection-item"><label>MINI SCAN WIRELESS ASIGNADAS:</label><span class="secondary-content new badge" data-badge-caption="Asignadas">{{ data[0]['mini_scan_wireless_asignadas']}}</span></a>
+                                <a class="collection-item"><label>Status Pago:</label><span class="secondary-content">{{ data[0]['StatusPagoES']}}</span></a>
+                            </ul>
+                        </div>
+                        {# <table class="centered">
+                            <thead>
+                                <tr>
+                                    <th>Mi Wireless Solicitadas</th>
+                                    <th>App Infoexpo Solicitadas</th>
+                                    <th>App Movile + Equipo Solicitadas</th>
+                                    <th>Mini Scan Wireless Asignadas</th>
+                                    <th>App Movile + Equipo Asignadas</th>
+                                    <th>App Infoexpo Asignadas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="secondary-content new badge yellow darken-2" data-badge-caption="Solicitadas">{{ data[0]['mi_wireless_solicitadas']}}</span></td>
+                                    <td><span class="secondary-content new badge yellow darken-2" data-badge-caption="Solicitadas">{{ data[0]['app_infoexpo_solicitadas']}}</span></td>
+                                    <td><span class="secondary-content new badge yellow darken-2" data-badge-caption="Solicitadas">{{ data[0]['app_infoexpo_solicitadas']}}</span></td>
+                                    <td><span class="secondary-content new badge" data-badge-caption="Asignadas">{{ data[0]['mini_scan_wireless_asignadas']}}</span></td>
+                                    <td><span class="secondary-content new badge" data-badge-caption="Asignadas">{{ data[0]['app_movile_mas_equipo_asignadas']}}</span></td>
+                                    <td><span class="secondary-content new badge" data-badge-caption="Asignadas">{{ data[0]['app_infoexpo_asignadas']}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table> #}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {# <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script> #}
+    {# <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script> #}
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}
+
+

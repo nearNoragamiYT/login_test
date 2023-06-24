@@ -1,0 +1,22 @@
+{% extends '::base_email_sin_header.html.twig' %}
+{% set cls_header_seccion_agenda = 'color: black; margin-top: 1%; margin-bottom: 1%; font-size: 1.6em; padding-top: 5px; padding-bottom: 5px;' %}
+{% set cls_bold = 'font-weight: bold;' %}
+{% set cls_text_justify = 'text-align: justify;' %}
+{% set cls_text_center = 'text-align: center;' %}
+
+{% block body %}
+    <table style="width: 100%;font-family: Arial,Helvetica,sans-serif;" >
+        <tbody>
+            <tr>
+                {#<td colspan="3" style="{{ cls_text_justify }}">{{ content['section']['sas_emailFormaPendiente']|replace({"%exhibitor_name%": content['exhibitor']['DC_NombreComercial'], "%event%": content['edicion']['Edicion_' ~ lang]|upper, "%user%": content['exhibitor']['Email'], "%password%": content['exhibitor']['Password'], "%form_name%": content['exhibitor']["NombreForma" ~ lang], "%deadline%": content['exhibitor']["FechaLimite"] })|raw }}</td>#}
+                <td colspan="3" style="{{ cls_text_justify }}">{{ content['section']['sas_emailFormaPendiente']|replace({"%exhibitor_name%": content['exhibitor']['DC_NombreComercial'], "%event%": content['edicion']['Edicion_' ~ lang]|upper, "%user%": content['exhibitor']['Email'], "%form_name%": content['exhibitor']["NombreForma" ~ lang], "%deadline%": content['exhibitor']["FechaLimite"] })|raw }}</td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            {#<tr>
+                <td colspan="3" style="{{ cls_text_center }}">
+                    <p>{{ content['section']['sas_attComite']|raw }}</p>
+                </td>
+            </tr>#}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-add-form", "fixed": true, "textColor":"white-text", "confirmCancel": true, "color": "cyan", "idButton": "add-form" } %}
+{% block title %}{{content['section_text']['sas_nuevaForma']}}{% endblock %}
+{% block body %}
+    <form id="form-add" method="post">
+        <div class="col s12">
+            <div class="input-field col s6">
+                <input type="text" id="FO_Identificador" name="FO_Identificador" />
+                <label for="FO_Identificador">{{content['section_text']['sas_identificador']}}</label>
+            </div>
+            <div class="input-field col s6">
+                <input type="text" id="fecha-limite" name="fecha-limite" />
+                <label for="fecha-limite">{{content['general_text']['sas_fechaLimite']}}</label>
+            </div>
+            <div class="input-field col s12">
+                <select name="FO_idSeccionFormatos" id="FO_idSeccionFormatos" class="required browser-default">
+                    <option value="" selected disabled>{{content['section_text']['sas_selecionaSecion']}}</option>
+                    {% for section in content['sections'] %}
+                        <option data-icon="{{asset('') ~ section['Imagen']}}" value="{{section['idSeccionFormatos']}}">{{section['Nombre' ~ lang|upper]|raw}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="col s6">
+                {{content['section_text']['sas_tipoForma']}}
+                <p>
+                    <input type="radio" id="FO_PDF" name="FO_TipoLink" value="2" />
+                    <label for="FO_PDF">{{content['section_text']['sas_pdf']}}</label>
+                </p>
+                <p>
+                    <input type="radio" id="FO_LinkExterno" name="FO_TipoLink" value="3" />
+                    <label for="FO_LinkExterno">{{content['section_text']['sas_linkExterno']}}</label>
+                </p>
+            </div>
+            <div class="col s6">
+                {{content['section_text']['sas_formaEsObligatoria']}}
+                <p>
+                    <input type="radio" id="FO_ObligatorioOpcionalNo" name="FO_ObligatorioOpcional" value="0" />
+                    <label for="FO_ObligatorioOpcionalNo">{{content['general_text']['sas_no']}}</label>
+                </p>
+                <p>
+                    <input type="radio" id="FO_ObligatorioOpcionalSi" name="FO_ObligatorioOpcional" value="1" />
+                    <label for="FO_ObligatorioOpcionalSi">{{content['general_text']['sas_si']}}</label>
+                </p>
+            </div>
+        </div>
+        {% set show = "col s12" %}
+        {% if content['idioms']|length is divisible by(2) %}
+            {% set show = "col s6" %}
+        {% endif %}
+        {% for idiom in content['idioms'] %}
+            <div class="{{show}}">
+                <div class="center-align">
+                    <img class="circle idiom-flag" src="{{asset('images/idioma/' ~ idiom|lower ~ '.png')}}" alt="idioma {{idiom}}">
+                    <div class="divider col s12 grey"></div>
+                </div>
+                <div class="input-field col s12">
+                    <input type="text" id="FO_NombreForma{{idiom}}" name="FO_NombreForma{{idiom}}" class="required" />
+                    <label for="FO_NombreForma{{idiom}}">{{content['section_text']['sas_nombreForma'  ~ idiom]}}</label>
+                </div>
+                <div class="input-field col s12">
+                    <textarea type="text" id="FO_Descripcion{{idiom}}" name="FO_Descripcion{{idiom}}" class="materialize-textarea" length="250"></textarea>
+                    <label for="FO_Descripcion{{idiom}}">{{content['section_text']['sas_descripcion' ~ idiom]}}</label>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col s12">
+            <div class="col s6">
+                <p>{{content['section_text']['sas_verFormaED']}}</p>
+                <div class="switch">
+                    <label>
+                        {{content['general_text']['sas_no']}}
+                        <input type="checkbox" id="FO_FormaVisibleWeb" name="FO_FormaVisibleWeb" value="1" checked="checked"/>
+                        <span class="lever"></span>
+                        {{content['general_text']['sas_si']}}
+                    </label>
+                </div>
+            </div>
+            <div class="col s6">
+                <p>{{content['section_text']['sas_habilitarForma']}}</p>
+                <div class="switch">
+                    <label>
+                        {{content['general_text']['sas_no']}}
+                        <input type="checkbox" id="FO_Habilitado" name="FO_Habilitado" value="1" checked="checked"/>
+                        <span class="lever"></span>
+                        {{content['general_text']['sas_si']}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="FO_OrdenDespliegue" name="FO_OrdenDespliegue" value="0" />
+        <input type="hidden" id="FO_CreacionSAS" name="FO_CreacionSAS" value="1" />
+        <input type="hidden" id="FO_FechaLimite" name="FO_FechaLimite" value="" />
+    </form>
+{% endblock%}

@@ -1,0 +1,4 @@
+services:
+#    wizard_edicion.example:
+#        class: Wizard\EdicionBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

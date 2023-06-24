@@ -1,0 +1,22 @@
+{% extends '::base_email.html.twig' %}
+
+{% block body %}
+    <div class="card-content">
+        <div class=" container">
+            <div class="row left">
+                <div class="col s12">
+                    <div class="col s12 m6">
+                        <p>Apreciable Expositor</p><br>
+                        <p>Los gafetes que ha comprado han sido activados, le pedimos que ingrese al siguiente <a href="{{content['ruta']}}"><b>link</b></a> e ingrese los nombres de las personas a las que se les asignara el gafete. </p>
+                        <p><h4>Link: {{content['ruta']}}</h4></p>
+                        <p>Recuerde:  Es importante utilizar un correo único por persona ya que es el correo en el que las personas recibiran su gafete.</p>
+                        <p>Al terminar de capturar la información de click icono del "sobrecito" para que sean enviados.</p><br>
+                    </div>
+                    <div class="" style=" text-align: center!important; ">
+                        <p><b>Gracias por ser parte de Expo Antad & Alimentaria 2022</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

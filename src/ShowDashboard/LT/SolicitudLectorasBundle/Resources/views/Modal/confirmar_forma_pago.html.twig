@@ -1,0 +1,10 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-confirm-forma", "fixed": false, "size": "modal-s", "color": "orange", "idButton": "change-forma" } %}
+{% block title %}{{content['section_text']['sas_cambiarFormaPago']}}{% endblock %}
+{% block body %}
+    <p>{{content['section_text']['sas_seguroCambiarFormaPago']|raw}}</p>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock %}
+

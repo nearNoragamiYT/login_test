@@ -1,0 +1,37 @@
+<h5 class="grey-text col s12">{{content['section_text']['sas_estadisticasMarketingFerial']}}</h5>
+{#--- Formas completas, pendientes y no interes ---#}
+<div class="col l6 m6 s12">
+    <div class="card row content-stats" style="background-color: {{MKFConfig.colorFondo}};">
+        <div id="loader-packages" class="spinner" style="background-color: {{MKFConfig.colorFondo}};">
+            <div class="progress" style="background-color: {{MKFConfig.primario}};">
+                <div class="indeterminate" style="background-color: {{MKFConfig.secundario}};"></div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="chart-container">
+                <canvas  id="packages-chart"></canvas>
+            </div>
+            <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-packages" data-url="{{path('show_dashboard_ed_actualizar_paquetes')}}">
+                <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+            </a>
+        </div>
+    </div>
+</div>
+{#--- formas Completas y pendientes de las obligatorias ---#}
+<div class="col l6 m6 s12">
+    <div class="card row content-stats" style="background-color: {{MKFConfig.colorFondo}};">
+        <div id="loader-mkf-requests" class="spinner" style="background-color: {{MKFConfig.colorFondo}};">
+            <div class="progress" style="background-color: {{MKFConfig.terciario}};">
+                <div class="indeterminate" style="background-color: {{MKFConfig.cuaterciario}};"></div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="chart-container">
+                <canvas  id="mkf-requests-chart"></canvas>
+            </div>
+            <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-mkf-requests" data-url="{{path('show_dashboard_ed_actualizar_solicitudes_paquetes')}}">
+                <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+            </a>
+        </div>
+    </div>
+</div>

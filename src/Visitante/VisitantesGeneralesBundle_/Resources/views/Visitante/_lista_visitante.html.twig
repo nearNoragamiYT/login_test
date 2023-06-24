@@ -1,0 +1,69 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Visitante/VisitanteBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}    
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/datatables.responsive.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/dynamic_table.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>    
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/visitante.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div id="visitor" class="container">
+        <div id="slide-list-div" style="margin-top: 20px">
+            <div class="row">
+                <div id="cover-Visitante-table" class="col-xs-12"></div>
+            </div>
+        </div>
+    </div>
+    {#<div class="fixed-action-btn" style="bottom: 60px; right: 90px;">
+        <a class="btn-floating btn-large green tooltipped" 
+           id="send-email-to-all"
+           data-tooltip="{{ content["section_text"]["sas_enviarBienvenidaEDTodos"] }}" 
+           data-position="left" 
+           data-delay="50" 
+           >
+            <i class="material-icons">mail</i>
+        </a>
+    </div>#}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var lang = {{ content['lang']|json_encode()|raw }},
+                url_lang = "{{asset('js/dataTablesLang/' ~ content['lang'] ~ '.json')}}",
+                Visitante_table_columns = {{ content['Visitante_table_columns']|json_encode()|raw }},
+                Visitante_table_column_categories = {{ content['Visitante_table_column_categories']|json_encode()|raw }};
+
+        var url_visitante_get_to_dt = "{{ path("visitante_get_to_datatable") }}",
+                url_visitante_get_to_dt_filtro = "{{ path("visitante_get_to_datatable_filtro") }}",
+                url_set_session = "{{ path("visitante_set_session") }}",
+                url_get_session = "{{ path("visitante_get_session") }}",
+                url_visitors_export_data = "{{ path("visitors_export_data") }}",
+                url_visitante_datos_generales = "{{ path('visitante_datos_generales') }}",
+                img_excel = "{{ asset("images/excel.png") }}";
+        var Edicion
+                = {{ content['idEdicion']|json_encode()|raw }};
+
+        var Usuario
+                = {{ content['user']|json_encode()|raw }};
+        var idModuloIxpo
+                = {{ content['idModuloIxpo']|json_encode()|raw }};
+    </script>
+
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.responsive.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.columnFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/selectFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.customFilter.js') }}"></script>         
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.js') }}"></script>   
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/dynamic_table.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/datepickerLang/' ~ content['lang'] ~ '.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/visitante.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+
+{% endblock %}

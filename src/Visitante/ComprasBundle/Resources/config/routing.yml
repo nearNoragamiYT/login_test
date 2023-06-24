@@ -1,0 +1,51 @@
+compras:
+    path:     /compras
+    defaults: { _controller: VisitanteComprasBundle:Compras:compras }
+
+compras_get_to_datatable:
+    path:  /compras/get-datatable
+    defaults: { _controller: VisitanteComprasBundle:Compras:getToDataTable }
+    
+compras_get_to_datatable_filtro:
+    path:  /compras/get-datatable-filter
+    defaults: { _controller: VisitanteComprasBundle:Compras:getToDataTableFilter }
+    
+compras_set_session:
+    path:  /compras/set_session
+    defaults: { _controller: VisitanteComprasBundle:Compras:setSessionData }
+   
+compras_get_session:
+    path:  /compras/get_session
+    defaults: { _controller: VisitanteComprasBundle:Compras:getSessionData }
+    
+compras_resumen:
+    path:  /resumen-compras/{idVisitante}/{idCompra}
+    defaults: { _controller: VisitanteComprasBundle:Compras:getCompraData, idVisitante: 0, idCompra: 0 }
+    
+sas_comprobante_reenviar:
+    path:  /compras/reenviar-comprobante
+    defaults: { _controller: VisitanteComprasBundle:Compras:comprobanteReenviar }
+
+sas_status_compra:
+    path:  /update-status-compras/{idVisitante}/{idCompra}
+    defaults: { _controller: VisitanteComprasBundle:Compras:updateStatusCompras, idVisitante: 0, idCompra: 0 }
+    
+compras_export_data:
+    path:  /compras/export-data
+    defaults: { _controller: VisitanteComprasBundle:Compras:exportComprasData }
+    
+compras_report:
+    path:  /compras-reports
+    defaults: { _controller: VisitanteComprasBundle:Compras:reportdetalleCompras }
+    
+view_file:
+    path:  /view/file/{idCompra}
+    defaults: { _controller: VisitanteComprasBundle:Compras:viewFile, idCompra: "" }
+    
+sas_ticket_reenviar:
+    path:  /compras/reenviar-ticket
+    defaults: { _controller: VisitanteComprasBundle:Compras:ticketReenviar }
+
+compras_update_tasa_cambio:
+    path:  /compras/update-tasa-cambio
+    defaults: { _controller: VisitanteComprasBundle:Compras:updateTasaCambio }

@@ -1,0 +1,22 @@
+<dialog id="modalEnviar" class="size-modal-enviar-email">
+    <div class="modal-content">
+        <h4>Enviar Factura</h4>
+        <form id="frm-enviarFactura">
+            <input id="idCompra" name="idCompra" type="hidden" value ="{{content['Factura']['idCompra']}}">
+            <div class="row">
+                <div class="input-field col s12 m6">
+          		    <input  id="Email" type="text" name="Email"  value= "{{content['Factura']['Email']}}" readonly>
+          		    <label for="Email">Email</label>
+        	    </div>
+                <div class="input-field col s12 m6">
+          		    <input  id="CC" type="text" name="cc">
+          		    <label for="CC">CC</label>
+        	    </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="margin-bottom:10px;">
+        <a class="waves-effect waves-light btn right btn-enviar-correo"><i class="material-icons right">send</i>Enviar</a>	
+        <a class="waves-effect waves-light btn red left close-modal"><i class="material-icons right">cancel</i>Cerrar</a>
+    </div>
+</dialog>

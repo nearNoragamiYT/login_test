@@ -1,0 +1,321 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/ContratoBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/contrato.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+{% endblock %}
+{% block content %}
+    <section>
+        {% include 'EmpresaContratoBundle:Contrato:steps.html.twig' %}
+        {% include 'EmpresaContratoBundle:Contrato:status.html.twig' %}
+        {# Vendedor #}
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card-panel">
+                    <div class="card-content">
+                        <a class="secondary-content dropdown-button btn-floating waves-effect waves-light btn-sm blue" data-activates="dropdown-vendedor">
+                            <i class="tiny material-icons">mode_edit</i>
+                        </a>
+                        <ul id="dropdown-vendedor" class="dropdown-content" style="width: 200px!important;">
+                            {% for vendedor in content['vendedor'] %}
+                                <li>
+                                    <a id-record="{{vendedor["idUsuario"]}}" class="edit-vendedor">{{vendedor['Nombre']}}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <h5>{{content['section_text']['sas_vendedor']}}</h5>
+                        <p class="personal-info"><i class="material-icons">person_outline</i>
+                            <span id="vendedor-nombre">
+                                {% if content['vendedor'][content['idUsuario']] is defined %}
+                                    {{ content['vendedor'][content['idUsuario']]['Nombre'] }}
+                                {% endif %}
+                            </span>
+                        </p>
+                        <p class="personal-info"><i class="material-icons">email</i>
+                            <span id="vendedor-email">
+                                {% if content['vendedor'][content['idUsuario']] is defined %}
+                                    {{ content['vendedor'][content['idUsuario']]['Email'] }}
+                                {% endif %}
+                            </span>
+                        </p>
+                        <input id="vendedor" type="hidden" value="{{content['idUsuario']}}" >
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# OpcionPago #}
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel opcion-pago-panel">
+                    <div class="card-content row">
+                        <div class="col s6">
+                            <div class="col l8 offset-l2 m10 offset-m1 s12">
+                                <h5>{{content['section_text']['sas_tipoEspacio']}}</h5>
+                                {% for item in content['opcion_pago'] %}
+                                    <div>
+                                        <input id="OpcionPago{{item['idOpcionPago']}}" name="OpcionPago" type="radio" value="{{item['idOpcionPago']}}" {% if content['contrato']['idOpcionPago'] == item['idOpcionPago']%}checked="checked"{% endif %} price="{{item['Precio']}}"/>
+                                        <label for="OpcionPago{{item['idOpcionPago']}}">{{item['Opcion_' ~ lang|upper]|raw}}</label><br>
+                                        {{item['Caracteristicas_' ~ lang|upper]|raw}}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="col l8 offset-l2 m10 offset-m1 s12">
+                                <h5>{{content['section_text']['sas_cambioMoneda']}}</h5>
+                                <select id="Moneda" name="Moneda" class="browser-default validate col s6">
+                                    <option value="MXN" {% if content['contrato']['Moneda'] == 'MXN' %}selected="selected"{% endif %}>MXN</option>
+                                    <option value="USD" {% if content['contrato']['Moneda'] == 'USD' %}selected="selected"{% endif %}>USD</option>
+                                </select>
+                            </div>
+                        </div>
+                        {#---
+                        <div class="col s4">
+                            <h5>{{content['section_text']['sas_tipoPrecio']}}</h5>
+                            {% if content["tipo_precio"] is defined and content["tipo_precio"]|length > 0 %}
+                                <select id="idTipoPrecioStand"
+                                        name="idTipoPrecioStand"
+                                        class="browser-default validate"
+                                        >
+                                    <option value="">{{content['general_text']['sas_seleccionaOpcion']}}</option>
+                                    {% for type in content["tipo_precio"]%}
+                                        <option value="{{ type['idTipoPrecioStand'] }}">{{ type['TipoPrecioStand']}}</option>
+                                    {% endfor%}
+                                </select>
+                            {% endif %}
+                        </div>
+                        ---#}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# Stands #}
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card-panel tbl-stand-panel">
+                    <div class="card-content">
+                        <h5>
+                            {{content['section_text']['sas_seleccionEspacio']}}
+                            <div style="float: right;font-size: 14px;">{{content['section_text']['sas_areaTotal']}}: <span id="area-total"></span><sup>2</sup></div>
+                        </h5>
+                        <table id="tbl-stand" class="highlight">
+                            <thead>
+                                <tr>
+                                    <th>{{content['section_text']['sas_etiquetaStand']}}</th>
+                                    <th>Zona</th>
+                                    <th>{{content['section_text']['sas_numeroStand']}}</th>
+                                    <th>{{content['section_text']['sas_tipoStand']}}</th>
+                                    <th style="width:25%;">{{content['section_text']['sas_tipoPrecio']}}</th>
+                                    <th>{{content['section_text']['sas_precio']}}</th>
+                                    <th>{{content['section_text']['sas_dimensiones']}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in content['empresa_stand'] %}
+                                    <tr>
+                                        <td>
+                                            <input id="booth-label-{{item['idStand']}}" type="text" class="validate booth-label col s11" value="{{item['EtiquetaStand']}}"/>
+                                        </td>
+                                        <td>{{item['Zona']}}</td>
+                                        <td>{{item['StandNumber']}}</td>
+                                        <td>{{content['tipo_stand'][item['idTipoStand']]['TipoStand']}}</td>
+                                        <td>
+                                            {% if content["tipo_precio"] is defined and content["tipo_precio"]|length > 0 and content["tipo_precio_tipo_stand"] is defined and content["tipo_precio_tipo_stand"]|length > 0 %}
+                                                <select id="select-type-{{item['idStand']}}"
+                                                        name="idTipoPrecio"
+                                                        class="idTipoPrecio browser-default validate"
+                                                        data-id="{{item['idStand']}}"
+                                                        style="width: 85%;"
+                                                        >
+                                                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                                    {% for type in content["tipo_precio_tipo_stand"]%}
+                                                        {% if type["idTipoStand"] == item['idTipoStand'] %}
+                                                            {#% for t_precio in content['tipo_precio']%}
+                                                                {% if type['idTipoPrecioStand'] == t_precio['idTipoPrecioStand'] %#}
+                                                            <option value="{{type["idTipoPrecioStand"]}}" data-id="{{type["idTipoPrecioTipoStand"]}}" data-MXN="{{type['PrecioES']}}" data-USD="{{type['PrecioEN']}}" {% if type["idTipoPrecioStand"] == item['idTipoPrecioStand']%} selected="selected"{% endif %}>
+                                                                {{ content["tipo_precio"][type["idTipoPrecioStand"]]['TipoPrecioStand']}}
+                                                            </option>
+                                                            {#% endif %}
+                                                        {% endfor %#}
+                                                        {% endif %}
+                                                    {% endfor%}
+                                                </select>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <input id="booth-price-{{item['idStand']}}" type="text" class="validate booth-price col s8" modify="{% if item['PrecioModificado'] == false %}false{% else %}true{% endif %}" booth-type="{{item['idTipoStand']}}" value="{% if item['Precio'] != '' %}{{item['Precio']|number_format(2, '.', ',')}}{% else %}0.00{% endif %}"/> <span class="new badge blue price-mod" style="{% if item['PrecioModificado'] == false %}display:none;{% endif %}margin-top:10px;">MOD</span>
+                                        </td>
+                                        <td>{{item['Stand_W']}}  x  {{item['Stand_H']}}  =  <span class="area">{{ item['Stand_W'] * item['Stand_H'] }}</span></td>
+                                        <td>
+                                            <i class="material-icons delete-record" id-record="{{ item['idStand'] }}" id-asign="{{item['idEmpresaAsignada']}}" id-contract="{{item['idEmpresaContrato']}}">delete_forever</i>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div id="unsaved-note" class="col s12" style="font-weight: 300;display:none;">{{content['section_text']['sas_notaGuardarStands']|raw}}</div>
+                        </div>
+                        <div class="right-align">
+                            <a id="add-stand" class="btn-floating waves-effect waves-light green btn-sm"><i class="material-icons">add</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# Otros conceptos #}
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card-panel">
+                    <div class="card-content">
+                        <h5>
+                            {{content['section_text']['sas_otrosConceptos']}}
+                        </h5>
+                        <table id="table-concepts" class="highlight">
+                            <thead>
+                                <tr>
+                                    <th>{{content['general_text']['sas_nombre']}}</th>
+                                    <th>{{content['section_text']['sas_descripcion']}}</th>
+                                    <th class="center-align">{{content['section_text']['sas_precio']}}</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for id,item in content['concepto'] %}
+                                    <tr id="other-concept-{{id}}">
+                                        <td id="concept-name-{{id}}">{{item['Nombre']}}</td>
+                                        <td id="concept-descrption-{{id}}">{{item['Descripcion']}}</td>
+                                        <td id="concept-price-{{id}}" class="concept-prices right-align">{{item['Precio']}}</td>
+                                        <td class="center-align">
+                                            <i class="material-icons table-icon edit-concept" data-id="{{id}}">edit</i>
+                                        </td>
+                                        <td class="center-align">
+                                            <i class="material-icons table-icon delete-concept" data-id="{{id}}">delete_forever</i>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="right-align">
+                            <a id="add-concept" class="btn-floating waves-effect waves-light green btn-sm"><i class="material-icons">add</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# Totales #}
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card-panel">
+                    <div class="card-content">
+                        <div class="row totales">
+                            <div class="col s6 offset-s6 sub">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_subtotalStand']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="SubtotalStand" name="SubtotalStand" type="text" class="validate right-align" value="{{content['contrato']['SubtotalStand']|number_format(2, '.', ',')}}" disabled>
+                                </div>
+                            </div>
+                            <div class="col s6 offset-s6 sub">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_descuento']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="DescuentoCantidad" name="DescuentoCantidad" type="text" class="validate right-align" value="{{content['contrato']['DescuentoCantidad']|number_format(2, '.', ',')}}" style="background: #fff3b2;">
+                                </div>
+                            </div>
+                            <div class="col s6 offset-s6 sub">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_subtotal']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="SubtotalStandDescuento" name="SubtotalStandDescuento" type="text" class="validate right-align" value="{{(content['contrato']['SubtotalStand'] - content['contrato']['DescuentoCantidad'])|number_format(2, '.', ',')}}" disabled>
+                                </div>
+                            </div>
+                            <div class="col s6 offset-s6 sub">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_otrosConceptos']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="OtrosConceptosCantidad" name="OtrosConceptosCantidad" type="text" class="validate right-align" value="{{content['contrato']['OtrosConceptosCantidad']|number_format(2, '.', ',')}}" disabled>
+                                </div>
+                            </div>
+                            <div class="col s6 offset-s6 sub">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_decoracion']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="DecoracionCantidad" name="DecoracionCantidad" type="text" class="validate right-align" value="{{content['contrato']['DecoracionCantidad']|number_format(2, '.', ',')}}" style="background: #fff3b2;">
+                                </div>
+                            </div>
+                            <div class="col s6 offset-s6 sub">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_subtotalFinal']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="SubtotalOpcionPago" name="SubtotalOpcionPago" type="text" class="validate right-align" value="{{content['contrato']['SubtotalOpcionPago']|number_format(2, '.', ',')}}" disabled>
+                                </div>
+                            </div>
+                            <div class="col s6 offset-s6 iva">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_iva']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="IvaOpcionPago" name="IvaOpcionPago" type="text" class="validate right-align" value="{{content['contrato']['IvaOpcionPago']|number_format(2, '.', ',')}}" disabled>
+                                </div>
+                            </div>
+                            <div class="col s6 offset-s6 total">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_total']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="TotalOpcionPago" name="TotalOpcionPago" type="text" class="validate right-align" value="{{content['contrato']['TotalOpcionPago']|number_format(2, '.', ',')}}" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col s4">
+                <a href="{{ path('empresa_empresa_contrato', {'idEmpresa': content['empresa']['idEmpresa']}) }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['section_text']['sas_regresarListaContratos'] }}</a>
+            </div>
+            <div class="col s4 center-align">
+                <a id="btnSaveContract" class="waves-effect waves-light btn green">{{content['general_text']['sas_guardarSeguir']}}</a>
+            </div>
+        </div>
+        <input type="hidden" id="idContrato" value="{% if content['contrato']['idContrato'] is defined %}{{content['contrato']['idContrato']}}{% endif %}"/>
+        <input type="hidden" id="idEmpresa" value="{{content['empresa']['idEmpresa']}}"/>
+    </section>
+    {% include 'EmpresaContratoBundle:Forms:list_stand.html.twig' %}
+    {% include 'EmpresaContratoBundle:Forms:otros_conceptos.html.twig' %}
+    {% include 'EmpresaContratoBundle:Contrato:confirm_espacio.html.twig' %}
+    {% include 'EmpresaContratoBundle:Contrato:confirm_next.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var list_vendedor = {{ content['vendedor']|json_encode()|raw }};
+                var concepts = ({{ content['concepto']|json_encode()|raw }} == null) ? {} :{{ content['concepto']|json_encode()|raw }};
+                var list_free_stand = {{ content['stand']|json_encode()|raw }};
+                var list_pabellon = {{ content['pabellon']|json_encode()|raw }};
+                var list_tipo_stand = {{ content['tipo_stand']|json_encode()|raw }};
+                var list_tipo_precio = {{ content['tipo_precio']|json_encode()|raw }};
+                var list_tipo_precio_stand = {{ content['tipo_precio_tipo_stand']|json_encode()|raw }};
+                var empresa = {{ content['empresa']|json_encode()|raw }};
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var url_save_espacio = "{{path('empresa_contrato_espacio_guardar')}}";
+        var url_delete_espacio = "{{path('empresa_contrato_espacio_eliminar')}}";
+        var url_next_step = "{{path('empresa_contrato_resumen', {'idEmpresa': content['empresa']['idEmpresa'], 'idContrato': content['contrato']['idContrato']})}}";
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/espacio.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/general.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+{% endblock %}

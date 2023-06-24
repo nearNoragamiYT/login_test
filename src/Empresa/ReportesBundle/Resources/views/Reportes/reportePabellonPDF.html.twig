@@ -1,0 +1,96 @@
+
+{% set ruta_asset = 'resources/Empresa/ReportesBundle/' %}
+{% set edicion = content['idEdicion'] %}
+{% set i=1%}
+
+
+
+{% block stylesheets %}
+    <style>
+
+        .container{
+            width: 215mm;
+            height: 282mm;
+            overflow: hidden;
+            margin-bottom: 0px;
+            margin-top: 0px;
+
+        }
+        .row{
+            width: 210mm;
+            height: 10mm;
+            font-size: 10px;
+            text-align: justify;
+            font-family: sans-serif;
+        }
+        .rowright{
+            float: right;
+        }
+        .rowleft{
+            float: left;
+        }
+        .pba {
+            page-break-before: always;
+        }
+
+        p{
+            font-size: 16px;
+        }
+        img{
+            margin-top: 0px;
+            width: 100%;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+
+    {% for key,item in content['data'] %}
+        {% set index=0%}
+        {% for key1,item1 in item %}
+        {% if i == 22 %}{% set i=1%}{% endif %}
+        {% if i == 1 %}
+            <div class="container pba" id="container" >                
+                <img src="{{ asset('images/reportes/header_pdf_' ~ edicion ~ '.png') }}"><br/><br/>
+                <br><br>
+            {% endif %}
+            {% if index == 0 %}
+                <div class="row" style="font-size: 16px;"><b>{{content['catalogo'][key]['NombreES']}}</b></div>
+                        {% set i=i+1 %}
+                    {% endif %}
+
+            <div class="row">
+                <br>
+                {{item1['DC_NombreComercial']}}
+                <div style="float:right">{{item1['EMSTDListadoStand']}}</div>
+            </div>
+            {% if item1['EMSTDListadoStand']|length > 150 %}
+                <div class="row">
+                    <br>
+                </div>
+            {% endif %}
+            {% if i == 21 or loop.last  %}
+                {#<img src="{{ asset('images/reportes/footer_pdf_' ~ edicion ~ '.png') }}">#}
+            </div>
+        {% endif %}
+        {% set i=i+1 %}
+        {% set index=1 %}
+
+
+    {% endfor %}
+{% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        window.print();
+        setTimeout(function () {
+            window.history.back();
+        }, 3000);
+
+    </script>
+
+{% endblock %}
+

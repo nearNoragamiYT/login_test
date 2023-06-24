@@ -1,0 +1,443 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/AE/Administracion/Configuracion/AjustesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/ajustes.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    {% include 'ShowDashboardAEAdministracionConfiguracionAjustesBundle:Configuracion:tabsConfiguracionAE.html.twig' with {"selected": "show_dashboard_ae_administracion_configuracion_ajustes"} %}
+    <div class="container-fluid">
+        <h5>{{ content['section_text']['sas_ajustesConfig'] }} <b>{{ content['edicion']['Edicion_' ~ lang|upper] }}</b></h5>
+        <div class="card-panel z-depth-1">
+            <form id="frm-ajustes" action="{{ path("show_dashboard_ae_administracion_configuracion_ajustes") }}" method="post">
+                <input id="idConfiguracion" 
+                       name="idConfiguracion"
+                       type="hidden" 
+                       {% if content['configuracion']['idConfiguracion'] is defined %}
+                           value="{{ content['configuracion']['idConfiguracion'] }}"
+                       {% endif %}
+                       />
+                <input id="idEvento" 
+                       name="idEvento"
+                       type="hidden" 
+                       {% if content['edicion']['idEvento'] is defined %}
+                           value="{{ content['edicion']['idEvento'] }}"
+                       {% endif %}
+                       />
+                <input id="idEdicion" 
+                       name="idEdicion"
+                       type="hidden" 
+                       {% if content['edicion']['idEdicion'] is defined %}
+                           value="{{ content['edicion']['idEdicion'] }}"
+                       {% endif %}
+                       />
+                <div class="row">
+                    <div class="col s12">
+                        <span class="card-header">{{ content['section_text']['sas_controlPublico'] }}</span>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="input-block">
+                            <p class="switch">
+                                {{ content['section_text']['sas_abierto'] }}
+                                <label class="left">
+                                    <input type="checkbox"
+                                           id="Abierto"
+                                           name="Abierto"
+                                           value="true"
+                                           {% if content['configuracion']['Abierto'] is defined and content['configuracion']['Abierto'] == true %}
+                                               checked
+                                           {% endif %}
+                                           >
+                                    <span class="lever"></span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="input-block">
+                            <p class="switch">
+                                {{ content['section_text']['sas_enMantenimiento'] }}
+                                <label class="left">
+                                    <input type="checkbox"
+                                           id="Mantenimiento"
+                                           name="Mantenimiento"
+                                           value="true"
+                                           {% if content['configuracion']['Mantenimiento'] is defined and content['configuracion']['Mantenimiento'] == true %}
+                                               checked
+                                           {% endif %}
+                                           >
+                                    <span class="lever"></span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="input-block">
+                            <p class="switch">
+                                {{ content['section_text']['sas_cierreCompleto'] }}
+                                <label class="left">
+                                    <input type="checkbox"
+                                           id="CierreCompleto"
+                                           name="CierreCompleto"
+                                           value="true"
+                                           {% if content['configuracion']['CierreCompleto'] is defined and content['configuracion']['CierreCompleto'] == true %}
+                                               checked
+                                           {% endif %}
+                                           >
+                                    <span class="lever"></span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="input-block">
+                            <p class="switch">
+                                {{ content['section_text']['sas_cierreAutomatico'] }}
+                                <label class="left">
+                                    <input type="checkbox"
+                                           id="CierreAutomatico"
+                                           name="CierreAutomatico"
+                                           value="true"
+                                           {% if content['configuracion']['CierreAutomatico'] is defined and content['configuracion']['CierreAutomatico'] == true %}
+                                               checked
+                                           {% endif %}
+                                           >
+                                    <span class="lever"></span>
+                                </label>
+                            </p>
+                            <div class="input-field">
+                                <input id="CierreAutomaticoFecha"
+                                       name="CierreAutomaticoFecha"
+                                       type="text"
+                                       placeholder="2017-12-31 00:00"
+                                       class="validate"
+                                       {% if content['configuracion']['CierreAutomaticoFecha'] is defined %}
+                                           value="{{ content['configuracion']['CierreAutomaticoFecha'] }}"
+                                       {% endif %}
+                                       >
+                                <label for="CierreAutomaticoFecha">{{ content['section_text']['sas_fechaCierreAutomatico'] }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="input-block">
+                            <p class="switch">
+                                {{ content['section_text']['sas_googleAnalytics'] }}
+                                <label class="left">
+                                    <input type="checkbox"
+                                           id="GoogleAnalytics"
+                                           name="GoogleAnalytics"
+                                           value="true"
+                                           {% if content['configuracion']['GoogleAnalytics'] is defined and content['configuracion']['GoogleAnalytics'] == true %}
+                                               checked
+                                           {% endif %}
+                                           >
+                                    <span class="lever"></span>
+                                </label>
+                            </p>
+                            <div class="input-field">
+                                <textarea id="GoogleAnalyticsTracking" name="GoogleAnalyticsTracking" class="materialize-textarea">
+                                    {%- if content['configuracion']['GoogleAnalyticsTracking'] is defined -%}
+                                    {{- content['configuracion']['GoogleAnalyticsTracking'] -}}
+                                    {%- endif -%}
+                                </textarea>
+                                <label for="GoogleAnalyticsTracking">{{ content['section_text']['sas_seguimientoGA'] }} (sin &#060;script&#062;)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <span class="card-header">{{ content['section_text']['sas_ajustesAE'] }}</span>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="input-block">
+                            <p class="switch">
+                                {{ content['section_text']['sas_emailUnico'] }}
+                                <label class="left">
+                                    <input type="checkbox"
+                                           id="EmailUnico"
+                                           name="EmailUnico"
+                                           value="true"
+                                           {% if content['configuracion']['EmailUnico'] is defined and content['configuracion']['EmailUnico'] == true %}
+                                               checked
+                                           {% endif %}
+                                           >
+                                    <span class="lever"></span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="input-block">
+                            <p class="switch">
+                                {{ content['section_text']['sas_codigoOrigen'] }}
+                                <label class="left">
+                                    <input type="checkbox"
+                                           id="CodigoOrigen"
+                                           name="CodigoOrigen"
+                                           value="true"
+                                           {% if content['configuracion']['CodigoOrigen'] is defined and content['configuracion']['CodigoOrigen'] == true %}
+                                               checked
+                                           {% endif %}
+                                           >
+                                    <span class="lever"></span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="input-block">
+                            <p class="switch">
+                                {{ content['section_text']['sas_syncFM'] }}
+                                <label class="left">
+                                    <input type="checkbox"
+                                           id="SyncFM"
+                                           name="SyncFM"
+                                           value="true"
+                                           {% if content['configuracion']['SyncFM'] is defined and content['configuracion']['SyncFM'] == true %}
+                                               checked
+                                           {% endif %}
+                                           {% if not (content['conexion']['FmConexion'] is defined and content['conexion']['FmConexion']|length > 0) %}
+                                               disabled
+                                           {% endif %}
+                                           >
+                                    <span class="lever"></span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="input-block">
+                            <p class="switch">
+                                {{ content['section_text']['sas_tienda'] }}
+                                <label class="left">
+                                    <input type="checkbox"
+                                           id="Tienda"
+                                           name="Tienda"
+                                           value="true"
+                                           {% if content['configuracion']['Tienda'] is defined and content['configuracion']['Tienda'] == true %}
+                                               checked
+                                           {% endif %}
+                                           >
+                                    <span class="lever"></span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="input-block">
+                            <div class="input-field">
+                                <input id="idEncuesta"
+                                       name="idEncuesta"
+                                       type="number" 
+                                       class="validate"
+                                       {% if content['configuracion']['idEncuesta'] is defined %}
+                                           value="{{ content['configuracion']['idEncuesta'] }}"
+                                       {% endif %}
+                                       >
+                                <label for="idEncuesta">{{ content['section_text']['sas_idEncuesta'] }}</label>
+                            </div>
+                        </div>
+                        <div class="input-block">
+                            <div class="input-field">
+                                <input id="Salt"
+                                       name="Salt"
+                                       type="text" 
+                                       class="validate"
+                                       {% if content['configuracion']['Salt'] is defined %}
+                                           value="{{ content['configuracion']['Salt'] }}"
+                                       {% endif %}
+                                       >
+                                <label for="Salt">{{ content['section_text']['sas_salt'] }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="input-block">
+                            <div class="input-field">
+                                <input id="UrlSAS"
+                                       name="UrlSAS"
+                                       type="text" 
+                                       class="validate"
+                                       {% if content['configuracion']['UrlSAS'] is defined %}
+                                           value="{{ content['configuracion']['UrlSAS'] }}"
+                                       {% endif %}
+                                       >
+                                <label for="UrlSAS">{{ content['section_text']['sas_urlSAS'] }}</label>
+                            </div>
+                        </div>
+                        <div class="input-block">
+                            <div class="input-field">
+                                <input id="UrlAE"
+                                       name="UrlAE"
+                                       type="text" 
+                                       class="validate"
+                                       {% if content['configuracion']['UrlAE'] is defined %}
+                                           value="{{ content['configuracion']['UrlAE'] }}"
+                                       {% endif %}
+                                       >
+                                <label for="UrlAE">Url AE</label>
+                            </div>
+                        </div>
+                        <div class="input-block">
+                            <div class="input-field">
+                                <input id="UrlAEDev"
+                                       name="UrlAEDev"
+                                       type="text" 
+                                       class="validate"
+                                       {% if content['configuracion']['UrlAEDev'] is defined %}
+                                           value="{{ content['configuracion']['UrlAEDev'] }}"
+                                       {% endif %}
+                                       >
+                                <label for="UrlAEDev">Url AE Dev (localhost)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <span class="card-header">{{ content['section_text']['sas_listaEmail'] }}</span>
+                    </div>
+                    <div class="col s12">
+                        <table id="ListaEmail" class="lista-json bordered highlight responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>{{ content['section_text']['sas_key'] }}</th>
+                                    <th>{{ content['general_text']['sas_email'] }}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td><input id="ListaEmail_key" placeholder="{{ content['section_text']['sas_key'] }}" type="text"></td>
+                                    <td><input id="ListaEmail_email" placeholder="{{ content['general_text']['sas_email'] }}" type="Email"></td>
+                                    <td class="left-align">
+                                        <button class="waves-effect waves-light btn add-record green" type="button" formulario="ListaEmail"><i class="material-icons left">add</i>{{ content['general_text']['sas_agregar'] }}</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% if content['configuracion']['ListaEmail'] is defined and content['configuracion']['ListaEmail'] != "" %}
+                                    {% for key, email in content['configuracion']['ListaEmail'] %}
+                                        <tr i="{{ loop.index0 }}">
+                                            <td><input type="text" name="ListaEmail[{{ loop.index0 }}][key]" value="{{ key }}"></td>
+                                            <td><input type="text" name="ListaEmail[{{ loop.index0 }}][email]" value="{{ email }}"></td>
+                                            <td><i class="material-icons delete-record">delete</i></td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <span class="card-header">{{ content['section_text']['sas_listaTemplates'] }} <i class="material-icons right info-templates">info</i></span>
+                    </div>
+                    <div class="col s12">
+                        <table id="Templates" class="lista-json bordered highlight responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>{{ content['section_text']['sas_key'] }}</th>
+                                    <th>{{ content['section_text']['sas_template'] }}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td><input id="Templates_key" placeholder="{{ content['section_text']['sas_key'] }}" type="text"></td>
+                                    <td>
+                                        <select id="Templates_idTemplate" class="browser-default">
+                                            <option value="">{{ content['section_text']['sas_seleccionaTemplate'] }}</option>
+                                            {% for template in content['templates'] %}
+                                                <option value="{{ template['idTemplate'] }}">{{ template['Template'] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td class="left-align">
+                                        <button class="waves-effect waves-light btn add-record green" type="button" formulario="Templates" id="templates-obligatorios"><i class="material-icons left">add</i>{{ content['general_text']['sas_agregar'] }}</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% if content['configuracion']['Templates'] is defined and content['configuracion']['Templates'] != "" %}
+                                    {% for key, idTemplate in content['configuracion']['Templates'] %}
+                                        <tr i="{{ loop.index0 }}">
+                                            <td><input type="text" name="Templates[{{ loop.index0 }}][key]" value="{{ key }}"></td>
+                                            <td>
+                                                <select name="Templates[{{ loop.index0 }}][idTemplate]" class="browser-default">
+                                                    {% for template in content['templates'] %}
+                                                        <option value="{{ template['idTemplate'] }}"
+                                                                {% if template['idTemplate'] == idTemplate %}selected{% endif %}
+                                                                >{{ template['Template'] }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </td>
+                                            <td><i class="material-icons delete-record">delete</i></td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row otros-ajustes">
+                    <div class="col s12">
+                        <span class="card-header">{{ content['section_text']['sas_otrosAjustes'] }}</span>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    {% if content['configuracion']['idConfiguracion'] is defined %}
+                        <button type="button" class="btn waves-effect btn-flat red-text left ver-eliminar-ajustes">
+                            <i class="material-icons left">delete_forever</i>
+                            {{ content['general_text']['sas_eliminar'] }} {{ content['section_text']['sas_ajustesConfig'] }}
+                        </button>
+                    {% endif %}
+                    <button type="submit" class="btn waves-effect waves-light green right">
+                        {{ content['general_text']['sas_guardar'] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if content['configuracion']['idConfiguracion'] is defined %}
+        <div id="modal-eliminar-ajustes" class="modal">
+            <form id="frm-eliminar-ajustes" action="{{ path("show_dashboard_ae_administracion_configuracion_ajustes_eliminar") }}" method="post">
+                <input name="idConfiguracion" type="hidden" value="{{ content['configuracion']['idConfiguracion'] }}">
+                <div class="modal-content">
+                    <h4>{{ content['general_text']['sas_eliminar'] }} {{ content['section_text']['sas_ajustesConfig'] }}</h4>
+                    <p>{{ content['section_text']['sas_seguroEliminarConfig'] }} <b>{{ content['edicion']['Edicion_' ~ lang|upper] }}</b>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="modal-action modal-close waves-effect btn-flat left">{{ content['general_text']['sas_cancelar'] }}</button>
+                    <button type="submit" class="modal-action btn waves-effect red show-loader-wrapper">{{ content['general_text']['sas_eliminar'] }}</button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+
+    <div class="tap-target cyan white-text" data-activates="templates-obligatorios">
+        <div class="tap-target-content">
+            <h5>{{ content['section_text']['sas_templatesObligatorios'] }}</h5>
+            <ul>
+                <li>generales</li>
+                <li>login</li>
+                <li>recuperar_password</li>
+                <li>datos_generales</li>
+                <li>encuesta</li>
+                <li>comprobante</li>
+                <li>mis_amigos</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var columnasConfiguracion = {{ content['columnasConfiguracion'] ? content['columnasConfiguracion']|json_encode()|raw : '{}' }};
+        var configuracion = {{ content['configuracion'] ? content['configuracion']|json_encode()|raw : '{}' }};
+        var templates = {{ content['templates'] ? content['templates']|json_encode()|raw : '{}' }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.formatter.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/ajustes.js') }}"></script>
+{% endblock %}

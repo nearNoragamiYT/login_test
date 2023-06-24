@@ -1,0 +1,27 @@
+edicion_bundle_homepage:
+    path:     /administracion-global/edicion
+    defaults: { _controller: AdministracionGlobalEdicionBundle:Edicion:getEdition }
+
+edicion_bundle_nuevo:
+    path:     /administracion-global/edicion/nuevo
+    defaults: { _controller: AdministracionGlobalEdicionBundle:Edicion:insertEdition }
+
+edicion_bundle_editar:
+    path:     /administracion-global/edicion/editar/{idEdicion}
+    defaults: { _controller: AdministracionGlobalEdicionBundle:Edicion:updateEdition }
+
+edicion_bundle_eliminar:
+    path:     /administracion-global/edicion/eliminar
+    defaults: { _controller: AdministracionGlobalEdicionBundle:Edicion:deleteEdition }
+    
+edicion_comite_organizador_logo:
+    path:     /administracion-global/edicion/admin/logo
+    defaults: { _controller: AdministracionGlobalEdicionBundle:Edicion:informacionGeneralLogo }
+    requirements:
+        _method:  POST
+
+edicion_bundle_logos:
+    path:     /administracion-global/edicion/admin/logos
+    defaults: { _controller: AdministracionGlobalEdicionBundle:Edicion:edicionLogos }
+    requirements:
+        _method:  POST

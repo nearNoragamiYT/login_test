@@ -1,0 +1,4 @@
+services:
+#    wizard_contacto.example:
+#        class: Wizard\ContactoBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

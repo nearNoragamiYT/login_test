@@ -1,0 +1,35 @@
+empresa_empresa_ficha_montaje_homepage:
+    path:     /empresa/ficha-montaje
+    defaults: { _controller: EmpresaEmpresaFichaMontajeBundle:FichaMontaje:getSellers }
+
+empresa_ficha_montaje_pdf:
+    path:     /empresa/ficha-montaje/pdf/{idVendedor}
+    defaults: { _controller: EmpresaEmpresaFichaMontajeBundle:FichaMontaje:showPDF, idVendedor: 0 }
+
+empresa_ficha_desmontaje_pdf:
+    path:     /empresa/ficha-desmontaje/pdf/{idVendedor}
+    defaults: { _controller: EmpresaEmpresaFichaMontajeBundle:FichaMontaje:showPDFDesmontaje, idVendedor: 0 }
+#Descarga los pdfs por expositor ya sea montaje o desmontaje
+empresa_ficha_montaje_desmontaje_expositor:
+    path:     /empresa/ficha/{type}/{idVendedor}/{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaFichaMontajeBundle:FichaMontaje:descaragarFicha, type: "montaje", idVendedor: 0, idEmpresa: 0 }
+    methods: GET
+    requirements:
+        idEmpresa: \d+
+        idVendedor: \d+
+        
+empresa_ficha_montaje_envio:
+    path:     /empresa/ficha-montaje/enviar
+    defaults: { _controller: EmpresaEmpresaFichaMontajeBundle:FichaMontaje:sendEmailFichas }   
+    
+empresa_ficha_desmontaje_envio:
+    path:     /empresa/ficha-desmontaje/enviar
+    defaults: { _controller: EmpresaEmpresaFichaMontajeBundle:FichaMontaje:sendEmailFichasDesmontaje }
+
+empresa_ficha_desmontaje_empresa_envio:
+    path:     /empresa/ficha-desmontaje-vendedor/enviar
+    defaults: { _controller: EmpresaEmpresaFichaMontajeBundle:FichaMontaje:sendFichasDesmontajeEmpresa } 
+    
+empresa_ficha_montaje_empresa_envio:
+    path:     /empresa/ficha-montaje-vendedor/enviar
+    defaults: { _controller: EmpresaEmpresaFichaMontajeBundle:FichaMontaje:sendFichasMontajeEmpresa }     

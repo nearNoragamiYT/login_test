@@ -1,0 +1,31 @@
+visitante:
+    path:     /visitante
+    defaults: { _controller: VisitanteVisitanteBundle:Visitante:visitor}
+    
+visitante_get_to_datatable:
+    path:  /visitante/get-datatable
+    defaults: { _controller: VisitanteVisitanteBundle:Visitante:getToDataTable }
+    
+visitante_get_to_datatable_filtro:
+    path:  /visitante/get-datatable-filter
+    defaults: { _controller: VisitanteVisitanteBundle:Visitante:getToDataTableFilter }
+    
+visitante_set_session:
+    path:  /visitante/set_session
+    defaults: { _controller: VisitanteVisitanteBundle:Visitante:setSessionData }
+   
+visitante_get_session:
+    path:  /visitante/get_session
+    defaults: { _controller: VisitanteVisitanteBundle:Visitante:getSessionData }
+
+visitante_send_gafete:
+    path:  /visitante/send_gafete
+    defaults: { _controller: VisitanteVisitanteBundle:Visitante:sendGafeteDigital }
+
+visitors_export_data:
+    path:  /visitante/export-data
+    defaults: { _controller: VisitanteVisitanteBundle:Visitante:exportVisitorData }
+
+download_gafete:
+    path:  /download-gafete-visitante
+    defaults: { _controller: VisitanteVisitanteBundle:Visitante:downloadDigibadge }

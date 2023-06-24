@@ -1,0 +1,202 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/AdministracionGlobal/UsuarioBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/usuarioInformacion.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>{{ content['section_text']['sas_informacionUsuario'] }}</h5>
+        <div class="z-depth-1 white">
+            <form id="frm-usuario" action="{{ content["form_action"] }}" method="post">
+                <input type="hidden" 
+                       id="idUsuario" 
+                       name="idUsuario"
+                       {% if content['usuario']['idUsuario'] is defined %}
+                           value="{{ content['usuario']['idUsuario'] }}"
+                       {% endif %}
+                       >
+                <section>
+                    <div class="row">
+                        <div class="col s12">
+                            <span class="card-header">{{ content['general_text']['sas_infoGeneral'] }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <label for="idComiteOrganizador" class="active">{{ content['general_text']['sas_comiteOrganizador'] }}</label>
+                            <select id="idComiteOrganizador" 
+                                    name="idComiteOrganizador" 
+                                    class="browser-default"
+                                    >
+                                <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                {% for key, value in content['comiteOrganizador'] %}
+                                    <option value="{{ value['idComiteOrganizador'] }}"
+                                            {% if content['usuario']['idComiteOrganizador'] is defined and content['usuario']['idComiteOrganizador'] == value['idComiteOrganizador'] %}
+                                                selected
+                                            {% endif %}
+                                            >{{ value['ComiteOrganizador'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col s12 m6">
+                            <label for="idTipoUsuario" class="active">{{ content['section_text']['sas_tipoUsuario'] }}</label>
+                            <select id="idTipoUsuario" 
+                                    name="idTipoUsuario" 
+                                    class="browser-default"
+                                    >
+                                <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                {% for key, value in content['tipoUsuario'] %}
+                                    <option value="{{ value['idTipoUsuario'] }}"
+                                            {% if content['usuario']['idTipoUsuario'] is defined and content['usuario']['idTipoUsuario'] == value['idTipoUsuario'] %}
+                                                selected
+                                            {% endif %}
+                                            >{{ value['TipoUsuario'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input id="Nombre" 
+                                   name="Nombre"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['usuario']['Nombre'] is defined %}
+                                       value="{{ content['usuario']['Nombre'] }}"
+                                   {% endif %}
+                                   {% if content['usuario']['idUsuario'] is defined and content['usuario']['idUsuario'] == 1 %}
+                                       readonly
+                                   {% endif %}
+                                   >
+                            <label for="Email">{{ content['general_text']['sas_nombre'] }}</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="Puesto" 
+                                   name="Puesto"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['usuario']['Puesto'] is defined %}
+                                       value="{{ content['usuario']['Puesto'] }}"
+                                   {% endif %}
+                                   {% if content['usuario']['idUsuario'] is defined and content['usuario']['idUsuario'] == 1 %}
+                                       readonly
+                                   {% endif %}
+                                   >
+                            <label for="Puesto">{{ content['general_text']['sas_puesto'] }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input id="Email" 
+                                   name="Email"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['usuario']['Email'] is defined %}
+                                       value="{{ content['usuario']['Email'] }}"
+                                   {% endif %}
+                                   >
+                            <label for="Email">{{ content['general_text']['sas_email'] }}</label>
+                        </div>
+                        <div class="col s12 m6">
+                            <div class="input-field">
+                                <input id="Password" 
+                                       name="Password"
+                                       class="validate"
+                                       {% if content['usuario']['idUsuario'] is defined %}
+                                           type="password"
+                                           disabled
+                                           value="____"
+                                       {% else %}
+                                           type="text"
+                                       {% endif %}
+                                       >
+                                <label for="Password">{{ content['general_text']['sas_password'] }}</label>
+                            </div>
+                            <div class="control-password">
+                                    <a class="btn-generate-password"
+                                       {% if content['usuario']['idUsuario'] is defined %}
+                                           style="display: none;"
+                                       {% endif %}
+                                       >{{ content['general_text']['sas_generar'] }} {{ content['general_text']['sas_password'] }} <i class="material-icons left">autorenew</i></a>
+                                    {% if content['usuario']['idUsuario'] is defined %}
+                                        <a class="right cambiar-password">
+                                            <input type="checkbox" id="chk-cambiar-password" />
+                                            <label for="chk-cambiar-password">{{ content['general_text']['sas_cambiarPassword'] }}</label>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <span class="card-header">{{ content['section_text']['sas_edicionesActivas'] }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="collection ediciones">
+                                {% for edicion in content['ediciones'] %}
+                                    <a class="collection-item row" id-edicion="{{ edicion['idEdicion'] }}">
+                                        <div class="col s10 edicion-item">
+                                            {{- edicion['Edicion_'  ~ lang|upper] -}}
+                                        </div>
+                                        <span class="col s2 right-align">
+                                            <div class="switch">
+                                                <label>
+                                                    <input id="id-edicion-{{ edicion['idEdicion'] }}" name="idEdicion[]" type="checkbox" value="{{ edicion['idEdicion'] }}">
+                                                    <span class="lever"></span>
+                                                </label>
+                                            </div>
+                                        </span>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row permisos">
+                        {% for edicion in content['ediciones'] %}
+                            <div class="col s12 tab-edicion" id-edicion="{{ edicion['idEdicion'] }}">
+                                <span class="card-header">{{ content['section_text']['sas_permisosEn'] }} {{ edicion['Edicion_' ~ lang|upper] }}</span>
+                                <div class="permisos-edicion"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </section>
+                <div class="divider"></div>
+                <section>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="nav-btn">
+                                <a class="btn-link waves-effect btn-flat left show-loader-top" href="{{ path('usuario') }}">
+                                    <i class="material-icons left">navigate_before</i>{{ content['general_text']['sas_atras'] }}
+                                </a>
+                                <button type="submit" class="btn waves-effect waves-light green right">{{content['general_text']['sas_guardar']}}</button>  
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var comiteOrganizador = {{ content['comiteOrganizador']|length ? content['comiteOrganizador']|json_encode()|raw : '{}' }};
+                var ediciones = {{ content['ediciones']|length ? content['ediciones']|json_encode()|raw : '{}' }};
+                var tipoUsuario = {{ content['tipoUsuario']|length ? content['tipoUsuario']|json_encode()|raw : '{}' }};
+                var modulos = {{ content['modulos']|length ? content['modulos']|json_encode()|raw : '{}' }};
+                var plataformas = {{ content['plataformas']|length ? content['plataformas']|json_encode()|raw : '{}' }};
+                var usuario = {{ content['usuario']|length ? content['usuario']|json_encode()|raw : '{}' }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/jquery.floatThead.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/usuarioInformacion.js') }}"></script>
+{% endblock %}

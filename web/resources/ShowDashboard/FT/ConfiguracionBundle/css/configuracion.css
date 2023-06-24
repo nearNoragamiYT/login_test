@@ -1,0 +1,74 @@
+.container .row {
+    margin-left: -6.75rem;
+    margin-right: -6.75rem;
+}
+label {
+    font-family: sans-serif;
+    width: 300px;
+    display: block;
+    position: relative;
+}
+input {
+    padding: 5px 15px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+input[type=color] {
+    padding: 0;
+    border: 0;
+    height: 50px;
+}
+input[type=color]:after {
+    content: attr(value);
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    color: rgb(255,255,255);
+    display: block;
+    width: 100%;
+}
+
+
+#next-color{
+    cursor: pointer;
+    line-height: 75px !important;
+    color: rgb(124, 124, 124) !important;
+    font-size: 50px !important;
+    margin-left: 0px; 
+}
+
+#next-color:hover{
+    color: rgb(33, 149, 243) !important;
+    cursor: pointer;
+}
+
+#next-color-back{
+    cursor: pointer;
+    line-height: 75px !important;
+    color: rgb(124, 124, 124) !important;
+    font-size: 50px !important;
+    margin-left: 0px; 
+}
+
+#next-color-back:hover{
+    color: rgb(33, 149, 243)!important;
+    cursor: pointer;
+}
+
+.cp-color-picker{
+    z-index: 10000;
+}
+.color-content > label.active{
+    top: 8px;
+}
+
+blockquote{
+    border-left: 5px solid rgb(243, 152, 33) !important;
+    font-size: 15px !important;
+    font-weight: 300;
+}
+
+#note-warning{
+    display: none;
+}

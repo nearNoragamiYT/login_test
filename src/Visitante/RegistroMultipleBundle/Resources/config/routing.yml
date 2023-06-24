@@ -1,0 +1,31 @@
+registro_multiple:
+    path:     /registro_multiple
+    defaults: { _controller: VisitanteRegistroMultipleBundle:RegistroMultiple:multiple}
+    
+registromultiple_get_to_datatable:
+    path:  /registromultiple/get-datatable
+    defaults: { _controller: VisitanteRegistroMultipleBundle:RegistroMultiple:getToDataTable }
+    
+registromultiple_get_to_datatable_filtro:
+    path:  /registromultiple/get-datatable-filter
+    defaults: { _controller: VisitanteRegistroMultipleBundle:RegistroMultiple:getToDataTableFilter }
+    
+registromultiple_set_session:
+    path:  /registromultiple/set_session
+    defaults: { _controller: VisitanteRegistroMultipleBundle:RegistroMultiple:setSessionData }
+   
+registromultiple_get_session:
+    path:  /registromultiple/get_session
+    defaults: { _controller: VisitanteRegistroMultipleBundle:RegistroMultiple:getSessionData }
+    
+registromultiple_export_data:
+    path:  /registromultiple/export-data
+    defaults: { _controller: VisitanteRegistroMultipleBundle:RegistroMultiple:exportVisitorData }
+    
+enviar_gafete_wallet:
+    path:  /enviar-gafete-wallet
+    defaults: { _controller: VisitanteRegistroMultipleBundle:RegistroMultiple:sendGafeteWallet }
+
+download_gafete_multiple:
+    path:  /download-gafete-multiple
+    defaults: { _controller: VisitanteRegistroMultipleBundle:RegistroMultiple:downloadDigibadge }

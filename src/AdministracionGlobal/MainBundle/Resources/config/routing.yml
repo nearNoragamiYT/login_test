@@ -1,0 +1,3 @@
+show_dashboard_sas:
+    path:     /show-dashboard/sas
+    defaults: { _controller: AdministracionGlobalMainBundle:Main:index }

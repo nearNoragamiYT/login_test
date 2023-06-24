@@ -1,0 +1,11 @@
+show_dashboard_ae_administracion_guardar_html:
+    path:     /show-dashboard/ae/administracion/guardar-html/{lang}
+    defaults: { _controller: ShowDashboardAEAdministracionConfiguracionBundle:Configuracion:guardarHTML, lang: es }
+    requirements:
+        _method:  POST
+
+show_dashboard_ae_administracion_guardar_imagen:
+    path:     /show-dashboard/ae/administracion/guardar-imagen/{lang}
+    defaults: { _controller: ShowDashboardAEAdministracionConfiguracionBundle:Configuracion:guardarImagen, lang: es }
+    requirements:
+        _method:  POST

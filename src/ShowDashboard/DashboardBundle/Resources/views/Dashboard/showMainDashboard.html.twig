@@ -1,0 +1,33 @@
+{% extends '::base_main_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/DashboardBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/mainDashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for edicion in content['ediciones'] %}
+                <div class="col s12 m6">
+                    <a class="card hoverable waves-effect show-loader-top" 
+                       href="{{ path("show_dashboard_edicion", { "idEdicion": edicion['idEdicion'], "lang": lang } ) }}"
+                       >
+                        <div class="card-image">
+                            <img src="{{ asset('images/logos-co/header/' ~ edicion['Logo_' ~ lang|upper ~ '_1']) }}">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <span class="card-title">{{ edicion['Edicion_' ~ lang|upper] }}</span>
+                                <div class="card-subtitle">{{ edicion['Evento_' ~ lang|upper] }}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% else %}
+                <h2 class="center-align grey-text">{{ content['general_text']['sas_edicionesNoDisponibles'] }}</h2>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

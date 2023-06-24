@@ -1,0 +1,117 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Visitante/CompradorBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}    
+    {#    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/datatables.responsive.css') }}"/>
+        <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/dynamic_table.css') }}" />#}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/comprador.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>    
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row card-panel" style="overflow-x:auto">
+            <form id="status-form" class="col s12">
+                <div class="col s12" style="margin-bottom: 15px;">
+                    <div class="input-field col s3 m3 l3 status-autorizacion" {% if permisos_modulo["Editar"] == false %} style="display: none;" {% endif %}>
+                        <label for="idStatusAutorizado" class="active space-label" >Estatus Autorizacion:</label>
+                        {% if content['StatusAsociados'] is defined and content['StatusAsociados']|length > 0 %}
+                            <select id="idStatusAutorizado"
+                                    name="idStatusAutorizado"
+                                    class="browser-default validate"
+                                    >
+                                <option value="0" disabled selected>{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                {% for statusAutorizacion in content['StatusAsociados'] if statusAutorizacion['idStatus'] != 1 %}
+                                    <option value="{{ statusAutorizacion['idStatus'] }}">{{ statusAutorizacion['NombreStatus'] }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+
+                    </div>
+                    <div class="input-field col s2 m2 l2">
+                        <button type="button" id="updateAsociados" class="waves-effect waves-green btn-flat green white-text" {% if permisos_modulo["Editar"] == false %} style="display: none;" {% endif %} >Actualizar Estatus</button>
+                    </div>   
+                </div>   
+            </form>
+            <div class="btn-export col s2 right" id="exp-distritos-table" title="Export Excel" >
+                <label class="lb-export">Exportar</label>
+                <a id="link_exel_distritos" name="distrito" href="{{path('export_comprador')}}" download>
+                    <img src="{{ asset('/images/excel.png') }}" class="img-export">
+                </a>
+            </div>
+            <table id="table-comprador" class="highlight bordered dataTable" style="width:100%">
+                <thead>
+                    <tr id='x'>
+                        <th width="5%">
+                            <a class="tooltipped" data-position="top" data-delay="50" data-tooltip="Seleccionar Todos">
+                                <input type="checkbox" id="btn-select-all"/>
+                                <label for="btn-select-all"></label>
+                            </a>
+                        </th>
+                        <th width="4%">ID</th>
+                        <th>Nombre Completo</th>
+                        <th>Email</th>
+                        <th width="5%">Nombre Comercial</th>
+                        <th>Cargo</th>
+                        {# <th width="5%">Comprador</th>
+                        <th width="5%" >Preregistrado</th> #}
+                        <th>Fecha Preregistro</th>
+                        <th>Estatus Registro</th>
+                        <th width="2%"></th>
+                        {# content['user']['idUsuario'] != 69 #}
+                            {% if content['user']['idUsuario'] == 1 or content['user']['idUsuario'] == 35 or content['user']['idUsuario'] == 58 %}
+                            <th width="2%"></th>
+                            <th width="2%"></th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr id='y'>
+                        <th></th>
+                        <th width="4%">idVisitante</th>
+                        <th>NombreCompleto</th>
+                        <th>Email</th>
+                        <th width="5%">NombreComercial</th>
+                        <th>Cargo</th>
+                        {# <th width="5%">Comprador</th>
+                        <th width="5%">Preregistrado</th> #}
+                        <th>FechaPreregistro</th>
+                        <th>NombreStatus</th>
+                        <th></th>
+                            {% if content['user']['idUsuario'] == 1 or content['user']['idUsuario'] == 35 or content['user']['idUsuario'] == 58 %}
+                            <th></th>
+                            <th></th>
+                        {% endif %}
+                    </tr>
+                </tfoot>
+            </table>
+        </div> 
+    </div>
+    {% include 'VisitanteAsociadoBundle:Asociado:confirmStatusModal.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var lang
+                = {{ content['lang']|json_encode()|raw }},
+                Comprador_table_columns = {{ content['Comprador_table_columns']|json_encode()|raw }};
+        var url_lang = "{{asset('js/dataTablesLang/' ~ content['lang'] ~ '.json')}}";
+        var url_get_data = "{{ path('get_comprador') }}",
+                url_update_status_partner = "{{ path('update_asociados') }}";
+        var url_send_rechazo = '{{ path('email_rechazo_comprador') }}';
+        var url_send_confirmacion = '{{ path('email_confirmacion_comprador') }}';
+        var url_visitante_datos_generales = "{{ path('visitante_datos_generales') }}";
+        var url_send_digibage = "{{path('comprador_send_digibage')}}";
+        var url_download_digibadge = "{{path('comprador_download_digibadge')}}";
+        var user = {{content['user']|json_encode()|raw}};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/datepickerLang/' ~ content['lang'] ~ '.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/comprador.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+services:
+#visitante_compras_torneo.example:
+#        class:Visitante\ComprasTorneoBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

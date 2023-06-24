@@ -1,0 +1,196 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Sep 18, 2017, 11:54:57 AM
+    Author     : Eduardo
+*/
+
+#search-icon {
+    float: left;
+    width: 100%;
+    height: 40px;
+    border-radius: 15px 15px 0px 0px;
+    vertical-align: middle;
+    padding-top: 7px;
+    display: none;
+}
+
+#search-icon:hover {
+    background-color: lightgrey;
+}
+
+#filter-combo{
+    border-radius: 0px 0px 15px 15px;
+    border-style: solid;
+    border-width: 1px;
+    background: whitesmoke;
+    display: none;
+    position: absolute;
+    z-index: 10000;
+}
+
+#icon-search {
+    font-weight: 900;
+    cursor: pointer;
+    padding-left: 1%;
+    display: block;
+    float: left;
+}
+
+#filter-title{
+    margin-left: 10px;
+    font-size: 1.3rem;
+}
+#active-filters{
+    margin-top: 42px;
+}
+
+#applyFilters{
+    margin-left: 1rem;
+}
+
+#filter-combo button{
+    padding: 0rem .5rem;
+}
+
+.active-filter{
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #e4e4e4;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.cover-ixpotable{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: none;
+    background-color: rgba(10,10,10,.9);
+}
+
+th[data-orderable="false"]{
+    cursor: not-allowed !important;
+}
+
+/*-- loader --*/
+@-webkit-keyframes color-ixpo{
+    0%{color:#ffffff;}
+    50%{color:transparent;}
+    100%{color:#ffffff;}
+}
+@-webkit-keyframes border-ixpo{
+    0%{border-color:transparent;border-top-color:#ffffff;}
+    25%{border-color:transparent;border-right-color:#ffffff;}
+    50%{border-color:transparent;border-bottom-color:#ffffff;}
+    75%{border-color:transparent;border-left-color:#ffffff;}
+    100%{border-color:transparent;border-top-color:#ffffff;}
+}
+.loader-ixpo{
+    font-family: "Times New Roman", Georgia, Serif;;
+    text-align: center;
+    height: auto;
+    line-height: 200px;
+    border: 1px solid transparent;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    display: block;
+    margin: 200px auto;
+    font-size: 3rem;
+    color: #ffffff;
+    font-weight: bold;
+    -webkit-animation: border-ixpo 1.35s linear 0 infinite;
+    -moz-animation: border-ixpo 1.35s linear 0 infinite;
+    -ms-animation: border-ixpo 1.35s linear 0 infinite;
+    -o-animation: border-ixpo 1.35s linear 0 infinite;
+    animation: border-ixpo 1.35s linear 0 infinite;
+}
+.loader-ixpo span{
+    margin: .5rem 0rem;
+    -webkit-animation:color-ixpo 1.6s linear infinite;
+    -moz-animation:color-ixpo 1.6s linear infinite;
+    -ms-animation:color-ixpo 1.5s linear infinite;
+    -o-animation:color-ixpo 1.6s linear infinite;
+    animation:color-ixpo 1.6s linear infinite;
+}
+.loader-ixpo span:nth-child(1){
+    -webkit-animation-delay:0s;
+    -moz-animation-delay:0s;
+    -ms-animation-delay:0s;
+    -o-animation-delay:0s;
+    animation-delay:0s;
+}
+.loader-ixpo span:nth-child(2){
+    -webkit-animation-delay:.15s;
+    -moz-animation-delay:.15s;
+    -ms-animation-delay:.15s;
+    -o-animation-delay:.15s;
+    animation-delay:.15s;
+}
+.loader-ixpo span:nth-child(3){
+    -webkit-animation-delay:.30s;
+    -moz-animation-delay:.30s;
+    -ms-animation-delay:.30s;
+    -o-animation-delay:.30s;
+    animation-delay:.30s;
+}
+.loader-ixpo span:nth-child(4){
+    -webkit-animation-delay:.45s;
+    -moz-animation-delay:.45s;
+    -ms-animation-delay:.45s;
+    -o-animation-delay:.45s;
+    animation-delay:.45s;
+}
+.loader-ixpo span:nth-child(5){
+    -webkit-animation-delay:.60s;
+    -moz-animation-delay:.60s;
+    -ms-animation-delay:.60s;
+    -o-animation-delay:.60s;
+    animation-delay:.60s;
+}
+.loader-ixpo span:nth-child(6){
+    -webkit-animation-delay:.75s;
+    -moz-animation-delay:.75s;
+    -ms-animation-delay:.75s;
+    -o-animation-delay:.75s;
+    animation-delay:.75s;
+}
+.loader-ixpo span:nth-child(7){
+    -webkit-animation-delay:.90s;
+    -moz-animation-delay:.90s;
+    -ms-animation-delay:.90s;
+    -o-animation-delay:.90s;
+    animation-delay:.90s;
+}
+.loader-ixpo span:nth-child(8){
+    -webkit-animation-delay:1.05s;
+    -moz-animation-delay:1.05s;
+    -ms-animation-delay:1.05s;
+    -o-animation-delay:1.05s;
+    animation-delay:1.05s;
+}
+.loader-ixpo span:nth-child(9){
+    -webkit-animation-delay:1.20s;
+    -moz-animation-delay:1.20s;
+    -ms-animation-delay:1.20s;
+    -o-animation-delay:1.20s;
+    animation-delay:1.20s;
+}
+.loader-ixpo span:nth-child(10){
+    -webkit-animation-delay:1.35s;
+    -moz-animation-delay:1.35s;
+    -ms-animation-delay:1.35s;
+    -o-animation-delay:1.35s;
+    animation-delay:1.35s;
+}

@@ -1,0 +1,23 @@
+visitante_rs:
+    path:     /rs/visitante
+    defaults: { _controller: ShowDashboardRSVisitanteBundle:Visitante:visitor}
+    
+visitante_get_to_datatable_rs:
+    path:  /rs/visitante/get-datatable
+    defaults: { _controller: ShowDashboardRSVisitanteBundle:Visitante:getToDataTable }
+    
+visitante_get_to_datatable_filtro_rs:
+    path:  /rs/visitante/get-datatable-filter
+    defaults: { _controller: ShowDashboardRSVisitanteBundle:Visitante:getToDataTableFilter }
+    
+visitante_set_session_rs:
+    path:  /rs/visitante/set_session
+    defaults: { _controller: ShowDashboardRSVisitanteBundle:Visitante:setSessionData }
+   
+visitante_get_session_rs:
+    path:  /rs/visitante/get_session
+    defaults: { _controller: ShowDashboardRSVisitanteBundle:Visitante:getSessionData }
+    
+visitors_export_data_rs:
+    path:  /rs/visitante/export-data
+    defaults: { _controller: ShowDashboardRSVisitanteBundle:Visitante:exportVisitorData }

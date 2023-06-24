@@ -1,0 +1,55 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-companies", "fixed": true, "size": "modal-l", "color": "green", "idButton": "btn-send-emarketing" } %}
+{% block title %}{{content['section_text']['sas_seleccionEspacio']}}{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col s3">
+            <input type="checkbox" id="montaje-desmontaje" value="1" /><label for="montaje-desmontaje" class="right" style="margin: 12px;">Montaje/Desmontaje</label>
+        </div>
+        <div class="col s3"></div>
+    </div>
+
+    <table id="tbl-companies" class="highlight bordered">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="btn-select-all" />
+                    <label for="btn-select-all"></label>
+                </th>
+                {#<th>Enviar</th>#}
+                <th>{{content['section_text']['sas_nombreComercial']}}</th>
+                <th>{{content['section_text']['sas_nombreContacto']}}</th>
+                <th>{{content['section_text']['sas_email']}}</th>
+                <th>{{content['section_text']['sas_vendedor']}}</th>
+                <th>{{content['section_text']['sas_empresaTipo']}}</th>
+                <th>{{content['section_text']['sas_pais']}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in content['empresas'] %}
+                <tr>
+                    <td>
+                        <input type="checkbox" id="e-{{item['idEmpresa']}}" value="{{item['idEmpresa']}}" class="company-check" />
+                        <label for="e-{{item['idEmpresa']}}"></label>
+                    </td>
+                    {#<td>
+                        {% if item['EnvioMontajeDesmontaje'] == 1 %}
+                            {{content['general_text']['sas_si']}}
+                        {% else %}
+                            {{content['general_text']['sas_no']}}
+                        {% endif %}
+                    </td>#}
+                    <td>{{item['DC_NombreComercial']}}</td>
+                    <td>{{item['Nombre'] ~ ' ' ~ item['ApellidoPaterno'] ~ ' ' ~ item['ApellidoMaterno']}} </td>
+                    <td>{{item['Email']}}</td>
+                    <td>{{content['vendedor'][item['idVendedor']]['Nombre']}}{#{content['vendedor'][item['idVendedor']]['NombreCompleto' ~ lang|upper]}#}</td>
+                    <td>{{content['empresa_tipo'][item['idEmpresaTipo']]['Tipo' ~ lang|upper]}}</td>
+                    <td>{{item['DC_Pais']}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_enviar']}}
+{% endblock %}

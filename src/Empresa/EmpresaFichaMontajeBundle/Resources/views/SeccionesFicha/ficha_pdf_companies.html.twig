@@ -1,0 +1,25 @@
+<tr>
+    <td colspan="24"  align="CENTER" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <strong>EMPRESAS AUTORIZADAS PARA INGRESAR A PATIO DE MANIOBRAS</strong>
+    </td>
+</tr>
+{% for key in empresaMontaje %}
+    {% if ficha['idEmpresa'] == key['idEmpresa'] %}
+    <tr>
+        <td colspan="24" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+            <strong>EMPRESA REGISTRADA/ REGISTERED COMPANY:</strong>{{key['Empresa'] }}<br><br>
+            <strong>TIPO / TYPE:</strong>{{montajeActividad[key['idMontajeActividad']]['MontajeActividadES']~' / '~montajeActividad[key['idMontajeActividad']]['MontajeActividadEN'] }}<br><br>
+            EMPRESA Y CONTACTO / <i>COMPANY AND CONTACT NAME</i>:
+                <ul>
+	            <li>{{ "Empresa: "~key['Empresa']}}</li>
+	            <li>{{ "Responsable: "~key['Responsable'] }}</li> 
+	            <li>{{ "Cargo: "~key['Cargo'] }} </li>
+	            <li>{{ "Tel. Celular: "~key['TelefonoCelular']}}</li> 
+	            <li>{{ "Tel. Oficina: "~key['TelefonoOficina'] }} </li>
+	            <li>{{ "Email: "~key['Email']}}</li>    
+                </ul>                
+            <strong>TIPO / <i>TYPE:</i></strong>{{montajeVehiculo[key['idMontajeVehiculo']]['VehiculoES']~' / '~montajeVehiculo[key['idMontajeVehiculo']]['VehiculoEN'] }}
+        </td>
+    </tr>
+    {% endif %}
+{% endfor%}  

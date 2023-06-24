@@ -1,0 +1,141 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaContratoBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_contrato.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% include 'EmpresaEmpresaBundle:Empresa:menu_secciones.html.twig' %}
+    <div id="contracts" class="container">
+        {% include 'EmpresaEmpresaBundle:Empresa:detalle_empresa.html.twig' %}
+        <div class="row card-panel">
+            <h5 class="header-btn" style="margin: 0px;">
+                {{content['section_text']['sas_contratos']}}
+                <a href="{{ path('empresa_contrato_home', {'idEmpresa': content["idEmpresa"]}) }}" id="add-contract" class="btn waves-effect waves-light green right">
+                    {{ content["section_text"]["sas_agregarContrato"] }}
+                </a>
+            </h5>
+            <table id="contracts-table" class="highlight bordered">
+                <thead class="grey lighten-4">
+                    <tr>
+                        {% for header in content["contract_metadata"] %}
+                            {% if header["is_visible"] == true %}
+                                <th>{{ header["text"] }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        <th style="width: 10%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contract in content["contracts"] %}
+                        <tr>
+                            {% for key, value in contract %}
+                                {% if content["contract_metadata"][key] is defined and content["contract_metadata"][key]["is_visible"] == true %}
+                                    {%if content["contract_metadata"][key]["values"] is defined%}
+                                        <td> {{ content["contract_metadata"][key]["values"][value]}} </td>
+                                    {% else %}
+                                        {% if key == "idEdicion" %}
+                                            <td> {{ content["editions"][value]["Edicion_" ~ lang|upper] }} </td>
+                                        {% elseif key == "idStatusContrato"%}
+                                            <td class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{ content["status"][value]['Descripcion'] }}"
+                                                {% if value == 2 %} style="color: #E5D841 ;"
+                                                {% elseif value == 3 %} style="color: blue;"
+                                                {% elseif value == 4 %} style="color: green;"
+                                                {% elseif value == 5 %} style="color: red;"
+                                                {% endif %}
+                                                >
+                                                {{ content["status"][value]["Status"] }}
+                                            </td>
+                                        {% elseif key == "AreaContratada"%}
+                                            <td>
+                                                {% if value != "" %}
+                                                    {{ value }} m<sup>2</sup>
+                                                {% endif %}
+                                            </td>
+                                        {% elseif key == "ContratoPDF" %}
+                                            <td>
+                                                {% if value != "" %}
+                                                    <img src="{{asset('images/iconos/file-pdf-o.svg')}}"
+                                                         class="tooltipped"
+                                                         data-tooltip="{{ content["section_text"]["sas_verPDF"] }}"
+                                                         data-position="bottom"
+                                                         data-delay="50"
+                                                         style="height: 20px">
+                                                    </img>
+                                                {% endif %}
+                                            </td>
+                                        {% else %}
+                                            <td> {{ value }} </td>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                                {% if contract["idStatusContrato"] != 5 %}
+                                    <a href="{{ path('empresa_contrato_home', {'idEmpresa': content["idEmpresa"], 'idContrato': contract['idContrato']}) }}">
+                                        <i class="material-icons edit-record tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content['general_text']['sas_editar'] }}" data-id="{{contract['idContrato']}}">mode_edit</i>
+                                    </a>
+                                    <i class="material-icons delete-record tooltipped" data-position="right" data-delay="50" data-tooltip="{{ content['general_text']['sas_cancelar'] }}" data-id="{{contract['idContrato']}}">clear</i>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    {#% if not(content["header"]["idEtapa"] is defined) %}
+        <div class="fixed-action-btn" style="bottom: 60px; right: 30px;">
+            <a href="{{ path('empresa_contrato_home', {'idEmpresa': content["idEmpresa"]}) }}" class="btn-floating btn-large green tooltipped"
+               id="add-contract"
+               data-tooltip="{{ content["section_text"]["sas_agregarContrato"] }}"
+               data-position="left"
+               data-delay="50"
+               >
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+    {% endif %#}
+    <div id="delete-record-modal" class="modal">
+        <div class="modal-content">
+            <h6>{{content['section_text']['sas_cancelarRegistro']}}</h6>
+            <p id="deleteText"></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+            <button id="delete-record" type="button" class="modal-action waves-effect waves-red btn-flat red white-text" data-action="delete">{{content['section_text']['sas_cancelarContrato']}}</button>
+        </div>
+    </div>
+    {% include 'EmpresaEmpresaContratoBundle:EmpresaContrato:cambiar_upgrade.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_get_estados = "{{ path('pecc_estados', {'idPais': "0000"}) }}";
+        var url_contract_cancel = "{{ path('empresa_empresa_contrato_cancelar') }}";
+        var url_upgrade_change = "{{ path('empresa_empresa_paquete_cambiar') }}";
+    </script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                var general_text = {{ content['general_text']|json_encode()|raw }};
+                var section_text = {{ content['section_text']|json_encode()|raw }};
+                var idEmpresa = {{ content['idEmpresa']|json_encode()|raw }};
+                var contracts = {{ content['contracts']|json_encode()|raw }};
+                var status_list = {{ content["status"]|json_encode()|raw }};
+                var editions = {{ content['editions']|json_encode()|raw }};
+                var packages = {{ content['packages']|json_encode()|raw }};
+                var company = {{ content['header']|json_encode()|raw }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_contrato.js') }}"></script>
+{% endblock %}
+

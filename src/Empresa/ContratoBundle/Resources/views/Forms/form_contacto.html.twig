@@ -1,0 +1,51 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-contacto", "fixed": true, "size": "modal-m", "color": "green", "idButton": "save-contact" } %}
+{% block title %}{{content['section_text']['sas_contactosResponsables']}}{% endblock %}
+{% block body %}
+    <form id="frm-contacto" class="col s12">
+        <div class="frm-contacto">        
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="Nombre" name="Nombre" type="text" class="validate" maxlength="100">
+                    <label for="Nombre">{{content['general_text']['sas_nombre']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="ApellidoPaterno" name="ApellidoPaterno" type="text" class="validate" maxlength="100">
+                    <label for="ApellidoPaterno">{{content['general_text']['sas_apellidoPaterno']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="ApellidoMaterno" name="ApellidoMaterno" type="text" class="validate" maxlength="100">
+                    <label for="ApellidoMaterno">{{content['general_text']['sas_apellidoMaterno']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="Puesto" name="Puesto" type="text" class="validate" maxlength="50">
+                    <label for="Puesto">{{content['general_text']['sas_puesto']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="Email" name="Email" type="text" class="validate" maxlength="50">
+                    <label for="Email">{{content['general_text']['sas_email']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="Telefono" name="Telefono" type="text" class="validate" maxlength="100">
+                    <label for="Telefono">{{content['general_text']['sas_telefono']}}</label>
+                </div>
+            </div>
+            <input type="hidden" id="idEmpresa" name="idEmpresa" value="{{content['empresa']['idEmpresa']}}" />
+            <input type="hidden" id="idContactoTipo" name="idContactoTipo" value="" />
+        </div>
+    </form>
+{% endblock %}
+{% block button %}    
+    {{content['general_text']['sas_guardar']}}
+{% endblock %}
+

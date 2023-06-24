@@ -1,0 +1,122 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/AdministracionGlobal/UsuarioBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/usuario.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>{{ content['general_text']['sas_cuentas'] }}</h5>
+        <div class="z-depth-1 white">
+            <table id="tbl-usuarios" class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>{{ content['section_text']['sas_id'] }}</th>
+                        <th>{{ content['section_text']['sas_tipoUsuario'] }}</th>
+                        <th>{{ content['section_text']['sas_emailUsuario'] }}</th>
+                        <th>{{ content['section_text']['sas_nombreUsuario'] }}</th>
+                        <th>{{ content['section_text']['sas_puestoUsuario'] }}</th>
+                        <th>{{ content['section_text']['sas_eventos'] }}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {% for usuario in content['usuarios'] %}
+                    <tr id-usuario="{{usuario['idUsuario']}}"
+                        {% if usuario['Activo'] == false %}
+                            class="inactivo"
+                        {% endif %}
+                        >
+                        <td>{{ usuario['idUsuario'] }}</td>
+                        <td>{{ usuario['TipoUsuario'] }}</td>
+                        <td>{{ usuario['Email'] }}</td>
+                        <td>{{ usuario['Nombre'] }}</td>
+                        <td>{{ usuario['Puesto'] }}</td>
+                        <td>
+                            {% if usuario['Ediciones'] is defined %}
+                                {% for idEdicion, permisos in usuario['Ediciones'] if content['edicion'][idEdicion] is defined %}
+                                    <div class="chip"
+                                         title="{{ content['edicion'][idEdicion]['Edicion_' ~ lang|upper] }}"
+                                         >{{ content['edicion'][idEdicion]['Abreviatura'] }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if usuario['Activo'] %}
+                            <a class="material-icons edit-record show-loader-top" 
+                               href="{{ path("usuario_editar", {"idUsuario": usuario['idUsuario'] }) }}"
+                               title="{{ content['general_text']['sas_editar'] }}"
+                               >mode_edit</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if usuario['Activo'] %}
+                                {% if not (usuario['idTipoUsuario'] == 1 and loop.first) %}
+                                <i class="material-icons delete-record" 
+                                   id-record="{{ usuario['idUsuario'] }}" 
+                                   title="{{ content['section_text']['sas_desactivarCuenta'] }}"
+                                   >highlight_off</i>
+                                {% endif %}
+                            {% else %}
+                                <i class="material-icons reactivar-cuenta"
+                                   id-record="{{ usuario['idUsuario'] }}" 
+                                   title="{{ content['section_text']['sas_reactivarCuenta'] }}"
+                                   >person_add</i>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tbody>
+            </table>
+        </div>
+        <div class="nav-floating-buttons">
+            <a class="green btn-floating waves-effect waves-light show-loader-top" href="{{ path("usuario_agregar") }}">
+                <i class="material-icons tooltipped" data-tooltip="{{ content['general_text']['sas_nuevaCuenta'] }}">add</i>
+            </a>
+        </div>
+    </div>
+
+    <div id="modal-delete-usuario" class="modal">
+        <form id="frm-usuario-eliminar" action="{{ path('usuario_eliminar') }}" method="post">
+            <input type="hidden" id="idUsuario" name="idUsuario" value="" >
+            <div class="modal-content">
+                <h4>{{ content['section_text']['sas_desactivarCuenta'] }}</h4>
+                <p>{{ content['section_text']['sas_desactivarCuentaAdvertencia'] }} "<b class="usuario"></b>"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_cancelar'] }}</button>
+                <button type="submit" class="btn waves-effect waves-light red show-loader-wrapper">{{ content['section_text']['sas_desactivar'] }}</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="modal-reactivar-usuario" class="modal">
+        <form id="frm-usuario-reactivar" action="{{ path('usuario_reactivar') }}" method="post">
+            <input type="hidden" id="idUsuario" name="idUsuario" value="" >
+            <div class="modal-content">
+                <h4>{{ content['section_text']['sas_reactivarCuenta'] }}</h4>
+                <p>{{ content['section_text']['sas_reactivarCuentaAdvertencia'] }} "<b class="usuario"></b>"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_descartar'] }}</button>
+                <button type="submit" class="btn waves-effect waves-light green show-loader-wrapper">{{ content['general_text']['sas_continuar'] }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var usuarios = {{ content['usuarios']|length ? content['usuarios']|json_encode()|raw : '{}' }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/usuario.js') }}"></script>
+{% endblock %}

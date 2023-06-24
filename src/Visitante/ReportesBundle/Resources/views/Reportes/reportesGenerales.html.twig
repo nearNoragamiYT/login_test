@@ -1,0 +1,50 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Visitante/ReportesBundle/' %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+		<h5>Reportes Generales</h5>
+		<div class="z-depth-1 white">
+			<table id="tbl-report" class="highlight responsive-table">
+				<thead>
+					<tr>
+						<th>{{content['general_text']['sas_reporte']}}</th>
+						<th>{{content['general_text']['sas_descripcion']}}</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for items  in content['rp'] %}
+						<tr>
+							<td>{{items.TituloReporte}}</td>
+							<td>{{items.NombreReporte_ES}}</td>
+							<td>
+								<a href="{{ path(items.Ruta) }}">
+									<i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['general_text']['sas_descargar']}}">file_download</i>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		var url_lang = "{{ asset('js/dataTablesLang/' ~ lang ~ '.json') }}";
+var general_text = {{ content['general_text']|json_encode()|raw }};
+	</script>
+	<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}

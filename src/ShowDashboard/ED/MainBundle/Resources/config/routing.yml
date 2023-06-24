@@ -1,0 +1,52 @@
+show_dashboard_ed:
+    path:     /show-dashboard/ed
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:mostrar }
+    methods: GET
+show_dashboard_ed_actualizar_clientes:
+    path:     /show-dashboard/ed/actualizar-clientes
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarClientes }
+    methods: GET
+show_dashboard_ed_actualizar_expositores:
+    path:     /show-dashboard/ed/actualizar-expositores
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarExpositores }
+    methods: GET
+show_dashboard_ed_actualizar_expositores_entraron:
+    path:     /show-dashboard/ed/actualizar-expositores-entraron
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarExpositoresEntraron }
+    methods: GET
+show_dashboard_ed_actualizar_todas_formas:
+    path:     /show-dashboard/ed/actualizar-todas-formas
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarTodasFormas }
+    methods: GET
+show_dashboard_ed_actualizar_gefetes:
+    path:     /show-dashboard/ed/actualizar-gafetes
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarGafetes }
+    methods: GET
+show_dashboard_ed_actualizar_lectoras:
+    path:     /show-dashboard/ed/actualizar-lectoras
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarLectoras }
+    methods: GET
+show_dashboard_ed_actualizar_formas_obligatoras:
+    path:     /show-dashboard/ed/actualizar-formas-obligatorias
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarFormasObligatorias }
+    methods: GET
+show_dashboard_ed_actualizar_paquetes:
+    path:     /show-dashboard/ed/actualizar-paquetes
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarPaquetes }
+    methods: GET
+show_dashboard_ed_actualizar_solicitudes_paquetes:
+    path:     /show-dashboard/ed/actualizar-solicitudes-paquetes
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarSolicitudesPaquetes }
+    methods: GET
+show_dashboard_ed_actualizar_estatus_stands:
+    path:     /show-dashboard/ed/actualizar-estatus-stands
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarEstatusStands }
+    methods: GET
+show_dashboard_ed_actualizar_solicitudes_modificacion:
+    path:     /show-dashboard/ed/actualizar-solicitudes-modificacion
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarSolicitudesModificacion }
+    methods: GET
+show_dashboard_ed_actualizar_estadisticas:
+    path:     /show-dashboard/ed/actualizar-estadisticas
+    defaults: { _controller: ShowDashboardEDMainBundle:Main:actualizarEstadisticas }
+    methods: GET

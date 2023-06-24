@@ -1,0 +1,37 @@
+<h5 class="grey-text col s12">{{content['section_text']['sas_esadisticasFloorPlan']}}</h5>
+{#--- Estatus del total de los stands del Evento ---#}
+<div class="col l6 m6 s12">
+    <div class="card row content-stats" style="background-color: {{FPConfig.colorFondo}};">
+        <div id="loader-status-stands" class="spinner" style="background-color: {{FPConfig.colorFondo}};">
+            <div class="progress" style="background-color: {{FPConfig.primario}};">
+                <div class="indeterminate" style="background-color: {{FPConfig.secundario}};"></div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="chart-container">
+                <canvas  id="status-stands-chart"></canvas>
+            </div>
+            <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-status-stands" data-url="{{path('show_dashboard_ed_actualizar_estatus_stands')}}">
+                <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+            </a>
+        </div>
+    </div>
+</div>
+{#--- Solicitudes de stands que se han hecho y sus estatus ---#}
+<div class="col l6 m6 s12">
+    <div class="card row content-stats" style="background-color: {{FPConfig.colorFondo}};">
+        <div id="loader-fp-modifications" class="spinner" style="background-color: {{FPConfig.colorFondo}};">
+            <div class="progress" style="background-color: {{FPConfig.terciario}};">
+                <div class="indeterminate" style="background-color: {{FPConfig.primario}};"></div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="chart-container">
+                <canvas  id="fp-modifications-chart"></canvas>
+            </div>
+            <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-fp-modifications" data-url="{{path('show_dashboard_ed_actualizar_solicitudes_modificacion')}}">
+                <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+empresa_reportes:
+    path:     /reportes
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportesList }
+
+empresa_reportes_generalContratos:
+    path:     /reportes/contratos/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportExpositor, status:"descargar" }
+
+empresa_reportes_generalContratosPDF:
+    path:     /reportes/contratosPDF/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportExpositorPDF, status:"descargar" }
+
+empresa_reportes_categoriasPDF:
+    path:     /reportes/categoriasPDF/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportCategoriasPDF, status:"descargar" }
+
+empresa_reportes_standPDF:
+    path:     /reportes/standPDF/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportExpositorStandPDF, status:"descargar" }
+
+empresa_reportes_paisPDF:
+    path:     /reportes/paisPDF/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportExpositorPaisPDF, status:"descargar" }
+
+empresa_reportes_pabellonPDF:
+    path:     /reportes/pabellonPDF/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportExpositorPabellonPDF, status:"descargar" }
+
+empresa_reportes_empresas_adicionales:
+    path:     /reportes/empresasAdicionales/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportEmpresasAdicionales, status:"descargar" }
+
+empresa_reportes_gafetes_cobro:
+    path:     /reportes/gafetesCobro/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportGafetesCobro, status:"descargar" }
+
+empresa_reportes_gafetes:
+    path:     /reportes/gafetes/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportGafetes, status:"descargar" }
+
+empresa_reportes_cambios_directorio:
+    path:     /reportes/cambios-directorio/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportCambiosDirectorio, status:"descargar" }
+
+empresa_reportes_catalogo_productos:
+    path:     /reportes/catalogo-productos/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportCatalogoProductos, status:"descargar" }
+
+empresa_reportes_productos_vitrinas:
+    path:     /reportes/productos-vitrinas/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportProductosVitrinas, status:"descargar" }
+
+empresa_reportes_gafetes_pendientes:
+    path:     /reportes/gafetes-pendientes/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportGafetesPendientes, status:"descargar" }
+
+empresa_reportes_inventario_pabellones:
+    path:     /reportes/reporte-pabellones/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportPabellones, status:"descargar" }
+
+empresa_reportes_inventario_stands:
+    path:     /reportes/inventario-stands/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportInventarioStands, status:"descargar" }
+
+empresa_reportes_montaje:
+    path:     /reportes/montaje/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportMontaje, status:"descargar"}
+
+empresa_reportes_stand_pabellon:
+    path:     /reportes/stand-pabellon/{status}
+    defaults: { _controller: EmpresaReportesBundle:Reportes:reportStandPabellon, status:"descargar"}
+
+empresa_reportes_stands_total:
+    path:     /reportes/stands-total
+    defaults: { _controller: EmpresaReportesBundle:Reportes:totalStands }

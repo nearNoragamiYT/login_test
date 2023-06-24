@@ -1,0 +1,12 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-show-qr", "fixed": true, "size": "modal-s", "color": "blue", "idButton": "accept-request" } %}
+{% block title %}{{content['section_text']['sas_qrLicencia']}}{% endblock %}
+{% block body %}
+    <table id="tbl-qr">
+        <tbody>
+        </tbody>
+    </table>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_cerrar']}}
+{% endblock %}

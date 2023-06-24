@@ -1,0 +1,9 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-change-adviser", "fixed": false, "textColor":"white-text", "confirmCancel": false, "color": "blue darken-1", "idButton": "change-adviser" } %}
+{% block title %}{{content['general_text']['sas_atencion']}}{% endblock %}
+{% block body %}
+    <p id="info-adviser">{{content['section_text']['sas_informacionCambioAsesor']}}</p>
+{% endblock%}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock%}

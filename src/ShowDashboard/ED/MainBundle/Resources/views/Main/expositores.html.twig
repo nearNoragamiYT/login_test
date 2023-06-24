@@ -1,0 +1,77 @@
+<h5 class="grey-text col s12">{{content['section_text']['sas_estadisticasExpositores']}}</h5>
+{#--- contratos y precontratos ---#}
+<div class="col l4 m4 s12">
+    <div class="card row content-stats" style="background-color: {{expositoresConfig.colorFondo}};">
+        <div id="loader-clients" class="spinner" style="background-color: {{expositoresConfig.colorFondo}};">
+            <div class="progress" style="background-color: {{expositoresConfig.primario}};">
+                <div class="indeterminate" style="background-color: {{expositoresConfig.secundario}};"></div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="chart-container">
+                <canvas  id="clients-chart"></canvas>
+            </div>
+            {#--- boton para actualizar la esadistica ---#}
+            <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-clients" data-url="{{path('show_dashboard_ed_actualizar_clientes')}}">
+                <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+            </a>
+        </div>
+        {#---
+        <div class="col s2">
+            <div class="col s12"><span class="badge left white-text" style="background-color:#5C3514;">Expositores: <span id="total-contracts"></span></span></div>
+            <div class="col s12"><span class="badge left white-text" style="background-color:#F1B464;">Precontratos: <span id="total-precontracts"></span></span></div>
+        </div>
+        ---#}
+    </div>
+</div>
+{#--- expositores y coexpositores ---#}
+<div class="col l4 m4 s12">
+    <div class="card row content-stats" style="background-color: {{expositoresConfig.colorFondo}};">
+        <div id="loader-exhibitors" class="spinner" style="background-color: {{expositoresConfig.colorFondo}};">
+            <div class="progress" style="background-color: {{expositoresConfig.secundario}};">
+                <div class="indeterminate" style="background-color: {{expositoresConfig.primario}};"></div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="chart-container">
+                <div id="legend"></div>
+                <canvas  id="exhibitors-chart"></canvas>
+            </div>
+            {#--- boton para actualizar la esadistica ---#}
+            <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-exhibitors" data-url="{{path('show_dashboard_ed_actualizar_expositores')}}">
+                <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+            </a>
+        </div>
+        {#---
+        <div class="col s2">
+        <div class="col s12"><span class="badge left white-text" style="background-color:#5C3514;">Expositores: <span id="total-exhibitors"></span></span></div>
+        <div class="col s12"><span class="badge left white-text" style="background-color:#F1B464;">Coexpositores: <span id="total-coexhibitors"></span></span></div>
+        </div>
+         ---#}
+    </div>
+</div>
+{#--- expositores entraron y no al ED---#}
+<div class="col l4 m4 s12">
+    <div class="card row content-stats" style="background-color: {{expositoresConfig.colorFondo}};">
+        <div id="loader-exhibitors-singup" class="spinner" style="background-color: {{expositoresConfig.colorFondo}};">
+            <div class="progress" style="background-color: {{expositoresConfig.primario}};">
+                <div class="indeterminate" style="background-color: {{expositoresConfig.secundario}};"></div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="chart-container">
+                <canvas  id="exhibitors-singup-chart"></canvas>
+            </div>
+            {#--- boton para actualizar la esadistica ---#}
+            <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-exhibitors-singup" data-url="{{path('show_dashboard_ed_actualizar_expositores_entraron')}}">
+                <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+            </a>
+        </div>
+        {#---
+        <div class="col s2">
+        <div class="col s12"><span class="badge left white-text" style="background-color:#5C3514;">Expositores: <span id="total-exhibitors"></span></span></div>
+        <div class="col s12"><span class="badge left white-text" style="background-color:#F1B464;">Coexpositores: <span id="total-coexhibitors"></span></span></div>
+        </div>
+         ---#}
+    </div>
+</div>

@@ -1,0 +1,58 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/LT/LectorasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_lectoras_reporte.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>Reportes Lectoras</h5>
+        <div class="z-depth-1 white">
+            <table id="tbl-report" class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>{{content['section_text']['sas_reporte']}}</th>
+                        <th>{{content['general_text']['sas_descripcion']}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Expositores</td>
+                        <td>Seguimiento Lectoras</td>
+                        <td class="right">
+                            <a href="{{ path('lectoras_reporte_seguimiento') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Global Report</td>
+                        <td>Reporte general de status lectoras</td>
+                        <td class="right">
+                            <a  target="_blank" href="{{ path('lectoras_reporte_global_grid')}}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="Ver Global Report">open_in_new</i>
+                            </a>
+                            <a href="{{ path('lectoras_reporte_global') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}
+
+

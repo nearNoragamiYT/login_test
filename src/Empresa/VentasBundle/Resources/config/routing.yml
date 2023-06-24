@@ -1,0 +1,31 @@
+empresa_ventas:
+    path:     /ventas
+    defaults: { _controller: EmpresaVentasBundle:Ventas:companies }
+
+ventas_agregar:
+    path:     /ventas/ventas-agregar
+    defaults: { _controller: EmpresaVentasBundle:Ventas:addCompany}
+
+ventas_borrar:
+    path:     /ventas/ventas-borrar
+    defaults: { _controller: EmpresaVentasBundle:Ventas:deleteCompany }
+    
+ventas_get_to_datatable:
+    path:  /ventas/get-datatable
+    defaults: { _controller: EmpresaVentasBundle:Ventas:getToDataTable }
+    
+ventas_get_to_datatable_filtro:
+    path:  /ventas/get-datatable-filter
+    defaults: { _controller: EmpresaVentasBundle:Ventas:getToDataTableFilter }
+    
+ventas_export_data:
+    path:  /ventas/export-empresa
+    defaults: { _controller: EmpresaVentasBundle:Ventas:exportEmpresaData }
+    
+ventas_set_session:
+    path:  /ventas/set_session
+    defaults: { _controller: EmpresaVentasBundle:Ventas:setSessionData }
+   
+ventas_get_session:
+    path:  /ventas/get_session
+    defaults: { _controller: EmpresaVentasBundle:Ventas:getSessionData }

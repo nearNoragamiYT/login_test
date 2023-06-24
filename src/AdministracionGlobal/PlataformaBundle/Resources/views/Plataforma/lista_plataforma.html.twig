@@ -1,0 +1,67 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/AdministracionGlobal/PlataformaBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/plataforma.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>{{content['general_text']['sas_plataforma']}}</h5>
+        <div class="z-depth-1 white">
+            <table id="tbl-platform" class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>{{content['general_text']['sas_ID']}}</th>
+                        <th>{{content['general_text']['sas_prefijo']}}</th>
+                        <th>{{content['general_text']['sas_nombre']}}</th>
+                        <th>{{content['general_text']['sas_ruta']}}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pl in content['pl'] %}
+                        <tr>
+                            <td>{{ pl['idPlataformaIxpo'] }}</td>
+                            <td>{{ pl['Prefijo'] }}</td>
+                            <td>{{ pl['PlataformaIxpo'] }}</td>
+                            <td>{{ pl['Ruta'] }}</td>
+                            <td>
+                                <i class="material-icons edit-record" id-record="{{ pl['idPlataformaIxpo'] }}">mode_edit</i>
+                            </td>
+                            <td>
+                                <i class="material-icons delete-record" id-record="{{ pl['idPlataformaIxpo'] }}">delete_forever</i>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="nav-floating-buttons">
+            <button class="add-record btn-floating waves-effect waves-light right green">
+                <i class="material-icons tooltipped" data-tooltip="{{content['general_text']['sas_agregar']}}">add</i>
+            </button>
+        </div>
+    </div>
+    {% include 'AdministracionGlobalPlataformaBundle:Plataforma:form_plataforma.html.twig' %}
+    {% include 'AdministracionGlobalPlataformaBundle:Plataforma:confirm_plataforma.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var pl = {{ content['pl']|length ? content['pl']|json_encode()|raw : '{}' }};
+        var url_insert = '{{path('plataforma_nuevo')}}';
+        var url_update = '{{path('plataforma_editar')}}';
+        var url_delete = '{{path('plataforma_eliminar')}}';
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/plataforma.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}

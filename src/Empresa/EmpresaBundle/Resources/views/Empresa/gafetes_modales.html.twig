@@ -1,0 +1,33 @@
+{#Modal para envio de gafetes#}
+<div id="send-gafete-modal" class="modal" style="width: 30%;">
+    <div class="modal-header">
+        <h5 style="margin-left:20px;">{{content['section_text']['sas_enviarGafete']}}</h5>
+    </div>
+    <div class="modal-content">
+        <div class="row">
+            <p id="text-gafete"></p>
+        </div>
+       {# <div class="row">
+            <table style="width:70%; margin-left: 15%">
+                <tr>
+                    <td style="text-align: center;">
+                        <img src="{{asset('images/idioma/es.png')}}" style="width: 40px;"/><br>
+                        <input type="radio" name="lang" id="es" value="ES" checked="checked">
+                        <label for="es">Español</label>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="{{asset('images/idioma/en.png')}}" style="width: 40px;"/><br>
+                        <input type="radio" name="lang" id="en" value="EN">
+                        <label for="en">English</label>
+                    </td> 
+                </tr>
+            </table>
+        </div>#}
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+        <button id="send-email-gafete" type="button" class="modal-action waves-effect waves-green btn-flat green white-text" data-action="delete">{{content['general_text']['sas_enviar']}}</button>
+    </div>
+</div>
+
+{#---------------------------------------------------------------------------------------------------------------#}

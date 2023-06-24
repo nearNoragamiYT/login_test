@@ -1,0 +1,406 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaSolicitudModificacionBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/select2.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_solicitud_modificacion.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+
+    <div id="aditional-data" class="container">
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <h5 style="margin: 0px;">{{content["section_text"]["sas_solicitudesModificacion"]}}</h5><br>
+            <ul class="collapsible" data-collapsible="expandable">
+                {#--- tabla para las solicitudes pendientes  ---#}
+                <li>
+                    <div class="collapsible-header">
+                        <div class="col s8">
+                            <i class="material-icons orange-text">info</i>Pendientes
+                        </div>
+                        <div class="col s4 right-align">
+                            <span id="pending-total" class="badge-info blue white-text"></span>
+                        </div>
+                    </div>
+                    <div class="collapsible-body row">
+                        <div class="col s12">
+                            <div class="col s12">
+                                <table id="pending-request-table" class="highlight bordered">
+                                    <thead class="grey lighten-4">
+                                        <tr>
+                                            {% for header in content["modif_request_metadata"] %}
+                                                {% if header["is_visible"] == true %}
+                                                    <th>{{ header["text"] }}</th>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            <th style="width: 5%;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for key, entity in content['detalleForma'] %}
+                                            {% for one in entity %}
+                                                {% if one["StatusSolicitudCambio"] == 2 %}
+                                                    <tr id="{{ one["idSolicitudCambio"] }}" data-unique="{{ key ~ "-" ~one['idSolicitudCambio'] }}">
+                                                        {# <td>{{ key ~ "-" ~one['idSolicitudCambio'] }}</td> #}
+                                                        <td class="id" style="width:200px;">
+                                                            {% set empresa = key %}
+                                                            {{ content["modif_request_metadata"]['Solicitud']["values"][empresa] }}<br>
+                                                            <b> {{ content["section_text"]["sas_idEmpresa"] ~ " : "}}</b>
+                                                            {{ empresa }} <br>
+                                                            <b> {{ content["section_text"]["sas_idSolicitud"] ~ " : "}}</b>
+                                                            {{ one["idSolicitudCambio"] }}
+                                                        </td>
+                                                        <td class="idCampoModificacion">
+                                                            {% set campo = one["idCampoModificacion"]%}
+                                                            {% if campo  %}
+                                                                {{ content["modif_request_metadata"]['idCampoModificacion']["values"][campo]}}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="Observacion" style="width:400px;">
+                                                            {% set observacion = one["Observacion"]%}
+                                                            {% set catPrincipal = one["CategoriaPrincipal"]%}
+                                                            {% set catSecundaria = one["CategoriaSecundaria"]%}
+                                                            {% set catOtra = one["OtraCategoria"]%}
+
+                                                            {% if observacion %}
+                                                                {{ observacion }}<br>
+                                                                {% if catPrincipal != "" %}
+                                                                    <b> {{ content["section_text"]["sas_categoriaPrincipal"] ~ " : " }}</b>
+                                                                    {{ content["modif_request_metadata"]['CategoriaPrincipal']["values"][catPrincipal] }}
+                                                                    {% if catSecundaria != "" %}<br>
+                                                                        <b> {{ content["section_text"]["sas_categoriaSecundaria"] ~ " : " }}</b>{{ content["modif_request_metadata"]['CategoriaSecundaria']["values"][catSecundaria] }}
+                                                                        {% if catOtra != "" %}<br>
+                                                                            <b> {{ content["section_text"]["sas_categoriaOtra"] ~ " : " }}</b> {{ catOtra }}
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="status">
+                                                            {% if one["StatusSolicitudCambio"] == 0 %}
+                                                                {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][0]}}
+                                                            {% elseif one["StatusSolicitudCambio"] == 1 %}
+                                                                {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][1]}}
+                                                            {% elseif one["StatusSolicitudCambio"] == 2 %}
+                                                                {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][2] }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="ObservacionComite">
+                                                            {% set observacionComite = one["ObservacionComite"]%}
+                                                            {% if observacionComite=="" %}
+                                                                {{ content["section_text"]["sas_sinObservaciones"] }}
+                                                            {% else %}
+                                                                {{ observacionComite }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="FechaSolicitudCambio">
+                                                            {{ one["FechaSolicitudCambio"]}}
+                                                        </td>
+                                                        <td>
+                                                            <i class="material-icons edit-record tooltipped"
+                                                               data-position="top"
+                                                               data-delay="50"
+                                                               data-tooltip="{{ content['section_text']['sas_editarSolicitud'] }}"
+                                                               data-id="{{one["idSolicitudCambio"]}}" data-idEmp="{{ key }}" >mode_edit</i>
+                                                            <a data-url="{{app.session.get('edicion')['LinkED'] ~'utilerias/info/' ~ content['idUsuario'] ~ '/220/' ~ content['empresas'][empresa]['Token'] ~ '/'  ~ content['lang']}}"
+                                                               style="display: inline-block;cursor:pointer;"
+                                                               class="edit-form">
+                                                                <i class="material-icons dp48 tooltipped"
+                                                                   class="tooltipped"
+                                                                   data-position="top"
+                                                                   data-delay="50"
+                                                                   data-tooltip="{{ content['section_text']['sas_editarInformacionComercial'] }}">open_in_new</i>
+                                                            </a>
+                                                            {#<i class="material-icons delete-record tooltipped"
+                                                                 data-position="right"
+                                                                 data-delay="50"
+                                                                 data-tooltip="{{ content['general_text']['sas_eliminar'] }}"
+                                                                 data-id="{{one["idSolicitudCambio"]}}"
+                                                                 data-idEmp="{{ key }}">delete_forever</i>#}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {#--- tabla para las solicitudes aprovadas  ---#}
+                <li>
+                    <div class="collapsible-header">
+                        <div class="col s8">
+                            <i class="material-icons blue-text">check_circle</i>Aprobadas
+                        </div>
+                        <div class="col s4 right-align">
+                            <span id="approved-total" class="badge-info blue white-text"></span>
+                        </div>
+                    </div>
+                    <div class="collapsible-body row">
+                        <div class="col s12">
+                            <div class="col s12">
+                                <table id="approved-request-table" class="highlight bordered">
+                                    <thead class="grey lighten-4">
+                                        <tr>
+                                            {% for header in content["modif_request_metadata"] %}
+                                                {% if header["is_visible"] == true %}
+                                                    <th>{{ header["text"] }}</th>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            <th style="width: 5%;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for key, entity in content['detalleForma'] %}
+                                            {% for one in entity %}
+                                                {% if one["StatusSolicitudCambio"] == 1 %}
+                                                    <tr id="{{ one["idSolicitudCambio"] }}" data-unique="{{ key ~ "-" ~one['idSolicitudCambio'] }}">
+                                                        {# <td>{{ key ~ "-" ~one['idSolicitudCambio'] }}</td> #}
+                                                        <td class="id" style="width:200px;">
+                                                            {% set empresa = key %}
+                                                            {{ content["modif_request_metadata"]['Solicitud']["values"][empresa] }}<br>
+                                                            <b> {{ content["section_text"]["sas_idEmpresa"] ~ " : "}}</b>
+                                                            {{ empresa }} <br>
+                                                            <b> {{ content["section_text"]["sas_idSolicitud"] ~ " : "}}</b>
+                                                            {{ one["idSolicitudCambio"] }}
+                                                        </td>
+                                                        <td class="idCampoModificacion">
+                                                            {% set campo = one["idCampoModificacion"]%}
+                                                            {% if campo  %}
+                                                                {{ content["modif_request_metadata"]['idCampoModificacion']["values"][campo]}}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="Observacion" style="width:400px;">
+                                                            {% set observacion = one["Observacion"]%}
+                                                            {% set catPrincipal = one["CategoriaPrincipal"]%}
+                                                            {% set catSecundaria = one["CategoriaSecundaria"]%}
+                                                            {% set catOtra = one["OtraCategoria"]%}
+
+                                                            {% if observacion %}
+                                                                {{ observacion }}<br>
+                                                                {% if catPrincipal != "" %}
+                                                                    <b> {{ content["section_text"]["sas_categoriaPrincipal"] ~ " : " }}</b>
+                                                                    {{ content["modif_request_metadata"]['CategoriaPrincipal']["values"][catPrincipal] }}
+                                                                    {% if catSecundaria != "" %}<br>
+                                                                        <b> {{ content["section_text"]["sas_categoriaSecundaria"] ~ " : " }}</b>{{ content["modif_request_metadata"]['CategoriaSecundaria']["values"][catSecundaria] }}
+                                                                        {% if catOtra != "" %}<br>
+                                                                            <b> {{ content["section_text"]["sas_categoriaOtra"] ~ " : " }}</b> {{ catOtra }}
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="status">
+                                                            {% if one["StatusSolicitudCambio"] == 0 %}
+                                                                {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][0]}}
+                                                            {% elseif one["StatusSolicitudCambio"] == 1 %}
+                                                                {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][1]}}
+                                                            {% elseif one["StatusSolicitudCambio"] == 2 %}
+                                                                {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][2] }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="ObservacionComite">
+                                                            {% set observacionComite = one["ObservacionComite"]%}
+                                                            {% if observacionComite=="" %}
+                                                                {{ content["section_text"]["sas_sinObservaciones"] }}
+                                                            {% else %}
+                                                                {{ observacionComite }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="FechaSolicitudCambio">
+                                                            {{ one["FechaSolicitudCambio"]}}
+                                                        </td>
+                                                        <td>
+                                                            <i class="material-icons edit-record tooltipped"
+                                                               data-position="top"
+                                                               data-delay="50"
+                                                               data-tooltip="{{ content['section_text']['sas_editarSolicitud'] }}"
+                                                               data-id="{{one["idSolicitudCambio"]}}" data-idEmp="{{ key }}" >mode_edit</i>
+                                                            <a data-url="{{app.session.get('edicion')['LinkED'] ~'utilerias/info/' ~  content['idUsuario'] ~ '/220/' ~ content['empresas'][empresa]['Token'] ~ '/'  ~ content['lang']}}"
+                                                               style="display: inline-block;cursor:pointer;"
+                                                               class="edit-form">
+                                                                <i class="material-icons dp48 tooltipped"
+                                                                   class="tooltipped"
+                                                                   data-position="top"
+                                                                   data-delay="50"
+                                                                   data-tooltip="{{ content['section_text']['sas_editarInformacionComercial'] }}">open_in_new</i>
+                                                            </a>
+                                                            {#<i class="material-icons delete-record tooltipped"
+                                                                 data-position="right"
+                                                                 data-delay="50"
+                                                                 data-tooltip="{{ content['general_text']['sas_eliminar'] }}"
+                                                                 data-id="{{one["idSolicitudCambio"]}}"
+                                                                 data-idEmp="{{ key }}">delete_forever</i>#}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {#--- tabla para las solicitudes rechazadas ---#}
+                <li>
+                    <div class="collapsible-header">
+                        <div class="col s8">
+                            <i class="material-icons red-text">cancel</i>Rechazadas
+                        </div>
+                        <div class="col s4 right-align">
+                            <span id="rejected-total" class="badge-info blue white-text"></span>
+                        </div>
+                    </div>
+                    <div class="collapsible-body row">
+                        <div class="col s12">
+                            <div class="col s12">
+                                <table id="rejected-request-table" class="highlight bordered">
+                                    <thead class="grey lighten-4">
+                                        <tr>
+                                            {% for header in content["modif_request_metadata"] %}
+                                                {% if header["is_visible"] == true %}
+                                                    <th>{{ header["text"] }}</th>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            <th style="width: 5%;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for key, entity in content['detalleForma'] %}
+                                            {% for one in entity %}
+                                                {% if one["StatusSolicitudCambio"] == 0 %}
+                                                    <tr id="{{ one["idSolicitudCambio"] }}" data-unique="{{ key ~ "-" ~one['idSolicitudCambio'] }}">
+                                                        {# <td>{{ key ~ "-" ~one['idSolicitudCambio'] }}</td> #}
+                                                        <td class="id" style="width:200px;">
+                                                            {% set empresa = key %}
+                                                            {{ content["modif_request_metadata"]['Solicitud']["values"][empresa] }}<br>
+                                                            <b> {{ content["section_text"]["sas_idEmpresa"] ~ " : "}}</b>
+                                                            {{ empresa }} <br>
+                                                            <b> {{ content["section_text"]["sas_idSolicitud"] ~ " : "}}</b>
+                                                            {{ one["idSolicitudCambio"] }}
+                                                        </td>
+                                                        <td class="idCampoModificacion">
+                                                            {% set campo = one["idCampoModificacion"]%}
+                                                            {% if campo  %}
+                                                                {{ content["modif_request_metadata"]['idCampoModificacion']["values"][campo]}}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="Observacion" style="width:400px;">
+                                                            {% set observacion = one["Observacion"]%}
+                                                            {% set catPrincipal = one["CategoriaPrincipal"]%}
+                                                            {% set catSecundaria = one["CategoriaSecundaria"]%}
+                                                            {% set catOtra = one["OtraCategoria"]%}
+
+                                                            {% if observacion %}
+                                                                {{ observacion }}<br>
+                                                                {% if catPrincipal != "" %}
+                                                                    <b> {{ content["section_text"]["sas_categoriaPrincipal"] ~ " : " }}</b>
+                                                                    {{ content["modif_request_metadata"]['CategoriaPrincipal']["values"][catPrincipal] }}
+                                                                    {% if catSecundaria != "" %}<br>
+                                                                        <b> {{ content["section_text"]["sas_categoriaSecundaria"] ~ " : " }}</b>{{ content["modif_request_metadata"]['CategoriaSecundaria']["values"][catSecundaria] }}
+                                                                        {% if catOtra != "" %}<br>
+                                                                            <b> {{ content["section_text"]["sas_categoriaOtra"] ~ " : " }}</b> {{ catOtra }}
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="status">
+                                                            {% if one["StatusSolicitudCambio"] == 0 %}
+                                                                {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][0]}}
+                                                            {% elseif one["StatusSolicitudCambio"] == 1 %}
+                                                                {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][1]}}
+                                                            {% elseif one["StatusSolicitudCambio"] == 2 %}
+                                                                {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][2] }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="ObservacionComite">
+                                                            {% set observacionComite = one["ObservacionComite"]%}
+                                                            {% if observacionComite=="" %}
+                                                                {{ content["section_text"]["sas_sinObservaciones"] }}
+                                                            {% else %}
+                                                                {{ observacionComite }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="FechaSolicitudCambio">
+                                                            {{ one["FechaSolicitudCambio"]}}
+                                                        </td>
+                                                        <td>
+                                                            <i class="material-icons edit-record tooltipped"
+                                                               data-position="top"
+                                                               data-delay="50"
+                                                               data-tooltip="{{ content['section_text']['sas_editarSolicitud'] }}"
+                                                               data-id="{{one["idSolicitudCambio"]}}" data-idEmp="{{ key }}" >mode_edit</i>
+                                                            <a data-url="{{app.session.get('edicion')['LinkED'] ~'utilerias/info/' ~ content['idUsuario'] ~ '/220/' ~ content['empresas'][empresa]['Token'] ~ '/'  ~ content['lang']}}"
+                                                               style="display: inline-block;cursor:pointer;"
+                                                               class="edit-form">
+                                                                <i class="material-icons dp48 tooltipped"
+                                                                   class="tooltipped"
+                                                                   data-position="top"
+                                                                   data-delay="50"
+                                                                   data-tooltip="{{ content['section_text']['sas_editarInformacionComercial'] }}">open_in_new</i>
+                                                            </a>
+                                                            {#<i class="material-icons delete-record tooltipped"
+                                                                 data-position="right"
+                                                                 data-delay="50"
+                                                                 data-tooltip="{{ content['general_text']['sas_eliminar'] }}"
+                                                                 data-id="{{one["idSolicitudCambio"]}}"
+                                                                 data-idEmp="{{ key }}">delete_forever</i>#}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="delete-record-modal" class="modal">
+        <div class="modal-content">
+            <h6>{{content['section_text']['sas_eliminarRegistro']}}</h6>
+            <p id="deleteText"></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+            <button id="delete-record" type="button" class="modal-action waves-effect waves-red btn-flat red white-text" data-action="delete">{{content['general_text']['sas_eliminar']}}</button>
+        </div>
+    </div>
+    {% include 'EmpresaEmpresaSolicitudModificacionBundle:SolicitudModificacion:request_edit.html.twig'%}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_modification_request_update = "{{ path('empresa_empresa_solicitud_modificacion_editar') }}";
+        var url_modification_request_delete = "{{ path('empresa_empresa_solicitud_modificacion_borrar') }}";
+    </script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                var modification_request = {{ content['detalleForma']|json_encode()|raw }};
+                var fieldsForm = {{ content['camposforma']|json_encode()|raw }};
+                var categories = {{ content['categories']|json_encode()|raw }};
+        var idEmpresa = "";
+
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/across-tabs.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_solicitud_modificacion.js') }}"></script>
+{% endblock %}

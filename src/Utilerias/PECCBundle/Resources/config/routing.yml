@@ -1,0 +1,19 @@
+pecc_paises:
+    path:     /utilerias/pecc/paises/{lang}
+    defaults: { _controller: UtileriasPECCBundle:PECC:paises, lang:es }
+
+pecc_estados:
+    path:     /utilerias/pecc/estados/{idPais}
+    defaults: { _controller: UtileriasPECCBundle:PECC:estados, idPais: "" }
+    
+pecc_estados_default:
+    path:     /utilerias/pecc/estados/
+    defaults: { _controller: UtileriasPECCBundle:PECC:estados, idPais: "" }
+
+pecc_codigo_postal:
+    path:     /utilerias/pecc/codigo-postal/{codigoPostal}
+    defaults: { _controller: UtileriasPECCBundle:PECC:codigoPostal, codigoPostal: "" }
+
+pecc_codigo_postal_default:
+    path:     /utilerias/pecc/codigo-postal/
+    defaults: { _controller: UtileriasPECCBundle:PECC:codigoPostal, codigoPostal: "" }

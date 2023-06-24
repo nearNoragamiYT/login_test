@@ -1,0 +1,113 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EMarketingBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/emarketing.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+{% endblock %}
+{% block content %}
+    <section>
+        <div class="row card-panel">
+            <a id="btn-show-companies-list" class="waves-effect waves-green btn green white-text right"><i class="material-icons right">email</i>{{content['section_text']['sas_enviarEmarketing']}}</a>
+            <a id="btn-history" class="waves-effect waves-green btn blue white-text right" style="margin-right: 10px;"><i class="material-icons right">query_builder</i>{{content['section_text']['sas_historial']}}</a>
+            <h4>{{content['emarketing']['Nombre']}}</h4>
+            <form id="frm-emarketing">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="Asunto" name="Asunto" type="text" class="validate" maxlength="100" value="{{content['emarketing']['Asunto']}}" disabled>
+                        <label for="Asunto">{{content['section_text']['sas_asunto']}}:</label>
+                    </div>
+                    <div class="col s6">
+                        <div class="col s3 center"></div>
+                        <div class="col s3 center">
+                            <h4 id="TotalEnvios">{{content['emarketing']['TotalEnvios']}}</h4>
+                            <span style="font-size: 14px;">{{content['section_text']['sas_totalEnvios']}}</span>
+                        </div>
+                        <div class="col s3 center">
+                            <h4>{{content['NumeroVistas']}}</h4>
+                            <span style="font-size: 14px;">{{content['section_text']['sas_vistas']}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input id="Copia" name="Copia" type="text" class="validate" maxlength="100" value="">
+                        <label for="Copia">CCO:</label>
+                    </div>
+                    <div class="col s2">
+                        <a id="btn-add-cc" class="waves-effect waves-green btn green white-text">{{content['section_text']['sas_anadir']}}</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="cc-zone" class="col s6">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{content['section_text']['sas_instruccionesEmarketing']|raw}}
+                        <div class="row" style="margin-bottom: 10px;">
+                            <button type="button" id="edit-emarketing" class="waves-effect waves-green btn blue white-text right">{{content['general_text']['sas_editar'] ~ ' ' ~ content['section_text']['sas_emarketing']}}</button>
+                            <button type="button" id="save-emarketing" class="waves-effect waves-green btn green white-text right" style="display:none;">{{content['general_text']['sas_guardar'] ~ ' ' ~ content['section_text']['sas_emarketing']}}</button>
+                        </div>
+                        <textarea id="Cuerpo" name="Cuerpo" disabled>
+                            {{content['emarketing']['Cuerpo']|raw}}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <a href="{{ path('empresa_emarketing') }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['section_text']['sas_atras'] }}</a>
+                    </div>
+                </div>
+                <input type="hidden" id="idEMarketing" name="idEMarketing" value="{{content['emarketing']['idEMarketing']}}"/>
+            </form>
+
+        </div>
+    </section>
+    {% include 'EmpresaEMarketingBundle:EMarketing:lista_empresa.html.twig' %}
+    {% include 'EmpresaEMarketingBundle:EMarketing:historial.html.twig' %}
+    {% include 'EmpresaEMarketingBundle:EMarketing:confirm_enviar.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#Cuerpo',
+            height: 300,
+            theme: 'modern',
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools codesample'
+            ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+            image_advtab: true,
+            templates: [
+                {title: 'Test template 1', content: 'Test 1'},
+                {title: 'Test template 2', content: 'Test 2'}
+            ],
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+            ],
+            readonly: true,
+            relative_urls: false,
+            remove_script_host: false,
+            document_base_url: "http://expoantad.infoexpo.com.mx/"
+        });
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var url_insert = '{{path('empresa_emarketing_editar')}}';
+        var url_send = '{{path('empresa_emarketing_enviar')}}';
+        var list_empresa
+                = {{content['empresas']|json_encode()|raw}};
+        var emarketing ={{content['emarketing']|json_encode()|raw}}
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/emarketing.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}

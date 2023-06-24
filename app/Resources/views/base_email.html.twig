@@ -1,0 +1,41 @@
+{% set body = "color :#616467; font-family: Arial, Helvetica, sans-serif; margin: 8px;" %}
+{% set main_table = "width: 100%; max-width: 1000px;" %}
+{% set header = "text-align: center;" %}
+{% if content['idEdicion'] is defined and content['idEdicion'] != '' %}
+    {% set edicion = content['idEdicion'] %}
+{% endif %}
+{% set rutaImgHeader = "https://expoantad.infoexpo.com.mx/sas/web/images/logo_2022_es.png" %}
+{% set rutaImgFooter = "https://expoantad.infoexpo.com.mx/sas/web/images/footer_mail.png" %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body style="{{ body }}">
+        <table style="{{ main_table }}">
+            <thead>
+                <tr>
+                    {%if edicion is defined and edicion != null  %}
+                        <th style="{{ header }}">
+                            <img style="max-width: 800px;" src="{{ absolute_url(asset('images/email_header_' ~ edicion ~ '.png')) }}" alt="infoexpo">
+                        </th>
+                    {%else%}
+                        <th style="{{ header }}">
+                            {# <img src="{{rutaImg ~ lang|lower ~'.png'}}" alt="SolarPower 2021" style="max-width: 1000px;">#}
+                            <img style="max-width: 800px;" src="{{rutaImgHeader}}" alt="infoexpo">
+                        </th>
+                    {% endif%}
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>{% block body %}{% endblock body %}</td></tr>
+                <tr>
+                    <td style="{{ header }}">
+                        {# <img style="max-width: 800px;" src="{{rutaImgFooter}}" alt="infoexpo">#}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

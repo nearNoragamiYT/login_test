@@ -1,0 +1,4 @@
+services:
+#    show_dashboard_crm_empresas_asignadas.example:
+#        class: ShowDashboard\CRM\EmpresasAsignadasBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

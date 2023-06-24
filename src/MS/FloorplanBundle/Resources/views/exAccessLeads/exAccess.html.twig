@@ -1,0 +1,25 @@
+{% extends 'MSFloorplanBundle:exAccessLeads:base_main_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/MS/FloorplanBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}   
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/grid.css') }}">  
+{% endblock %}
+
+{% block content %}
+    <header class="navbar-fixed">
+        <nav class="navbar-fixed primary-navbar">
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+            <div class="nav-wrapper">
+                <a class="breadcrumb waves-effect waves-light show-loader-top">
+                    {{content["NombreEvento"]}} / {{content["NombreExpositor"]}} / {{content["Location"]}}
+                </a>
+            </div>
+        </nav>
+    </header>
+    <div id="grid"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}      
+    <script src="{{ asset(ruta_asset ~ 'js/grid-prod.js') }}"></script> 
+{% endblock %}

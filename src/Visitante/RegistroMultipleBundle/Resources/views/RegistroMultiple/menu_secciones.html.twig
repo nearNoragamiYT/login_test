@@ -1,0 +1,32 @@
+{% set ruta_asset = 'resources/Visitamte/RegistroMultipleBundle/' %}
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/registromultiple.css') }}" media="screen,projection">
+{% endblock %}
+<nav class="registromultiple-menu indigo">
+    <div class="nav-wrapper">
+        <ul class="left hide-on-med-and-down">
+            <li id="registromultiple-datosgenerales" class="load">
+                <a href="{{ path('registromultiple_datos_generales', {'idVisitante': content["idVisitante"]}) }}">
+                    {{ content['general_text']['sas_datosGenerales'] }}
+                </a>
+            </li>
+        </ul>
+        {% if content['view'] == 'prensa' %}
+        {% else %}
+            <ul class="left hide-on-med-and-down">
+                <li id="registromultiple-perfil" class="load">
+                    <a href="{{ path('registromultiple_perfil', {'idVisitante': content["idVisitante"]}) }}">
+                        {{ content['general_text']['sas_perfil'] }}
+                    </a>
+                </li>
+            </ul>
+        {% endif %}
+        {#  <ul class="left hide-on-med-and-down">
+              <li id="visitante-asociados" class="load">
+                  <a href="{{ path('visitante_asociados', {'idVisitante': content["idVisitante"]}) }}">
+                      {{ content['general_text']['sas_asociados'] }}
+                  </a>
+              </li>
+          </ul>#}
+    </div>
+</nav>

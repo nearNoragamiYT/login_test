@@ -1,0 +1,16 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { 
+    "id": "send-email-all-modal", 
+    "fixed": false, 
+    "size": "modal-s", 
+    "color": "blue", 
+    "idButton": "send-all", 
+    "colorButton" : "green" 
+} %}
+{% block title %}{{content['section_text']['sas_enviarBienvenidaEDTodos']}}{% endblock %}
+{% block body %}
+    <p id="send-email-all-body"></p>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_enviar']}}
+{% endblock %}

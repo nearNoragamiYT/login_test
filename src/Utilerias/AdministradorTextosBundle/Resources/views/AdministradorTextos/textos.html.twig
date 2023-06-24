@@ -1,0 +1,148 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Utilerias/AdministradorTextosBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/administrador_textos.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {#--- Tabla para mostrar los textos ---#}
+    <table id="table-text" class="highlight bordered lighten-5 z-depth-1 hidde">
+        <thead class="grey lighten-4">
+            <tr>
+                <th>ID</th>
+                <th>Etiqueta</th>
+                <th>Texto_EN</th>
+                <th>Texto_ES</th>
+                <th>Texto_FR</th>
+                <th>Texto_PT</th>
+                <th>Ediar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for text in content['general'] if content['general']|length > 0 %}
+                <tr id="{{text['idTexto']}}">
+                    <td>{{text['idTexto']}}</td>
+                    <td>{{text['Etiqueta']}}</td>
+                    <td>{{text['Texto_EN']}}</td>
+                    <td>{{text['Texto_ES']}}</td>
+                    <td>{{text['Texto_FR']}}</td>
+                    <td>{{text['Texto_PT']}}</td>
+                    <td><i class="material-icons edit-record tooltipped" data-position="left" data-delay="50" data-tooltip="Ediar" data-id="{{text['idTexto']}}">mode_edit</i></td>
+                    <td><i class="material-icons delete-record tooltipped" data-position="right" data-delay="50" data-tooltip="Eliminar" data-id="{{text['idTexto']}}">delete_forever</i></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8">
+                    <span id="btn-add-text" class="btn-floating waves-effect waves-light green tooltipped" data-position="top" data-delay="50" data-tooltip="Agregar"><i class="material-icons">add</i></span>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    {#--- Modal para confirmar si desea eliminar el texto ---#}
+    <div id="modal-delete-text" class="modal">
+        <div class="modal-content">
+            <h4>Eliminar Texto</h4>
+            <p>¿Estas Seguro de que deseas eliminar el texto <span class="tx-nombre"></span>?</p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">Cancelar</a>
+            <button id="delete-text" type="button" class="modal-action waves-effect waves-gray btn-flat red white-text" data-action="delete">Aceptar</button>
+        </div>
+    </div>
+    {#--- Modal para agregar o editar el text ---#}
+    <div id="modal-add-text" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4></h4>
+            <form id="form-text" method="POST" class="col s12" novalidate="novalidate">
+                <div class="row">
+                    <div class="col l8 offset-l2 m10 offset-m1 s12">
+                        <div class="input-field col s12">
+                            <label class="active">Sección</label>
+                            <select id="idSeccion" name="idSeccion" class="browser-default">
+                                <option value="0" selected>Textos Generales</option>
+                                <option value="1">Textos Login</option>
+                                <option value="2">Textos Wizard</option>
+                                <option value="3">Textos Configuración Global</option>
+                                <option value="4">Textos Show Dashboard</option>
+                                <option value="5">Textos Attendee Experence</option>
+                                <option value="6">Textos Floor Plan</option>
+                                <option value="7">Textos Exhibitor Dashboard</option>
+                                <option value="8">Textos Stats</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="text" id="Etiqueta" class="validate required" name="Etiqueta" value="">
+                            <label for="Etiqueta">Etiqueta</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="Texto_EN" class="validate required materialize-textarea" name="Texto_EN" rows="4"></textarea>
+                            <label for="Nombre">Text_EN</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="Texto_ES" class="validate required materialize-textarea" name="Texto_ES" rows="4"></textarea>
+                            <label for="Texto_ES">Text_ES</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="Texto_FR" class="materialize-textarea" name="Texto_FR" rows="4"></textarea>
+                            <label for="Texto_FR">Text_FR</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="Texto_PT" class="materialize-textarea" name="Texto_PT" rows="4"></textarea>
+                            <label for="Texto_PT">Text_PT</label>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="idTexto" name="idTexto" value="0">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-gray btn-flat left">Cancelar</a>
+            <button id="add-text" type="button" class="modal-action waves-effect waves-green btn-flat green white-text"></button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var texts = {
+        0:{{content['general']|json_encode()|raw}},
+                1:{{content['login_text']|json_encode()|raw}},
+                2:{{content['wizard_text']|json_encode()|raw}},
+                3:{{content['admin_text']|json_encode()|raw}},
+                4:{{content['dash_text']|json_encode()|raw}},
+                5:{{content['ae_text']|json_encode()|raw}},
+                6:{{content['fp_text']|json_encode()|raw}},
+                7:{{content['ed_text']|json_encode()|raw}},
+                8:{{content['stats_text']|json_encode()|raw}}
+        }
+        ,
+        url_add_text = "{{path('utilerias_administrador_textos_add', {'idEvento': content.idEvento})}}",
+                url_edit_text = "{{path('utilerias_administrador_textos_edit')}}",
+                url_delete_text = "{{path('utilerias_administrador_textos_delete')}}",
+                url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+                Sections = {
+                    0: "Textos Generales",
+                    1: "Textos Login",
+                    2: "Textos Wizard",
+                    3: "Textos Configuración Global",
+                    4: "Textos Show Dashboard",
+                    5: "Textos Attendee Experence",
+                    6: "Textos Floor Plan",
+                    7: "Textos Exhibitor Dashboard",
+                    8: "Textos Stats"
+                };
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/breadcrumb.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/administrador_textos.js') }}"></script>
+{% endblock %}

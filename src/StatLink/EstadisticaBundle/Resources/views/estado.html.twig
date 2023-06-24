@@ -1,0 +1,35 @@
+{% extends 'StatLinkEstadisticaBundle::base_estadistica.html.twig' %}
+{% set ruta_asset = 'resources/StatLink/EstadisticaBundle/' %}
+{% block title %}{{content['section_text']['sl_tituloEstado']}}{% endblock %}
+
+{% block chartTitle %}{{ content['breadcrumb'][0]['Modulo_' ~ lang|upper] }}: {{content['section_text']['sl_tituloEstado']}}{% endblock %}
+
+{% block table %}
+    <thead>
+    <th>{{content['section_text']['sl_tablaIndice']}}</th>
+    <th>{{content['section_text']['sl_tablaEstado']}}</th>
+    <th>{{content['section_text']['sl_tablaPreregistro']}}</th>
+</thead>
+<tbody>
+    {% for record in content['result'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ record['Estado'] }}</td>
+            <td>{{ record['Preregistro'] }}</td>
+        </tr>
+    {% endfor %}   
+</tbody>
+{% endblock %}
+
+{% block textscript %}
+    <script>
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var data_graph = {{ content['result']|json_encode()|raw }};
+        var state_label = "{{content['section_text']['sl_tablaAcumulado']}}",
+            preregister_label = "{{content['section_text']['sl_tablaPreregistro']}}";
+    </script>
+{% endblock %}
+
+{% block actionscript %}
+    <script src="{{ asset(ruta_asset ~'js/estado.js') }}"></script>
+{% endblock %}

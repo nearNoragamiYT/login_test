@@ -1,0 +1,11 @@
+show_dashboard_rs_asistente:
+    path:     /show-dashboard/asistenteRS
+    defaults: { _controller: ShowDashboardRSAsistenteRSBundle:AsistenteRS:AsistenteRS }
+
+insert_configuracion_rs:
+    path:     /show-dashboard/asistenteRS/insertConfigRS
+    defaults: { _controller: ShowDashboardRSAsistenteRSBundle:AsistenteRS:insertConfRS }
+
+update_configuracion_rs:
+    path:     /show-dashboard/asistenteRS/updateConfigRS
+    defaults: { _controller: ShowDashboardRSAsistenteRSBundle:AsistenteRS:updateConfRS }

@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>    
+        <table>
+            
+            <thead>
+                {% if header is defined and header != "" %}
+                    <tr>
+                        <th colspan="{{ columns|length }}" style="text-align: left;">{{ header }}</th>
+                    </tr>
+                {% endif %}
+                {% if subheader is defined and subheader != "" %}
+                    <tr>
+                        <th colspan="{{ columns|length }}" style="text-align: left;">{{ subheader }}</th>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th colspan="{{ columns|length }}"></th>
+                </tr>
+                <tr>
+                    {% for column_name, column_text in columns %}
+                        <th>{{ column_text }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in data %}
+                    <tr>      
+                        {% for column_name, column_text in columns %}
+                            <td>{{ record[column_name|replace({'"':''})] }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>           
+        </table>
+    </body>
+</html>

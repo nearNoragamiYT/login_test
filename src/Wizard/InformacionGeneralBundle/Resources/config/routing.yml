@@ -1,0 +1,3 @@
+wizard_informacion_general:
+    path:     /asistente/informacion-general
+    defaults: { _controller: WizardInformacionGeneralBundle:InformacionGeneral:informacionGeneral }

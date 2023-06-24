@@ -1,0 +1,13 @@
+<div id="modal-delete-servicio" class="modal">
+    <form id="frm-servicio-eliminar" action="{{ path('show_dashboard_ed_formas_servicio_eliminar') }}" method="post">
+        <input type="hidden" id="idServicio" name="idServicio" value="" >
+        <div class="modal-content">
+            <h4>{{ content['section_text']['ed_eliminarServicio'] }}</h4>
+            <p>{{ content['section_text']['ed_eliminarServicioAdvertencia'] }} "<b class="servicio"></b>"?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_cancelar'] }}</button>
+            <button type="submit" class="btn waves-effect waves-light red show-loader-wrapper">{{ content['general_text']['sas_eliminar'] }}</button>
+        </div>
+    </form>
+</div>

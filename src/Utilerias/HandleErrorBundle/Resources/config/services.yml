@@ -1,0 +1,5 @@
+services:
+    sas.twig.attendee_extension:
+        class: Utilerias\HandleErrorBundle\Twig\UserAgent
+        tags:
+            - { name: twig.extension }

@@ -1,0 +1,7 @@
+visitante_perfil:
+    path:     /visitante/perfil/{idVisitante}
+    defaults: { _controller: VisitantePerfilBundle:Perfil:Perfil, idVisitante: 0}
+    
+#visitante_perfil:
+#    path:     /visitante/Perfil
+#    defaults: { _controller: VisitantePerfilBundle:Perfil:Perfil}

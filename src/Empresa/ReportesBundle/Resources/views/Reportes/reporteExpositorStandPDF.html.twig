@@ -1,0 +1,73 @@
+
+{% set ruta_asset = 'resources/Empresa/ReportesBundle/' %}
+{% set edicion = content['idEdicion'] %}
+{% set i=1%}
+
+{% block stylesheets %}
+    <style>
+
+        .container{
+            width: 215mm;
+            height: 282mm;
+            overflow: hidden;
+            margin-bottom: 0px;
+            margin-top: 0px;
+
+        }
+        .row{
+            width: 210mm;
+            height: 10mm;
+            font-size: 10px;
+            text-align: justify;
+            font-family: sans-serif;
+        }
+        .rowright{
+            float: right;
+        }
+        .rowleft{
+            float: left;
+        }
+        .pba {
+            page-break-before: always;
+        }
+
+        p{
+            font-size: 16px;
+        }
+        img{
+            margin-top: 0px;
+            width: 100%;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    {% for item in content['data'] %}
+    {% if i == 23 %}{% set i=1%}{% endif %}
+    {% if i == 1 %}
+        <div class="container pba" id="container" >
+            <img src="{{ asset('images/reportes/header_pdf_' ~ edicion ~ '.png') }}"/><br/><br/>
+        {% endif %}
+        <div class="row">
+            {{item['DC_NombreComercial']}}
+            <div class="rowright"> {{item['EMSTDListadoStand']}}</div><br>
+        </div>
+        {% if i == 22 %}
+            {#<img src="{{ asset('images/reportes/footer_pdf_' ~ edicion ~ '.png') }}">#}
+        </div>
+    {% endif %}
+    {% set i=i+1 %}
+{% endfor %}
+{#<img src="{{ asset('images/reportes/footer_pdf_' ~ edicion ~ '.png') }}">#}
+{% endblock %}
+{% block javascripts %}
+
+    <script type="text/javascript">
+        window.print();
+        setTimeout(function () {
+            window.history.back();
+        }, 3000);
+    </script>
+{% endblock %}
+

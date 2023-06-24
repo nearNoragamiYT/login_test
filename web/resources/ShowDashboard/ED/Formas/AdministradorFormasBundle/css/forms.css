@@ -1,0 +1,185 @@
+/*-- Selectores por id --*/
+#forms-container{
+    margin-bottom: 40px;
+}
+#cover-forms-table td, th{
+    padding: 5px 5px;
+}
+#seach-content label.active{
+    opacity: 0;
+}
+#cover-forms-table td .btn{
+    padding: 0pc 1em;
+}
+#update-image{
+    height: 100%;
+}
+#update-image span{
+    margin-top: 2%;
+}
+#update-pdf span{
+    margin-top: 25%;
+}
+#update-pdf{
+    height: 100%;
+}
+#show-pdf{
+    height: 490px;
+    border: none;
+}
+#content-dropzone{
+    padding: 0px !important;
+}
+/*-- selectores por clase --*/
+.container{
+    width: 95% !important;
+    padding: 10px;
+}
+.fa-question{
+    padding: 0.6em;
+}
+.ordered{
+    padding: 0.4em;
+}
+.title-form{
+    margin-bottom: 10px
+}
+.idiom-flag{
+    max-width: 30px;
+}
+.fixed-action-btn ul {
+    left: 10px;
+    right: initial;
+}
+.cp-color-picker{
+    z-index: 1005 !important;
+}
+.example{
+    margin-top: 15px;
+}
+.example .card-title{
+    position: initial !important;
+}
+.example .card-action{
+    background-color: initial !important;
+}
+.example .card-action .btn-flat{
+    margin: 0px;
+}
+.example .card-action{
+    padding: 15px 0px;
+}
+.example .card-title{
+    padding: 8px !important;
+}
+.label-color{
+    color: #000000 !important;
+    top: 0.3rem !important;
+    font-size: 0.9rem !important;
+}
+.div-dropzone{
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.71);
+    text-align: center;
+    border: #aea0a0 dashed;
+    cursor: pointer;
+}
+.div-dropzone span{
+    display: block;
+    margin: auto;
+    vertical-align: middle;
+    font-size: 2rem;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: .3s;
+    transition-property: opacity;
+    transition-duration: .3s;
+}
+.div-dropzone:hover span{
+    opacity: 0;
+}
+.div-dropzone span:hover{
+    display: none;
+}
+.valid, .invalid{
+    margin: 0px;
+    display: block;
+}
+.last{
+    padding: 10px;
+}
+.btn-deadline{
+    width: 90px !important;
+    padding: 0px 5px !important;
+}
+.section h5{
+    font-size: 1.2rem !important;
+    margin: 0.3rem 0 0.2rem 0 !important;
+}
+.card-title{
+    position: initial !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+}
+.btn-status{
+    width: 50px !important;
+    padding: 0px 5px !important;
+}
+.edit-content{
+    padding-right: 0px !important;
+}
+.card-action .btn-flat{
+    margin: 0px;
+}
+.card-action{
+    padding: 10px 0px;
+}
+.card p{
+    text-align: left !important;
+}
+.card-reveal{
+    padding: 5px !important;
+}
+.card.small .card-image{
+    padding: 15px !important;
+}
+.card .card-image img {
+    height: 110px;
+    margin: 10px auto 10px auto;
+    max-width: 100%;
+    width: inherit;
+}
+.card .card-action {
+    padding: 10px !important;
+}
+.card .card-content {
+    padding: 15px !important;
+}
+.editor-content{
+    margin-bottom:  10px;
+}
+.header-editor{
+    font-size: 14px;
+    font-weight: 500;
+}
+.error-checked{
+    box-shadow: 0px 0px 0px 1px rgba(255, 0, 10, 0.27),0 2px 10px 0 #ff000a;
+}
+/*-- selectores por elemento --*/
+thead th img{
+    max-width: 40px !important;
+}
+select.initialized{
+    display: none !important;
+}
+span.invalid{
+    margin-top: -14px !important;
+}
+table thead input[type="checkbox"]:after{
+    background-color: #FFF !important;
+}
+/*-- elementos por subclase --*/
+:disabled{
+    cursor: not-allowed !important;
+}

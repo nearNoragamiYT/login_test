@@ -1,0 +1,39 @@
+rs_reporte_compras:
+    path:     /show-dashboard/reporteCompras
+    defaults: { _controller: ShowDashboardRSReporteComprasBundle:Compras:index }
+
+rs_generate_report:
+    path:     /show-dashboard/generateReport
+    defaults: { _controller: ShowDashboardRSReporteComprasBundle:Compras:report}
+
+rs_download_excelReport:
+    path:     /show-dashboard/downloadReport
+    defaults: { _controller: ShowDashboardRSReporteComprasBundle:Compras:download}
+    
+rs_download_excelReportes:
+    path:     /show-dashboard/downloadTarjeta
+    defaults: { _controller: ShowDashboardRSReporteComprasBundle:Compras:downloadR}
+    
+rs_download_excelNodo:
+    path:     /show-dashboard/downloadNodo
+    defaults: { _controller: ShowDashboardRSReporteComprasBundle:Compras:downloadN}
+
+rs_StatusCompras:
+    path:     /show-dashboard/consultarComprasStatus
+    defaults: { _controller: ShowDashboardRSReporteComprasBundle:Compras:compraStatus}
+    
+rs_impresionTicket:
+    path:     /show-dashboard/consultarComprasTicket
+    defaults: { _controller: ShowDashboardRSReporteComprasBundle:Compras:compraTicket}
+    
+rs_generate_reportes:
+    path:     /show-dashboard/generateReportT
+    defaults: { _controller: ShowDashboardRSReporteComprasBundle:Compras:reportes}
+    
+rs_generate_reportNodo:
+    path:     /show-dashboard/generateReportN
+    defaults: { _controller: ShowDashboardRSReporteComprasBundle:Compras:reportNodo}   
+
+rs_generate_updateReportNodo:
+    path:     /show-dashboard/updateNodo
+    defaults: { _controller: ShowDashboardRSReporteComprasBundle:Compras:updateGeneral}          

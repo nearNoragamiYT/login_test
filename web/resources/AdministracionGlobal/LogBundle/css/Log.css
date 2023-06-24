@@ -1,0 +1,15 @@
+.dataTables_filter{
+    display: none;
+}
+.custom-filters-summary{
+    margin-bottom: 10px;
+}
+#log-table_wrapper{
+     padding: 10px;      
+}
+table.table-bordered.dataTable{
+    border-collapse: collapse !important;
+}
+.img-export{
+    vertical-align: middle;
+}

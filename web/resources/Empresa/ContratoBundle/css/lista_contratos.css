@@ -1,0 +1,22 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Feb 27, 2017, 11:50:32 AM
+    Author     : Eduardo
+*/
+#Contrato-table_filter{
+    display: none !important;
+}
+.custom-filters-summary{
+    margin-bottom: 5px;
+}
+.pagination .waves-effect a{
+    font-size: 12px !important;
+}
+.container {
+    max-width: none;
+    width: 90%;
+}

@@ -1,0 +1,20 @@
+empresa_empresa_invitaciones_homepage:
+    path:     /invitaciones_homepage
+    defaults: { _controller: EmpresaEmpresaInvitacionesBundle:Default:index }
+
+
+empresa_empresa_invitaciones:
+    path:     /empresa/empresa-invitaciones/{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaInvitacionesBundle:Invitaciones:getInvitaciones, idEmpresa:0 }
+
+empresa_empresa_invitaciones_generar:
+    path:  /generate-invitations/{idEmpresa}/
+    defaults: { _controller: EmpresaEmpresaInvitacionesBundle:Invitaciones:generateInvitations, idEmpresa: 0 }      
+    
+empresa_empresa_invitaciones_cancelar:
+    path:  /cancel-invitations/{idEmpresa}/
+    defaults: { _controller: EmpresaEmpresaInvitacionesBundle:Invitaciones:updateCodeStatus, idEmpresa: 0 }    
+    
+empresa_empresa_invitaciones_eliminar:
+    path:   /delete-invitations/{idEmpresa}/
+    defaults: { _controller: EmpresaEmpresaInvitacionesBundle:Invitaciones:deleteCode, idEmpresa: 0 }  

@@ -1,0 +1,135 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/FP/GraphicBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" media="all" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/main.css') }}">
+{% endblock %}
+
+{% block title %}{{ content['textos']['fp_grafica'] }}{% endblock %}
+{% block content %}
+    <div class="container" id="floorplan-graphics">
+        <div class="row">
+            <h4> {{ content["edicion"]["Edicion_" ~ content["lang"]|upper] }} </h4>
+            <h5>Total - {{ stands['0']['total'] }} m<sup>2</sup></h5>
+            <label  class="black-text">{{ content['textos']['fp_cantidadStands'] }} : {{ stands['0']['quantity'] }}</label>
+        </div>
+        <div id="graficas" class="row">
+            <div class="card col s12 l4">
+                <div class="card-content center-align black-text">
+                    <span>{{ content['textos']['fp_graficaDescripcionDisponible'] }}</span>
+                    <span class="quantity-number">{{ stands['0']['quantityAvailable'] }}</span>
+                </div>                    
+            </div>
+            <div class="card col s12 l4 color-occupied">
+                <div class="card-content center-align white-text">
+                    <span>{{ content['textos']['fp_graficaDescripcionContratado'] }}</span>
+                    <span class="quantity-number">{{ stands['0']['quantityOccupied'] }}</span>
+                </div>
+            </div>
+            <div class="card col s12 l4 color-reserved">
+                <div class="card-content center-align white-text">
+                    <span>{{ content['textos']['fp_graficaDescripcionReservado'] }} </span>
+                    <span class="quantity-number">{{ stands['0']['quantityReserved'] }}</span>
+                </div>
+            </div>
+            <div id="Total0" class="amchart col s12 l12" ></div>
+        </div>
+    </div>   
+    <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light">
+            <i class="large material-icons">save</i>
+        </a>
+        <ul>
+            <li>
+                <a href="javascript:imprTotal0()" class="btn-floating waves-effect waves-light">
+                    <i class="large material-icons center printable">print</i>
+                </a>
+                <a href="" class="btn-floating fab-tip">{{ content['textos']['fp_imprimirGrafica'] }}</a>
+            </li>
+            <li>
+                <a id="excel-stands-total" class="btn-floating waves-effect waves-light">
+                    <i class="large material-icons center printable">file_download</i>
+                </a>
+                <a href="" class="btn-floating fab-tip">{{ content['textos']['fp_descargarListadoStands'] }}</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+    <script type="text/javascript">
+        var url_stands_total = "{{ path('empresa_reportes_stands_total') }}";
+    </script>
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}"/>
+    <script src="{{ asset('js/modernizr-2.6.2.min.js')}}"></script>
+    <script src="{{ asset('js/hammer.min.js')}}"></script> 
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script> 
+    <script src="{{ asset('resources/ShowDashboard/FP/GraphicBundle/js/amcharts/amcharts.js') }}"></script>               
+    <script src="{{ asset('resources/ShowDashboard/FP/GraphicBundle/js/amcharts/pie.js') }}"></script>
+    <script src="{{ asset('resources/ShowDashboard/FP/GraphicBundle/js/reportesStands.js') }}"></script>  
+
+    <script type="text/javascript">
+        var chart0;
+        var legend0;
+        var chartData0 = [
+        {
+        "status": "{{ content['textos']['fp_graficaDisponible'] }}",
+                "description": "{{ content['textos']['fp_graficaDescripcionDisponible'] }}",
+                "value":"{{ stands[0]['available'] }}",
+                "quantity":"{{ stands[0]['quantityAvailable']}}",
+                "color": "#FFFFFF"
+        },
+        {
+        "status": "{{ content['textos']['fp_graficaContratado'] }}",
+                "description": "{{ content['textos']['fp_graficaDescripcionContratado'] }}",
+                "value":"{{ stands[0]['occupied'] }}",
+                "quantity":"{{ stands[0]['quantityOccupied']}}",
+                "color": "#26327C"
+        },
+        {
+        "status": "{{ content['textos']['fp_graficaReservado'] }}",
+                "description": "{{ content['textos']['fp_graficaDescripcionReservado'] }}",
+                "value":"{{ stands[0]['reserved']}}",
+                "quantity":"{{ stands[0]['quantityReserved']}}",
+                "color": "#BBBCC0"
+        }
+        ];
+        AmCharts.ready(function () {
+        chart0 = new AmCharts.AmPieChart();
+        chart0.dataProvider = chartData0;
+        chart0.titleField = "status";
+        chart0.valueField = "value";
+        chart0.colorField = "color";
+        chart0.descriptionField = "description";
+        chart0.quantityField = "quantity";
+        chart0.outlineColor = "#000000";
+        chart0.legend = {
+        "autoMargins":false,
+                "markerBorderColor": "#000000",
+                "labelText":"Cantidad de metros [[title]]:"
+        };
+        chart0.outlineAlpha = 0.4;
+        chart0.outlineThickness = 1;
+        chart0.labelText = "[[percents]]%";
+        //chart0.showBalloon = true;
+        chart0.balloonText = "[[description]]<br><span style='font-size:20px'><b>[[quantity]]</b></span>";
+        chart0.depth3D = 15;
+        chart0.angle = 30;
+        chart0.write("Total0");
+        });
+    </script>
+
+    <script type="text/javascript">
+        function imprTotal0(){
+        $(".printable").hide();
+        var ficha = document.getElementById("floorplan-graphics");
+        var ventimp = window.open(' ', 'popimpr');
+        ventimp.document.write(ficha.innerHTML);
+        ventimp.document.close();
+        ventimp.print();
+        ventimp.close();
+        $(".printable").show();
+        }
+    </script>   
+{% endblock %}

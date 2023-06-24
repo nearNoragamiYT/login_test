@@ -1,0 +1,19 @@
+stat_link_demographics_list:
+    path:     /statlink/demographics
+    defaults: { _controller: StatLinkDemographicsBundle:Demographics:listDemographics }
+    
+stat_link_demographics_generate:
+    path:     /statlink/demographics/generateDG
+    defaults: { _controller: StatLinkDemographicsBundle:Demographics:generateDemographics }
+    
+stat_link_demographics_download:
+    path:     /statlink/demographics/download
+    defaults: { _controller: StatLinkDemographicsBundle:Demographics:downloadDemographics}    
+
+demographics_asociados:
+    path:     /statlink/demographics/asociados
+    defaults: { _controller: StatLinkDemographicsBundle:Demographics:asociados }
+
+demographics_compradores:
+    path:     /statlink/demographics/compradores
+    defaults: { _controller: StatLinkDemographicsBundle:Demographics:compradores }

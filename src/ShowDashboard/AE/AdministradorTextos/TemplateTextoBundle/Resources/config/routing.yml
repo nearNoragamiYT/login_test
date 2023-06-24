@@ -1,0 +1,8 @@
+show_dashboard_ae_administrador_textos_template_texto:
+    path:     /show-dashboard/ae/administrador-textos/textos-template
+    defaults: { _controller: ShowDashboardAEAdministradorTextosTemplateTextoBundle:TemplateTexto:templateTexto }
+
+show_dashboard_ae_administrador_textos_template_texto_delete:
+    path:     /show-dashboard/ae/administrador-textos/textos-template-eliminar
+    defaults: { _controller: ShowDashboardAEAdministradorTextosTemplateTextoBundle:TemplateTexto:templateTextoEliminar }
+    methods:  [POST]

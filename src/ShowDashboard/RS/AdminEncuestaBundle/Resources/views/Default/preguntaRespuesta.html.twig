@@ -1,0 +1,47 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "preguntas-respuestas", 
+                "fixed": true, 
+                
+                "color": "green", 
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "btn-add-pregunta"                
+            } 
+%}
+{% block title %}
+    <h5 id="estado">Administrar Pregunta</h5>
+{% endblock %}
+{% block body %}
+    <div class="preloader-background">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="questions_answers">
+        <div id="pregunta">
+            <div class="row">
+                <p id="question"></p>
+            </div>        
+        </div>
+        <div id="respuestas">
+
+        </div>
+        <div class="row">
+            
+        </div>
+    </form>
+
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

@@ -1,0 +1,4 @@
+services:
+#    empresa_empresa_datos_adicionales.example:
+#        class: Empresa\EmpresaDatosAdicionalesBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

@@ -1,0 +1,153 @@
+.dataTables_filter{
+    display: block !important;
+}
+
+.change-status:hover{
+    color: #039be5;
+}
+
+.change-status.disabled:hover{
+    color: #039be5;
+}
+
+.change-status {
+    cursor: pointer;
+    color: #dedede;
+}
+
+.change-status-disabled {
+    cursor: no-drop;
+    color: #dedede;
+}
+.change-status {
+    cursor: pointer;
+    color: #dedede;
+}
+
+.modal-s {
+    max-height: 35%;
+}
+
+.container {
+    width: 98% !important;
+}
+
+#companies{
+    margin-top: 25px;
+}
+.space-label{
+    padding-bottom: 5px;
+}
+#delete-record-modal{
+    max-width: 30%;
+}
+.paging_listbox > select{
+    height: 2rem !important;
+}
+.dataTables_length > label > select{
+    height: 2rem !important;
+}
+
+.dataTables_filter{
+    display: none;
+}
+.custom-filters-summary{
+    margin-bottom: 10px;
+}
+#Visitante-table_wrapper{
+     padding: 10px;      
+}
+table.table-bordered.dataTable{
+    border-collapse: collapse !important;
+}
+.img-export{
+    vertical-align: middle;
+}
+.pagination li a {
+    font-size: .8rem;
+}
+/*.checkbox-green[type="checkbox"]:disabled {
+    border: 2px solid #4CAF50;
+    background-color: #4CAF50;
+}*/
+.wrapper-dynamic-table {
+    margin-bottom: 80px;
+}
+.visitante-menu {
+    z-index: 100;
+    position: fixed;
+    height: 40px;
+    line-height: 40px;
+}
+nav ul li.active {
+    background-color: lightslategrey !important;
+/*    border-radius: 0px 0px 15px 15px;*/
+}
+
+#Prensa-table_wrapper {
+    font-size: 12px;
+}
+
+.filtro-head{
+    margin: 0 0 5px 0 !important;
+}
+
+.dataTables_processing {
+    top: 0px !important;
+    left: 0px !important;
+    margin-left: 0px !important;
+    margin-top: 0px !important; 
+    position: absolute !important;
+    width: 100% !important;
+    height: 1000% !important;
+    text-align: center !important;
+    font-size: 1.2em !important;
+    background-color: white !important;
+    color: rgba(0,0,0,0.87) !important;
+    opacity: 0.8!important;
+    filter: alpha(opacity=80)!important;
+    z-index: 100 !important; 
+    padding: 18rem 0 !important;
+}
+
+
+.btn-export {
+    cursor: pointer;
+    float: left !important;;
+    color: black !important;
+    width: auto !important;;
+    float: right !important;;
+    margin-right: 35px;
+    margin-top: 20px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.btn-export label {
+    cursor: pointer;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    color: #000000;
+}
+
+.btn-export img {
+    width: 40px;
+    height: auto;
+}
+
+.img-export {
+    vertical-align: middle;
+}
+
+
+#table-Prensa_filter{
+     display: none !important;
+}
+
+.send-record{
+     cursor:pointer;
+}
+
+.download-gafete{
+    cursor: pointer;
+}

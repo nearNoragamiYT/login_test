@@ -1,0 +1,21 @@
+show_dashboard_ed_formas_editor_forma:
+    path:     /show-dashboard/ed/formas/editor/{idEdicion}/{idForma}/{lang}
+    defaults: { _controller: ShowDashboardEDFormasEditorFormaBundle:EditorForma:editorForma, lang: es }
+
+show_dashboard_ed_formas_servicio:
+    path:     /show-dashboard/ed/formas/servicio
+    defaults: { _controller: ShowDashboardEDFormasEditorFormaBundle:EditorForma:servicio }
+
+show_dashboard_ed_formas_servicio_eliminar:
+    path:     /show-dashboard/ed/formas/servicioeliminar
+    defaults: { _controller: ShowDashboardEDFormasEditorFormaBundle:EditorForma:servicioEliminar }
+
+show_dashboard_ed_formas_guardar_imagen:
+    path:     /show-dashboard/ed/formas/guardar-imagen
+    defaults: { _controller: ShowDashboardEDFormasEditorFormaBundle:EditorForma:guardarImagen }
+    methods: POST
+
+show_dashboard_ed_formas_eliminar_imagen:
+    path:     /show-dashboard/ed/formas/eliminar-imagen
+    defaults: { _controller: ShowDashboardEDFormasEditorFormaBundle:EditorForma:eliminarImagen }
+    methods: POST

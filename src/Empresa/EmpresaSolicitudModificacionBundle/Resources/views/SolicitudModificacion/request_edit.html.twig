@@ -1,0 +1,69 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "edit-modification-request-modal", 
+                "fixed": true, 
+                "size": "modal-m", 
+                "color": "green",
+                "textColor": "white-text",
+                "confirmCancel": true, 
+                "idButton": "btn-edit-modification-request"              
+} %}
+{% block title %}
+    <h6 id="edit-modification-request-head"></h6>
+{% endblock %}
+{% block body %}
+    <form id="edit-modification-request-form" class="col s12">
+        
+        <div class="input-field col s12" style="margin-bottom: 30px">
+            {% if content['idEmpresa'] is defined%}
+                <input type="hidden" id="idEmpresa" name="idEmpresa" value="{{ content['idEmpresa'] }}">                
+            {% endif %}            
+            {#<input id="StatusSolicitudCambio" name="StatusSolicitudCambio" type="text">#}
+            <label for="StatusSolicitudCambio" class="active space-label">{{content["section_text"]["sas_cambiarEstatus"]}}</label>
+             {% if content["modif_request_metadata"]['StatusSolicitudCambio'] is defined  %}                
+                <select id="StatusSolicitudCambio"
+                        name="StatusSolicitudCambio"
+                        class="browser-default validate"
+                        type="text"
+                        value=""
+                        >
+                    <option value="0">{{content["modif_request_metadata"]['StatusSolicitudCambio']["values"][0]}}</option>
+                    <option value="1">{{content["modif_request_metadata"]['StatusSolicitudCambio']["values"][1]}}</option>
+                    <option value="2">{{content["modif_request_metadata"]['StatusSolicitudCambio']["values"][2]}}</option>                                                       
+                </select>
+            {% endif %}
+        </div>
+       
+        <div class="input-field col s12">
+            <input id="idCampoModificacion" name="idCampoModificacion" type="text" readonly>
+            <label for="idCampoModificacion">{{content["section_text"]["sas_campoModificacion"]}}</label>
+        </div>
+        <div class="input-field col s12" id="CatPrincipal">
+            <input id="CategoriaPrincipal" name="CategoriaPrincipal" type="text" readonly>
+            <label for="CategoriaPrincipal">{{content["section_text"]["sas_categoriaPrincipal"]}}</label>
+        </div>
+        <div class="input-field col s12"  id="CatSecundaria">
+            <input id="CategoriaSecundaria" name="CategoriaSecundaria" type="text" readonly>
+            <label for="CategoriaSecundaria">{{content["section_text"]["sas_categoriaSecundaria"]}}</label>
+        </div>
+        <div class="input-field col s12"  id="CatOtra">
+            <input id="OtraCategoria" name="OtraCategoria" type="text" readonly>
+            <label for="OtraCategoria">{{content["section_text"]["sas_categoriaOtra"]}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="Observacion" name="Observacion" type="text" readonly>
+            <label for="Observacion">{{content["section_text"]["sas_observacion"]}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="ObservacionComite" name="ObservacionComite" type="text">
+            <label for="ObservacionComite">{{content["section_text"]["sas_observacionComite"]}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="FechaSolicitudCambio" name="FechaSolicitudCambio" type="text" readonly>
+            <label for="FechaSolicitudCambio">{{content["section_text"]["sas_fechaSolicitud"]}}</label>
+        </div>                
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}
+        

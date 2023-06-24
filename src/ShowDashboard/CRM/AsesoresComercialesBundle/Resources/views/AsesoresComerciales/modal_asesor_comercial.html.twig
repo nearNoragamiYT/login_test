@@ -1,0 +1,37 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-add-adviser", "fixed": true, "textColor":"white-text", "zise": "modal-m", "confirmCancel": false, "color": "green darken-1", "idButton": "add-adviser" } %}
+{% block title %}{{content['section_text']['sas_InfoAsesorComercial']}}{% endblock %}
+{% block body %}
+    <form id='form-adviser' method="POST">
+        <div class="input-field col s8 offset-s2">
+            <i class="material-icons prefix">lock</i>
+            <input type="password" id='Password' name='Password' class="required validate">
+            <label for="icon_prefix">{{content['general_text']['sas_password']}}</label>
+        </div>
+        <div id="edit-password" class="col s2"><a class="btn-floating blue"><i class="material-icons">create</i></a></div>
+        <div class="input-field col s8 offset-s2">
+            <i class="material-icons prefix">account_box</i>
+            <input type="text" id='Nombre' name='Nombre' class="required validate">
+            <label for="icon_prefix">{{content['section_text']['sas_nombreCompleto']}}</label>
+        </div>
+        <div class="input-field col s8 offset-s2">
+            <i class="material-icons prefix">email</i>
+            <input type="text" id='Email' name='Email' class="email required validate">
+            <label for="icon_prefix">{{content['general_text']['sas_email']}}</label>
+        </div>
+        <div class="input-field col s8 offset-s2">
+            <i class="material-icons prefix">contact_phone</i>
+            <input type="text" id='Telefono' name='Telefono' class="digits validate">
+            <label for="icon_prefix">{{content['general_text']['sas_telefono']}}</label>
+        </div>
+        <div class="input-field col s8 offset-s2">
+            <i class="material-icons prefix">work</i>
+            <input type="text" id='Puesto' name='Puesto' class="validate">
+            <label for="icon_prefix">{{content['general_text']['sas_puesto']}}</label>
+        </div>
+        <input type="hidden" id="idUsuario" name="idUsuario" value="0">
+    </form>
+{% endblock%}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

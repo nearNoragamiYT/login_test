@@ -1,0 +1,165 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set asset_path = 'resources/ShowDashboard/RS/AdminRSBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/adminRS.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    <div class=" container-fluid">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-panel blue-grey" id="">
+                    <span class="card-title white-text center" id="HeaderConfigNodes">{{content['general_text']['sas_ConfigNodo']}}</span>
+                    <buttom class="green btn-floating waves-effect waves-light right" id="btnAgregarEstado">
+                        <i class="material-icons tooltipped" data-position="left" data-tooltip="Agregar Estado">add</i>
+                    </buttom>
+                </div> 
+
+                <form id="myForm" name="myForm">
+                    {# SELECT CON LOS INDICES DEL DATATABLE #}                    
+                    <div class="row">                        
+                        <div class="input-field col s2 btn-select">
+                            <select id="btn-select" name="CampoNodo">      
+                                <option value="" selected>{{content['general_text']['sas_SelectElite']}}</option>
+                                {% for  key, campos in content['campos'] %}
+                                    <option value="{{key}}"> {{campos}}</option>
+                                {% endfor%}
+                            </select>                            
+                        </div>
+                        {# SELECT PARA VALORES BOOLEANOS #}
+                        <div class="input-field col s2 btn-si-no">
+                            <select id="btn-si-no" name="CampoNodo">
+                                <option value="" selected>{{content['general_text']['sas_SelectElite']}}</option>
+                                <option value="TRUE">Si</option>
+                                <option value="FALSE">No</option>
+                            </select>                            
+                        </div>
+                        {# SELECT PARA LA CONTIGENCIA #}
+                        <div class="input-field col s2 btn-contingencia">
+                            <select id="btn-contingencia" name="CampoNodo">
+                                <option type="numeber" value= "" selected>{{content['general_text']['sas_SelectElite']}}</option>
+                                <option value="1">Verde</option>
+                                <option value="2">Azul</option>
+                                <option value="3">Rojo</option>
+                            </select>                           
+                        </div>
+                        {# SELECT PARA LA EDICION #}
+                        <div class ="input-field col s2 btn-nombreEdicion">
+                            <select id="btn-nombreEdicion" name="CampoNodo">
+                                <option value="" disabled selected>{{content['general_text']['sas_SelectElite']}}</option>
+                                {% for Edicion in content['Edicion'] %}                                    
+                                    <option value="{{Edicion['idEdicion']}}">{{Edicion['Edicion_ES']}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {# SELECT PARA EL EVENTO #}
+                        <div class ="input-field col s2 btn-nombreEvento">
+                            <select id="btn-nombreEvento" name="CampoNodo">
+                                <option value="" disabled selected>{{content['general_text']['sas_SeleccionEvento']}}</option>
+                                {% for Evento in content['Evento']%}                               
+                                    <option value="{{Evento['idEvento']}}"> {{Evento['Evento_ES']}}</option>
+                                {% endfor%}
+                            </select>
+                        </div>                       
+                        {# INPUT PARA AGREGAR Y UN BOTON PARA ACTUALIZAR DATATBLE #}
+                        <div class="rows">
+                            <div class="input-field col s2 inp-res">
+                                <input placeholder="" id="inp-res" type="text" value="" class="validate">
+                                <label for="campo"></label>
+                            </div>
+                            <button id="btn-actualizar" value="Reset" type="button" class="waves-effect waves-light btn reset" style="margin-top: 25px; left: 10px">Actualizar</button>
+                        </div>                    
+                    </div>                    
+                </form>
+                <table id="table" class="highlight responsive-table bordered">       
+                    <thead class="grey lighten-4">
+                        <tr>
+                            <th></th>
+                            <th>{{content['general_text']['sas_Edicion']}}</th>
+                            <th>{{content['general_text']['sas_Evento']}}</th>                            
+                            <th>{{content['general_text']['sas_TipoCaptura']}}</th>
+                            <th>{{content['general_text']['sas_ClubElite']}}</th>
+                            <th>{{content['general_text']['sas_Tienda']}}</th>
+                            <th>{{content['general_text']['sas_AutoRegistro']}}</th>
+                            <th>{{content['general_text']['sas_GafetesMultiples']}}</th>
+                            <th>{{content['general_text']['sas_Preregistro']}}</th>
+                            <th>{{content['general_text']['sas_Nodo']}}</th>
+                            <th>{{content['general_text']['sas_Direccion']}}</th>
+                            <th></th>                           
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                        {% for configuraciones in content['configuraciones'] %}
+                            <tr id="{{configuraciones['idConfiguracion']}}">                                
+                                <td>
+                                    <input type="checkbox" class="select-record che_ck" id="{{ 'cb_' ~ configuraciones['idConfiguracion'] }}" />
+                                    <label for="{{ 'cb_' ~ configuraciones['idConfiguracion'] }}"></label>  
+                                </td>
+                                <td>{{configuraciones['Edicion_ES']}}</td>
+                                <td>{{configuraciones['Evento_ES']}}</td>
+                                <td>{{configuraciones['TipoCaptura']}}</td>
+                                <td>{% if configuraciones['ClubElite'] == 1 %} {{content['general_text']['sas_Si']}} {% else %} {{content['general_text']['sas_No']}} {% endif %}</td>
+                                <td>{% if configuraciones['Tienda'] == 1 %} {{content['general_text']['sas_Si']}}{% else %} {{content['general_text']['sas_No']}} {% endif %}</td>
+                                <td>{% if configuraciones['AutoRegistro'] == 1%} {{content['general_text']['sas_Si']}} {% else %} {{content['general_text']['sas_No']}} {% endif %}</td>
+                                <td>{% if configuraciones['GafeteMultiple'] == 1 %} {{content['general_text']['sas_Si']}} {% else %} {{content['general_text']['sas_No']}} {% endif %}</td>
+                                <td>{% if configuraciones['Preregistro'] == 1 %} {{content['general_text']['sas_Si']}} {% else %} {{content['general_text']['sas_No']}} {% endif %}</td>
+                                <td>{{configuraciones['NombreNodo']}}</td>
+                                <td>{{configuraciones['ip']}}</td>
+                                <td>
+                                    <i class="material-icons edit-record tooltipped " id-edit="{{configuraciones['idConfiguracion']}}" data-position="left" data-tooltip="Editar" >mode_edit</i>
+                                    <i class="material-icons delete-record tooltipped" id-delete="{{ configuraciones['idConfiguracion'] }}" data-position="left" ip="{{configuraciones['ip'] }}" data-tooltip="Eliminar">delete_forever</i>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>                    
+                </table>           
+            </div>
+        </div>
+    </div>
+    {% include 'ShowDashboardRSAdminRSBundle:Default:modal_editar.html.twig' %}
+    {% include 'ShowDashboardRSAdminRSBundle:Default:modal_eliminar.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_estado_sistema
+                = "{{path('estado_sistema_rs')}}";
+        var url_get_configuracion
+                = "{{path('get_general_configuracion_rs')}}";
+    </script>
+    <script type="text/javascript">
+        var url_update_estado
+                = "{{path('update_sistema_rs')}}";
+        var url_update_general
+                = "{{path('update_general_sistema_rs')}}";
+    </script>
+    <script type="text/javascript">
+        var url_delete_estado
+                = "{{path('delete_sistema_rs')}}"
+    </script>
+    <script type="text/javascript">
+                var ConfigRS
+                = {{ content['ConfigRS']|length ? content['ConfigRS']|json_encode()|raw : '{}' }};
+    </script>
+    <script type="text/javascript">
+        var configuraciones//para interpretar
+                = {{ content ["configuraciones"]|json_encode()|raw }};
+    </script>
+    <script type="text/javascript">
+        var Nodo
+                ={{content ["Nodo"]|json_encode()|raw }}
+    </script>
+    <script type="text/javascript">
+                var Evento
+                ={{content["Evento"]}}
+    </script>
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/adminRS.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}

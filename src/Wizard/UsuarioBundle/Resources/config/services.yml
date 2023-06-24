@@ -1,0 +1,4 @@
+services:
+#    wizard_usuario.example:
+#        class: Wizard\UsuarioBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

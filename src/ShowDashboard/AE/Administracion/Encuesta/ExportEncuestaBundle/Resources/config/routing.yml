@@ -1,0 +1,23 @@
+show_dashboard_ae_administracion_encuesta_export_encuesta:
+    path:     /show-dashboard/ae/administracion/encuesta/exportar
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaExportEncuestaBundle:ExportEncuesta:ExportEncuesta }
+    
+quiz:
+    path:     /show-dashboard/ae/administracion/encuesta/exportar/reporte-encuesta
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaExportEncuestaBundle:ExportEncuesta:QuizExport }    
+
+preg:
+    path:     /show-dashboard/ae/administracion/encuesta/exportar/reporte-pregunta
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaExportEncuestaBundle:ExportEncuesta:PreExport }    
+
+resp:
+    path:     /show-dashboard/ae/administracion/encuesta/exportar/reporte-respuesta
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaExportEncuestaBundle:ExportEncuesta:ResExport }    
+
+ap:
+    path:     /show-dashboard/ae/administracion/encuesta/exportar/reporte-activa_pregunta
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaExportEncuestaBundle:ExportEncuesta:ApExport }    
+
+valp:
+    path:     /show-dashboard/ae/administracion/encuesta/exportar/reporte-validacion_pregunta
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaExportEncuestaBundle:ExportEncuesta:ValPExport }    

@@ -1,0 +1,3 @@
+wizard:
+    path:     /asistente
+    defaults: { _controller: WizardWizardBundle:Wizard:wizard }

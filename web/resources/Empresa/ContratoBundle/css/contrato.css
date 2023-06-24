@@ -1,0 +1,192 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Sep 1, 2016, 11:30:52 AM
+    Author     : John
+*/
+.personal-info{
+    font-size: 14px;
+    font-weight: 500;
+}
+.personal-info-sub{
+    font-size: 12px;
+    font-weight: 400;
+}
+.dropdown-content{
+    width: 215px !important;
+}
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+    background-color: #2196f3;
+    z-index: 0;
+}
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+    border: 2px solid #2196f3;
+}
+.progress-estado .progress{
+    margin: 0px;
+    display: none;
+}
+
+.progress-estado{
+    display: block;
+    position: absolute;
+    width: calc(100% - 1.5rem);
+    height: 4px;
+    top: 45px;
+}
+.unsaved{
+    background: #ffe497;
+}
+.ca-description{
+    padding-left: 35px;
+}
+.ca-description input{
+    width: 50px;
+    text-align: center;
+}
+.input-highlight {
+    transition: box-shadow 400ms !important;
+    box-shadow: 0 8px 12px -6px #ff9800 !important;
+}
+.panel-highlight {
+    transition: box-shadow 400ms !important;
+    box-shadow: 0px 0px 10px 2px  #ff9800 !important;
+}
+.nav-buttons {
+    display: inline-block;
+    position: relative;
+    width: calc(100% + 40px);
+    height: auto;
+    text-align: right;
+    margin: -20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+.wizard-steps{
+    font-size: 0.8rem;
+    -webkit-box-shadow: 0 5px 5px -3px rgba(0,0,0,0.16);
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,0.16);
+    border-bottom: 1px solid rgba(0,0,0,0.16);
+    margin: 0px;
+    padding: 8px 0px;
+    text-align: center;
+    background: rgba(221,221,221,0.10);
+}
+
+.wizard-steps li{
+    position: relative;
+    display: inline-block;
+    cursor: default;
+    vertical-align: text-top;
+    text-align: center;
+    width: calc(95% / 4);
+}
+
+.wizard-steps li i{
+    display: block;
+    margin: 0 auto;
+    font-style: normal;
+    background: #bdbdbd;
+    margin-bottom: 3px;
+}
+
+.wizard-steps li:not(:last-child):after {
+    position: absolute;
+    content: '';
+    height: 5px;
+    background: #edeff0;
+    margin: 0;
+    width: 100%;
+    top: 17px;
+    left: 50%;
+}
+
+.wizard-steps li.completed{
+    color: green;
+}
+
+.wizard-steps li.completed i{
+    background: #d4ecd4;
+    color: green;
+}
+
+.wizard-steps li.completed:not(.current-step) i:hover,
+.wizard-steps li.completed:not(.current-step) i:focus,
+.wizard-steps li.completed:not(.current-step) i:active{
+    background: #a5d6a7;
+}
+
+.wizard-steps li.current-step{
+    color: #4285f4;
+}
+
+.wizard-steps li.current-step i{
+    background: #4285f4;
+    color: #fff;
+}
+
+.wizard-steps li.completed:not(:last-child):after {
+    background: #d4ecd4;
+}
+.uncompleted a{
+    pointer-events: none;
+    cursor: default;
+}
+
+span.badge{
+    right: inherit;
+    margin-left: 10px;
+}
+
+span.badge.new{
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+span.badge.new:after {
+    content: "";
+}
+
+.lbl-total{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+}
+
+.totales {
+    font-size: 18px;
+}
+
+.totales .iva{
+    /*    background:#f2f2f2;*/
+}
+
+.totales .total{
+    border-top: 2px solid #000;
+}
+
+.totales input{
+    color: #333 !important;
+    font-weight: 500;
+    font-size: 26px;
+    margin: 0 !important;
+    border: none;
+}
+.entity-panel .s2{
+    width: 10.666667%!important;
+}
+.table-icon{
+    color: #454545;
+    cursor: pointer;
+}
+.edit-concept:hover{
+    color: #2196f3
+}
+.delete-concept:hover{
+    color: #FF0000
+}

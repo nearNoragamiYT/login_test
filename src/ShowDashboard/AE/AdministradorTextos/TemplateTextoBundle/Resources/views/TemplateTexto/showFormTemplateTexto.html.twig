@@ -1,0 +1,61 @@
+<div id="modal-template-texto" class="modal modal-fixed-footer modal-m">
+    <form id="frm-template-texto" action="{{ path("show_dashboard_ae_administrador_textos_template_texto") }}" method="post">
+        <div class="modal-content">
+            <h4>{{ content['section_text']['sas_informacionTemplateTexto'] }}</h4>
+            <input type="hidden" id="idTemplateTexto" name="idTemplateTexto">
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field">
+                        <label for="idProductoIxpo" class="active">{{ content['section_text']['sas_template'] }}</label>
+                        <select class="browser-default" id="idTemplate" name="idTemplate">
+                            <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                            {% for template in content['template'] %}
+                                <option value="{{ template['idTemplate'] }}">{{ template['Template'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m10">
+                    <div class="input-field">
+                        <input id="Etiqueta" 
+                               name="Etiqueta"
+                               type="text" 
+                               class="validate"
+                               >
+                        <label for="Etiqueta">{{ content['section_text']['sas_etiqueta'] }}</label>
+                    </div>
+                </div>
+                <div class="col s12 m2">
+                    <div class="input-field">
+                        <p>
+                            <input type="checkbox" id="Default" name="Default" value="true"/>
+                            <label for="Default">Default</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field">
+                        <textarea id="Texto_ES" name="Texto_ES" class="materialize-textarea"></textarea>
+                        <label for="Texto_ES">{{ content['section_text']['sas_textoES'] }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field">
+                        <textarea id="Texto_EN" name="Texto_EN" class="materialize-textarea"></textarea>
+                        <label for="Texto_EN">{{ content['section_text']['sas_textoEN'] }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{content['general_text']['sas_cancelar']}}</button>
+            <button type="submit" class="modal-action btn waves-effect waves-light green">{{content['general_text']['sas_guardar']}}</button>
+        </div>
+    </form>
+</div>

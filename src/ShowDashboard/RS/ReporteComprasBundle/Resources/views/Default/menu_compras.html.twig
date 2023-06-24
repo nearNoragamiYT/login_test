@@ -1,0 +1,30 @@
+{% set ruta_asset = 'resources/ShowDashboard/RS/ReporteComprasRSBundle/' %}
+{# empty Twig template #}
+
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/menu_comprasRS.css') }}" media="screen,projection"/>
+{% endblock %}
+
+<nav class="socio-menu indigo">
+    <div class="col s12 m6 right hide-on-large-only">
+        <a id="dropdown-menu"  data-activates='dropdown-items' href="#" class="btn-flat waves-effect waves-light white-text"></a>
+        <ul id='dropdown-items' class='dropdown-content'>
+        </ul>
+    </div>
+    <div class="nav-wrapper">
+        <ul class="left hide-on-med-and-down">
+            <li id="scanner-tipo" {% if ruta is defined and ruta == "rs_reporte_compras" %} class="active" {% endif %}>
+                <a href="{{path('rs_reporte_compras')}}">
+                    {#{{ content['general_text']['sas_ArchivoBD']}}#}
+                    Reportes
+                </a>
+            </li>
+            <li id="scanner-tipo" {% if ruta is defined and ruta == "rs_impresionTicket" %} class="active" {% endif %}>
+                <a href="{{path('rs_impresionTicket')}}">
+                    {#{{ content['general_text']['sas_AchivoVisTip']}}#}
+                    Tickets
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

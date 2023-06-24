@@ -1,0 +1,11 @@
+empresa_empresa_datos_adicionales:
+    path:     /empresa/empresa-datos-adicionales/{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaDatosAdicionalesBundle:EmpresaDatosAdicionales:aditionalData, idEmpresa: 0 }
+    
+empresa_empresa_datos_adicionales_guardar:
+    path:     /empresa/empresa-datos-adicionales-guardar
+    defaults: { _controller: EmpresaEmpresaDatosAdicionalesBundle:EmpresaDatosAdicionales:saveAditionalData}
+
+empresa_empresa_email_adicional:
+    path:     /empresa/empresa-enviar-email-adicional
+    defaults: { _controller: EmpresaEmpresaDatosAdicionalesBundle:EmpresaDatosAdicionales:sendAdditionalMail }

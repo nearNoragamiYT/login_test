@@ -1,0 +1,48 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Aug 12, 2016, 12:14:51 PM
+    Author     : Javier
+*/
+
+.mpi-plataforma{
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 1.1rem;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: rgba(221, 221, 221, 0.38);
+}
+
+.mpi-productos-container{
+    padding-left: 5%
+}
+
+.mpi-producto-content{
+}
+
+.mpi-producto{
+    padding: 2px 0px;
+}
+
+.mpi-modulos-container{
+    padding-left: 5%;
+}
+
+.mpi-modulo{
+    color: #b1b1b1;
+    font-size: 0.8rem;
+    padding: 1px 0px;
+}
+
+.radio-producto{
+    margin-right: 10px;
+    float: right;
+}
+
+.mpi-productos-container{
+    display: none;
+}

@@ -1,0 +1,15 @@
+modulo:
+    path:     /administracion-global/modulo
+    defaults: { _controller: AdministracionGlobalModuloBundle:Modulo:modulo }
+    
+#modulo_nuevo:
+#    path:     /administracion-global/modulo/nuevo
+#    defaults: { _controller: AdministracionGlobalModuloBundle:Modulo:moduloNuevo }
+    
+modulo_editar:
+    path:     /administracion-global/modulo/editar
+    defaults: { _controller: AdministracionGlobalModuloBundle:Modulo:moduloEditar }
+    
+modulo_eliminar:
+    path:     /administracion-global/modulo/eliminar
+    defaults: { _controller: AdministracionGlobalModuloBundle:Modulo:moduloEliminar }

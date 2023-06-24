@@ -1,0 +1,22 @@
+.container {
+    max-width: none;
+    width: 90%;
+}
+/*-----------------------------------------------------------------------*/
+.paging_listbox > select{
+    height: 2rem !important;
+}
+.dataTables_length > label > select{
+    height: 2rem !important;
+}
+.header-btn a{
+    font-size: .83rem !important;
+    padding: 0rem .7rem !important;
+}
+/*-----------------------------------------------------------------------*/
+#delete-record-modal{
+    max-width: 30%;
+}
+#change-upgrade-modal{
+    height: 35% !important;
+}

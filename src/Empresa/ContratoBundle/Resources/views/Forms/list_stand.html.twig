@@ -1,0 +1,33 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-free-stand", "fixed": true, "color": "green", "idButton": "save-free-stand" } %}
+{% block title %}{{content['section_text']['sas_seleccionEspacio']}}{% endblock %}
+{% block body %}
+    <table id="tbl-free-stand" class="highlight">
+        <thead>
+            <tr>
+                <th></th>
+                <th>{{content['section_text']['sas_numeroStand']}}</th>
+                <th>Zona</th>
+                <th>{{content['section_text']['sas_tipoStand']}}</th>
+                <th>{{content['section_text']['sas_dimensiones']}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in content['stand'] %}
+                <tr>
+                    <td>
+                        <input type="checkbox" id="free-stand-{{item['idStand']}}" value="{{item['idStand']}}" class="free-stand" />
+                        <label for="free-stand-{{item['idStand']}}"></label>
+                    </td>
+                    <td>{{item['StandNumber']}}</td>
+                    <td>{{item['NombrePabellon']}}</td>
+                    <td>{{content['tipo_stand'][item['idTipoStand']]['TipoStand']}}</td>
+                    <td>{{item['Stand_W']}}  x  {{item['Stand_H']}}  =  {{ item['Stand_W'] * item['Stand_H'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock %}

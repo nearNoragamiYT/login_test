@@ -1,0 +1,14 @@
+{% extends ":complementos:modal_base.html.twig" %}
+{% set settings = { "class": "modal-lg", "id": "charts" } %}
+{% block title %}{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="hidden-column col-xs-12" id="fill" style="width: 100%">
+        </div>
+        <div class="hidden-column col-xs-12" id="paid" style="width: 100%">
+        </div>
+    </div>
+{% endblock%}
+{% block buttons %}
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{ content['textosGenerales']['bt_cerrar'] }}</button>
+{% endblock%}

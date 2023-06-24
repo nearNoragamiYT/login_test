@@ -1,0 +1,26 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "ModalEditEmail", "fixed": true, "idButton": "sendHtml" } %}
+{% block title %}{{ content['edicion']['Edicion_' ~ lang|upper] }} - {{ content['section_text']['sas_editarEmail'] }}{% endblock %}
+{% block body %}
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+                {{ content['section_text']['sas_instrucionesEmail']|raw }}
+            </div>
+        </div>
+        <form id="html_email">
+            {#--- <div class="input-field">
+                <select name="mail-lang" id="mail-lang">
+                    <option value="" disabled selected>{{content['general_text']['sas_seleccioneIdioma']}}</option>
+                    {% for lang in content['EDApp']['Idioms'] %}
+                        <option value="{{lang}}" data-icon="{{asset('images/idioma/' ~ lang|lower ~ ".png")}}">{{content['section_text']['sas_idioma' ~ lang]}}</option>
+                    {% endfor %}
+                </select>
+            </div> ---#}
+            <textarea id="correo" class="editme" style="height: 400px"></textarea>
+        </form>
+    </div>
+{% endblock%}
+{% block button %}
+    {{parent()}}
+{% endblock%}

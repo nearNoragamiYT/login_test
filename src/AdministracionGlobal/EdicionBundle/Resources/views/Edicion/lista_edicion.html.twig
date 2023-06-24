@@ -1,0 +1,83 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/AdministracionGlobal/EdicionBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/edicion.css') }}"> 
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>{{content['general_text']['sas_edicion']}}</h5>
+        <div class="z-depth-1 white">
+            {% if content['edition'] is defined and content['edition']|length > 0 %}
+                <table id="tbl-edition" class="highlight responsive-table">
+                    <thead>
+                        <tr>
+                            <th>{{content['general_text']['sas_ID']}}</th>
+                            <th></th>
+                            <th>{{content['general_text']['sas_edicion']}}</th>
+                            <th>{{content['general_text']['sas_fecha']}}</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>                                          
+                    <tbody>
+                        {% for edition in content['edition'] %}
+                            <tr>        
+                                <td>{{ edition['idEdicion'] }}</td>
+                                <td>
+                                    {% if edition['Logo_ES_1'] is defined and edition['Logo_ES_1'] != "" %}
+                                        <img src="{{ asset('images/logos-co/header/' ~ edition['Logo_ES_1'] ) }}" alt="{{ edition['Logo_ES_1'] }}" class="edition-image">
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ edition['Edicion_ES'] }}
+                                    {% if edition['Abreviatura'] != "" %}({{ edition['Abreviatura'] }}){% endif %}
+                                    <label style="display: block;">{{ edition['Descripcion'] }}</label>
+                                    <div class="">
+                                        {% if edition['Edicion_ES'] != "" %}<img src="{{ asset('images/idioma/es.png') }}" alt="es" class="img-lang-available">{% endif %}
+                                        {% if edition['Edicion_EN'] != "" %}<img src="{{ asset('images/idioma/en.png') }}" alt="en" class="img-lang-available">{% endif %}
+                                        {% if edition['Edicion_FR'] != "" %}<img src="{{ asset('images/idioma/fr.png') }}" alt="fr" class="img-lang-available">{% endif %}
+                                        {% if edition['Edicion_PT'] != "" %}<img src="{{ asset('images/idioma/pt.png') }}" alt="pt" class="img-lang-available">{% endif %}
+                                    </div>
+                                </td>
+                                <td><span>{{ edition['FechaInicio']|date('F d') }} - {{ edition['FechaFin']|date('F d') }}</span></td>
+                                <td>
+                                    <a href="{{ path('edicion_bundle_editar', { idEdicion: edition['idEdicion'] }) }}">
+                                        <i class="material-icons edit-record show-loader-top" id-record="{{ edition['idEdicion'] }}">mode_edit</i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <i class="material-icons delete-record" id-record="{{ edition['idEdicion'] }}">delete_forever</i>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+        <div class="nav-floating-buttons">
+            <a href="{{ path('edicion_bundle_nuevo') }}" 
+               class="btn-floating waves-effect waves-light right green show-loader-top">
+                <i class="material-icons tooltipped" data-tooltip="{{content['general_text']['sas_agregar']}}">add</i>
+            </a>
+        </div>
+        {% include 'AdministracionGlobalEdicionBundle:Edicion:elimina_edicion.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var edition = {{ content['edition']|length ? content['edition']|json_encode()|raw : '{}' }} ;
+        var url_delete = '{{path('edicion_bundle_eliminar')}}';
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/edicion_admin.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}

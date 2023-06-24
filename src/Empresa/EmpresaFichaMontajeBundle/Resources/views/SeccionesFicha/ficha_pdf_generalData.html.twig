@@ -1,0 +1,95 @@
+<tr>
+    <td colspan="12" align="center" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <h2><ins>CODIGO DE EXPOSITOR: {% if(ficha['CodigoCliente'] is defined) %}{{ficha['CodigoCliente']}}{% endif %}</ins></h2>
+    </td>
+    <td colspan="12" align="center" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <h2><ins>EXHIBITOR KEY CODE: {% if(ficha['CodigoCliente'] is defined) %}{{ficha['CodigoCliente']}}{% endif %}</ins></h2>
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>TIPO:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(tipoempresa[ficha['idEmpresaTipo']]['TipoES'] is defined) %}{{tipoempresa[ficha['idEmpresaTipo']]['TipoES']}}{% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>TYPE</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(tipoempresa[ficha['idEmpresaTipo']]['TipoEN'] is defined) %}{{tipoempresa[ficha['idEmpresaTipo']]['TipoEN']}}{% endif %}
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>RAZON SOCIAL:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(entidadfiscal[ficha['idEmpresaEntidadFiscal']]['DF_RazonSocial'] is defined) %}
+            {{entidadfiscal[ficha['idEmpresaEntidadFiscal']]['DF_RazonSocial'] }}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>INVOICE COMPANY:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(entidadfiscal[ficha['idEmpresaEntidadFiscal']]['DF_RazonSocial'] is defined) %}
+            {{entidadfiscal[ficha['idEmpresaEntidadFiscal']]['DF_RazonSocial'] }}
+        {% endif %}
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>NOMBRE COMERCIAL:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['DC_NombreComercial'] is defined) %}
+            {{ficha['DC_NombreComercial'] }}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>COMPANY NAME:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['DC_NombreComercial'] is defined) %}
+            {{ficha['DC_NombreComercial'] }}
+        {% endif %}
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>ASESOR:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(vendedores[ficha['idUsuario']]['Nombre'] is defined) %}
+            {{vendedores[ficha['idUsuario']]['Nombre']}}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>COMMERCIAL ADVISOR:</i>
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(vendedores[ficha['idUsuario']]['Nombre'] is defined) %}
+            {{vendedores[ficha['idUsuario']]['Nombre']}}
+        {% endif %}
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>PABELLON:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['NombreES'] is defined) %}
+            {{ficha['NombreES']}}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>PAVILLION:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['NombreEN'] is defined) %}
+            {{ficha['NombreEN']}}
+        {% endif %}
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>PERSONA RESPONSABLE:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(detalleForma[ficha['idEmpresa']]['DF_Nombre'] is defined) %}
+            {{ detalleForma[ficha['idEmpresa']]['DF_Nombre']~' / ' }}
+        {% endif %}
+        {% if(detalleForma[ficha['idEmpresa']]['DF_Cargo'] is defined) %}
+            {{ detalleForma[ficha['idEmpresa']]['DF_Cargo'] }}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>CONTACT NAME AND POSITION:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(detalleForma[ficha['idEmpresa']]['DF_Nombre'] is defined) %}
+            {{ detalleForma[ficha['idEmpresa']]['DF_Nombre']~' / ' }}
+        {% endif %}
+        {% if(detalleForma[ficha['idEmpresa']]['DF_Cargo'] is defined) %}
+            {{ detalleForma[ficha['idEmpresa']]['DF_Cargo'] }}
+        {% endif %}
+    </td>
+</tr>

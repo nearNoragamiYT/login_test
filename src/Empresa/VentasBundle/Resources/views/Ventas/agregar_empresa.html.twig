@@ -1,0 +1,81 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "add-company-modal", 
+                "fixed": true, 
+                "size": "modal-m", 
+                "color": "green", 
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "btn-add-company" 
+            } 
+%}
+{% block title %}
+    {{ content["section_text"]["sas_nuevaEmpresa"] }}
+{% endblock %}
+{% block body %}
+    <form id="add-company-form" class="col s12">
+        <div class="input-field col s12">
+            <input type="text" id="CodigoCliente" class="validate required toUpper" name="CodigoCliente" value="">
+            <label for="CodigoCliente">{{ content["section_text"]["sas_codigoCliente"] }}</label>
+        </div>
+        <div class="input-field col s12">
+            <label for="idEmpresaTipo" class="active space-label">{{ content['section_text']['sas_empresaTipo'] }}</label>
+            {% if content['empresaTipo'] is defined and content['empresaTipo']|length > 0 %}
+                <select id="idEmpresaTipo" 
+                        name="idEmpresaTipo"
+                        class="browser-default validate"
+                        >
+                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                    {% for key, data in content['empresaTipo'] %}
+                        <option value="{{ key }}">{{ data }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+        <div class="input-field col s12">
+            <input type="text" id="DC_NombreComercial" class="validate required toUpper" name="DC_NombreComercial" value="">
+            <label for="DC_NombreComercial">{{ content["section_text"]["sas_nombreComercial"] }}</label>
+        </div>
+        <div class="input-field col s12">
+            <label for="DC_idPais" class="active space-label">{{ content['section_text']['sas_dcPais'] }}</label>
+            {% if content['paises'] is defined and content['paises']|length > 0 %}
+                <select id="DC_idPais" 
+                        name="DC_idPais"
+                        class="browser-default validate"
+                        loader-element=".progress-estado"
+                        >
+                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                    {% for pais in content['paises'] %}
+                        <option value="{{ pais['idPais'] }}">{{ pais['Pais_' ~ lang|upper] }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+        <div class="input-field col s12">
+            <input type="text" id="Nombre" class="validate required toUpper" name="Nombre" value="">
+            <label for="Nombre">{{ content["section_text"]["sas_nombreContacto"] }}</label>
+        </div>
+        <div class="input-field col s12">
+            <input type="text" id="ApellidoPaterno" class="validate required toUpper" name="ApellidoPaterno" value="">
+            <label for="ApellidoPaterno">{{ content["section_text"]["sas_paternoContacto"] }}</label>
+        </div>
+        <div class="input-field col s12">
+            <input type="text" id="ApellidoMaterno" class="validate required toUpper" name="ApellidoMaterno" value="">
+            <label for="ApellidoMaterno">{{ content["section_text"]["sas_maternoContacto"] }}</label>
+        </div>
+        <div class="input-field col s12">
+            <input type="text" id="Puesto" class="validate required toUpper" name="Puesto" value="">
+            <label for="Puesto">{{ content["section_text"]["sas_puestoContacto"] }}</label>
+        </div>
+        <div class="input-field col s12">
+            <input type="email" id="Email" class="validate required" name="Email" value="">
+            <label for="Email">{{ content["section_text"]["sas_emailContacto"] }}</label>
+        </div>
+        <div class="input-field col s12">
+            <input type="text" id="Telefono" class="validate required toUpper" name="Telefono" value="">
+            <label for="Telefono">{{ content["section_text"]["sas_telefono"] }}</label>
+        </div>
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

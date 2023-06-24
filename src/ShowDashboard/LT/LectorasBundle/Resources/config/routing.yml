@@ -1,0 +1,61 @@
+lista_expositores:
+    path:    /lista-expositores
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:listaExpositores }
+
+
+lista_expositores_get_filters:
+    path:     /lectoras/lista-expositores-get-filters
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:getToDataTableFilter }
+
+empresa_lectora:
+    path:  /lectoras/empresa-lectora/{idEmpresa}
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:lectorasEmpresa , idEmpresa: 0 }
+
+
+empresa_lectora_agregar:
+    path:     /lectoras/empresa-lectora-agregar
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:addEmpresaLectora }
+
+empresa_lectora_editar:
+    path:    /lectoras/empresa-lectora-editar
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:updateEmpresaLectora }
+
+empresa_lectora_borrar:
+   path:    /lectoras/empresa-lectora-borrar
+   defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:deleteEmpresaLectora }
+
+empresa_lectoras_reporte:
+    path:     /reporte/{status}
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:lectorasEmpresaReporte, status:"show" }
+
+lista_expositores_sin_filtro:
+    path:    /lista-expositores-sin-filtro
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:listaExpositoresSinFiltro }
+
+solicitud_lectora_update_status:
+    path: /lectoras/update-status
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:updateStatusPago}
+
+solicitud_lectora_reporte:
+    path:     /solicitud-lectora/reporte/{status}
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:solicitudLectorasReporte, status:"show" }
+
+lectoras_get_licencias:
+    path: /lectoras/get_licencias
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:getLicencias}
+
+lectoras_get_qr:
+    path: /lectoras/get_qr
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:getQr}
+
+lectoras_enviar_email_licencias:
+    path: /lectoras/enviar_email_licencias
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:sendEmailLicencias}
+
+lectoras_liberacion_licencias:
+    path: /lectoras/liberacion_licencias
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:liberacionLicencias}
+
+lectoras_actualizar_fecha_expiracion:
+    path: /lectoras/actualizacion_fecha_expiracion
+    defaults: { _controller: ShowDashboardLTLectorasBundle:Lectoras:actualizacionFechaExpiracion}

@@ -1,0 +1,47 @@
+<div class="row form-section">
+    <div class="col s12">
+        <div class="form-section-subheader">{{ content['section_text']['ed_servicios'] }}</div>
+        <table class="tbl-servicios highlight responsive-table">
+            <thead>
+                <tr>
+                    <th>{{ content['section_text']['ed_id'] }}</th>
+                    <th>{{ content['section_text']['ed_servicio'] }}</th>
+                    <th class="center-align">{{ content['section_text']['sas_moneda'] }}</th>
+                    <th class="right-align">{{ content['section_text']['ed_precioAntes'] }}</th>
+                    <th class="center-align">{{ content['section_text']['ed_fechaLimite'] }} <span class="th-note">{{ content['section_text']['sas_formatoFechaLimite'] }}</span></th>
+                    <th class="right-align">{{ content['section_text']['ed_precioDespues'] }}</th>
+                    <th class="right-align">{{ content['section_text']['ed_orden'] }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for servicio in content['servicios'] %}
+                    <tr>
+                        <td>{{ servicio['idServicio'] }}</td>
+                        <td>
+                            {{- servicio['Titulo' ~ content['lang']|upper] -}}
+                            {% if servicio['Descripcion' ~ content['lang']|upper] != "" %}
+                                <div class="service-description">{{- servicio['Descripcion' ~ content['lang']|upper]|raw -}}</div>
+                            {% endif %}
+                        </td>
+                        <td class="center-align">{{ servicio['Moneda' ~ content['lang']|upper]}}</td>
+                        <td class="right-align">$ {{ servicio['PrecioAntesFecha' ~ content['lang']|upper]|number_format(2, '.', ',') }}</td>
+                        <td class="center-align">{{ servicio['FechaLimite'] }}</td>
+                        <td class="right-align">{% if servicio['PrecioDespuesFecha' ~ content['lang']|upper] > 0 %}$ {{ servicio['PrecioDespuesFecha' ~ content['lang']|upper]|number_format(2, '.', ',') }}{% endif %}</td>
+                        <td class="right-align">{{ servicio['Orden'] }}</td>
+                        <td class="right-align">
+                            <i class="material-icons edit-record" id-record="{{ servicio['idServicio'] }}">edit</i>
+                            <i class="material-icons delete-record" id-record="{{ servicio['idServicio'] }}">delete_forever</i>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="form-section-control">
+            <button
+                type="button" class="btn-add-service btn-floating waves-effect waves-light green right tooltipped"
+                data-tooltip="{{ content['section_text']['ed_agregarServicio'] }}"
+                ><i class="material-icons">add</i></button>
+        </div>
+    </div>
+</div>

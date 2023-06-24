@@ -1,0 +1,31 @@
+show_dashboard_rs_visitante_perfil:
+    path:     /show-dashboard/rs/visitantePerfil
+    defaults: { _controller: ShowDashboardRSVisitantePerfilBundle:VisitantePerfil:visitantePerfil}
+
+rs_visitante_get_to_datatable_filtro:
+    path:  /visitor/get-datatable-filter
+    defaults: { _controller: ShowDashboardRSVisitantePerfilBundle:VisitantePerfil:getToDataTableFilter }
+    
+rs_visitante_export_data:
+    path:  /visitor/export-visitor
+    defaults: { _controller: ShowDashboardRSVisitantePerfilBundle:VisitantePerfil:exportRsVisitanteData }
+     
+rs_visitante_set_session:
+    path:  /visitor/set_session
+    defaults: { _controller: ShowDashboardRSVisitantePerfilBundle:VisitantePerfil:setSessionData }
+   
+rs_visitante_get_session:
+    path:  /visitor/get_session
+    defaults: { _controller: ShowDashboardRSVisitantePerfilBundle:VisitantePerfil:getSessionData }
+
+rs_visitante_get_to_datatable:
+    path:  /visitor/get-datatable
+    defaults: { _controller: ShowDashboardRSVisitantePerfilBundle:VisitantePerfil:getToDataTable }
+
+show_dashboard_rs_datos_generales:
+    path:     /visitante/datosgenerales/{idVisitante}
+    defaults: { _controller: ShowDashboardRSVisitantePerfilBundle:VisitantePerfil:DatosGenerales, idVisitante: 0}
+    
+show_dashboard_rs_datos_generales_update:
+    path:     /visitante/datosgenerales/update
+    defaults: { _controller: ShowDashboardRSVisitantePerfilBundle:VisitantePerfil:updateGeneralData}

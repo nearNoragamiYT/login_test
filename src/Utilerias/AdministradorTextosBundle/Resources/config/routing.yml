@@ -1,0 +1,27 @@
+#muestra el breadcrumb para elegir el comite
+utilerias_administrador_textos_homepage:
+    path:     /textos
+    defaults: { _controller: UtileriasAdministradorTextosBundle:AdministradorTextos:administradorTextos }
+    methods: GET
+#Agrega un texto nuevo
+utilerias_administrador_textos_add:
+    path:     /textos/agregar/{idEvento}
+    defaults: { _controller: UtileriasAdministradorTextosBundle:AdministradorTextos:agregarTexto, idEvento: 0 }
+    methods: POST
+    requirements:
+        idEvento: \d+
+#Edita un texto
+utilerias_administrador_textos_edit:
+    path:     /textos/editar/{idTexto}
+    defaults: { _controller: UtileriasAdministradorTextosBundle:AdministradorTextos:editarTexto, idTexto: 0 }
+    methods: POST
+    requirements:
+        idTexto: \d+
+#Elimina un texto
+utilerias_administrador_textos_delete:
+    path:     /textos/eliminar/{seccion}/{idTexto}
+    defaults: { _controller: UtileriasAdministradorTextosBundle:AdministradorTextos:eliminarTexto, seccion: 0, idTexto: 0 }
+    methods: GET
+    requirements:
+        seccion: \d+
+        idTexto: \d+

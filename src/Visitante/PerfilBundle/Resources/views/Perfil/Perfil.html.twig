@@ -1,0 +1,39 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Visitante/PerfilBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/perfil.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% include 'VisitanteVisitanteBundle:Visitante:menu_secciones.html.twig' %}
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+                <div  class="col s12" id="cover-perfil-data"></div>
+                <div class="col s12" id="perfil-categoria"></div>
+                <div class="col s12" id="perfil-subcategoria"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        var preguntas = {{ content['preguntas']|json_encode()|raw }},
+                respuestas = {{ content['respuestas']|json_encode()|raw }},
+                profile = {{ content['profile']|json_encode()|raw}};
+
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/perfil.js') }}"></script>
+{% endblock %}

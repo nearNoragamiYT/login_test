@@ -1,0 +1,27 @@
+empresa_emarketing:
+    path:     /show-dashboard/emarketing
+    defaults: { _controller: EmpresaEMarketingBundle:EMarketing:index }
+
+empresa_emarketing_nuevo:
+    path:     /show-dashboard/emarketing/nuevo
+    defaults: { _controller: EmpresaEMarketingBundle:EMarketing:emarketingNuevo }
+
+empresa_emarketing_detail:
+    path:     /show-dashboard/emarketing/detalle/{idEMarketing}
+    defaults: { _controller: EmpresaEMarketingBundle:EMarketing:detail, idEMarketing: 0 }
+
+empresa_emarketing_editar:
+    path:     /show-dashboard/emarketing/editar
+    defaults: { _controller: EmpresaEMarketingBundle:EMarketing:emarketignEditar }
+
+empresa_emarketing_enviar:
+    path:     /show-dashboard/emarketing/enviar
+    defaults: { _controller: EmpresaEMarketingBundle:EMarketing:emarketignEnviar }
+
+empresa_emarketing_track:
+    path:     /tramarketing/{i}
+    defaults: { _controller: EmpresaEMarketingBundle:EMarketing:trackingEMarketing }
+
+empresa_emarketing_history_export:
+    path:     /show-dashboard/emarketing/history/export/{id}
+    defaults: { _controller: EmpresaEMarketingBundle:EMarketing:hexportEMarketing }

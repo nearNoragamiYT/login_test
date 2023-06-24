@@ -1,0 +1,11 @@
+wizard_contacto:
+    path:     /asistente/contacto
+    defaults: { _controller: WizardContactoBundle:Contacto:contacto }
+
+wizard_contacto_eliminar:
+    path:     /asistente/contacto/eliminar
+    defaults: { _controller: WizardContactoBundle:Contacto:contactoEliminar }
+
+wizard_contacto_omitir:
+    path:     /asistente/contacto/omitir
+    defaults: { _controller: WizardContactoBundle:Contacto:contactoOmitir }

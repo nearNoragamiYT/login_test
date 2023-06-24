@@ -1,0 +1,149 @@
+{% set ruta_asset = 'resources/Visitante/ComprasBundle/' %}
+{% block stylesheets %}{% endblock %}
+{% if content['compras'] is defined and content['compras']|length > 0 %}
+    <div class="card-content">
+        <div class="card-title">{{ content['general_text']['sas_compras'] }}</div>
+        {% for compra in content['compras'] %}
+            <div class="card-compra">
+                {% set contentCarrito = {'template_text': content['template_tienda_text'], 'compra': compra, 'programas': content['programas']} %}                
+                <table class="responsive-table compra-info">
+                    <tr>
+                        <td><label>{{ content['template_tienda_text']['ae_idCompra'] }}:</label> {{ compra['idCompra'] }}</td>
+                    </tr>
+                    <tr>  
+                        <td></td>                      
+                        <td rowspan="2" class="center-align">
+                            {% if compra['idCompraStatus'] == 1 %}
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <label for="idCompraStatus" class="active">Estatus Compra</label>
+                                        <select id="idCompraStatus" 
+                                                name="idCompraStatus"
+                                                class=""
+                                                >
+                                            <option value="1" selected="selected">{{ content['general_text']['sas_pendiente'] }}</option>
+                                            <option value="2" >{{ content['general_text']['sas_pagada'] }}</option>
+                                            <option value="3" >{{ content['general_text']['sas_cancelada'] }}</option>                                    
+                                        </select>  
+
+                                    </div>
+                                </div>
+                            {% elseif compra['idCompraStatus'] == 2 %}
+                                <h5 class='green-text text-darken-3'>{{ compra['Status' ~ lang|upper] }}</h5>
+                            {% elseif compra['idCompraStatus'] == 3 %}
+                                <h5 class='red-text text-accent-4'>{{ compra['Status' ~ lang|upper] }}</h5>
+                            {% else %}
+                                <h5 >{{ compra['Status' ~ lang|upper] }}</h5>
+
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {%if compra['idCompraStatus'] == 1 and compra['idFormaPago'] != ''%}
+                                <div class="row">
+                                    <div class="input-field col s8">
+                                        <label for="idFormaPago" class="active">Forma de Pago</label>
+                                        <select id="idFormaPago" 
+                                                name="idFormaPago"
+                                                class=""
+                                                >
+                                            {%  set formas_pago = content['formas_pago']%}                                                                                        
+                                            {%if compra['idFormaPago'] == 1%}
+                                                <option value="1" selected="selected" >{{formas_pago[1]['FormaPago' ~ lang|upper] }}</option>                                                
+                                                {#<option value="2" >{{formas_pago[2]['FormaPago' ~ lang|upper] }}</option>#}
+                                                {#<option value="3" >{{formas_pago[3]['FormaPago' ~ lang|upper] }}</option>#}
+                                                {#<option value="4">{{formas_pago[4]['FormaPago' ~ lang|upper] }}</option>#}
+                                            {#{%elseif compra['idFormaPago'] == 2%}                                                
+                                                <option value="1" >{{formas_pago[1]['FormaPago' ~ lang|upper] }}</option>                                                
+                                                <option value="2" selected="selected" >{{formas_pago[2]['FormaPago' ~ lang|upper] }}</option>
+                                                <option value="3" >{{formas_pago[3]['FormaPago' ~ lang|upper] }}</option>
+                                                <option value="4">{{formas_pago[4]['FormaPago' ~ lang|upper] }}</option>#}
+                                            {#{%elseif compra['idFormaPago'] == 3%}
+                                                <option value="1" >{{formas_pago[1]['FormaPago' ~ lang|upper] }}</option> #}                                               
+                                                {#<option value="2" >{{formas_pago[2]['FormaPago' ~ lang|upper] }}</option>#}
+                                                {#<option value="3" selected="selected" >{{formas_pago[3]['FormaPago' ~ lang|upper] }}</option>#}
+                                                {#<option value="4">{{formas_pago[4]['FormaPago' ~ lang|upper] }}</option>
+                                            {%elseif compra['idFormaPago'] == 4%}
+                                                <option value="1" >{{formas_pago[1]['FormaPago' ~ lang|upper] }}</option>                                                
+                                                <option value="2" >{{formas_pago[2]['FormaPago' ~ lang|upper] }}</option>
+                                                <option value="3" >{{formas_pago[3]['FormaPago' ~ lang|upper] }}</option>
+                                                <option value="4" selected="selected" >{{formas_pago[4]['FormaPago' ~ lang|upper] }}</option>#}
+                                            {% endif %}
+                                        </select>                                                                                                       
+                                    </div>
+                                </div>
+                            {%else%}
+                                {% if compra['Total'] > 0 %}
+                                    <label>{{ content['template_tienda_text']['ae_formaPago'] }}:</label> {{ compra['FormaPago' ~ lang|upper] }}
+                                {%endif%}
+                            {%endif%}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>{{ content['template_tienda_text']['ae_fechaCompra'] }}:</label> {{ compra['FechaCreacion']|date('Y-m-d h:i:s a') }}</td>
+                        <td class="center-align">
+                            {% if compra['idCompraStatus'] == 1 %}                                
+                            {% elseif compra['idCompraStatus'] == 2 %}
+                                <label>{{ content['template_tienda_text']['ae_fechaPago'] }}:</label> {{ compra['FechaPagado']|date('Y-m-d h:i:s a') }}
+                            {% elseif compra['idCompraStatus'] == 3  %}
+                                <label>{{ content['template_tienda_text']['ae_fechaCancelado'] }}:</label> {{ compra['FechaCancelado']|date('Y-m-d h:i:s a') }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+                {% include 'VisitanteComprasBundle:Compras:carritoCompra.html.twig' with {"content": contentCarrito} %}
+            </div>
+        </div>
+            {% if compra['ReqFactura'] == 1 %}
+            <div class="card-content">
+                <div class="row">
+                    <div class="card-title col s3 m3">{#{ content['general_text']['sas_compras'] }#}Datos de Facturación </div>                                               
+                    <div class="col s3 m3"></div>
+                    <div class="col s3 m3"></div>
+                    <div class="switch col s3 m3">
+                        <strong>
+                            <b>
+                                <label class="input-field label">
+                                    Compra Facturada:   NO
+                                    <input type="checkbox" 
+                                           {% if compra['idCompraStatus'] == 3 %}
+                                               disabled
+                                           {% endif%}    
+                                           id="input-CompraFacturada" 
+                                           value="{{compra['Facturada']}}" 
+                                           {% if compra['Facturada'] == 1  %}checked{% endif %}>
+                                    <span id="switch-CompraFacturada" class="lever align-left" ></span>                                
+                                    SI
+                                </label>
+                            </b>
+                        </strong>
+                    </div>
+
+                </div>
+                <div class="card-compra">                    
+                    <div class="info-deposito row">
+                        <div class='col s12 m6'>
+                            <p><label>{{ content['template_tienda_text']['ae_rfc'] }}:</label> {{ compra['RFC'] }}</p>
+                            <p><label>{{ content['template_tienda_text']['ae_razonSocial'] }}:</label> {{ compra['RazonSocial'] }}</p>
+                            <p><label>{{ content['template_tienda_text']['ae_emailFacturacion'] }}:</label> {{ compra['EmailFacturacion'] }}</p>
+                            {#{% if compra['idFormaPago'] == 1%}
+                                <p><label>{{ content['template_tienda_text']['ae_tienda_tipoTarjeta'] }}:</label>{{ compra['TipoTarjeta']}}</p>
+                                <p><label>{{ content['template_tienda_text']['ae_banco'] }}:</label>{{ compra['BancoTarjeta']}}</p>
+                                <p><label>{{ content['template_tienda_text']['ae_tienda_ultimosDigitos'] }}:</label>{{ compra['DT_UltimosDigitos']}}</p>
+                            {% endif %}#}
+                        </div>
+                        <div class='col s12 m6'>
+                            <p><label>{{ content['template_tienda_text']['ae_calleNumero'] }}:</label> {{ compra['Calle'] }} {{ compra['NumeroExterior'] }} {% if compra['NumeroInterior'] != "" %}{{ content['template_tienda_text']['ae_int'] }} {{ compra['NumeroInterior'] }}{% endif %}</p>
+                            <p><label>{{ content['template_tienda_text']['ae_colonia'] }}:</label> {{ compra['Colonia'] }}</p>
+                            <p><label>{{ content['template_tienda_text']['ae_ciudad'] }}:</label> {{ compra['Ciudad'] }}</p>
+                            <p><label>{{ content['template_tienda_text']['ae_estado'] }}:</label> {{ compra['Estado'] }}</p>
+                            <p><label>{{ content['template_tienda_text']['ae_codigoPostal'] }}:</label> {{ compra['CodigoPostal'] }}</p>
+                        </div>
+                        <input type="hidden" id="idFormaPago" name="idFormaPago" value="1">
+                    </div>                     
+                </div>                    
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}

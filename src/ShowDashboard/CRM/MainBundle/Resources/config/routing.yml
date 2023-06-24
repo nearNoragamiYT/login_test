@@ -1,0 +1,3 @@
+show_dashboard_crm:
+    path:     /
+    defaults: { _controller: ShowDashboardCRMMainBundle:Main:index }

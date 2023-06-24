@@ -1,0 +1,46 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/ED/MainBundle/' %}
+{% set estadisticas = app.session.get("Estadisticas") %}
+{% set expositoresConfig = {"colorFondo": "#F2F2F2", "primario": "#2A0F2B", "secundario": "#F9C278", "color": "#000010"} %}
+{% set EDConfig = {"colorFondo": "#F2F2F2", "primario": "#1A184A", "secundario": "#CFCF4C", "terciario": "#9E1E69", "color": "#000010"} %}
+{% set MKFConfig = {"colorFondo": "#F2F2F2", "primario": "#211C1A", "secundario": "#CF970C", "terciario": "#004B59", "cuaterciario": "#A14023", "color": "#000010"} %}
+{% set FPConfig = {"colorFondo": "#F2F2F2", "primario": "#30B4F0", "secundario": "#E21550", "terciario": "#2F2198", "cuaterciario": "#1E252F", "color": "#000010"} %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/main.css') }}">
+{% endblock %}
+{% block content %}
+    <div id="content-dashboard" class="row card">
+        {#--- Inicio de expositores ---#}
+        {% include 'ShowDashboardEDMainBundle:Main:expositores.html.twig' %}
+        {#--- Inicio de Exhibitor Dashboard ---#}
+        {% include 'ShowDashboardEDMainBundle:Main:ed.html.twig' %}
+        {#--- Inicio del Marketing Ferial---#}
+        {% include 'ShowDashboardEDMainBundle:Main:mkf.html.twig' %}
+        {#--- Inicio del Marketing Ferial---#}
+        {% include 'ShowDashboardEDMainBundle:Main:fp.html.twig' %}
+    </div>
+    {#--- Boton para actualizar las estadisticas ---#}
+    <div class="fixed-action-btn vertical" style="right: 25px; bottom: 40px; z-index: 100; width: 60px;">
+        <a id="refresh-all" class="btn-floating btn-large green" data-url="{{path('show_dashboard_ed_actualizar_estadisticas')}}">
+            <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarTodasEstadisticas']}}" data-position="left">refresh</i>
+        </a>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{ asset('js/Chart.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Chart.PieceLabel.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/main.js') }}"></script>
+    <script type="text/javascript">
+        {#--- variables para usar en js ---#}
+            var stats
+                    ={{estadisticas|json_encode()|raw}} ,
+                    edition = {{app.session.get("edicion")|json_encode()|raw}},
+                    exhibitorColors = {{expositoresConfig|json_encode()|raw}},
+                    EDColors = {{EDConfig|json_encode()|raw}};
+                    MKFColors = {{MKFConfig|json_encode()|raw}};
+                    FPColors = {{FPConfig|json_encode()|raw}};
+    </script>
+{% endblock %}

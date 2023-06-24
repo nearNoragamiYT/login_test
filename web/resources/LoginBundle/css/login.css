@@ -1,0 +1,55 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 29, 2016, 9:36:06 AM
+    Author     : Javier
+*/
+body{
+    background-color: #000;
+}
+
+body:before{
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    background-image: url('../images/bg.jpg');
+    width: 100%;
+    height: 100%;
+
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    opacity: .4;
+}
+
+.ixpo-logo{
+    max-height: 20px;
+}
+
+.ixpo-sas{
+    color: rgba(255,255,255,0.2);
+    text-align: center;
+    text-shadow: -1px -2px rgba(0,0,0,0.15);
+}
+
+#frm-restablecer-password .alert{
+    position: relative;
+}
+
+.eventos{
+    text-align: center;
+}
+
+.eventos h5{
+    color: rgba(255, 255, 255, 0.40);
+    font-weight: 100;
+}

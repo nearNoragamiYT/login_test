@@ -1,0 +1,84 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set asset_path = 'resources/ShowDashboard/RS/AdminProdRSBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/adminProductos.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{%block content %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-content">
+                <h5 class="center">Productos</h5>
+                <buttom class="green btn-floating waves-effect waves-light right" id="btnAgregarProducto">
+                    <i class="material-icons tooltipped" data-position="left" data-tooltip="Producto Nuevo">add</i>
+                </buttom>
+                <table id="table" class="highlight responsive-table bordered">
+                    <thead class="grey lighten-4">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Descripción</th>
+                            <th>Costo</th>
+                            <th>Costo en Sitio</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        {% for productos in content['Productos'] %}
+                            <tr id-prod="{{productos['idProducto']}}" class="{{productos['idProducto']}}">
+                                <td {% if productos['Activo'] != 1 %} style="opacity: .4;" {% endif %}>{{productos['ProductoES']}}</td>
+                                <td {% if productos['Activo'] != 1 %} style="opacity: .4;" {% endif %}>{{productos['DescripcionES']}}</td>
+                                <td {% if productos['Activo'] != 1 %} style="opacity: .4;" {% endif %}>{{productos['PrecioES']}}</td>
+                                <td {% if productos['Activo'] != 1 %} style="opacity: .4;" {% endif %}>{% if productos['PrecioSitio'] != ''  %}{{productos['PrecioSitio']}}{% else %}No aplica{% endif %}</td>
+                                <td>
+                                    {% if productos['Activo'] == 1 %}
+                                        <i class="material-icons edit-record tooltipped " id-edit="{{productos['idProducto']}}" data-position="left" data-tooltip="Editar" >mode_edit</i>
+                                        <i class="material-icons delete-record tooltipped" id-delete="{{ productos['idProducto'] }}" data-position="left"  data-tooltip="Eliminar">delete_forever</i>
+                                        <i class="material-icons block-record tooltipped" id-block="{{ productos['idProducto'] }}" data-position="left"  data-tooltip="Bloquear Producto">lock</i>
+                                    {% else %}
+                                        <i class="material-icons unlock-record tooltipped" id-unlock ="{{ productos['idProducto'] }}" data-position="left" data-tooltip="Desbloquear Producto">lock_open</i>
+                                    {% endif %}
+                                </td>    
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% include 'ShowDashboardRSAdminProdRSBundle:Default:editar_producto.html.twig' %}
+    {% include 'ShowDashboardRSAdminProdRSBundle:Default:delete_producto.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var productos//para interpretar
+        = {{ content ["Productos"]|json_encode()|raw }};
+    </script>
+
+    <script type="text/javascript">
+                var insert_producto
+                = "{{path('insert_producto_rs')}}";
+    </script>
+    <script type="text/javascript">
+        var delete_producto
+                = "{{ path('delete_producto_rs') }}";
+    </script>
+    <script type="text/javascript">
+        var update_producto
+                = " {{ path('update_producto_rs')}}";
+    </script>
+    <script type="text/javascript">
+        var update_status_producto
+                = " {{ path('update_producto_status_rs')}} "
+    </script>
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/adminProductos.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}

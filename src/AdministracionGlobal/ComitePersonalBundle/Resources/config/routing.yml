@@ -1,0 +1,20 @@
+#muesta todos los contacotos en una tabla
+administracion_global_comite_personal_homepage:
+    path:     /
+    defaults: { _controller: AdministracionGlobalComitePersonalBundle:ComitePersonal:comitePersonal }
+#inserta un nuevo contacto
+administracion_global_comite_personal_add:
+    path:     /agregar-contacto
+    defaults: { _controller: AdministracionGlobalComitePersonalBundle:ComitePersonal:agregarComitePersonal }
+#edita el contacto (idContacto solo acepta numeros por eso \+d)
+administracion_global_comite_personal_edit:
+    path:     /editar-contacto/{idContacto}
+    defaults: { _controller: AdministracionGlobalComitePersonalBundle:ComitePersonal:editarComitePersonal, idContacto: 0 }
+    requirements:
+        idContacto  : \d+
+#elimina el contacto (idContacto solo acepta numeros por eso \+d)
+administracion_global_comite_personal_delete:
+    path:     /eliminar-contacto/{idContacto}
+    defaults: { _controller: AdministracionGlobalComitePersonalBundle:ComitePersonal:eliminarComitePersonal, idContacto: 0 }
+    requirements:
+        idContacto  : \d+

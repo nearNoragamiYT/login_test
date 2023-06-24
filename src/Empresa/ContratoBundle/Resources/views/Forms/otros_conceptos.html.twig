@@ -1,0 +1,26 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-concept", "fixed": true, "size": "model-m", "color": "green", "idButton": "save-concept" } %}
+{% block title %}{{content['section_text']['sas_otrosConceptos']}}{% endblock %}
+{% block body %}
+    <form method="POST">
+        <div class="col s12 input-field">
+            <i class="material-icons prefix">Title</i>
+            <input type="text" name="Name" id="Name" class="required validate">
+            <label for="Name">{{content['general_text']['sas_nombre']}}</label>
+        </div>
+        <div class="col s12 input-field">
+            <i class="material-icons prefix">description</i>
+            <textArea id="Description"name="Description" class="materialize-textarea required validate" ></textarea>
+            <label for="Description">{{content['section_text']['sas_descripcion']}}</label>
+        </div>
+        <div class="col s12 input-field">
+            <i class="material-icons prefix">attach_money</i>
+            <input id="Price" name="Price" type="number" min="0" step="0.01" class="number required validate" >
+            <label for="Price">{{content['section_text']['sas_precio']}}</label>
+        </div>
+        <input type="hidden" id="idConcept" name="idConcept" value="">
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock %}

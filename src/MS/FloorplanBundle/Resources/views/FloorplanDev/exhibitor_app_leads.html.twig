@@ -1,0 +1,68 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/MS/FloorplanBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}    
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/datatables.responsive.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/dynamic_table.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/> 
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/exhibitor.css') }}">  
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="section">
+            <div class="row white">
+                <div class="col s12 m12 ">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <h4 id="exName" class="header black-text">Exhibitor Name</h4>
+                                </th>
+                                <th>
+                                    <a class="btn btn-large green darken-2 waves-effect waves-light" >
+                                        <img class="left" width="30px" style="margin-top: auto;" src="{{ asset( ruta_asset ~ 'image/excel.ico') }}"/> Descargar Base de Lecturas
+                                    </a>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col s12 white">
+                    {% include 'MSFloorplanBundle:exDev:visitors.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}  
+    <script>
+                var ms_lang ={{ content['textos']|json_encode()|raw }} ;
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+                url_graph_ed_ex_details = "{{ path('ms_fp_ed_ex_detalles') }}",
+                url_graph_ed_ex_details_day = "{{ path('ms_fp_ed_ex_detalles_dia') }}",
+                url_graph_ed_ex_products = "{{ path('ms_fp_ed_productos') }}"
+        ,
+                idExpositor = "{{ content['idExpositor'] }}",
+                visitor_table_columns = {{ content['visitor_table_columns']|json_encode()|raw }},
+                visitor_table_column_categories = {{ content['visitor_table_column_categories']|json_encode()|raw }},
+        url_get_visitors = "{{ path("ms_fp_ex_visitor_get") }}",
+                url_get_visitors_tour = "{{ path("ms_fp_ex_visitor_get_tour") }}",
+                url_visitor_get_to_dt = "{{ path("ms_fp_ex_visitor_get_to_datatable") }}",
+                url_export_general_data = "{{ path("ms_fp_ex_visitor_export_general_data") }}";
+        var img_excel = "{{ asset(ruta_asset ~ "image/excel.png") }}";
+        var evName = "{{ content['NombreEvento'] }}";
+    </script>
+    <script src="{{ asset(ruta_asset ~ 'js/dev/default.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.responsive.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.columnFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/selectFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.customFilter.js') }}"></script>         
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.js') }}"></script>   
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/dynamic_table.js') }}"></script>
+    <script src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script src="{{ asset( ruta_asset ~ 'js/dev/exhibitor-leads.js') }}"></script> 
+{% endblock %}

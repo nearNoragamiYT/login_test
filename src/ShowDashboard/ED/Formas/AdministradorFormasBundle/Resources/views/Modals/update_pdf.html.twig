@@ -1,0 +1,21 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-update-pdf", "fixed": true, "size": "modal-m", "textColor":"white-text", "color": "red", "idButton": "update-pdf" } %}
+{% block title %}{% endblock %}
+{% block body %}
+    {{content['section_text']['sas_reglasSubirArchivo']|raw}}
+    <div id="content-iframe" class="center-align">
+        <iframe id="show-pdf" src="" class="card hoverable" type="application/pdf" width="100%">
+        </iframe>
+        <a id="download-excel" href=""><i class="fa fa-file-excel-o fa-5x green-text"></i></a>
+        <a id="download-power" href=""><i class="fa fa-file-powerpoint-o fa-5x orange-text text-darken-2"></i></a>
+    </div>
+    <div class="col s12">
+        <span id="last-update-pdf" class="card right teal white-text last"></span>
+    </div>
+    <form action="">
+        <input type="file" id="modal-pdf" name="modal-pdf" style="display: none;"/>
+    </form>
+{% endblock%}
+{% block button %}
+    <i class="fa fa-cloud-upload"></i> {{content['section_text']['sas_subirPDF']}}
+{% endblock %}

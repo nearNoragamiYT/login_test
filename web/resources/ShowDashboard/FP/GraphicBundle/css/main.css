@@ -1,0 +1,76 @@
+html {
+    font-size: 1em;
+    line-height: 1.4;
+}
+main{
+    margin-bottom: -2%;
+}
+
+footer.page-footer .footer-copyright {
+    height: 68px;
+}
+
+footer.page-footer .footer-copyright .container{
+    margin-top: 10px;
+}
+
+.main-container {
+    margin: 0px;
+    padding: 74px 0px;
+    width: 100%;
+}
+
+.error {
+    color: #F44336;
+    font-size: 12px;
+    margin-top: -14px;
+}
+
+.modal{
+    max-width: 500px;
+}
+
+#graficas{
+    margin-bottom: 45px;
+}
+
+.graphic-title{
+    font-size: 55px;
+}
+
+.title{
+    font-size: 30px;
+}
+
+.quantity-number{
+    display: block;
+    font-size: 40px;
+}
+
+.color-occupied{
+    background-color: #26327C !important;
+}
+.color-reserved{
+    background-color: #BBBCC0 !important;
+}
+
+.amchart{
+    width: 500px;
+    height: 500px;
+    background-color: white;
+}
+
+
+.fab-tip {
+    position: fixed;
+    right: 85px;
+    padding: 0px 0.5rem;
+    text-align: right;
+    background-color: #323232;
+    border-radius: 2px;
+    color: #FFF;
+    width: auto;
+}
+#floorplan-graphics{
+    max-width: 800px;
+}

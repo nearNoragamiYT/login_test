@@ -1,0 +1,734 @@
+<section id="edition-admin">
+    <form id="frm-edition" action="{{ path('edicion_bundle_nuevo') }}" method="post">
+        <input type="hidden" 
+               id="idEdicion" 
+               name="idEdicion"
+               {% if content['edition']['idEdicion'] is defined %}
+                   value="{{ content['edition']['idEdicion'] }}"
+               {% endif %}
+               >
+
+        {#SECCION IDIOMA ESPAÑOL#} 
+        <div class="row">
+            <div class="col s12">
+                <div class="edition-section-title">
+                    <img src="{{ asset('images/idioma/es.png') }}" alt="es" class="img-lang">                
+                    <div class="switch right">
+                        <label>
+                            <h5>Idioma: {{ content['general_text']['sas_es'] }}
+                                <input type="checkbox" checked disabled>
+                                <span class="lever"></span>
+                            </h5>
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="edition-section" lang="es">
+                    <h5 class="edition-title-step">Información de Edición y Evento:</h5> 
+                    <div class="row">
+                        <div class="input-field col s1">
+                        </div>
+                        <div class="input-field col s4">
+                            <input id="Edicion_ES" 
+                                   name="Edicion_ES"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['edition']['Edicion_ES'] is defined %}
+                                       value="{{ content['edition']['Edicion_ES'] }}"
+                                   {% endif %}
+                                   >
+                            <label for="Edicion_ES">Nombre de la Edición</label>
+                        </div>
+                        <div class="input-field col s6">                               
+                            <label for="Descripcion">Descripcion</label>                                                        
+                            <input id="Descripcion" 
+                                   name="Descripcion"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['edition']['Descripcion'] is defined %}
+                                       value="{{ content['edition']['Descripcion'] }}"
+                                   {% endif %}
+                                   >
+                        </div>  
+                        <div class="input-field col s1">
+                        </div>
+                    </div>         
+                    <div class="row">
+                        <div class="input-field col s1">
+                        </div>
+                        <div class="input-field col s2">
+                            <label for="idComiteOrganizador">Id Comite Organizador</label>
+                            <input 
+                                type="text" 
+                                name="idComiteOrganizador" 
+                                id="idComiteOrganizador"
+                                class="validate"
+                                {% if content['edition']['idComiteOrganizador'] is defined %}
+                                    value="{{ content['edition']['idComiteOrganizador']}}" 
+                                {% endif %}
+                                >
+                        </div>
+                        <div class="input-field col s2">
+                            <label for="idEvento">Id del Evento</label>
+                            <input type="text" 
+                                   name="idEvento" 
+                                   id="idEvento"
+                                   class="validate"
+                                   {% if content['edition']['idEvento'] is defined %}
+                                       value="{{ content['edition']['idEvento']}}" 
+                                   {% endif %}
+                                   >
+                        </div>              
+                        <div class="input-field col s6">                               
+                            <label for="Slogan_ES">Slogan del Evento</label>                                                        
+                            <input id="Slogan_ES" 
+                                   name="Slogan_ES"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['edition']['Slogan_ES'] is defined %}
+                                       value="{{ content['edition']['Slogan_ES'] }}"
+                                   {% endif %}
+                                   >
+                        </div>  
+                        <div class="input-field col s1">
+                        </div>
+
+                    </div>
+
+                    <h5 class="edition-title-step">Fechas:</h5>
+                    <div class="row">      
+                        <div class="input-field col s1">
+                        </div>
+
+                        <div class="input-field col s2">                               
+                            <label for="FechaInicio">Fecha de Inicio</label>   
+
+                            <input id="FechaInicio" 
+                                   name="FechaInicio"
+                                   type="date" 
+                                   class="datepicker right-align" 
+                                   {% if content['edition']['FechaInicio'] is defined %}
+                                       value="{{ content['edition']['FechaInicio'] }}"
+                                   {% endif %}
+                                   >
+                        </div>        
+                        <div class="input-field col s2">                               
+                            <label for="FechaFin">Fecha de finalización</label>   
+                            <input id="FechaFin" 
+                                   name="FechaFin"
+                                   type="date" 
+                                   class="datepicker right-align" 
+                                   {% if content['edition']['FechaFin'] is defined %}
+                                       value="{{ content['edition']['FechaFin'] }}"
+                                   {% endif %}
+                                   >
+                        </div> 
+                        <div class="input-field col s2">
+                        </div> 
+                        <div class="input-field col s4">
+                            <input id="KeyEncriptacion" 
+                                   name="KeyEncriptacion"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['edition']['KeyEncriptacion'] is defined %}
+                                       value="{{ content['edition']['KeyEncriptacion'] }}"
+                                   {% endif %}
+                                   >
+                            <label for="KeyEncriptacion">LLave de Encriptación</label>
+                            <button type="button" class="btn btn-sm waves-effect waves-light right btn-generate-encryption-key">Generar<i class="material-icons left">enhanced_encryption</i></button>
+                        </div>     
+                        <div class="input-field col s1">
+                        </div>
+
+                    </div>  
+                    <h5 class="edition-title-step">Logotipos oficiales:</h5>
+                    <div class="row">              
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-es" 
+                                     {% if content['edition']['Logo_ES_1'] is defined and content['edition']['Logo_ES_1'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_ES_1']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}" 
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_ES_1" 
+                                           name="Logo_ES_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-es"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_ES_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_ES_1'] is defined and content['edition']['Logo_ES_1'] != "" %}
+                                               value="{{ content['edition']['Logo_ES_1'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-2-es" 
+                                     {% if content['edition']['Logo_ES_2'] is defined and content['edition']['Logo_ES_2'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_ES_2']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}" 
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_ES_2" 
+                                           name="Logo_ES_2"
+                                           class="validate"
+                                           rel-preview="preview-image-2-es"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_ES_2_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_ES_2'] is defined and content['edition']['Logo_ES_2'] != "" %}
+                                               value="{{ content['edition']['Logo_ES_2'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-3-es" 
+                                     {% if content['edition']['Logo_ES_3'] is defined and content['edition']['Logo_ES_3'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_ES_3']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}"
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_ES_3" 
+                                           name="Logo_ES_3"
+                                           class="validate"
+                                           rel-preview="preview-image-3-es"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_ES_3_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_ES_3'] is defined and content['edition']['Logo_ES_3'] != "" %}
+                                               value="{{ content['edition']['Logo_ES_3'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div> 
+                    </div>   
+                </div>
+            </div>
+        </div>
+        {#FIN SECCION ESPAÑOL#} 
+
+        {#SECCION IDIOMA INGLES#} 
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col s12">
+                <div class="edition-section-title">
+                    <img src="{{ asset('images/idioma/en.png') }}" alt="en" class="img-lang">
+                    <div class="switch right">
+                        <label>
+                            <h5>Idioma: {{ content['general_text']['sas_en'] }}
+                                <input type="checkbox" id="lang-en"  value="en" {% if content['edition']['Edicion_EN'] is defined and content['edition']['Edicion_EN']|trim != "" %}checked{% endif %}>
+                                <span class="lever"></span>
+                            </h5>
+                        </label>
+                    </div>                                              
+                </div>
+
+                <div class="edition-section" lang="en">              
+                    <h5 class="edition-title-step">Información de Edición y Evento ({{ content['general_text']['sas_en'] }}):</h5>
+                    <div class="row">
+                        <div class="input-field col s1"></div>
+                        <div class="input-field col s10">
+                            <input id="Edicion_EN" 
+                                   name="Edicion_EN"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['edition']['Edicion_EN'] is defined %}
+                                       value="{{ content['edition']['Edicion_EN'] }}"
+                                   {% endif %}
+                                   >
+                            <label for="Edicion_EN">Nombre de la Edición</label>
+                        </div>
+                        <div class="input-field col s1"></div>
+                    </div> 
+
+                    <div class="row">
+                        <div class="input-field col s1"></div>
+                        <div class="input-field col s10">                               
+                            <label for="Slogan_EN">Slogan del Evento</label>                                                        
+                            <input id="Slogan_EN" 
+                                   name="Slogan_EN"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['edition']['Slogan_EN'] is defined %}
+                                       value="{{ content['edition']['Slogan_EN'] }}"
+                                   {% endif %}
+                                   >
+                        </div> 
+                        <div class="input-field col s1"></div>
+                    </div>
+                    <h5 class="edition-title-step">Logotipos oficiales ({{ content['general_text']['sas_en'] }}):</h5>
+                    <div class="row">              
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-en" 
+                                     {% if content['edition']['Logo_EN_1'] is defined and content['edition']['Logo_EN_1'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_EN_1']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}" 
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_EN_1" 
+                                           name="Logo_EN_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-en"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_EN_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_EN_1'] is defined and content['edition']['Logo_EN_1'] != "" %}
+                                               value="{{ content['edition']['Logo_EN_1'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-2-en" 
+                                     {% if content['edition']['Logo_EN_2'] is defined and content['edition']['Logo_EN_2'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_EN_2']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}" 
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_EN_2" 
+                                           name="Logo_EN_2"
+                                           class="validate"
+                                           rel-preview="preview-image-2-en"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_EN_2_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_EN_2'] is defined and content['edition']['Logo_EN_2'] != "" %}
+                                               value="{{ content['edition']['Logo_EN_2'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-3-en" 
+                                     {% if content['edition']['Logo_EN_3'] is defined and content['edition']['Logo_EN_3'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_EN_3']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}"
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_EN_3" 
+                                           name="Logo_EN_3"
+                                           class="validate"
+                                           rel-preview="preview-image-3-en"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_EN_3_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_EN_3'] is defined and content['edition']['Logo_EN_3'] != "" %}
+                                               value="{{ content['edition']['Logo_EN_3'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </div>
+        {#FIN SECCION INGLES#} 
+
+        {#SECCION IDIOMA FRANCÉS#}
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col s12">
+                <div class="edition-section-title">
+                    <img src="{{ asset('images/idioma/fr.png') }}" alt="fr" class="img-lang">
+                    <div class="switch right">
+                        <label>
+                            <h5>Idioma: {{ content['general_text']['sas_fr'] }}
+                                <input type="checkbox" id="lang-fr"  value="fr" {% if content['edition']['Edicion_FR'] is defined and content['edition']['Edicion_FR']|trim != "" %}checked{% endif %}>
+                                <span class="lever"></span>
+                            </h5>
+                        </label>
+                    </div>                                              
+                </div>
+
+                <div class="edition-section" lang="fr">              
+                    <h5 class="edition-title-step">Información de Edición y Evento ({{ content['general_text']['sas_fr'] }}):</h5>
+                    <div class="row">
+                        <div class="input-field col s1"></div>
+                        <div class="input-field col s10">
+                            <input id="Edicion_FR" 
+                                   name="Edicion_FR"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['edition']['Edicion_FR'] is defined %}
+                                       value="{{ content['edition']['Edicion_FR'] }}"
+                                   {% endif %}
+                                   >
+                            <label for="Edicion_FR">Nombre de la Edición</label>
+                        </div>
+                        <div class="input-field col s1"></div>
+                    </div> 
+
+                    <div class="row">
+                        <div class="input-field col s1"></div>
+                        <div class="input-field col s10">                               
+                            <label for="Slogan_FR">Slogan del Evento</label>                                                        
+                            <input id="Slogan_FR" 
+                                   name="Slogan_FR"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['edition']['Slogan_FR'] is defined %}
+                                       value="{{ content['edition']['Slogan_FR'] }}"
+                                   {% endif %}
+                                   >
+                        </div> 
+                        <div class="input-field col s1"></div>
+                    </div>
+                    <h5 class="edition-title-step">Logotipos oficiales ({{ content['general_text']['sas_fr'] }}):</h5>
+                    <div class="row">              
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-fn" 
+                                     {% if content['edition']['Logo_FR_1'] is defined and content['edition']['Logo_FR_1'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_FR_1']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}" 
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_FR_1" 
+                                           name="Logo_FR_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-fn"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_FR_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_FR_1'] is defined and content['edition']['Logo_FR_1'] != "" %}
+                                               value="{{ content['edition']['Logo_FR_1'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-2-fr" 
+                                     {% if content['edition']['Logo_FR_2'] is defined and content['edition']['Logo_FR_2'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_FR_2']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}" 
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_FR_2" 
+                                           name="Logo_FR_2"
+                                           class="validate"
+                                           rel-preview="preview-image-2-fr"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_FR_2_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_FR_2'] is defined and content['edition']['Logo_FR_2'] != "" %}
+                                               value="{{ content['edition']['Logo_FR_2'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-3-fr" 
+                                     {% if content['edition']['Logo_FR_3'] is defined and content['edition']['Logo_FR_3'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_FR_3']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}"
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_FR_3" 
+                                           name="Logo_FR_3"
+                                           class="validate"
+                                           rel-preview="preview-image-3-fr"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_FR_3_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_FR_3'] is defined and content['edition']['Logo_FR_3'] != "" %}
+                                               value="{{ content['edition']['Logo_FR_3'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </div>
+        {#FIN SECCION FRANCÉS#} 
+
+        {#SECCION IDIOMA PORTUGUES#} 
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col s12">
+                <div class="edition-section-title">
+                    <img src="{{ asset('images/idioma/pt.png') }}" alt="pt" class="img-lang">
+                    <div class="switch right">
+                        <label>
+                            <h5>Idioma: {{ content['general_text']['sas_pt'] }}
+                                <input type="checkbox" id="lang-pt"  value="pt" {% if content['edition']['Edicion_PT'] is defined and content['edition']['Edicion_PT']|trim != "" %}checked{% endif %}>
+                                <span class="lever"></span>
+                            </h5>
+                        </label>
+                    </div>                                              
+                </div>
+
+                <div class="edition-section" lang="pt">              
+                    <h5 class="edition-title-step">Información de Edición y Evento ({{ content['general_text']['sas_pt'] }}):</h5>
+                    <div class="row">
+                        <div class="input-field col s1"></div>
+                        <div class="input-field col s10">
+                            <input id="Edicion_PT" 
+                                   name="Edicion_PT"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['edition']['Edicion_PT'] is defined %}
+                                       value="{{ content['edition']['Edicion_PT'] }}"
+                                   {% endif %}
+                                   >
+                            <label for="Edicion_PT">Nombre de la Edición</label>
+                        </div>
+                        <div class="input-field col s1"></div>
+                    </div> 
+
+                    <div class="row">
+                        <div class="input-field col s1"></div>
+                        <div class="input-field col s10">                               
+                            <label for="Slogan_PT">Slogan del Evento</label>                                                        
+                            <input id="Slogan_PT" 
+                                   name="Slogan_PT"
+                                   type="text" 
+                                   class="validate" 
+                                   {% if content['edition']['Slogan_PT'] is defined %}
+                                       value="{{ content['edition']['Slogan_PT'] }}"
+                                   {% endif %}
+                                   >
+                        </div> 
+                        <div class="input-field col s1"></div>
+                    </div>
+                    <h5 class="edition-title-step">Logotipos oficiales ({{ content['general_text']['sas_pt'] }}):</h5>
+                    <div class="row">              
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-pt" 
+                                     {% if content['edition']['Logo_PT_1'] is defined and content['edition']['Logo_PT_1'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_PT_1']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}" 
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_PT_1" 
+                                           name="Logo_PT_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-pt"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_PT_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_PT_1'] is defined and content['edition']['Logo_PT_1'] != "" %}
+                                               value="{{ content['edition']['Logo_PT_1'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-2-pt" 
+                                     {% if content['edition']['Logo_PT_2'] is defined and content['edition']['Logo_PT_2'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_PT_2']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}" 
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_PT_2" 
+                                           name="Logo_PT_2"
+                                           class="validate"
+                                           rel-preview="preview-image-2-pt"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_PT_2_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_PT_2'] is defined and content['edition']['Logo_PT_2'] != "" %}
+                                               value="{{ content['edition']['Logo_PT_2'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-3-pt" 
+                                     {% if content['edition']['Logo_PT_3'] is defined and content['edition']['Logo_PT_3'] != "" %}
+                                         src="{{ asset('images/logos-co/header/' ~ content['edition']['Logo_PT_3']) }}" 
+                                     {% else %}
+                                         src="{{ asset('images/no-image.png') }}"
+                                     {% endif %}
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>Logotipo</span>
+                                    <input type="file" 
+                                           id="Logo_PT_3" 
+                                           name="Logo_PT_3"
+                                           class="validate"
+                                           rel-preview="preview-image-3-pt"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_PT_3_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           {% if content['edition']['Logo_PT_3'] is defined and content['edition']['Logo_PT_3'] != "" %}
+                                               value="{{ content['edition']['Logo_PT_3'] }}"
+                                           {% endif %}
+                                           >
+                                </div>
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </div>
+        {#FIN SECCION PORTUGUES#} 
+
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col s12">
+                <div class="nav-btn">
+                    <a class="btn-link waves-effect btn-flat left show-loader-top" href="{{ path('edicion_bundle_homepage') }}">
+                        <i class="material-icons left">navigate_before</i>{{ content['general_text']['sas_atras'] }}
+                    </a>
+                    <button type="submit" class="modal-action btn waves-effect waves-green green save-record right">{{content['general_text']['sas_guardar']}}</button>  
+                </div>
+            </div>
+        </div>
+
+    </form>   
+</section>     
+

@@ -1,0 +1,156 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaFichaMontajeBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/select2.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_ficha_montaje.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+
+    <div id="ficha-montaje" class="container">
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <div class="col s7">
+                <h5 style="margin: 0px;">{{content["section_text"]["sas_fm_fichaMontajeDesmontaje"]|raw}}</h5>
+            </div>
+        </div>
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <h5>{{content["section_text"]["sas_fichaPorVendedor"]|raw}}</h5>
+            <p>1. {{content["section_text"]["sas_fm_seleccionaVendedor"]|raw}}<p>
+            <div class="row-detail">
+                <div class="input-field col s4" >
+                    <select id="SellersInput" name="SellersInput" class="browser-default">
+                        <option value="0">{{content["section_text"]["sas_fm_vendedoresTodos"]|raw}}</option>
+                        {% if content['sellers'] is defined and content['sellers']|length > 0%}
+                            {% for seller in content['sellers'] %}
+                                <option value="{{seller['idUsuario']}}">{{seller['Nombre']}}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <form id="save-seller-form" class="col s12">
+                <div class="row" style="width: 100%; margin-left: 0px">
+                    <div class="input-field col s2 mid-content">
+                        <input id="idVendedor" name="idVendedor" type="text" value="" readonly>
+                        <label id="lb_idVendedor" name="lb_idVendedor" for="idVendedor">{{content['section_text']['sas_idVendedor']}}</label>
+                    </div>
+                    <div class="input-field col s5 mid-content">
+                        <input id="NombreCompletoES" name="NombreCompletoES" type="text" value="" readonly>
+                        <label id="lb_NombreCompletoES" name="lb_NombreCompletoES" for="NombreCompletoES" style="padding-left: 10px;">{{content['section_text']['sas_nombreContacto']}}</label>
+                    </div>
+                    <div class="input-field col s5 mid-content">
+                        <input id="Email" name="Email" type="text" value="" readonly>
+                        <label id="lb_Email" name="lb_Email" for="Email" style="padding-left: 10px;">{{content['section_text']['sas_email']}}</label>
+                    </div>
+                </div>
+            </form>
+            <div class="col s12">
+                <p>2. {{content["section_text"]["sas_fm_genereFicha"]|raw }}</p>
+            </div>
+            <div class="row-detail">
+                <div id="GenerarFichaMontaje" class="input-field col s6" style="text-align: center;" >
+
+                    <a id="btnGenerarFicha"
+                       target="_blank"
+                       class="waves-effect waves-light btn tooltipped disabled"
+                       {# href="{{ path('empresa_ficha_montaje_pdf'), {'idVendedor': content["idVendedor"]} }}"#}
+                       href=""
+                       data-position="bottom"
+                       data-delay="50"
+                       data-tooltip="{{content["section_text"]["sas_fm_abreFichaPDF"]|raw}}"
+                       >{{content["section_text"]["sas_fm_fichaMontaje"]|raw}}</a><i class=" material-icons dp48">trending_up</i><br><br>
+                </div>
+                <div id="EnviarFichaMontaje" class="input-field col s6" style="text-align: center;" >
+
+                    <a id="btnEnviarFichaMontaje"
+                       class="btn waves-effect waves-light btn tooltipped disabled"
+                       {# href="{{ path('empresa_ficha_montaje_pdf'), {'idVendedor': content["idVendedor"]} }}"#}
+                       data-position="bottom"
+                       data-delay="50"
+                       data-tooltip="Enviar Ficha Montaje"
+                       >Enviar Ficha Montaje</a><i class=" material-icons dp48">mail</i><br><br>
+                </div>
+                <div id="GenerarFichaDesmontaje" class="input-field col s6" style="text-align: center;" >
+
+                    <a id="btnGenerarFichaDesmontaje"
+                       target="_blank"
+                       class="waves-effect waves-light btn tooltipped disabled"
+                       {# href="{{ path('empresa_ficha_montaje_pdf'), {'idVendedor': content["idVendedor"]} }}"#}
+                       href=""
+                       data-position="bottom"
+                       data-delay="50"
+                       data-tooltip="{{content["section_text"]["sas_fm_abreFichaPDF"]|raw}}"
+                       >{{content["section_text"]["sas_fm_fichaDesmontaje"]|raw}}</a><i class="material-icons dp48">trending_down</i>
+                </div>
+                <div id="EnviarFichaDesmontaje" class="input-field col s6" style="text-align: center;" >
+
+                    <a id="btnEnviarFichaDesmontaje"
+                       class="btn waves-effect waves-light btn tooltipped disabled"
+                       {# href="{{ path('empresa_ficha_montaje_pdf'), {'idVendedor': content["idVendedor"]} }}"#}
+                       data-position="bottom"
+                       data-delay="50"
+                       data-tooltip="Enviar Ficha Desmontaje"
+                       >Enviar Ficha Desmontaje</a><i class="material-icons dp48">mail</i>
+                </div>
+            </div>
+        </div>
+        <div class="row card">
+            <div class="card-content">
+                <h5>{{content['section_text']['sas_fichaPorExpositor']}}</h5>
+                <table id="tabla-fichas" class="striped">
+                    <thead class="blue-grey darken-3 white-text">
+                        <tr>
+                            <th>{{content['section_text']['sas_vendedor']}}</th>
+                            <th>{{content['section_text']['sas_nombreComercial']}}</th>
+                            <th style="width:20%; text-align: center;">{{content["section_text"]["sas_fm_fichaMontaje"]|raw}}</th>
+                            <th style="text-align: center;">{{content["section_text"]["sas_fm_fichaDesmontaje"]|raw}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for empresa in content['empresas'] %}
+                            <tr data-id="{{empresa['idEmpresa']}}">
+                                <td>{{empresa['Nombre']}}</td>
+                                <td>{{empresa['DC_NombreComercial']}}</td>
+                                <td class="center">
+                                    <a href="{{path('empresa_ficha_montaje_desmontaje_expositor', {type: "montaje", idVendedor: empresa['idUsuario'], idEmpresa: empresa['idEmpresa']})}}" target="_blank" class="btn waves-effect waves-light red tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_verPDF']}}" data-id="{{empresa['idEmpresa']}}"><i class="fa fa-file-pdf-o white-text"></i></a>
+                                    <a  id="btnSendFichaVendedorMontaje" class="btn waves-effect red tooltipped" data-position="left" data-tooltip="Enviar Ficha Montaje" data-id="{{empresa['idEmpresa']}}" data-user="{{empresa['idUsuario']}}" ><i class="material-icons dp48">mail</i></a>
+                                </td>
+                                <td class="center">
+                                    <a href="{{path('empresa_ficha_montaje_desmontaje_expositor', {type: "desmontaje", idVendedor: empresa['idUsuario'], idEmpresa: empresa['idEmpresa']})}}" target="_blank" class="btn waves-effect waves-light red tooltipped" data-position="right" data-tooltip="{{content['section_text']['sas_verPDF']}}" data-id="{{empresa['idEmpresa']}}"><i class="fa fa-file-pdf-o white-text"></i></a>
+                                    <a id="btnSendFichaVendedorDesmontaje" class="btn waves-effect red tooltipped" data-position="right" data-tooltip="Enviar Ficha Desmontaje" data-id="{{empresa['idEmpresa']}}" data-user="{{empresa['idUsuario']}}" ><i class="material-icons dp48">mail</i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_pdf_ficha = "{{ path('empresa_ficha_montaje_pdf') }}";
+        var url_send_ficha = "{{path ('empresa_ficha_montaje_envio')}}";
+        var url_send_ficha_vendedor_montaje = "{{path ('empresa_ficha_montaje_empresa_envio')}}";
+        var url_pdf_ficha_desmontaje = "{{ path('empresa_ficha_desmontaje_pdf') }}";
+        var url_send_ficha_desmontaje = "{{ path('empresa_ficha_desmontaje_envio') }}";
+        var url_send_ficha_vendedor_desmontaje = "{{ path('empresa_ficha_desmontaje_empresa_envio') }}";
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+    </script>
+    <script type="text/javascript">
+        var general_text = {{ content['general_text']|json_encode()|raw }};
+                var section_text = {{ content['section_text']|json_encode()|raw }};
+        var sellers ={{ content['sellers']|json_encode()|raw }}
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_ficha_montaje.js') }}"></script>
+{% endblock %}

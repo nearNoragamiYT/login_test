@@ -1,0 +1,79 @@
+.container {
+    max-width: none;
+    width: 90%;
+}
+.space-label{
+    padding-bottom: 5px;
+}
+/*------------------------------------------------------------------------*/
+.paging_listbox > select{
+    height: 2rem !important;
+}
+.dataTables_length > label > select{
+    height: 2rem !important;
+}
+/*------------------------------------------------------------------------*/
+#delete-record-modal{
+    max-width: 30%;
+}
+
+.nota{
+    margin-top: 20px;
+    color: orange;
+    font-size: 15px;
+}
+
+#tbl-detalle-licencia [type="checkbox"]:not(:checked), #tbl-detalle-licencia [type="checkbox"]:checked{
+    position: relative;
+    left: 0px;
+    opacity: 1;
+}
+
+.show-qr:hover, .show-qr:focus{
+    color: #039be5;
+    cursor: pointer;
+}
+
+.liberation:hover, .liberation:focus{
+    color: #F00;
+    cursor: pointer;
+}
+
+.materialbox-caption{
+    z-index: 1003;
+}
+
+#modal-show-qr{
+    max-height: 65%;
+    max-width: 445px;
+}
+
+
+#modal-show-detalle{
+    width: 85%;
+}
+
+.mail-license:hover, .mail-license:focus{
+    color: #039be5;
+    cursor: pointer;
+}
+
+.disabled{
+    color:#dedede;
+    cursor: not-allowed;
+}
+
+#tbl-detalle-licencia td {
+    padding: 0px 5px;
+}
+
+#mdl-confirm-sending, #mdl-confirm-liberation {
+    max-width: 500px;
+}
+
+.date, .change-date{
+    color:black !important;
+    border-bottom: 0px  !important;
+    margin-bottom: 0px  !important;
+    cursor: pointer;
+}

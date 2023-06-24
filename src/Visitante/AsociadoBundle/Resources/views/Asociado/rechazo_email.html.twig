@@ -1,0 +1,107 @@
+{% set sponsor = 'display: block; position: relative; width: 100%; height: auto; text-align: center;background: #f1f1f1;' %}
+{% set sponsor_image = 'max-width: 100%;max-height: 100px;' %}
+{% set lbl_visitor_data = 'font-size: 0.8rem; color: #9e9e9e; width: 70px; display: inline-block;' %}
+{% set p_visitor_data = 'margin-top: 0px; margin-bottom: 5px;' %}
+{% set lang = 'es' %}
+{% if app.session.get('lang') is defined and app.session.get('lang') != "" %}
+    {% set lang = app.session.get('lang') %}
+{% elseif content['lang'] is defined and content['lang'] != "" %}
+    {% set lang = content['lang'] %}
+{% endif %}
+{% set body = 'font-family: "Roboto", sans-serif, "Open Sans"; background: #fff; font-size: 13px;' %}
+{% set main_table = 'margin: 0 auto; border: none; width: 1000px; border-collapse:collapse;' %}
+{% set footer = "height: 100px;background-color: #F5F5F5;border-top: 1px solid #CCC;font-size: 10px;color: #808080; text-align: center;font-weight: normal;" %}
+{% set header_thead = "color: white;" %}
+{% if content['general_text']['ae_colorFondoHeader'] is defined and content['general_text']['ae_colorFondoHeader'] != "" %}
+    {% set header_thead = header_thead ~ " background-color: " ~ content['general_text']['ae_colorFondoHeader'] ~ ";" %}
+{% endif %}
+{% set header_panel = "font-weight: lighter;" %}
+{% if content['general_text']['ae_colorTextoSeccion'] is defined and content['general_text']['ae_colorTextoSeccion'] != "" %}
+    {% set header_panel = header_panel ~ " color: " ~ content['general_text']['ae_colorTextoSeccion'] ~ ";" %}
+{% endif %}
+{% set responsive_img = 'width: auto; max-width: 100%;' %}
+{% set header_img = 'max-height: 100px; vertical-align: middle;' %}
+{% set card = 'display: block; position: relative; width: 96%; padding: 2%; height: auto; border-radius: 0 0 2px 2px; background-color: #FFF; margin-bottom: 20px;' %}
+{% set card_title = 'font-weight: lighter;' %}
+{% if content['general_text']['ae_colorTituloCard'] is defined and content['general_text']['ae_colorTituloCard'] != "" %}
+    {% set card_title = card_title ~ ' color: ' ~ content['general_text']['ae_colorTituloCard'] ~ ';' %}
+{% endif %}
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body style="{{ body }}">
+        <table style="{{ main_table }}">
+            <thead>
+                <tr style="{{ header_thead }}">
+                    <th style="text-align: left;">
+                        <img src="{{ absolute_url(asset('images/Header_ANTAD_2022.png'  )) }}" alt="logo_EAAM21-con-fondo" style="{{ header_img }}">
+                    </th>
+                    <th style="text-align: center;">
+                    </th>
+                    <th style="text-align: right;">
+                        <div style="color: #3c9888!important">
+                            <p style="margin-top:14px;margin-bottom:0px;text-align:center;font-size:35px"><b>Comprador Asociado</b></p>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+        
+                    <td colspan="3">
+                        <div style="text-align: center;font-size: 25px;">{{content['template_text']['ae_estimado']  ~ ' ' }}<b>{{ content['visitante']['Nombre'] ~ ' ' }} {{ content['visitante']['ApellidoPaterno'] }} {{ content['visitante']['ApellidoMaterno'] }}</b></div><br>
+                        <table style="display:flex;align-items:center;width:88%;margin-left: 23%;">
+                            <tr>
+                                <div>
+                                    <p>
+                                        <label class="lbl-visitor-data">Fecha Registro:</label>
+                                        <b>{{ content['visitante']['FechaAlta']|date("m/d/Y") }}</b>
+                                    </p>
+                                    {% if content['visitante']['DE_RazonSocial'] is defined and content['visitante']['DE_RazonSocial'] != "" %}
+                                        <p>
+                                            <label class="lbl-visitor-data">{{ content['template_text']['ae_empresa'] }}:</label>
+                                            {{ content['visitante']['DE_RazonSocial'] }}
+                                        </p>
+                                    {% endif %}
+                                    <p>
+                                        <label class="lbl-visitor-data">{{ content['template_text']['ae_nombre'] }}:</label>
+                                        <b>{{ content['visitante']['Nombre'] }} {{ content['visitante']['ApellidoPaterno'] }} {{ content['visitante']['ApellidoMaterno'] }}</b>
+                                    </p>
+                                    <p>
+                                        <label class="lbl-visitor-data">{{ content['general_text']['ae_email'] }}:</label>
+                                        <a href='mailto:{{ content['visitante']['Email'] }}'>{{ content['visitante']['Email'] }}</a>
+                                    </p>
+                                </div>
+                            </tr>
+                        </table>
+                        <div class="justify-align" style="text-align: center;">
+                            {{ content['template_text']['ae_contenidoRechazoEmail']| raw }}
+                        </div>
+                        {# <div class="container">
+                            <div class="card" style="font-size: 19px;">
+                                <div class="card-content">
+                                    <div class="center" style="text-align: center;color: #00b050;">
+                                        ESTIMADO(A):<b>{{ content['visitante']['Nombre'] }} {{ content['visitante']['ApellidoPaterno'] }} {{ content['visitante']['ApellidoMaterno'] }}</b>
+                                        <br>
+                                        EMPRESA:{% if content['visitante']['DE_RazonSocial'] is defined and content['visitante']['DE_RazonSocial'] != "" %} <b>{{ content['visitante']['DE_RazonSocial'] }}</b>{% endif %}
+                                    </div>
+
+                                    <div class="justify-align" style="text-align: center;">
+                                        {{ content['template_text']['ae_contenidoRechazoEmail']| raw }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div> #}
+                    </td>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th style="{{ footer }}"  colspan="3">
+                        <img src="{{ absolute_url(asset("images/logos-co/antad_logo.png")) }}" alt="Antad" style="vertical-align: middle;" width="120" height="90"> 
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </body>
+</html>

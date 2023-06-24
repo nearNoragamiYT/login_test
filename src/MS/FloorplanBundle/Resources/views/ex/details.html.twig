@@ -1,0 +1,86 @@
+<div id="ex_details" class="section">
+    <div id="exInformation">  
+        <div class="row center">
+            <div class="col s6">
+                <a class="btn-floating help-button blue tooltipped" data-position="top" data-delay="50" data-tooltip="{{ content["textos"]["ms_descripcionVistas"]}}">?</a> 
+                <span>{{ content["textos"]["ms_textoInformacion"]}}: </span>
+                <i id="totalInformationViews" class="red-text" >0</i>
+            </div>
+            <div class="col s6">
+                <a class="btn-floating help-button blue tooltipped" data-position="top" data-delay="50" data-tooltip="{{ content["textos"]["ms_descripcionPersonas"]}}">?</a>
+                <span>{{ content["textos"]["ms_textoPersonas"]}}: </span>
+                <i id="totalPeopleReached" class="red-text" >0</i>
+            </div>
+        </div>
+    </div>
+    <div id="exMainChart">
+        <div id="exChart">
+        </div>
+    </div>
+    <div id="exRelevantData">
+        <div id="clickDetails" class="row">
+            <div class="col s12 l8">
+                <table id="tableClickDetails" class="highlight">
+                    <thead>
+                        <tr>
+                            <th> 
+                                <a class="btn-floating help-button blue center tooltipped" data-position="top" data-delay="50" data-tooltip="{{ content["textos"]["ms_descripcionElemento"]}}">?</a>
+                                <span>{{ content["textos"]["ms_textoElemento"]}}</span>
+                            </th>
+                            <th> 
+                                <a class="btn-floating help-button blue center tooltipped" data-position="top" data-delay="50" data-tooltip="{{ content["textos"]["ms_descripcionCantidadClics"]}}">?</a>
+                                <span>{{ content["textos"]["ms_textoCantidadClics"]}}</span>
+                            </th>
+                            <th> 
+                                <a class="btn-floating help-button blue center tooltipped" data-position="top" data-delay="50" data-tooltip="{{ content["textos"]["ms_descripcionPersonasClic"]}}">?</a>
+                                <span>{{ content["textos"]["ms_textoPersonasClic"]}}</span>
+                            </th>
+                            <th> 
+                                <a class="btn-floating help-button blue center tooltipped" data-position="top" data-delay="50" data-tooltip="{{ content["textos"]["ms_descripcionClicAnonimo"]}}">?</a>
+                                <span>{{ content["textos"]["ms_textoClicAnonimo"]}}</span>
+                            </th>
+                            <th> 
+                                <a class="btn-floating help-button blue center tooltipped" data-position="top" data-delay="50" data-tooltip="{{ content["textos"]["ms_descripcionClicRegistrados"]}}">?</a>
+                                <span>{{ content["textos"]["ms_textoClicRegistrados"]}}</span>
+                            </th>
+                        </tr>         
+                    </thead>
+                    <tbody id="tableClickDetails_body">                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="col s12 l4 detail-box">
+                <div class="col s6">
+                    <div class="card-panel green tooltipped" data-position="top" data-delay="50" data-tooltip="{{ content["textos"]["ms_descripcionCantidadRecorrido"]}}">
+                        <span class="white-text">
+                            <div class="row">
+                                <div class="col s7">
+                                    <h3 id="totalPeopleTour">0</h3>
+                                </div>
+                                <div class="col s3">
+                                    <i class="medium material-icons white-text">star</i>
+                                </div>                                        
+                            </div> 
+                            <p>{{ content["textos"]["ms_textoCantidadRecorrido"]}}</p>
+                        </span>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="card-panel orange tooltipped" data-position="top" data-delay="50" data-tooltip="{{ content["textos"]["ms_descripcionCantidadLecturas"]}}">
+                        <span class="white-text">
+                            <div class="row">
+                                <div class="col s7">
+                                    <h3 id="totalRetrieval">0</h3>
+                                </div>
+                                <div class="col s3">
+                                    <i class="medium material-icons white-text">face</i> 
+                                </div>
+                            </div>                                    
+                            <p>{{ content["textos"]["ms_textoCantidadLecturas"]}}</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

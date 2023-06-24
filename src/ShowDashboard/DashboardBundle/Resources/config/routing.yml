@@ -1,0 +1,20 @@
+dashboard:
+    path:     /dashboard/{lang}
+    defaults: { _controller: ShowDashboardDashboardBundle:Dashboard:mainDashboard, lang: es }
+    requirements:
+        lang: es|en
+
+show_dashboard_edicion:
+    path:     /show-dashboard/{idEdicion}/{lang}
+    defaults: { _controller: ShowDashboardDashboardBundle:Dashboard:dashboardEdicion, idEdicion: 0, lang: es }
+    requirements:
+        idEdicion: \d+
+        lang: es|en
+
+#show_dashboard_dashboard:
+#    path:     /show-dashboard/dashboard
+#    defaults: { _controller: ShowDashboardDashboardBundle:Dashboard:dashboard }
+#    
+#show_dashboard_dashboard_select_edition:
+#    path:     /show-dashboard/dashboard/{idEvento}/{idEdicion}
+#    defaults: { _controller: ShowDashboardDashboardBundle:Dashboard:setEdition, idEvento: 0, idEdicion: 0 }

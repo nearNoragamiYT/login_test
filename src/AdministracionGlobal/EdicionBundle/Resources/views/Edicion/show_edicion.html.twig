@@ -1,0 +1,46 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/AdministracionGlobal/EdicionBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/edicion.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block title %}SAS Administrador de Ediciones{% endblock %}
+
+{% block content %}
+    {#<div class="white">
+        <div class="row">
+            <div class="col s12">
+                <a class="btn-link waves-effect btn-flat left show-loader-top" href="{{ path('edicion_bundle_homepage') }}">
+                    <i class="material-icons left">navigate_before</i>{{content['general_text']['sas_atras']}}
+                </a>
+            </div>
+        </div>
+    </div>#}
+    <div class="container-fluid">
+        <h5>{{content['section_text']['sas_informacionEdicion']}}</h5>
+        <div class="z-depth-1 white">
+            <div class="edition-content">            
+                {% include 'AdministracionGlobalEdicionBundle:Edicion:nueva_edicion.html.twig' %}            
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var edition = {{ content['edition']|length ? content['edition']|json_encode()|raw : '{}' }} ;
+        var url_logo_co = "{{ path('edicion_comite_organizador_logo') }}";
+        var url_logos_edicion = "{{ path('edicion_bundle_logos') }}";
+        var url_no_image = "{{ asset('images/no-image.png') }}";
+        var url_image_fail = "{{ asset('images/fail-image.png') }}";
+        var url_get_estados = "{{ path('pecc_estados', {'idPais': "0000"}) }}";
+        var url_get_pecc = "{{ path('pecc_codigo_postal', {'codigoPostal': "00000"}) }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/edicion_admin.js') }}"></script>
+{% endblock %}

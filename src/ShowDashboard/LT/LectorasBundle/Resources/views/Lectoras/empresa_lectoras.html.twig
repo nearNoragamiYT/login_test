@@ -1,0 +1,153 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/LT/LectorasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_lectoras.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% if  content['companyOrigin'] == 'lectoras' or content['companyOrigin'] == 'lectoras_simple'  or content['companyOrigin'] == 'solicitud_lectoras'%}
+        {% include 'ShowDashboardLTLectorasBundle:Lectoras:menu_secciones.html.twig' %}
+    {% else %}
+        {% include 'EmpresaEmpresaBundle:Empresa:menu_secciones.html.twig' %}
+    {% endif %}
+    <div id="asignacion-lectoras" class="container">
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <div class="col s7">
+                <h5>{{content["header"]["DC_NombreComercial"]}}</h5>
+                <h6>
+                    {% if not(content["header"]["idEtapa"] is defined) %}
+                        {{ content["section_text"]["sas_prospecto"] }}
+                    {% elseif content["header"]["idEtapa"] == 1 %}
+                        {{ content["section_text"]["sas_precontratos"] }}
+                    {% elseif content["header"]["idEtapa"] == 2 %}
+                        {{ content["section_text"]["sas_expositor"] }}
+                    {% endif %}
+                </h6>
+                {% if content["header"]["EMSTDListadoStand"] is defined %}
+                    <h6>{{ "Stands: " ~ content["header"]["EMSTDListadoStand"] }}</h6>
+                {% endif %}
+            </div>
+            <div class="col s5" style="text-align:right;">
+                {% if content["header"]["idPaquete"] is defined and content["header"]["idPaquete"] != "" %}
+                    <h5>{{ content["packages"][content["header"]["idPaquete"]]["Paquete" ~ content["lang"]|upper] }}</h5>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <div style="text-align: right;">
+                <button type="button" id="mostrar-licencias" class="waves-effect waves-blue btn-flat blue white-text">Listado de Licencias</button>
+            </div>
+            <h5 style="margin: 0px;">{{content['section_text']['sas_lectorasAsignadas']}}</h5>
+            <div style="text-align: left; margin-bottom: -45px; margin-top: 25px;" >
+                <b>Lectoras Solicitadas</b> :
+                {% for Scanner in content['solicitud_lectoras'] %}
+                    <div class="chip">
+                        <b>{{Scanner['Titulo'~ content["lang"]|upper]}}</b>: {{Scanner['Cantidad']}}
+                    </div>
+                {% endfor %}
+            </div>
+            <table id="empresa-lectoras-table" class="highlight bordered">
+                <thead class="grey lighten-4">
+                    <tr>
+                        {% for header in content["lectoras_metadata"] %}
+                            {% if header["is_visible"] == true %}
+                                <th>{{ header["text"] }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        <th style="width: 5%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lectora in content["lectoras_empresa"] %}
+                        <tr>
+                            {% for key, value in lectora %}
+                                {% if content["lectoras_metadata"][key] is defined and content["lectoras_metadata"][key]["is_visible"] == true %}
+                                    {%if content["lectoras_metadata"][key]["values"] is defined%}
+                                        <td> {{ content["lectoras_metadata"][key]["values"][value]}} </td>
+                                    {% else %}
+                                        <td>
+                                            {%if key =="Cortesia" %}
+                                                {%if value == TRUE %}
+                                                    {{content['general_text']['sas_si']}}
+                                                {%else%}
+                                                    {{content['general_text']['sas_no']}}
+                                                {%endif%}
+                                            {%else%}
+                                                {%if  key =="EtiquetaApp" and value == ""%}
+                                                    {{content['section_text']['sas_noAplica']}}
+                                                {%else%}
+                                                    {{ value }}
+                                                {%endif%}
+                                            {%endif%}
+                                        </td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content['general_text']['sas_editar'] }}" data-id="{{lectora['idEmpresaScanner']}}">edit</i>
+                                <i class="material-icons delete-record tooltipped" data-position="right" data-delay="50" data-tooltip="{{ content['general_text']['sas_eliminar'] }}" data-id="{{lectora['idEmpresaScanner']}}">delete_forever</i>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="fixed-action-btn" style="bottom: 60px; right: 30px;">
+        <a class="btn-floating btn-large green tooltipped"
+           id="add-empresa-lectora"
+           data-tooltip="{{ content["section_text"]["sas_agregaLectora"] }}"
+           data-position="left"
+           data-delay="50"
+           >
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+    <div id="delete-record-modal" class="modal">
+        <div class="modal-content">
+            <h6>{{content['section_text']['sas_eliminarRegistro']}}</h6>
+            <p id="deleteText"></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+            <button id="delete-record" type="button" class="modal-action waves-effect waves-red btn-flat red white-text" data-action="delete">{{content['general_text']['sas_eliminar']}}</button>
+        </div>
+    </div>
+    {% include 'ShowDashboardLTLectorasBundle:Lectoras:agregar_editar_empresa_lectora.html.twig' %}
+    {% include 'ShowDashboardLTLectorasBundle:Licencias:listado_licencias.html.twig' %}
+    {% include 'ShowDashboardLTLectorasBundle:Licencias:comfirmar_lberacion_emergencia.html.twig' %}
+    {% include 'ShowDashboardLTLectorasBundle:Licencias:show_qr.html.twig' %}
+    {% include 'ShowDashboardLTLectorasBundle:Licencias:confirmar_envio_mail.html.twig' %}
+    {% include 'ShowDashboardLTLectorasBundle:Licencias:comfirmar_actualizar_fecha.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                var general_text = {{ content['general_text']|json_encode()|raw }};
+                var section_text = {{ content['section_text']|json_encode()|raw }};
+                var header = {{ content["header"]|json_encode()|raw }};
+                var lectoras_empresa ={{content['lectoras_empresa']|json_encode()|raw}} ;
+        var url_add_empresa_lectora = "{{path("empresa_lectora_agregar")}}",
+                url_edit_empresa_lectora = "{{path("empresa_lectora_editar")}}",
+                url_delete_empresa_lectora = "{{path("empresa_lectora_borrar")}}",
+                url_get_licencias = "{{path("lectoras_get_licencias")}}",
+                url_get_qr = "{{path("lectoras_get_qr")}}",
+                url_send_email_licenses = "{{path("lectoras_enviar_email_licencias")}}",
+                url_license_liberation = "{{path("lectoras_liberacion_licencias")}}",
+                url_generate_qr = "{{asset('resources/Utilerias/QrCodeBundle/qrcode/main.php?')}}",
+                url_update_date_expiry = "{{path("lectoras_actualizar_fecha_expiracion")}}";
+
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_lectoras.js') }}"></script>
+{% endblock %}

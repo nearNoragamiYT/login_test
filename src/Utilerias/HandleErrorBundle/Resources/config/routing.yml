@@ -1,0 +1,3 @@
+utilerias_handle_error_homepage:
+    path:     /error
+    defaults: { _controller: UtileriasHandleErrorBundle:Default:index }

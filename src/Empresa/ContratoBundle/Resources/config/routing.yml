@@ -1,0 +1,97 @@
+empresa_contrato_home:
+    path:     /show-dashboard/contrato-home/{idEmpresa}/{idContrato}
+    defaults: { _controller: EmpresaContratoBundle:Contrato:contrato, idContrato: 0 }
+
+empresa_contrato_informacion:
+    path:     /show-dashboard/contrato/informacion/{idEmpresa}/{idContrato}
+    defaults: { _controller: EmpresaContratoBundle:Contrato:informacion, idContrato: 0 }
+
+empresa_contrato_entidad_fiscal_nuevo:
+    path:     /show-dashboard/contrato/entidad/nuevo
+    defaults: { _controller: EmpresaContratoBundle:Contrato:entidadNuevo }
+
+empresa_contrato_contacto_nuevo:
+    path:     /show-dashboard/contrato/contacto/nuevo
+    defaults: { _controller: EmpresaContratoBundle:Contrato:contactoNuevo }
+
+empresa_contrato_informacion_guardar:
+    path:     /show-dashboard/contrato/guardarInformacion
+    defaults: { _controller: EmpresaContratoBundle:Contrato:guardarInformacion }
+
+empresa_contrato_espacio:
+    path:     /show-dashboard/contrato/espacio/{idEmpresa}/{idContrato}
+    defaults: { _controller: EmpresaContratoBundle:Contrato:espacio, idContrato: 0 }
+
+empresa_contrato_espacio_guardar:
+    path:     /show-dashboard/contrato/guardarEspacio
+    defaults: { _controller: EmpresaContratoBundle:Contrato:guardarEspacio }
+
+empresa_contrato_espacio_eliminar:
+    path:     /show-dashboard/contrato/eliminarEspacio
+    defaults: { _controller: EmpresaContratoBundle:Contrato:eliminarEspacio }
+
+empresa_contrato_productos:
+    path:     /show-dashboard/contrato/productos/{idEmpresa}/{idContrato}
+    defaults: { _controller: EmpresaContratoBundle:Contrato:productos }
+
+empresa_contrato_productos_guardar:
+    path:     /show-dashboard/contrato/guardarProductos
+    defaults: { _controller: EmpresaContratoBundle:Contrato:guardarProductos }
+
+empresa_contrato_resumen:
+    path:     /show-dashboard/contrato/resumen/{idEmpresa}/{idContrato}
+    defaults: { _controller: EmpresaContratoBundle:Contrato:resumen, idEmpresa:0, idContrato:0 }
+    methods: GET
+    requirements:
+        idEmpresa: \d+
+        idContrato: \d+
+
+empresa_contrato_status:
+    path:     /show-dashboard/contrato/cambiarEstatus
+    defaults: { _controller: EmpresaContratoBundle:Contrato:status }
+
+lista_contratos:
+    path:     /show-dashboard/lista-contratos
+    defaults: { _controller: EmpresaContratoBundle:Contrato:contractsList }
+
+empresa_contrato_import_contact:
+    path:     /show-dashboard/contrato/importContact
+    defaults: { _controller: EmpresaContratoBundle:Contrato:importContact }
+
+empresa_contrato_import_boths:
+    path:     /show-dashboard/contrato/importBooth
+    defaults: { _controller: EmpresaContratoBundle:Contrato:importBooth }
+
+lista_contratos_general:
+    path:     /show-dashboard/contratos
+    defaults: { _controller: EmpresaContratoBundle:Contrato:contracts }
+
+empresa_contrato_mostrar_contratos:
+    path:  /show-dashboard/contratos/mostrar-tabla
+    defaults: { _controller: EmpresaContratoBundle:Contrato:mostarTablaContratos }
+    methods: GET
+
+empresa_contrato_obtener_tabla:
+    path:  /show-dashboard/contratos/obtener-tabla
+    defaults: { _controller: EmpresaContratoBundle:Contrato:obtenerTabla }
+    methods: POST
+
+empresa_contrato_obtener_tabla_filtro:
+    path:  /show-dashboard/contratos/obtener-tabla-filtro
+    defaults: { _controller: EmpresaContratoBundle:Contrato:obtenerTablaFiltro }
+    methods: POST
+
+empresa_contrato_exportar_datos:
+    path:  /show-dashboard/contratos/exportar-datos
+    defaults: { _controller: EmpresaContratoBundle:Contrato:exportarDatos }
+    methods: POST
+
+empresa_contrato_obtener_sesion:
+    path:  /show-dashboard/contratos/obtener-sesion
+    defaults: { _controller: EmpresaContratoBundle:Contrato:obtenerSesion }
+    methods: POST
+
+empresa_contrato_establecer_sesion:
+    path:  /show-dashboard/contratos/establecer-sesion
+    defaults: { _controller: EmpresaContratoBundle:Contrato:establecerSesion }
+    methods: POST

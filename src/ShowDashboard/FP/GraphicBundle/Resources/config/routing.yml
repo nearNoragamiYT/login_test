@@ -1,0 +1,3 @@
+admin_floorplan_graphics:
+    path:  /show-dashboard/fp/graphic
+    defaults: { _controller: ShowDashboardFPGraphicBundle:Graphic:graphic }

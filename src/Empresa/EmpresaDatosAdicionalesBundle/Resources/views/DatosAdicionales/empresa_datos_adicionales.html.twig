@@ -1,0 +1,179 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaDatosAdicionalesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_datos_adicionales.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% include 'EmpresaEmpresaBundle:Empresa:menu_secciones.html.twig' %}
+    <div id="aditional-data" class="container">
+        {% include 'EmpresaEmpresaBundle:Empresa:detalle_empresa.html.twig' %}
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <form id="save-aditional-data-form" class="col s12">
+                <input type="hidden" id="idEmprea" name="idEmpresa" value="{{ content['idEmpresa'] }}">
+                <div class="input-field col s8 offset-m2">
+                    <textarea id="ObservacionesFacturacion" class="validate materialize-textarea" name="ObservacionesFacturacion" rows="4"></textarea>
+                    <label for="ObservacionesFacturacion">Observaciones de Facturación</label>
+                </div>
+                <h5 class="col s8 offset-m2">
+                    Datos para el Manual
+                </h5>
+                <div class="input-field col s8 offset-m2" style="padding: 0px;">
+                    <div class="input-field col s6">
+                        <input id="EmpresasAdicionales" name="EmpresasAdicionales" type="text" class="validate" value="">
+                        <label for="EmpresasAdicionales">Empresas Adicionales</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="NumeroGafetes" name="NumeroGafetes" type="text" class="validate" value="">
+                        <label for="NumeroGafetes">Gafetes Asignados</label>
+                    </div>
+                </div>
+                <div class="input-field col s8 offset-m2" style="padding: 0px;">
+                    <div class="input-field col s6">
+                        <input id="NumeroGafetesCompra" name="NumeroGafetesCompra" type="text" value="">
+                        <label for="NumeroGafetesCompra">Gafetes Extra</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="GafetesPagados" name="GafetesPagados" type="checkbox" value="true">
+                        <label for="GafetesPagados">Pagados</label>
+                    </div>
+                </div>
+                
+                <div class="input-field col s8 offset-m2" style="padding: 0px;">
+                    <div class="input-field col s8">
+                        <input id="correoAdicional" name="correoAdicional" type="text" class="required email">
+                        <label for="correoAdicional">Correo Adicional</label>
+                    </div>
+                    <div class="input-field col s1">
+                        {#<a id="sendMail" class="waves-effect waves-green btn-flat green white-text">Enviar</a>#}
+                    </div>
+                </div>
+                <h5 class="col s12 offset-m2" align="left" style="color: red;">
+                    Asegúrese de guardar sus cambios antes de mandar su correo
+                </h5>
+                <div class="input-field col s8 offset-m2">
+                    <textarea id="GafetesComentario" class="validate materialize-textarea" name="GafetesComentario" rows="4"></textarea>
+                    <label for="GafetesComentario">Comentario Gafetes</label>
+                </div>
+                <h5 class="col s8 offset-m2">
+                    Nuevos Productos
+                </h5>
+                <div class="input-field col s8 offset-m2" style="padding: 0px;">
+                    <div class="input-field col s6">
+                        <input id="NumeroVitrinas" name="NumeroVitrinas" type="text" value="">
+                        <label for="NumeroVitrinas">Vitrinas Asignadas</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="NumeroCatalogos" name="NumeroCatalogos" type="text" value="">
+                        <label for="NumeroCatalogos">Catálogos Asignados</label>
+                    </div>
+                </div>
+                <h5 class="col s8 offset-m2">
+                    Invitaciones
+                </h5>
+                <div class="input-field col s8 offset-m2" style="padding: 0px;">
+                    <div class="input-field col s4">
+                        <input id="NumeroInvitaciones" name="NumeroInvitaciones" type="text" value="">
+                        <label for="NumeroInvitaciones">Numero Invitaciones</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="UsuarioInvitaciones" name="UsuarioInvitaciones" type="text" value="">
+                        <label for="UsuarioInvitaciones">Usuario</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="PasswordInvitaciones" name="PasswordInvitaciones" type="text" value="">
+                        <label for="PasswordInvitaciones">Password</label>
+                    </div>
+                </div>
+                <h5 class="col s8 offset-m2">
+                    Encuentros de Negocios
+                </h5>
+                <div class="input-field col s8 offset-m2" style="padding: 0px;">
+                    <div class="input-field col s6">
+                        <input id="UsuarioEncuentroNegocios" name="UsuarioEncuentroNegocios" type="text" value="">
+                        <label for="UsuarioEncuentroNegocios">Usuario</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="PasswordEncuentroNegocios" name="PasswordEncuentroNegocios" type="text" value="">
+                        <label for="PasswordEncuentroNegocios">Password</label>
+                    </div>
+                </div>
+                <h5 id="switch-montaje" class="col s8 offset-m2">
+                    Montaje
+                    <div class="switch right">
+                        <label>
+                            {{content['general_text']['sas_no']}}
+                            <input id="Montaje" name="Montaje" type="checkbox" value="true">
+                            <span class="lever"></span>
+                            {{content['general_text']['sas_si']}}
+                        </label>
+                    </div>
+                </h5>
+                <div id="content-montaje" class="input-field col s8 offset-m2" style="padding: 0px; display: none;">
+                    <div class="col s6" style="padding: 0px;">
+                        <h6 style="padding-left: 10px;">Entrada</h6>
+                        <div class="input-field col s12">
+                            <input id="MontajeAndenEntrada" name="MontajeAndenEntrada" type="text" value="">
+                            <label for="MontajeAndenEntrada">Anden</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="MontajeSalaEntrada" name="MontajeSalaEntrada" type="text" value="">
+                            <label for="MontajeSalaEntrada">Sala</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="MontajeDiaEntrada" name="MontajeDiaEntrada" type="text" value="">
+                            <label for="MontajeDiaEntrada">Dia</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="MontajeHorarioEntrada" name="MontajeHorarioEntrada" type="text" value="">
+                            <label for="MontajeHorarioEntrada">Horario</label>
+                        </div>
+                    </div>
+                    <div class="col s6" style="padding: 0px;">
+                        <h6 style="padding-left: 10px;">Salida</h6>
+                        <div class="input-field col s12">
+                            <input id="MontajeAndenSalida" name="MontajeAndenSalida" type="text" value="">
+                            <label for="MontajeAndenSalida">Anden</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="MontajeSalaSalida" name="MontajeSalaSalida" type="text" value="">
+                            <label for="MontajeSalaSalida">Sala</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="MontajeDiaSalida" name="MontajeDiaSalida" type="text" value="">
+                            <label for="MontajeDiaSalida">Dia</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="MontajeHorarioSalida" name="MontajeHorarioSalida" type="text" value="">
+                            <label for="MontajeHorarioSalida">Horario</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="col s8 offset-m2" style="text-align: right;">
+                <button type="submit" id="saveAditionalData" class="waves-effect waves-green btn-flat green white-text">{{content['general_text']['sas_guardar']}}</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_aditional_data_save = "{{ path('empresa_empresa_datos_adicionales_guardar') }}";
+        var url_aditional_send_email = "{{ path('empresa_empresa_email_adicional') }}";
+    </script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+
+        var aditionalData
+        = {{ content['aditional_data']|json_encode()|raw }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_datos_adicionales.js') }}"></script>
+{% endblock %}

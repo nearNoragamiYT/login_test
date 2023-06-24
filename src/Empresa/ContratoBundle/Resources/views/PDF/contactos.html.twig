@@ -1,0 +1,212 @@
+<table cellspacing="3" cellpadding="3">
+    <tr>
+        <td colspan="4" style="padding-bottom: 9px;margin: 40px 0 20px;border-bottom: 1px solid #eee;color: black;font-size: 16px;">
+            {{content['section_text']['sas_contactosResponsables'] | raw }}:
+        </td>
+    </tr>
+    {#      CONTACTO TIPO 1 RESPONSABLE DEL LLENADO DIRECTORIO DE EXPOSITORES         #}
+    <tr>
+        <td colspan="4" style="padding-bottom: 9px;margin: 15px 0 20px;border-bottom: 1px solid #eee;color: #599126;">
+            <div>{{content['section_text']['sas_llenadoDirectorioExpositores'] | raw }}</div>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" >
+            <label for="Nombre_1">{{content['general_text']['sas_nombre']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['1']['Nombre'] is defined %}{{content['contrato']['Contactos']['1']['Nombre']}}{% endif %}
+        </td>
+        <td align="right">
+            <label  for="Puesto_1">{{content['general_text']['sas_puesto']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['1']['Puesto'] is defined %}{{content['contrato']['Contactos']['1']['Puesto']}}{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="ApellidoPaterno_1">{{content['general_text']['sas_apellidoPaterno']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['1']['ApellidoPaterno'] is defined %}{{content['contrato']['Contactos']['1']['ApellidoPaterno']}}{% endif %}
+        </td>
+        <td align="right">
+            <label  for="Email_1">{{content['general_text']['sas_email']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['1']['Email'] is defined %}{{content['contrato']['Contactos']['1']['Email']}}{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label  for="ApellidoMaterno_1">{{content['general_text']['sas_apellidoMaterno']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['1']['ApellidoMaterno'] is defined %}{{content['contrato']['Contactos']['1']['ApellidoMaterno']}}{% endif %}
+        </td>
+        <td align="right">
+            <label for="Telefono_1">{{content['general_text']['sas_telefono']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['1']['Telefono'] is defined %}{{content['contrato']['Contactos']['1']['Telefono']}}{% endif %}
+        </td>
+    </tr>
+
+    {#      CONTACTO TIPO 2 RESPONSABLE DE PAGO         #}
+    <tr>
+        <td colspan="4" style="padding-bottom: 9px;margin: 15px 0 20px;border-bottom: 1px solid #eee;color: #599126;">
+            <div>{{content['section_text']['sas_pagos'] | raw }}</div>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" >
+            <label for="Nombre_1">{{content['general_text']['sas_nombre']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['2']['Nombre'] is defined %}{{content['contrato']['Contactos']['2']['Nombre']}}{% endif %}
+        </td>
+        <td align="right">
+            <label  for="Puesto_1">{{content['general_text']['sas_puesto']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['2']['Puesto'] is defined %}{{content['contrato']['Contactos']['2']['Puesto']}}{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="ApellidoPaterno_1">{{content['general_text']['sas_apellidoPaterno']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['2']['ApellidoPaterno'] is defined %}{{content['contrato']['Contactos']['2']['ApellidoPaterno']}}{% endif %}
+        </td>
+        <td align="right">
+            <label  for="Email_1">{{content['general_text']['sas_email']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['2']['Email'] is defined %}{{content['contrato']['Contactos']['2']['Email']}}{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label  for="ApellidoMaterno_1">{{content['general_text']['sas_apellidoMaterno']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['2']['ApellidoMaterno'] is defined %}{{content['contrato']['Contactos']['2']['ApellidoMaterno']}}{% endif %}
+        </td>
+        <td align="right">
+            <label for="Telefono_1">{{content['general_text']['sas_telefono']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['2']['Telefono'] is defined %}{{content['contrato']['Contactos']['2']['Telefono']}}{% endif %}
+        </td>
+    </tr>
+    {#      CONTACTO TIPO 3 ATENCION A EVENTOS         #}
+    <tr>
+        <td colspan="4" style="padding-bottom: 9px;margin: 15px 0 20px;border-bottom: 1px solid #eee;color: #599126;">
+            <div>{{content['section_text']['sas_atencionEvento'] | raw }}</div>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" >
+            <label for="Nombre_1">{{content['general_text']['sas_nombre']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['3']['Nombre'] is defined %}{{content['contrato']['Contactos']['3']['Nombre']}}{% endif %}
+        </td>
+        <td align="right">
+            <label  for="Puesto_1">{{content['general_text']['sas_puesto']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['3']['Puesto'] is defined %}{{content['contrato']['Contactos']['3']['Puesto']}}{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="ApellidoPaterno_1">{{content['general_text']['sas_apellidoPaterno']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['3']['ApellidoPaterno'] is defined %}{{content['contrato']['Contactos']['3']['ApellidoPaterno']}}{% endif %}
+        </td>
+        <td align="right">
+            <label  for="Email_1">{{content['general_text']['sas_email']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['3']['Email'] is defined %}{{content['contrato']['Contactos']['3']['Email']}}{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label  for="ApellidoMaterno_1">{{content['general_text']['sas_apellidoMaterno']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['3']['ApellidoMaterno'] is defined %}{{content['contrato']['Contactos']['3']['ApellidoMaterno']}}{% endif %}
+        </td>
+        <td align="right">
+            <label for="Telefono_1">{{content['general_text']['sas_telefono']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['3']['Telefono'] is defined %}{{content['contrato']['Contactos']['3']['Telefono']}}{% endif %}
+        </td>
+    </tr>
+    {#      CONTACTO TIPO 4 FIRMA CONVENIO         #}
+    <tr>
+        <td colspan="4" style="padding-bottom: 9px;margin: 15px 0 20px;border-bottom: 1px solid #eee;color: #599126;">
+            <div>{{content['section_text']['sas_firmaConvenio'] | raw }}</div>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" >
+            <label for="Nombre_1">{{content['general_text']['sas_nombre']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['4']['Nombre'] is defined %}{{content['contrato']['Contactos']['4']['Nombre']}}{% endif %}
+        </td>
+        <td align="right">
+            <label  for="Puesto_1">{{content['general_text']['sas_puesto']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['4']['Puesto'] is defined %}{{content['contrato']['Contactos']['4']['Puesto']}}{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="ApellidoPaterno_1">{{content['general_text']['sas_apellidoPaterno']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['4']['ApellidoPaterno'] is defined %}{{content['contrato']['Contactos']['4']['ApellidoPaterno']}}{% endif %}
+        </td>
+        <td align="right">
+            <label  for="Email_1">{{content['general_text']['sas_email']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['4']['Email'] is defined %}{{content['contrato']['Contactos']['4']['Email']}}{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label  for="ApellidoMaterno_1">{{content['general_text']['sas_apellidoMaterno']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['4']['ApellidoMaterno'] is defined %}{{content['contrato']['Contactos']['4']['ApellidoMaterno']}}{% endif %}
+        </td>
+        <td align="right">
+            <label for="Telefono_1">{{content['general_text']['sas_telefono']}}</label>
+        </td>
+        <td>
+            {% if content['contrato']['Contactos']['4']['Telefono'] is defined %}{{content['contrato']['Contactos']['4']['Telefono']}}{% endif %}
+        </td>
+    </tr>
+    <tr><td style="width: 55%;">&nbsp;</td></tr>
+</table>
+{% set lang = content['lang'] %}
+<p>&nbsp;</p>
+<div style="padding-bottom: 9px;margin: 40px 0 20px;border-bottom: 1px solid #eee;color: black;font-size: 16px;">
+    {{content['section_text']['sas_miEmpresaEs']}}
+</div>
+<table cellspacing="3" cellpadding="3">
+    <tr>
+        <td>{{content['empresa_tipo']['Tipo' ~ lang|upper]}}</td>
+    </tr>
+</table>
+<p>&nbsp;</p>

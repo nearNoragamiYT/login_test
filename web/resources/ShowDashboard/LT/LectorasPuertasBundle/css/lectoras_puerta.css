@@ -1,0 +1,28 @@
+.container {
+    max-width: none;
+    width: 80%;
+}
+.space-label{
+    padding-bottom: 5px;
+}
+/*------------------------------------------------------------------------*/
+.paging_listbox > select{
+    height: 2rem !important;
+}
+.dataTables_length > label > select{
+    height: 2rem !important;
+}
+/*------------------------------------------------------------------------*/
+#delete-record-modal{
+    max-width: 30%;
+}
+
+.nota{
+    margin-top: 20px;
+    color: orange;
+    font-size: 15px;
+}
+
+#add-lectora-puerta-modal{
+    height: 50% !important;
+}

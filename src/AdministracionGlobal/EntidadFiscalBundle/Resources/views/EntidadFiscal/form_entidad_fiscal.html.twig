@@ -1,0 +1,128 @@
+<div id="mdl_billing_entity" class="modal">
+    <div class="modal-content">
+        <h4>{{content['general_text']['sas_entidadFiscal']}}</h4>
+        <div class="divider"></div>
+        <div class="modal-body">
+            <div class="row">
+                <form id="frm_billing_entity" class="col col s12 m6 l6 offset-m3 offset-l3">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="RazonSocial" name="RazonSocial" type="text" class="validate" maxlength="100">
+                            <label for="RazonSocial">{{content['general_text']['sas_razonSocial']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="RFC" name="RFC" type="text" class="validate" >
+                            <label for="RFC">{{content['general_text']['sas_rfc']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="RepresentanteLegal" name="RepresentanteLegal" type="text" class="validate" >
+                            <label for="RepresentanteLegal">{{content['section_text']['sas_representanteLegal']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="Email" name="Email" type="text" class="validate" >
+                            <label for="Email">{{content['general_text']['sas_email']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="Pais" class="active">{{ content['general_text']['sas_pais'] }}</label>
+                            {% if content['paises'] is defined and content['paises']|length > 0 %}
+                                <select id="idPais" 
+                                        name="idPais"
+                                        class="browser-default validate"
+                                        loader-element=".progress-estado"
+                                        >
+                                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                    {% for pais in content['paises'] %}
+                                        <option value="{{ pais['idPais'] }}">{{ pais['Pais_' ~ lang|upper] }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="Estado" class="active">{{ content['general_text']['sas_estado'] }}</label>
+                            <select id="idEstado" name="idEstado" class="browser-default validate">
+                                <option value="">{{ content['general_text']['sas_sinOpcion'] }}</option>
+                                {% if content['estados'] is defined and content['estados']|length > 0 %}
+                                    {% for estado in content['estados'] %}
+                                        <option value="{{ estado['idEstado'] }}">{{ estado['Estado'] }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                            <div class="progress-estado">
+                                <div class="progress"><div class="determinate"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="CodigoPostal" 
+                                   name="CodigoPostal"
+                                   type="text" 
+                                   class="validate" 
+                                   loader-element=".progress-pecc"
+                                   autocomplete="off"
+                                   >
+                            <label for="CodigoPostal">{{content['general_text']['sas_codigoPostal']}}</label>
+                            <div class="progress-pecc">
+                                <div class="progress"><div class="determinate"></div></div>
+                            </div>
+                        </div>    
+                    </div>        
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="Ciudad" name="Ciudad" type="text" class="validate" >
+                            <label for="Ciudad">{{content['general_text']['sas_ciudad']}}</label>
+                        </div>
+                    </div>
+                        <div class="row">
+                        <div class="input-field col s12">
+                            <input id="Colonia" name="Colonia" type="text" class="validate" >
+                            <label for="Colonia">{{content['general_text']['sas_colonia']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="Delegacion" name="Delegacion" type="text" class="validate" >
+                            <label for="Delegacion">{{content['general_text']['sas_delegacion']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="Calle" name="Calle" type="text" class="validate" >
+                            <label for="Calle">{{content['general_text']['sas_calle']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="NumeroExterior" name="NumeroExterior" type="text" class="validate" >
+                            <label for="NumeroExterior">{{content['general_text']['sas_numeroExterior']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="NumeroInterior" name="NumeroInterior" type="text" class="validate" >
+                            <label for="NumeroInterior">{{content['general_text']['sas_numeroInterior']}}</label>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="id" name="id" value="">
+                </form>
+            </div>
+
+        </div>
+    </div>
+                      
+    <div class="modal-footer">
+        <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</button>
+        <button id="add_entity" type="button" class="modal-action btn waves-effect waves-green green save-record">{{content['general_text']['sas_guardar']}}</button>
+    </div>
+</div>

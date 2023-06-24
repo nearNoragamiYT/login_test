@@ -1,0 +1,80 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/AdministracionGlobal/ModuloBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/modulo.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/nestable.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>{{content['general_text']['sas_modulo']}}</h5>
+        <div class="fixed-action-btn">
+            <button class="add-record btn-large btn-floating waves-effect waves-light right green tooltipped"
+                    data-position="top"
+                    data-tooltip="{{content['general_text']['sas_agregar']}} {{content['general_text']['sas_modulo']}}"
+                    >
+                <i class="material-icons " >add</i>
+            </button>
+        </div>
+
+        {% for plataforma in content['items'] %}
+            <div class="card-panel z-depth-1">
+                <div class="row">
+                    <div class="col s12">
+                        <span class="card-header">{{ plataforma['PlataformaIxpo'] }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        {% if plataforma['Modulos']|length > 0 %}
+                            <ol class="dd dd-list">
+                                {% for modulo in plataforma['Modulos'] %}
+                                    <li class="dd-item dd3-item" data-id="{{ modulo['idModuloIxpo'] }}">
+                                        <i class="material-icons dd-handle dd3-handle">drag_handle</i> 
+                                        <div class="dd3-content">
+                                            {{ modulo['ModuloIxpo'] }}
+                                            <i class="material-icons edit-modulo right" id-modulo="{{ modulo['idModuloIxpo'] }}">edit</i>
+                                        </div>
+                                        {% if modulo['SubModulos']|length > 0 %}
+                                            <ol class="dd-list">
+                                                {% for submodulo in modulo['SubModulos'] %}
+                                                    <li class="dd-item dd3-item" data-id="{{ submodulo['idModuloIxpo'] }}">
+                                                        <i class="material-icons dd-handle dd3-handle">drag_handle</i>
+                                                        <div class="dd3-content">
+                                                            {{ submodulo['ModuloIxpo'] }}
+                                                            <i class="material-icons edit-modulo right" id-modulo="{{ submodulo['idModuloIxpo'] }}">edit</i>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ol>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>                    
+        {% endfor %}
+    </div>
+
+    {% include 'AdministracionGlobalModuloBundle:Modulo:form_modulo.html.twig' %}
+    {% include 'AdministracionGlobalModuloBundle:Modulo:confirm_modulo.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var pl = {{ content['pl']|length ? content['pl']|json_encode()|raw : '{}' }};
+        var url_update = '{{path('modulo_editar')}}';
+        var items = {{ content['items']|length ? content['items']|json_encode()|raw : '{}' }};
+        var modulos = {{ content['mo']|length ? content['mo']|json_encode()|raw : '{}' }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.nestable.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/modulo.js') }}"></script>
+{% endblock %}

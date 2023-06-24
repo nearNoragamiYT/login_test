@@ -1,0 +1,24 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-email", "fixed": true, "size": "", "color": "green", "idButton": "send-email" } %}
+{% block title %}{{content['section_text']['sas_enviarEmail']}}{% endblock %}
+{% block body %}
+    <div class="col s12">
+        <p>
+            <span class="margin-right">{{content['section_text']['sas_nombreComercial']}}</span> <span id="company-name"></span>
+            <span id="status-send" ></span>
+        </p>
+        <p>
+            <span class="margin-right">{{content['section_text']['sas_pais']}}</span> <span id="company-country"></span>
+        <div class="input-field col s12">
+            <input type="text" id="subject" name="subject">
+            <label for="subject">{{content['section_text']['sas_asunto']}}</label>
+        </div>
+        <label for="email"></label>
+        <div class="col s12">
+            <textarea name="email" id="email" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_enviar']}}
+{% endblock %}

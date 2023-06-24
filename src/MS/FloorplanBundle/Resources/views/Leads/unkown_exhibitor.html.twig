@@ -1,0 +1,58 @@
+{% extends "MSFloorplanBundle:exAccess:base.html.twig" %}
+{% set ruta_asset = 'resources/ShowDashboard/FP/FloorplanBundle/' %}
+{% block styles %}
+    {{parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/supported_browsers/supportedbrowsers.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="supported-browsers" >
+        <div class="supported-browsers-content">
+            <img src="{{ asset('images/infoexpo.png') }}" alt="infoexpo" />
+            <h3>¡Lo sentimos!</h3>
+            <label><span class="ui-icon ui-icon-info" style="display: inline-block;vertical-align: middle;margin: 0px 4px;"></span></label>
+            <div class="content-browser">
+                <div class="browser">
+                    <h5>Tu sesión pudo haber termina o accediste a un link obsoleto.</h5>
+                    <h5>Para poder acceder, ingresa desde la plataforma ED, para consultar este modulo.</h5>
+                    <h5>Esta pestaña se cerrara en 30 segundos.</h5>
+                    <h5 id="seconds">30</h5>
+                    <script type="text/javascript">
+                        var secondsLabel = document.getElementById("seconds");
+                        var totalSeconds = 30;
+                        setInterval(setTime, 1000);
+
+                        function setTime()
+                        {
+
+                            if (totalSeconds === 0) {
+                                closeMe();
+                            } else {
+                                --totalSeconds;
+                                secondsLabel.innerHTML = pad(totalSeconds % 60);
+                            }
+                        }
+
+                        function closeMe()
+                        {
+                            window.opener = self;
+                            window.close();
+                        }
+
+                        function pad(val)
+                        {
+                            var valString = val + "";
+                            if (valString.length < 2)
+                            {
+                                return "0" + valString;
+                            } else
+                            {
+                                return valString;
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+{%endblock %}

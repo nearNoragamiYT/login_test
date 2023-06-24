@@ -1,0 +1,730 @@
+{% extends 'WizardWizardBundle:Wizard:showWizard.html.twig' %}
+
+{% set ruta_asset_section = 'resources/Wizard/EdicionBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset_section ~ 'css/edicion.css') }}">
+{% endblock %}
+
+{% block content_step %}
+    <section id="wizard-edicion">
+        <h5 class="wizard-title-step">{{ content['section_text']['sas_tituloPaso6'] }}</h5>
+        <div class="ediciones" {% if content['ediciones']|length == 0 %}style="display: none;"{% endif %}>
+            {% for evento in content['eventos'] %}
+                <div class="row">
+                    <div class="col s12"><label class="nombre-evento">{{ evento['Evento_ES'] }}</label></div>
+                </div>
+                <div class="row event-section">
+                    {% for edicion in content['ediciones'] if edicion['idEvento'] == evento['idEvento'] %}
+                        <div class="col s12 m6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="fixed-action-btn horizontal click-to-toggle right">
+                                        <a class="btn-floating waves-effect transparent z-depth-0">
+                                            <i class="material-icons black-text ">more_vert</i>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a class="btn-floating blue white-text">
+                                                    <i class="material-icons edit" 
+                                                       id-edicion="{{ edicion['idEdicion'] }}"
+                                                       title="{{ content['general_text']['sas_editar'] }}"
+                                                       >edit</i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="btn-floating red white-text">
+                                                    <i class="material-icons delete" 
+                                                       id-edicion="{{ edicion['idEdicion'] }}"
+                                                       title="{{ content['general_text']['sas_eliminar'] }}"
+                                                       >delete_forever</i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <span class="card-title"><h5>{{ edicion['Edicion_ES'] }}</h5></span>
+                                    <p> {{ edicion['FechaInicio']|date("d/m/Y") }} - {{ edicion['FechaInicio']|date("d/m/Y") }}</p>
+                                    <p class="secondary-info grey-text justify-align">{{ edicion['Descripcion'] }}</p>
+                                    <p class="bottom-info">
+                                        {% if edicion['Edicion_ES'] != "" %}<img src="{{ asset('images/idioma/es.png') }}" alt="es" class="img-lang-available">{% endif %}
+                                        {% if edicion['Edicion_EN'] != "" %}<img src="{{ asset('images/idioma/en.png') }}" alt="en" class="img-lang-available">{% endif %}
+                                        {% if edicion['Edicion_FR'] != "" %}<img src="{{ asset('images/idioma/fr.png') }}" alt="fr" class="img-lang-available">{% endif %}
+                                        {% if edicion['Edicion_PT'] != "" %}<img src="{{ asset('images/idioma/pt.png') }}" alt="pt" class="img-lang-available">{% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col s12">{{ content['section_text']['sas_sinEdicion'] }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <div class="row event-section center-align">
+                <div class="col s12">
+                    <button type="button" class="btn waves-effect waves-light green btn-new-edi">{{ content['section_text']['sas_nuevaEdicion'] }} <i class="material-icons left">add</i></button>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="{{ path('wizard_evento') }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['general_text']['sas_atras'] }}</a>
+                <a href="{{ path('wizard_producto') }}" class="btn waves-effect waves-light green show-loader-top">{{ content['general_text']['sas_siguiente'] }}</a>
+            </div>
+        </div>
+        <div class="frm-edicion" {% if content['ediciones']|length > 0 %}style="display: none;"{% endif %}>
+            <form id="frm-edicion" action="{{ path('wizard_edicion') }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" 
+                       id="idEdicion" 
+                       name="idEdicion"
+                       >
+                <input type="hidden" 
+                       id="idComiteOrganizador" 
+                       name="idComiteOrganizador"
+                       {% if content['configuration']['idComiteOrganizador'] is defined %}
+                           value="{{ content['configuration']['idComiteOrganizador'] }}"
+                       {% endif %}
+                       >
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <select id="idEvento" name="idEvento" class="browser-default">
+                            {% for evento in content['eventos'] %}
+                                <option value="{{ evento['idEvento'] }}">{{ evento['Evento_ES'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <label class="active">{{ content['general_text']['sas_evento'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="Abreviatura" 
+                               name="Abreviatura"
+                               type="text" 
+                               class="validate" 
+                               >
+                        <label for="FechaInicio">{{ content['section_text']['sas_abreviaturaEdicion'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m3">
+                        <input id="FechaInicio" 
+                               name="FechaInicio"
+                               type="text" 
+                               class="datepicker validate" 
+                               >
+                        <label for="FechaInicio">{{ content['section_text']['sas_fechaInicio'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m3">
+                        <input id="FechaFin" 
+                               name="FechaFin"
+                               type="text" 
+                               class="datepicker validate" 
+                               >
+                        <label for="FechaFin">{{ content['section_text']['sas_fechaFin'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="KeyEncriptacion" 
+                               name="KeyEncriptacion"
+                               type="text" 
+                               class="validate" 
+                               >
+                        <label for="KeyEncriptacion">{{ content['section_text']['sas_keyEncriptacion'] }}</label>
+                        <button type="button" class="btn btn-sm waves-effect waves-light right btn-generate-encryption-key">{{ content['general_text']['sas_generar'] }} <i class="material-icons left">enhanced_encryption</i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 character-counter">
+                        <textarea 
+                            id="Descripcion" 
+                            name="Descripcion" 
+                            class="materialize-textarea validate"
+                            length="500"
+                            ></textarea>
+                        <label for="Descripcion">{{ content['section_text']['sas_descripcionEvento'] }}</label>
+                    </div>
+                </div>
+                <div class="edition-section-title">
+                    <img src="{{ asset('images/idioma/es.png') }}" alt="es" class="img-lang">
+                    {{ content['general_text']['sas_es'] }}
+                    <div class="switch right">
+                        <label><input type="checkbox" checked disabled><span class="lever"></span></label>
+                    </div>
+                </div>
+                <div class="edition-section" lang="es">
+                    <div class="row">
+                        <div class="col s12 m8">
+                            <div class="input-field">
+                                <input id="Edicion_ES" 
+                                       name="Edicion_ES"
+                                       type="text" 
+                                       class="validate" 
+                                       >
+                                <label for="Edicion_ES">{{ content['section_text']['sas_nombreEdicion_ES'] }})</label>
+                            </div>
+                            <div class="input-field">
+                                <input id="Slogan_ES" 
+                                       name="Slogan_ES"
+                                       type="text" 
+                                       class="validate" 
+                                       >
+                                <label for="Slogan_ES">{{ content['section_text']['sas_slogan_ES'] }}</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m4">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-es" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_ES_1" 
+                                           name="Logo_ES_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-es"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_ES_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-es" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_ES_1" 
+                                           name="Logo_ES_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-es"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_ES_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-2-es" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_ES_2" 
+                                           name="Logo_ES_2"
+                                           class="validate"
+                                           rel-preview="preview-image-2-es"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_ES_2_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-3-es" 
+                                     src="{{ asset('images/no-image.png') }}"
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_ES_3" 
+                                           name="Logo_ES_3"
+                                           class="validate"
+                                           rel-preview="preview-image-3-es"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_ES_3_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                    </div>
+                </div>
+
+                <div class="edition-section-title">
+                    <img src="{{ asset('images/idioma/en.png') }}" alt="en" class="img-lang">
+                    {{ content['general_text']['sas_en'] }}
+                    <div class="switch right">
+                        <label><input type="checkbox" id="lang-en" name="lang" value="en"><span class="lever"></span></label>
+                    </div>
+                </div>
+                <div class="edition-section" lang="en">
+                    <div class="row">
+                        <div class="col s12 m8">
+                            <div class="input-field">
+                                <input id="Edicion_EN" 
+                                       name="Edicion_EN"
+                                       type="text" 
+                                       class="validate" 
+                                       >
+                                <label for="Edicion_EN">{{ content['section_text']['sas_nombreEdicion_EN'] }})</label>
+                            </div>
+                            <div class="input-field">
+                                <input id="Slogan_EN" 
+                                       name="Slogan_EN"
+                                       type="text" 
+                                       class="validate" 
+                                       >
+                                <label for="Slogan_EN">{{ content['section_text']['sas_slogan_EN'] }}</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m4">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-en" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_EN_1" 
+                                           name="Logo_EN_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-en"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_EN_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-en" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_EN_1" 
+                                           name="Logo_EN_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-en"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_EN_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-2-en" 
+                                     src="{{ asset('images/no-image.png') }}"
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_EN_2" 
+                                           name="Logo_EN_2"
+                                           class="validate"
+                                           rel-preview="preview-image-2-en"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_EN_2_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-3-en" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_EN_3" 
+                                           name="Logo_EN_3"
+                                           class="validate"
+                                           rel-preview="preview-image-3-en"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_EN_3_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                    </div>
+                </div>
+
+                <div class="edition-section-title">
+                    <img src="{{ asset('images/idioma/fr.png') }}" alt="fr" class="img-lang">
+                    {{ content['general_text']['sas_fr'] }}
+                    <div class="switch right">
+                        <label><input type="checkbox" id="lang-fr" name="lang" value="fr"><span class="lever"></span></label>
+                    </div>
+                </div>
+                <div class="edition-section" lang="fr">
+                    <div class="row">
+                        <div class="col s12 m8">
+                            <div class="input-field">
+                                <input id="Edicion_FR" 
+                                       name="Edicion_FR"
+                                       type="text" 
+                                       class="validate" 
+                                       >
+                                <label for="Edicion_FR">{{ content['section_text']['sas_nombreEdicion_FR'] }})</label>
+                            </div>
+                            <div class="input-field">
+                                <input id="Slogan_FR" 
+                                       name="Slogan_FR"
+                                       type="text" 
+                                       class="validate" 
+                                       >
+                                <label for="Slogan_FR">{{ content['section_text']['sas_slogan_FR'] }}</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m4">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-fr" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_FR_1" 
+                                           name="Logo_FR_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-fr"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_FR_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-fr" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_FR_1" 
+                                           name="Logo_FR_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-fr"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_FR_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-2-fr" 
+                                     src="{{ asset('images/no-image.png') }}"
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_FR_2" 
+                                           name="Logo_FR_2"
+                                           class="validate"
+                                           rel-preview="preview-image-2-fr"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_FR_2_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-3-fr" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_FR_3" 
+                                           name="Logo_FR_3"
+                                           class="validate"
+                                           rel-preview="preview-image-3-fr"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_FR_3_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                    </div>
+                </div>
+
+                <div class="edition-section-title">
+                    <img src="{{ asset('images/idioma/pt.png') }}" alt="pt" class="img-lang">
+                    {{ content['general_text']['sas_pt'] }}
+                    <div class="switch right">
+                        <label><input type="checkbox" id="lang-pt" name="lang" value="pt"><span class="lever"></span></label>
+                    </div>
+                </div>
+                <div class="edition-section" lang="pt">
+                    <div class="row">
+                        <div class="col s12 m8">
+                            <div class="input-field">
+                                <input id="Edicion_PT" 
+                                       name="Edicion_PT"
+                                       type="text" 
+                                       class="validate" 
+                                       >
+                                <label for="Edicion_PT">{{ content['section_text']['sas_nombreEdicion_PT'] }})</label>
+                            </div>
+                            <div class="input-field">
+                                <input id="Slogan_PT" 
+                                       name="Slogan_PT"
+                                       type="text" 
+                                       class="validate" 
+                                       >
+                                <label for="Slogan_PT">{{ content['section_text']['sas_slogan_PT'] }}</label>
+                            </div>
+                        </div>
+                        <div class="col s12 m4">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-pt" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_PT_1" 
+                                           name="Logo_PT_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-pt"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_PT_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-1-pt" 
+                                     src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_PT_1" 
+                                           name="Logo_PT_1"
+                                           class="validate"
+                                           rel-preview="preview-image-1-pt"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_PT_1_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-2-pt" 
+                                     src="{{ asset('images/no-image.png') }}"
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_PT_2" 
+                                           name="Logo_PT_2"
+                                           class="validate"
+                                           rel-preview="preview-image-2-pt"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_PT_2_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                        {#<div class="col s12 m4 input-field">
+                            <div class="content-image-preview col s12">
+                                <img id="preview-image-3-pt" 
+                                         src="{{ asset('images/no-image.png') }}" 
+                                     alt="Logo" 
+                                     class="co-logo"
+                                     >
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn btn-medium col s12 m3">
+                                    <span>{{ content['section_text']['sas_logo'] }}</span>
+                                    <input type="file" 
+                                           id="Logo_PT_3" 
+                                           name="Logo_PT_3"
+                                           class="validate"
+                                           rel-preview="preview-image-3-pt"
+                                           >
+                                </div>
+                                <div class="file-path-wrapper col s12 m9">
+                                    <input id="Logo_PT_3_name" 
+                                           class="file-path validate" 
+                                           type="text"
+                                           >
+                                </div>
+                            </div>
+                        </div>#}
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    {% if content['ediciones']|length > 0 %}
+                        <button type="button" class="btn-link waves-effect btn-flat left btn-cancel-submit">{{ content['general_text']['sas_cancelar'] }}</button>
+                    {% else %}
+                        <a href="{{ path('wizard_evento') }}" class="btn-link waves-effect btn-flat left">{{ content['general_text']['sas_atras'] }}</a>
+                    {% endif %}
+                    <button type="submit" class="btn waves-effect waves-light green">
+                        {% if content['ediciones']|length > 0 %}
+                            {{ content['general_text']['sas_guardar'] }}
+                        {% else %}
+                            {{ content['general_text']['sas_siguiente'] }}
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <div id="modal-delete-edicion" class="modal">
+        <form id="frm-edicion-eliminar" action="{{ path('wizard_edicion_eliminar') }}" method="post">
+            <input type="hidden" id="idEdicion" name="idEdicion" value="" >
+            <div class="modal-content">
+                <h4>{{ content['section_text']['sas_eliminarEdicion'] }}</h4>
+                <p>{{ content['section_text']['sas_eliminarEdicionAdvertencia'] }} "<b class="edicion"></b>"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_cancelar'] }}</button>
+                <button type="submit" class="btn waves-effect waves-light red show-loader-wrapper">{{ content['general_text']['sas_eliminar'] }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var eventos = {{ content['eventos']|length ? content['eventos']|json_encode()|raw : '{}' }};
+                var ediciones = {{ content['ediciones']|length ? content['ediciones']|json_encode()|raw : '{}' }};
+        var path_logo_base = "{{ asset("images/logos-co/header/") }}";
+        var path_no_image = "{{ asset("images/no-image.png") }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/translations-date/' ~ lang ~ '.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset_section ~ 'js/edicion.js') }}"></script>
+{% endblock %}

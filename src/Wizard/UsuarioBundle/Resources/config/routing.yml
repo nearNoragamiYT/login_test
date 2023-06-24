@@ -1,0 +1,7 @@
+wizard_usuario:
+    path:     /asistente/usuario
+    defaults: { _controller: WizardUsuarioBundle:Usuario:usuario }
+
+wizard_usuario_eliminar:
+    path:     /asistente/usuario/eliminar
+    defaults: { _controller: WizardUsuarioBundle:Usuario:usuarioEliminar }

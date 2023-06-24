@@ -1,0 +1,29 @@
+.container {
+    max-width: none;
+    width: 90%;
+}
+.space-label{
+    padding-bottom: 5px;
+}
+/*------------------------------------------------------------------------*/
+.paging_listbox > select{
+    height: 2rem !important;
+}
+.dataTables_length > label > select{
+    height: 2rem !important;
+}
+/*-----------------------------------------------------------------------*/
+#delete-record-modal{
+    max-width: 30%;
+}
+#changePassword:hover{
+    color: #26A69A;
+    cursor: pointer;
+}
+#change-contact-modal{
+    height: 35% !important;
+}
+h5 a{
+    font-size: .83rem !important;
+    padding: 0rem .7rem !important;
+}

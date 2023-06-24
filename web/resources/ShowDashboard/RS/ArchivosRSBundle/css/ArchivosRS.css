@@ -1,0 +1,42 @@
+#archivo {
+    width: 100px !important;
+}
+
+#archivoVisitanteTipo {
+    width: 100px !important;
+}
+#fileSelector {
+    margin: -24px;
+    margin-bottom: 20px;
+    height: 56px;
+}
+
+#archivo_visitanteTipo{
+    width: 100px !important;
+}
+
+#fileSelected_visitanteTipo{
+    margin: -24px;
+    margin-bottom: 20px;
+    height: 56px;
+}
+
+#HeaderArchivosBD{
+    margin-top: -17px !important;
+    margin-bottom: -34px !important;
+}
+
+#HeaderArchivosVT{
+    margin-top: -17px !important;
+    margin-bottom: -34px !important;
+}
+
+#archivo_rsTexto {
+    width: 100px !important;
+}
+
+/*#Puerta {
+    margin-top: 135px !important;
+}*/
+
+

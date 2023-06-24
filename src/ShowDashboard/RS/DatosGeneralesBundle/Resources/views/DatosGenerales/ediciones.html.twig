@@ -1,0 +1,53 @@
+<div class="card">
+    <table class="responsive-table resumen-edicion">
+        <thead>
+            <tr>
+
+                <th>{{ content['general_text']['ae_idVisitante'] }}</th>
+                <th>{{ content['general_text']['ae_evento'] }}</th>
+                <th>{{ content['general_text']['ae_edicion'] }}</th>
+                <th>{{ content['general_text']['ae_tipoVisitante'] }}</th>
+                <th>{{ content['general_text']['ae_encuestaCompleta'] }}</th>
+                <th>{{ content['general_text']['ae_preregistrado'] }}</th>
+                <th>{{ content['general_text']['ae_fechaPreregistro'] }}</th>
+                <th>{{ content['general_text']['ae_asistencia'] }}</th>
+                <th>{{ content['general_text']['ae_fechaAsistencia'] }}</th>        
+            </tr>
+        </thead>
+        <tbody>
+
+            {% if ( content['visitante']|length > 0) %}
+
+                {% for ediciones in content['visitante']['EdicionesVisitante'] %}
+                    <tr>
+                        <td>{{ ediciones['idVisitante'] }}</td>
+
+                        {% for evento in content['Evento'] if ediciones['idEvento'] ==  evento['idEvento']%} 
+                            <td>{{ evento['Evento_ES'] }}</td>
+                        {% endfor %}
+
+                        {% for edicion in content['Edicion'] if ediciones['idEdicion'] ==  edicion['idEdicion']%} 
+                            <td>{{ edicion['Edicion_ES'] }}</td>
+                        {% endfor %}
+
+                        {% for tipo in content['visitanteTipo'] if ediciones['idVisitanteTipo'] ==  tipo['idVisitanteTipo']%} 
+                            <td>{{ tipo['VisitanteTipoES'] }}</td>
+                        {% endfor %}
+
+                        <td>{{ ediciones['EncuestaCompleta'] }}</td>
+                        <td>{{ ediciones['Preregistrado'] }}</td>
+                        <td>{{(ediciones['FechaPreregistro'] != '') ? ediciones['FechaPreregistro']|date('d/m/Y g:i:s:a')  : 'No Disponible' }}</td>
+                        {#<td>{{ ediciones['Asistencia'] }}</td>#}
+                        {#<td>{{(ediciones['FechaAsistencia'] != '') ? ediciones['FechaAsistencia']|date('d/m/Y g:i:s:a')  : 'No Disponible' }}</td>#}
+
+
+                    <tr>
+                    {% endfor %}
+                {% else %} 
+                    <td colspan="9" style="text-align:center;"> Sin Ediciones </td>
+                {% endif %}
+
+
+        </tbody>
+    </table>
+</div>

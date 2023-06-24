@@ -1,0 +1,117 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/SolicitudPaqueteBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/solicitud.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/responsive.dataTables.min.css') }}" media="screen,projection"/>
+{% endblock %}
+{% block content %}
+    <section>
+        <div class="row card-panel">
+            <h5>{{content['section_text']['sas_solicitudesPaquetes']}}</h5>
+            <table id="requests" class="highlight bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>{{content['section_text']['sas_estatus']}}</th>
+                        <th>{{content['section_text']['sas_paqueteSolicitado']}}</th>
+                        <th>{{content['section_text']['sas_paqueteAsignado']}}</th>
+                        <th>{{content['section_text']['sas_nombreComercial']}}</th>
+                        <th>{{content['section_text']['sas_nombreContacto']}}</th>
+                        <th>{{content['section_text']['sas_email']}}</th>
+                        <th>{{content['section_text']['sas_telefono']}}</th>
+                        <th class="all"></th>
+                        <th class="all"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in content['solicitudes'] %}
+                        {% if item['Status'] == 1 %}
+                            {% set status = content['section_text']['sas_nueva']%}
+                            {% set status_color = 'blue-grey' %}
+                        {% elseif item['Status'] == 2 %}
+                            {% set status = content['section_text']['sas_aprobada']%}
+                            {% set status_color = 'green' %}
+                        {% elseif item['Status'] == 3 %}
+                            {% set status = content['general_text']['sas_cancelada']%}
+                            {% set status_color = 'deep-orange' %}
+                        {% elseif item['Status'] == 4 %}
+                            {% set status = content['section_text']['sas_rechazada']%}
+                            {% set status_color = 'red' %}
+                        {% endif %}
+                        <tr>
+                            <td data-search="{{status}}" data-order="{{status}}">
+                                <span id="request-status-{{item['idSolicitudPaquete']}}" class="request-status new badge {{status_color}}" data-badge-caption="{{status}}">
+                                </span>
+                            </td>
+                            <td>{{content['paquetes'][item['idPaquete']]['Paquete' ~ content['lang']|upper]}}</td>
+                            <td id="package-{{item['idSolicitudPaquete']}}">{{content['paquetes'][item['PaqueteActual']]['Paquete' ~ content['lang']|upper]}}</td>
+                            <td>{{item['DC_NombreComercial']}}</td>
+                            <td>{{item['NombreCompleto']}}</td>
+                            <td>{{item['Email']}}</td>
+                            <td>{{item['TelefonoCompleto']}}</td>
+                            <td>
+                                <i class="material-icons tooltipped edit-record approved-recod"
+                                   data-tooltip="{{content['section_text']['sas_aprobarSolicitud']}}"
+                                   data-position="left"
+                                   data-delay="50"
+                                   data-id="{{ item['idSolicitudPaquete'] }}">view_list</i>
+                            </td>
+                            <td>
+                                <i class="material-icons tooltipped email-record"
+                                   data-tooltip="{{content['section_text']['sas_enviarEmail']}}"
+                                   data-position="top"
+                                   data-delay="50"
+                                   data-id="{{ item['idSolicitudPaquete'] }}">email</i>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    {% include 'EmpresaSolicitudPaqueteBundle:SolicitudPaquete:detalle_solicitud.html.twig' %}
+    {% include 'EmpresaSolicitudPaqueteBundle:SolicitudPaquete:correo_solicitud.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/solicitud.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.responsive.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+                url_accept_package = "{{path('empresa_solicitud_paquete_aprobar_solicitud')}}",
+                url_cancel_package = "{{path('empresa_solicitud_paquete_cancelar_solicitud')}}",
+                url_send_mail = "{{path('empresa_solicitud_paquete_enviar_email')}}";
+
+        var requests = {{ content['solicitudes']|json_encode()|raw }},
+                packages = {{ content['paquetes']|json_encode()|raw }};
+        //--- Configuracion para el editor de textos del correo ---//
+        var tiny_emial = {
+            selector: "#email",
+            plugins: [
+                'advlist autolink lists link image anchor',
+                'searchreplace media table paste textcolor'
+            ],
+            toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify fontselect fontsizeselect',
+            toolbar2: 'bullist numlist outdent indent | link image | forecolor backcolor',
+            menubar: 'file edit insert format table tools',
+            height: 250,
+            statusbar: false
+        };
+        {% if content['lang'] == 'es' %}
+            {% set tinyLang = "es_MX" %}
+        {% elseif content['lang'] == 'fr' %}
+            {% set tinyLang = "fr_FR" %}
+        {% elseif content['lang'] == 'pt' %}
+            {% set tinyLang = "pt_BR" %}
+        {% endif %}
+        {% if tinyLang is defined %}
+            tiny_emial['language'] = "{{tinyLang}}";
+        {% endif %}
+            tinymce.init(tiny_emial);
+    </script>
+{% endblock %}

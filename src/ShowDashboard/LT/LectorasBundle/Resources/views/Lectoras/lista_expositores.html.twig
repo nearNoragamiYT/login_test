@@ -1,0 +1,49 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/LT/LectorasBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/lectoras.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {# Inicio Filtros #}
+        <div id="search-icon" style="">
+            <i class="material-icons" id="icon-search">search</i>
+            <label style="margin-left: 10px; font-size: 1.3rem;">{{ content["general_text"]["sas_filtros"] }}:</label><br>
+        </div>
+        <div id="active-filters" style="margin-top: 42px;"></div>
+        {# Fin Filtros #}
+        <div class="row" style="margin-bottom: 25px;">
+            <table id="exhibitors-table" class="highlight striped">
+                <thead class="grey lighten-3"></thead>
+                <tbody></tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+    </div>
+
+    {% include 'ShowDashboardLTLectorasBundle:Lectoras:filtros.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var url_lang = "{{ asset('js/dataTablesLang/' ~ lang ~ '.json') }}";
+                var active_filters = {{ content['filters_post'] | json_encode() | raw }};
+                var exhibitors = {{ content['exhibitors'] | json_encode() | raw }};
+                var exhibitors_metadata = {{ content['exhibitorsMetaData']['fields'] | json_encode() | raw }};
+                var count = {{ content['count'] }};
+        var url_edit_empresa_data = "{{ path("show_dashboard_lt_solicitud_lectoras_mostrar") }}";
+        var url_exhibitors_filters = "{{ path("lista_expositores_get_filters")}}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/lectoras.js') }}"></script>
+{% endblock %}
+
+

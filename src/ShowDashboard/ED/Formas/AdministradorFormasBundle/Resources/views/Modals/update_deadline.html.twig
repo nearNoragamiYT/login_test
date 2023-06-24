@@ -1,0 +1,16 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-deadline", "fixed": true, "size": "modal-m", "color": "blue", "textColor": "white-text", "confirmCancel": true, "idButton": "send-deadline" } %}
+{% block title %}{{content['section_text']['sas_fechaLimiteModal']}}{% endblock %}
+{% block body %}
+    <form id="form-deadline" class="row">
+        <div class="input-field col s8 push-s2">
+            <i class="fa fa-calendar prefix"></i>
+            <input id="deadline" type="text" name="deadline" class="datepicker">
+            <label for="deadline" class="">{{content['general_text']['sas_fechaLimite']}}</label>
+            <span id="delete-deadline" class="btn btn-flat waves-effect waves-gray red-text right">{{content['section_text']['sas_eliminarFechaLimite']}}</span>
+        </div>
+        <span id='error-deadline' class='col s12 align-right'></span>
+    </form>
+{% endblock%}
+{#% block button %}
+{% endblock%#}

@@ -1,0 +1,15 @@
+evento:
+    path:     /administracion-global/evento
+    defaults: { _controller: AdministracionGlobalEventoBundle:Evento:listaEventos }
+
+evento_nuevo:
+    path:     /administracion-global/evento/nuevo
+    defaults: { _controller: AdministracionGlobalEventoBundle:Evento:eventoNuevo }
+
+evento_editar:
+    path:     /administracion-global/evento/editar
+    defaults: { _controller: AdministracionGlobalEventoBundle:Evento:eventoEditar }
+
+evento_eliminar:
+    path:     /administracion-global/evento/eliminar
+    defaults: { _controller: AdministracionGlobalEventoBundle:Evento:eventoEliminar }

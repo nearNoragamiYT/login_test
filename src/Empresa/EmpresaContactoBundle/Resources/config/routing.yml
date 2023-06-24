@@ -1,0 +1,23 @@
+empresa_empresa_contacto_general:
+    path:     /empresa/empresa-contacto-general/{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaContactoBundle:EmpresaContacto:generalContacts,idEmpresa: 0 }
+    
+empresa_empresa_contacto_edicion:
+    path:     /empresa/empresa-contacto-edicion/{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaContactoBundle:EmpresaContacto:editionContacts,idEmpresa: 0 }
+
+empresa_empresa_contacto_agregar:
+    path:     /empresa/empresa-contacto-agregar
+    defaults: { _controller: EmpresaEmpresaContactoBundle:EmpresaContacto:addContact }
+
+empresa_empresa_contacto_editar:
+    path:     /empresa/empresa-contacto-editar
+    defaults: { _controller: EmpresaEmpresaContactoBundle:EmpresaContacto:updateContact }
+
+empresa_empresa_contacto_borrar:
+    path:     /empresa/empresa-contacto-borrar
+    defaults: { _controller: EmpresaEmpresaContactoBundle:EmpresaContacto:deleteContact }
+    
+empresa_empresa_contacto_cambiar:
+    path:     /empresa/empresa-contacto-cambiar
+    defaults: { _controller: EmpresaEmpresaContactoBundle:EmpresaContacto:changeContact }

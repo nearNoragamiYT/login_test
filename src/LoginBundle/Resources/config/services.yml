@@ -1,0 +1,5 @@
+services:
+    app.ixposuser_provider:
+        class: LoginBundle\Model\ProfileProvider
+    login.model:
+        class: LoginBundle\Model\LoginModel

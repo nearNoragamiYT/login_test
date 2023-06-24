@@ -1,0 +1,35 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Utilerias/AdministradorTextosBundle/' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/administrador_textos.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <nav class="purple">
+            <div class="nav-wrapper">
+                <div class="col s12">
+                    <a href="#!" id="comite" class="breadcrumb dropdown-breadcrumb white-text col s4" data-activates="down-comite"></i> Comité</a>
+                    <ul id="down-comite" class="dropdown-content">
+                        {% for comite in content['comite'] %}
+                            <li>
+                                <a href="{{path('utilerias_administrador_textos_comite', {idComite: comite.idComiteOrganizador})}}">
+                                    {{comite.ComiteOrganizador}}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/breadcrumb.js') }}"></script>
+{% endblock %}

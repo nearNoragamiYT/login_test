@@ -1,0 +1,3 @@
+services:
+    ed_configuration:
+        class: ShowDashboard\ED\Formas\ConfiguracionEDBundle\Model\ConfiguracionEDModel

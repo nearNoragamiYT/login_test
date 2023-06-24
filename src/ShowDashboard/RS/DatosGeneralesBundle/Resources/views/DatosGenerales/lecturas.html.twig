@@ -1,0 +1,37 @@
+<div class="card">
+    <table class="responsive-table resumen-lecturas">
+        <thead>
+            <tr>
+
+                <th>{{ content['general_text']['ae_idVisitante'] }}</th>
+                <th>{{ content['general_text']['ae_fechaAsistencia'] }}</th>
+                <th>{#{{ content['template_text']['ae_hora'] }}#}Hora</th>
+                <th>{#{{ content['template_text']['ae_badgeId'] }}#}BadgeID</th>
+                <th>{#{{ content['template_text']['ae_puerta'] }}#}Nombre Puerta</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            {% if ( content['visitante']|length > 0) %}
+
+            {% for lecturas in content['Lecturas']%}
+                <tr>
+                    <td>{{ lecturas['idVisitante'] }}</td>
+                    <td>{{  (lecturas['Fecha'] != '') ? lecturas['Fecha']|date('d/m/Y')  : 'No Disponible' }}</td>
+                    <td>{{  (lecturas['Hora'] != '') ? lecturas['Hora']|date('g:i:s:a') : 'No Disponible' }}</td>
+                    <td>{{ lecturas['BadgeID'] }}</td>
+                    <td>{{ lecturas['NombrePuerta'] }}</td>
+
+
+                <tr>
+                {% endfor %}
+                 {% else %} 
+                <td colspan="3" style="text-align:center;"> Sin Lecturas </td>
+                {% endif %}
+
+
+        </tbody>
+    </table>
+</div>

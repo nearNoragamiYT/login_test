@@ -1,0 +1,270 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/LT/EntregaLectorasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/entrega_lectoras.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+{% endblock %}
+{% block content %}
+    {% include 'ShowDashboardLTLectorasBundle:Lectoras:menu_secciones.html.twig' %}
+    <section>
+        {#--- header del submodulo ---#}
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <div class="col s7">
+                <h5>{{content["header"]["DC_NombreComercial"]}}</h5>
+                <h6>
+                    {% if not(content["header"]["idEtapa"] is defined) %}
+                        {{ content["section_text"]["sas_prospecto"] }}
+                    {% elseif content["header"]["idEtapa"] == 1 %}
+                        {{ content["section_text"]["sas_precontratos"] }}
+                    {% elseif content["header"]["idEtapa"] == 2 %}
+                        {{ content["section_text"]["sas_expositor"] }}
+                    {% endif %}
+                </h6>
+                {% if content["header"]["EMSTDListadoStand"] is defined %}
+                    <h6>{{ "Stands: " ~ content["header"]["EMSTDListadoStand"] }}</h6>
+                {% endif %}
+            </div>
+            <div class="col s5" style="text-align:right;">
+                {% if content["header"]["idPaquete"] is defined and content["header"]["idPaquete"] != "" %}
+                    <h5>{{ content["packages"][content["header"]["idPaquete"]]["Paquete" ~ content["lang"]|upper] }}</h5>
+                {% endif %}
+            </div>
+        </div>
+        <div id="flex" class="card-panel">
+            {#--- ventana de entrega de lectoras ---#}
+            {% if content['detalleEntrega']['Entrega'] is defined and content['detalleEntrega']['Entrega'] != "" %}
+                {% set entrega = content['detalleEntrega']['Entrega'] %}
+            {% endif %}
+            <div id="entrega">
+                <div class="row">
+                    <h5>{{content['section_text']['sas_entregaEquiposExpositor']}}</h5>
+                    <form action="POST" id="Entrega" name="Entrega">
+                        <div class="input-field col s12">
+                            <input autocomplete="off" type="text" id="Nombre" class="required validate" name="Nombre" value="{% if entrega['Nombre'] is defined and entrega['Nombre'] != "" %}{{entrega['Nombre']}}{% endif %}">
+                            <label for="Nombre">{{content['section_text']['sas_nombreRecibe']}}:</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input autocomplete="off" type="text" id="Celular" class="required number validate" name="Celular" value="{% if entrega['Celular'] is defined and entrega['Celular'] != "" %}{{entrega['Celular']}}{% endif %}">
+                            <label for="Celular">{{content['section_text']['sas_celular']}}:</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input autocomplete="off" type="text" id="FechaEntrega" class="required datepicker" name="FechaEntrega" value="{% if entrega['FechaEntrega'] is defined and entrega['FechaEntrega'] != "" %}{{entrega['FechaEntrega']}}{% endif %}">
+                            <label for="FechaEntrega">{{content['section_text']['sas_fechaEntrega']}}:</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input autocomplete="off" type="text" id="Email" class="email" name="Email" value="{% if entrega['Email'] is defined and entrega['Email'] != "" %}{{entrega['Email']}}{% endif %}">
+                            <label for="Email">{{content['general_text']['sas_email']}}:</label>
+                        </div>
+                        <input type="hidden" id="Empresa" name="Empresa" value="{{content["header"]["DC_NombreComercial"]}}">
+                    </form>
+                    {#--- detalle de los equipos entragafos ---#}
+                    {% if content['detalleEntrega']['EquiposAdicionales'] is defined and content['detalleEntrega']['EquiposAdicionales'] != "" %}
+                        {% set equipos = content['detalleEntrega']['EquiposAdicionales'] %}
+                    {% endif %}
+                    {#--- detalle de los equipos entregados ---#}
+                    {% if content['detalleEntrega']['EquiposEntregados'] is defined and content['detalleEntrega']['EquiposEntregados'] != "" %}
+                        {% set equiposEntregados = content['detalleEntrega']['EquiposEntregados'] %}
+                    {% endif %}
+                    {#<div class="col s12 right-align">
+                        <span class="notificacion pago blue white-text">{{ content['StatusPago'][content['EMFO']['StatusPago']]['StatusPago'~content["lang"]|upper] }}</span>
+                    </div>#}
+                    {% if content['lectoras'] is defined and content['lectoras'] != "" %}
+                        <h5>{{content['section_text']['sas_equiposEntregados']}}</h5>
+                        <div class="col s12">
+                            <ul class="collapsible" data-collapsible="expandable">
+                                {% for idS,scanner in content['lectoras'] %}
+                                    <li>
+                                        <div class="collapsible-header active grey lighten-4">{{scanner.ScannerTipo}}<span class="notificacion grey lighten-4">{{scanner.CantidadScanners}} {{content['section_text']['sas_unidades']}}</span><span class="notificacion white-text blue right">{{scanner.PrecioScanner ~ " " ~ scanner.MonedaScanner ~ " c/u"}}</span></div>
+                                        <div class="collapsible-body row">
+                                            {% if scanner.Equipos is defined and scanner.Equipos != "" %}
+                                                {% for id,equipo in scanner.Equipos %}
+                                                    <div class="col s12 valign-wrapper">
+                                                        <div class="col s5">
+                                                            <p>
+                                                                {% set qty = 0 %}
+                                                                {% set tot = 0 %}
+                                                                {% set check = '' %}
+                                                                {% set disbled = 'disabled="disabled"' %}
+                                                                {% if equiposEntregados[idS]['Equipos'][id] is defined and equiposEntregados[idS]['Equipos'][id]|length > 0 %}
+                                                                    {#--- si ya guardó la info hace que el radio esté en checked ---#}
+                                                                    {% set disbled = "" %}
+                                                                    {% set check = 'checked="checked"' %}
+                                                                    {% set qty = equiposEntregados[idS]['Equipos'][id]["Cantidad"] %}
+                                                                    {% set tot = equiposEntregados[idS]['Equipos'][id]["Total"] %}
+                                                                {% else %}
+                                                                    {% if equiposEntregados is not  defined or equiposEntregados == "" %}
+                                                                        {#--- se muestra así por default si no ha guardado nada ---#}
+                                                                        {% set disbled = "" %}
+                                                                        {% set check = 'checked="checked"' %}
+                                                                        {% set qty = scanner.CantidadScanners %}
+                                                                        {% set tot = (equipo.Precio * scanner.CantidadScanners) %}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                                <input type="checkbox" class="filled-in equipos-entregados-{{idS}}" id="entrega-equipo-{{id}}" data-class="entrega" value="{{id}}" {{check}}/>
+                                                                <label for="entrega-equipo-{{id}}">{{equipo.EquipoAdicional}}</label>
+                                                            </p>
+                                                            <div class="descripcion">{{equipo.Descripcion}}</div>
+                                                        </div>
+                                                        <div class="input-field col s2">
+                                                            <input type="number" min="1" step="1" class="cantidad" data-class="entrega-total" data-precio="{{equipo.Precio}}" data-id="{{id}}" id="entrega-cantidad-{{id}}" {{disbled}} value="{{qty}}">
+                                                            <label for="entrega-cantidad-{{id}}">{{content['general_text']['sas_cantidad']}}</label>
+                                                        </div>
+                                                        <div class="col s3 center-align">
+                                                            <span class="notificacion white-text blue-grey">{{equipo.Precio ~ ' ' ~ equipo.Moneda}}</span>
+                                                        </div>
+                                                        <div class="input-field col s2">
+                                                            <input type="text" readonly = "readonly" class="entrega-total" id="entrega-total-{{id}}" value="{{tot}}">
+                                                            <label for="entrega-total-{{id}}">{{content['section_text']['sas_total']}}</label>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            {% else %}
+                                                <p style="padding: 10px">{{content['section_text']['sas_sinEquipos']}}</p>
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% if  content['lectoras']|length> 0 %}
+                            <div class="col s12">
+                                <span class="btn waves-effect waves-ligth green right" id="entregar">{{content['section_text']['sas_imprirResponsiva']}}</span>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            {#--- ventana de devolicion de las lectoras ---#}
+            {% if content['detalleEntrega']['Devolucion'] is defined and content['detalleEntrega']['Devolucion'] != "" %}
+                {% set devolucion = content['detalleEntrega']['Devolucion'] %}
+            {% endif %}
+            <div id="devolucion">
+                <div class="row">
+                    <h5>{{content['section_text']['sas_recepcionEquipos']}}</h5>
+                    <form action="POST" id="Devolucion" name="Devolucion" class="row">
+                        <div class="input-field col s12">
+                            <input autocomplete="off" type="text" id="Nombre" class="required validate" name="Nombre" value="{% if devolucion['Nombre'] is defined and devolucion['Nombre'] != "" %}{{devolucion['Nombre']}}{% endif %}">
+                            <label for="Nombre">{{content['section_text']['sas_nombreDevolucuion']}}:</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input autocomplete="off" type="text" id="idGafete" class="required validate number" name="idGafete" value="{% if devolucion['idGafete'] is defined and devolucion['idGafete'] != "" %}{{devolucion['idGafete']}}{% endif %}">
+                            <label for="idGafete">{{content['section_text']['sas_idGafete']}}:</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input autocomplete="off" type="text" id="FechaEntrega" class="required datepicker" name="FechaEntrega" value="{% if devolucion['FechaEntrega'] is defined and devolucion['FechaEntrega'] != "" %}{{devolucion['FechaEntrega']}}{% endif %}">
+                            <label for="FechaEntrega">{{content['section_text']['sas_fechaRecepcion']}}:</label>
+                        </div>
+                        <input type="hidden" id="Empresa" name="Empresa" value="{{content["header"]["DC_NombreComercial"]}}">
+                    </form>
+                    {#--- detalle de los equipos entragados ---#}
+                    {% if content['detalleEntrega']['EquiposAdicionales'] is defined and content['detalleEntrega']['EquiposAdicionales'] != "" %}
+                        {% set equipos = content['detalleEntrega']['EquiposAdicionales'] %}
+                    {% endif %}
+                    {#--- detalle de los equipos devueltos ---#}
+                    {% if content['detalleEntrega']['EquiposDevueltos'] is defined and content['detalleEntrega']['EquiposDevueltos'] != "" %}
+                        {% set equiposDevueltos = content['detalleEntrega']['EquiposDevueltos'] %}
+                    {% endif %}
+                    {#<div class="col s12 right-align">
+                        <span class="notificacion pago blue white-text">{{ content['StatusPago'][content['EMFO']['StatusPago']]['StatusPago'~content["lang"]|upper] }}</span>
+                    </div>#}
+                    {% if content['lectoras'] is defined and equiposEntregados is defined and content['lectoras'] != "" %}
+                        <h5>{{content['section_text']['sas_equiposDevueltos']}}</h5>
+                        <div class="col s12">
+                            <ul class="collapsible" data-collapsible="expandable">
+                                {% for idS,scanner in content['lectoras'] %}
+                                    {% set scannerDet = scanner.ScannerTipo %}
+                                    <li>
+                                        <div class="collapsible-header active grey lighten-4">
+                                            {{scannerDet}}
+                                            <span class="notificacion grey lighten-4">{{scanner.CantidadScanners}} {{content['section_text']['sas_unidades']}}</span><span class="notificacion white-text blue right">{{scanner.PrecioScanner ~ " " ~ scanner.MonedaScanner ~ " c/u"}}</span>
+                                        </div>
+                                        <div class="collapsible-body row">
+                                            {% if scanner.ScannerDetalle is defined and scanner.ScannerDetalle != "" %}
+                                                {% for idDet,detalle in scanner.ScannerDetalle %}
+                                                    {% set det = "" %}
+                                                    {% if detalle.CodigoScanner != "" %}
+                                                        {% set det = det ~ " / Codigo: "  ~  detalle.CodigoScanner %}
+                                                    {% endif %}
+                                                    {% set chk = '' %}
+                                                    {% if equiposDevueltos is defined and equiposDevueltos != "" %}
+                                                        {% if equiposDevueltos[idS]["ScannerDetalle"][idDet] is defined and equiposDevueltos[idS]["ScannerDetalle"][idDet] != "" %}
+                                                            {% set chk = 'checked="checked"' %}
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {% set chk = 'checked="checked"' %}
+                                                    {% endif %}
+                                                    <p style="padding: .2rem .5rem">
+                                                        <input type="checkbox" class="filled-in lectoras-devueltas-{{idS}}" id="devuelto-lectora-{{idDet}}" value="{{idDet}}" {{chk}}/>
+                                                        <label for="devuelto-lectora-{{idDet}}">{{(scannerDet ~ det)|raw}}</label>
+                                                    </p>
+                                                {% endfor %}
+                                            {% endif %}
+                                            {% if scanner.Equipos is defined and scanner.Equipos != "" %}
+                                                {% for id,equipo in scanner.Equipos %}
+                                                    {% set qty = 0 %}
+                                                    {% set tot = 0 %}
+                                                    {#--- si ya guardó la info hace que el radio esté en checked para hacer la recepcion por default de los equipos que se llevo el expositor y solo se muestra lo que se llevo ---#}
+                                                    {% if equiposEntregados[idS]['Equipos'][id] is defined and equiposEntregados[idS]['Equipos'][id]|length > 0 %}
+                                                        {% if equiposDevueltos[idS]['Equipos'][id] is defined and equiposDevueltos[idS]['Equipos'][id]|length > 0 %}
+                                                            {#--- en caso de que ya haya guardado los datos de los equipos entregados los totales se toman de ahí si no de los detalles de los que entrego ---#}
+                                                            {% set qty = equiposDevueltos[idS]['Equipos'][id]["Cantidad"] %}
+                                                            {% set tot = equiposDevueltos[idS]['Equipos'][id]["Total"] %}
+                                                        {% else %}
+                                                            {% set qty = equiposEntregados[idS]['Equipos'][id]["Cantidad"] %}
+                                                            {% set tot = equiposEntregados[idS]['Equipos'][id]["Total"] %}
+                                                        {% endif %}
+                                                        <div class="col s12 valign-wrapper">
+                                                            <p class="col s5">
+                                                                <input type="checkbox" class="filled-in equipos-devueltos-{{idS}}" id="devuelto-equipo-{{id}}" data-class="devuelto" value="{{id}}" checked="checked" disabled="disabled"/>
+                                                                <label for="devuelto-equipo-{{id}}">{{equipo.EquipoAdicional}}</label>
+                                                            </p>
+                                                            <div class="input-field col s2">
+                                                                <input type="number" min="0" max="{{equiposEntregados[idS]['Equipos'][id]["Cantidad"]}}" step="1" class="cantidad" data-class="devuelto-total" data-precio="{{equipo.Precio}}" data-id="{{id}}" id="devuelto-cantidad-{{id}}" value="{{qty}}">
+                                                                <label for="devuelto-cantidad-{{id}}">{{content['general_text']['sas_cantidad']}}</label>
+                                                            </div>
+                                                            <div class="col s3 center-align">
+                                                                <span class="notificacion white-text blue-grey">{{equipo.Precio ~ ' ' ~ equipo.Moneda}}</span>
+                                                            </div>
+                                                            <div class="input-field col s2">
+                                                                <input type="text" readonly = "readonly" class="devuelto-total" id="devuelto-total-{{id}}" value="{{tot}}">
+                                                                <label for="devuelto-total-{{id}}">{{content['section_text']['sas_total']}}</label>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <p style="padding: 10px">{{content['section_text']['sas_sinEquipos']}}</p>
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col s12">
+                            <span class="btn waves-effect waves-ligth green right" id="recibir">{{content['section_text']['sas_imprimirRecibo']}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'ShowDashboardLTEntregaLectorasBundle:EntregaLectoras:mostrar_pdf.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/split.min.js') }}"></script>
+    {% if content['lang'] is defined and content['lang'] != "en" %}
+        <script type="text/javascript" src="{{asset('js/datepickerLang/' ~ content['lang'] ~ '.js')}}"></script>
+    {% endif %}
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/entrega_lectoras.js') }}"></script>
+    <script type="text/javascript">
+        var url_enviar_detalle = "{{path('show_dashboard_lt_entrega_lectoras_detalle_entrega', {idEmpresa: content['idEmpresa']})}}";
+        var DetalleEntrega = ({{content['detalleEntrega']|length}} > 0) ? {{ content['detalleEntrega']|json_encode()|raw }}: {
+        }
+        ,
+                empresaLectoras = {{content["lectoras"]|json_encode()|raw}};
+    </script>
+{% endblock %}

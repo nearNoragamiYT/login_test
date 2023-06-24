@@ -1,0 +1,132 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/AE/Administracion/Configuracion/SyncFMPGBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/sync.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/index.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/google-code-prettify/prettify.css') }}">
+{% endblock %}
+
+{% block title %}Sync FM_PG{% endblock %}
+{% block content %}
+    {% include 'ShowDashboardAEAdministracionConfiguracionAjustesBundle:Configuracion:tabsConfiguracionAE.html.twig' with {"selected": "visitante_sync"} %}
+    <div class ="container">
+        <div class="row">
+            <div id="pk-container" class="col s12 m1 l1">
+            </div>
+            <div class="col s12 m5 l5">
+                <h5>Tablas FileMaker</h5>       
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div id ="loader-fm" class="preloader-wrapper big active">
+                                    <div class="spinner-layer spinner-blue-only">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div><div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div><div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <select id = "tables-fm" class="browser-default">
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {% for tablesFM in content['tablesFM'] %}
+                                        <option value="{{ tablesFM['BaseTableName'] }}">{{ tablesFM['BaseTableName'] }}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <select id = "order-tables" class="browser-default">
+                                    <option value="" disabled selected>Orden</option>
+                                    {% for tablesFM in content['tablesFM'] %}
+                                        <option value={{ loop.index }}">{{ loop.index }}</option>
+                                    {% endfor %}
+                                </select> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="content-fields-fm" class="col s12 m12 l12"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="match-container" class="col s12 m1 l1">
+                {# <h5 class="center-align"><i class="material-icons">settings_ethernet</i></h5>       
+                <div class="card">
+                     <div class="card-content">
+                         <p class="check-sync-custom center-align border-card-icons">
+                             <input type="checkbox" id="test">
+                             <label for="test"></label>
+                         </p>
+                     </div>
+                 </div>#}
+            </div>
+            <div class="col s12 m5 l5">
+                <h5>Tablas PostgreSQL</h5> 
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div id ="loader-pg" class="preloader-wrapper big active">
+                                    <div class="spinner-layer spinner-blue-only">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div><div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div><div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <select id = "tables-pg" class="browser-default" disabled="disabled">
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {% for tablesPG in content['tablesPG'] %}
+                                        <option value="{{ tablesPG['table_name'] }}">{{ tablesPG['table_name'] }}</option>
+                                    {% endfor %}
+
+                                </select>
+                                  
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="content-fields-pg" class="col s12 m12 l12"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <a id="guarda-json" class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="top" data-delay="50" data-tooltip="Guardar JSON">
+                <i class="material-icons">save</i>
+            </a>
+            <a id="descarga-json" class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="top" data-delay="50" data-tooltip="Descargar JSON" download="json.json" >
+                <i class="material-icons">file_download</i>
+            </a>
+        </div>
+        <div id='top'>
+            
+        </div>   
+    </div>   
+
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            var path_url_fields_pg = '{{ path('visitante_sync_fields_pg')}}';
+            var path_url_fields_fm = '{{ path('visitante_sync_fields_fm')}}';
+            var path_url_update_json = '{{ path('visitante_sync_update_json')}}';
+            var jsonTable = {{ content['jsonTable']|json_encode()|raw }};
+        </script>
+        <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/zepto.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/zepto.dragswap.js')}}"></script>
+        <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/sync.js') }}"></script>
+        <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/jsonsync.js') }}"></script>
+        <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/jquery.json2html.js') }}"></script>
+        <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/json2html.js') }}"></script>
+
+    {% endblock %}

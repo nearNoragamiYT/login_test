@@ -1,0 +1,44 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Visitante/VisitantesGeneralesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/visitante.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% include 'VisitanteVisitanteBundle:Visitante:menu_secciones.html.twig' %}
+    <div class="container">
+        <div class="card" style="overflow: auto;">
+            <div class="card-content">
+                <div  class="col s12" id="cover-perfil-data">
+                    <span class="card-title"> Listado de Visitantes Ingresados</span>
+                    <div class="row" style="margin-bottom: 25px;">
+                        <table id="visitantes-table" class="highlight responsive-table">
+                            <thead class="grey lighten-3"></thead>
+                            <tbody></tbody>
+                            <tfoot></tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'VisitanteVisitantesGeneralesBundle:VisitantesGenerales:cambioStatusModal.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+        visitantes ={{ content['visitantes'] | json_encode() | raw }} ,
+        visitantes_metadata= {{ content['visitantesMetaData']['fields'] | json_encode() | raw }},
+        status_visitantes= {{ content['StatusVisitantes'] | json_encode() | raw }},
+        url_update_visitantes_status ="{{path("visitante_visitantes_update_status")}}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/visitantes.js') }}"></script>
+{% endblock %}

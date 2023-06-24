@@ -1,0 +1,15 @@
+empresa_empresa_solicitud_modificacion_list:
+    path:     /empresa/solicitudes-modificacion/{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaSolicitudModificacionBundle:SolicitudModificacion:modificationRequest, idEmpresa: 0 }
+    
+empresa_empresa_solicitud_modificacion_editar:
+    path:     /empresa/solicitudes-modificacion-editar
+    defaults: { _controller: EmpresaEmpresaSolicitudModificacionBundle:SolicitudModificacion:updateModificationRequest }
+
+empresa_empresa_solicitud_modificacion_borrar:
+    path:     /empresa/solicitudes-modificacion-borrar
+    defaults: { _controller: EmpresaEmpresaSolicitudModificacionBundle:SolicitudModificacion:deleteModificationRequest }
+    
+solicitud_modificacion_list:
+    path:     /solicitudes-modificacion/
+    defaults: { _controller: EmpresaEmpresaSolicitudModificacionBundle:SolicitudModificacion:generalRequests}    

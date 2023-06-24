@@ -1,0 +1,256 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/ReportesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/reportes.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>Reportes</h5>
+        <div class="z-depth-1 white">
+            <table id="tbl-report" class="highlight">
+                <thead>
+                    <tr>
+                        <th>{{content['section_text']['sas_reporte']}}</th>
+                        <th>{{content['section_text']['sas_descripcion']}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Contratos</td>
+                        <td>Reporte General de Expositores</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_generalContratos') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            <a href="{{ path('empresa_reportes_generalContratos', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Empresas Adicionales</td>
+                        <td>Reporte Empresas Adicionales</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_empresas_adicionales') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            <a href="{{ path('empresa_reportes_empresas_adicionales', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Gafetes con Costo</td>
+                        <td>Detalle de Gafetes con Cobro</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_gafetes_cobro') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            <a href="{{ path('empresa_reportes_gafetes_cobro', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Gafetes Expositor</td>
+                        <td>Detalle de Gafetes de Expositor</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_gafetes') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            <a href="{{ path('empresa_reportes_gafetes', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Consulta Cambios</td>
+                        <td>Consulta de Cambios Directorio</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_cambios_directorio') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            <a href="{{ path('empresa_reportes_cambios_directorio', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Catalogo Productos</td>
+                        <td>Consulta de Catalogo de Productos</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_catalogo_productos') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            <a href="{{ path('empresa_reportes_catalogo_productos', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Productos Vitrinas</td>
+                        <td>Consulta Productos Vitrinas</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_productos_vitrinas') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            <a href="{{ path('empresa_reportes_productos_vitrinas', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Inventario Stands</td>
+                        <td>Consulta de Stands</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_inventario_stands') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            <a href="{{ path('empresa_reportes_inventario_stands', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Reporte Pabellones</td>
+                        <td>Consulta de Pabellones</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_inventario_pabellones') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            {#<a href="{{ path('empresa_reportes_inventario_pabellones', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>#}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Reporte Montaje</td>
+                        <td>Consulta de Empresa Montaje</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_montaje') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            <a href="{{ path('empresa_reportes_montaje', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Reporte Stand por Pabellon</td>
+                        <td>Consulta de Stands por Pabellones</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_stand_pabellon') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">file_download</i>
+                            </a>
+                            <a href="{{ path('empresa_reportes_stand_pabellon', {status: "mostrar"}) }}">
+                                <i class="material-icons show-record  tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_mostrarReporte']}}">
+                                    format_list_numbered
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h5>Reportes PDF</h5>
+        <div class="z-depth-1 white">
+            <table id="tbl-report" class="highlight">
+                <thead>
+                    <tr>
+                        <th>{{content['section_text']['sas_reporte']}}</th>
+                        <th>{{content['section_text']['sas_descripcion']}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Expositores Alfabético</td>
+                        <td>Reporte General de Expositores PDF</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_generalContratosPDF') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">picture_as_pdf</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Categorías de Producto</td>
+                        <td>Categorías y Subcategorías PDF</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_categoriasPDF') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">picture_as_pdf</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Stand</td>
+                        <td>Reporte por Stand PDF</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_standPDF') }}">
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">picture_as_pdf</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>País</td>
+                        <td>Reporte por País PDF</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_paisPDF') }}" >
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">picture_as_pdf</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pabellón</td>
+                        <td>Reporte por Pabellón PDF</td>
+                        <td>
+                            <a href="{{ path('empresa_reportes_pabellonPDF') }}" >
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_descargar']}}">picture_as_pdf</i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+                    general_text = {{ content['general_text']|json_encode()|raw }},
+                    section_text ={{ content['section_text']|json_encode()|raw }} ;
+            var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        </script>
+        <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+        <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/list_reportes.js') }}"></script>
+    {% endblock %}
+

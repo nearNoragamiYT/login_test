@@ -1,0 +1,3 @@
+show_dashboard_st:
+    path:     /show-dashboard/st
+    defaults: { _controller: ShowDashboardSTMainBundle:Main:index }

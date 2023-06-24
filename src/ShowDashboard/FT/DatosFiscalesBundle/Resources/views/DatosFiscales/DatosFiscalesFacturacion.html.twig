@@ -1,0 +1,28 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/FT/DatosFiscalesBundle/' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/DatosFiscales.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+
+	hola mundo DatosFiscales
+
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script type="text/javascript">
+		{# Scripts #}
+	</script>
+	<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+	<script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/DatosFiscales.js') }}"></script>
+{% endblock %}

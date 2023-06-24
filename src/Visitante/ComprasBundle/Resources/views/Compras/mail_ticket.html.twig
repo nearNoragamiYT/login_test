@@ -1,0 +1,35 @@
+{% extends '::base_email.html.twig' %}
+
+{% set lang = (content['lang'] is defined and content['lang'] != "") ? content['lang'] : "es" %}
+{% set fecha_pago = content['compras'][0]['FechaPagado']|split(' ') %}
+
+{% block body %}
+    <tr>
+        <td colspan="1" style="text-align: left;">
+            <br>
+            <b>Estimado {{ content['visitante']['Nombre'] }} {{ content['visitante']['ApellidoPaterno'] }} {{ content['visitante']['ApellidoMaterno'] }} gracias por su compra</b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1" style="text-align: left;">
+            <br>
+            <p>Le proporcionamos los siguientes datos de la compra realizada: {{content['compras'][0]['CompraDetalle'][0]['ProductoES']}} {{content['compras'][0]['CompraDetalle'][0]['ProductoDescripcionES']}}, los cuales serán requeridos en el portal de autofactura:</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1" style="text-align: left;">
+            <p><b>Referencia: </b>{{content['compras'][0]['TicketFacturacion']}}</p> 
+            <p> <b>Total: </b>${{content['compras'][0]['TotalCompraMXN']}}</p> 
+            <p><b>Fecha: </b>{{ fecha_pago[0]|date("d/m/Y") }}</p> 
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1" style="text-align: left;">
+            <p>En el siguiente Link podrá capturar su información fiscal y generar su CFDI.</p>
+            <a href="https://solucionfactible.com/facturacion/Hannover/m/generate.jsp" target="_blank" >https://solucionfactible.com/facturacion/Hannover/m/generate.jsp</a>
+            <br>
+            <br>
+            Le recordamos que el monto total es calculado en MXN( Moneda Nacional), usted tiene hasta el 31 de Octubre para emitir su factura.
+        </td>
+    </tr>
+{% endblock %}

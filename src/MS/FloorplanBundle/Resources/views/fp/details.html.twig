@@ -1,0 +1,138 @@
+<div id="main_chart">
+</div>
+
+<div class="row">
+    <div id="top_su" class="col s12 l6">
+        <h4>Sumario</h4>
+        <table class="striped">
+            <tbody>
+                <tr class="top_row">
+                    <td class="top_row_text">Total de Clics</td>
+                    <td id="top_total_click" class="right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Total de Vistas</td>
+                    <td id="top_total_view" class="right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Promedio de Clics por día</td>
+                    <td id="top_average_clicks" class="right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Promedio de Vistas por día</td>
+                    <td id="top_average_views" class="right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Promedio Expositor</td>
+                    <td id="top_average_ex" class="right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Total de búsquedas</td>
+                    <td id="top_total_search" class="right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Total de "Mi Recorrido"</td>
+                    <td id="top_total_mytour" class="right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Total de lecturas de gafete</td>
+                    <td id="top_total_retrievalreads" class="right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Expositores que usaron lectoras de gafetes</td>
+                    <td id="top_total_retrievalexh" class="right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Total de Visitas</td>
+                    <td class=" data_visitor_A right top_row_value" >0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Visitantes que solo ingresaron una vez</td>
+                    <td class=" data_visitor_B right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Visitantes con "Mi Recorrido"</td>
+                    <td class=" data_visitor_C right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Visitantes que ingresaron más de una vez</td>
+                    <td class=" data_visitor_D right top_row_value">0</td>
+                </tr>
+                <tr class="top_row">
+                    <td class="top_row_text">Visitantes Registrados que ingresaron al plano</td>
+                    <td class=" data_visitor_E right top_row_value">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="top_ex" class="col s12 l6">
+        <h4>Top 10 Expositores</h4>
+        <table class="highlight responsive-table">
+            <thead class="green darken-3 white-text">
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Paquete
+                    </th>
+                    <th class="center">
+                        Recorridos
+                    </th>
+                    <th class="center">
+                        Leads de lectoras
+                    </th>
+                    <th class="center">
+                        # de clics recibidos
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="content"></tbody>
+        </table>        
+    </div>
+    <a href="#tab_b" data-toggle="tab" onclick="event.preventDefault();
+            $('ul.tabs').tabs('select_tab', 'tab_b');">
+        <div class="right">Ver Todos</div>
+    </a>
+</div>
+
+<div class="row">
+    <div id="top_search" class="col s12 l6">
+        <h4>Top 10 Búsquedas</h4>
+        <table class="striped responsive-table">
+            <thead class="red darken-3 white-text">
+                <tr>
+                    <th>
+                        Texto Buscado
+                    </th>
+                    <th class="center" style="width: 15%;">
+                        Cantidad
+                    </th>                 
+                </tr>
+            </thead><tbody class="content"></tbody></table>
+        <a href="#tab_c" data-toggle="tab" onclick="event.preventDefault();
+                $('ul.tabs').tabs('select_tab', 'tab_c');">
+            <div class="right">Ver Todos</div>
+        </a>
+    </div>
+
+{#    <div id="top_categories" class="col s12 l6">
+        <h4>Top 10 de Categorias</h4>
+        <table class="striped responsive-table">
+            <thead class="orange darken-3 white-text">
+                <tr>
+                    <th>
+                        Categoría
+                    </th>
+                    <th class="center" style="width: 15%;">
+                        Cantidad
+                    </th>                 
+                </tr>
+            </thead><tbody class="content"></tbody></table>
+        <a href="#tab_d" data-toggle="tab" onclick="event.preventDefault();
+                $('ul.tabs').tabs('select_tab', 'tab_d');">
+            <div class="right">Ver Todos</div>
+        </a>
+    </div>#}
+</div>

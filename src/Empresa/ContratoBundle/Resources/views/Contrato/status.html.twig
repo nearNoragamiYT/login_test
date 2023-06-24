@@ -1,0 +1,42 @@
+<div class="row" style="margin-top: 8px;">
+    <div class="col s4">
+        <a href="{{ path('empresa_empresa_contrato', {'idEmpresa': content['empresa']['idEmpresa']}) }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['section_text']['sas_regresarListaContratos'] }}</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12">
+        <div class="card-panel">
+            <div class="row">
+                <div class="col s6">
+                    <h5>{{content['empresa']['DC_NombreComercial']}}</h5>
+                </div>
+                <div class="col s3" style="font-weight: 400;color: #a4a4a4;">
+                    <p>{{content['section_text']['sas_contrato']}}: <span id="contract-number">{% if content['contrato']['NoFolio'] is defined %}
+                            {{content['contrato']['NoFolio'] }}
+                            {% set status = content['status_contrato'][content['contrato']['idStatusContrato']]['Status'] %}
+                            {% else %}
+                                {% set status = content['status_contrato'][1]['Status'] %}
+                                {{content['section_text']['sas_sinAsignar']}}
+                                {% endif %}</span></p>
+                            <p style="position: relative;">{{content['section_text']['sas_estatus']}}: <span id="c-status" class="new badge blue" >{{status}}</span></p>
+                        </div>
+                        <div class="col s3">
+                            {% if content['current_step'] == "resumen" %}
+                                <label>{{content['section_text']['sas_cambiarEstatusContrato']}}</label>
+                                <select id="contract-status" class="browser-default" >
+                                    <option value="" selected="selected">{{content['general_text']['sas_seleccionaOpcion']}}</option>
+                                    {% for item in content['status_contrato'] if item['idStatusContrato']  >= 4 %}
+                                        <option value="{{item['idStatusContrato']}}">{{item['Status']}}</option>
+                                    {% endfor %}
+                                </select>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'EmpresaContratoBundle:Contrato:confirm_status.html.twig' %}
+        <script type="text/javascript">
+            var url_save_status = "{{ path("empresa_contrato_status") }}";
+            var url_contract_list = "{{ path("empresa_empresa_contrato", {"idEmpresa": content['empresa']['idEmpresa']}) }}";
+        </script>

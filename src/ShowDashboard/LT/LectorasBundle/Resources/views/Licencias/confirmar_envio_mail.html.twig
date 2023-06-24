@@ -1,0 +1,9 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-confirm-sending", "fixed": false, "size": "modal-s", "color": "orange", "idButton": "btn-confirm-send-licenses", "colorButton" : "blue" } %}
+{% block title %}{{content['section_text']['sas_seguroEnviarLicencias']}}{% endblock %}
+{% block body %}
+    <div class="center"><span id="selected-licenses"></span></div>
+    {% endblock %}
+    {% block button %}
+        {{content['general_text']['sas_enviar']}}
+    {% endblock %}

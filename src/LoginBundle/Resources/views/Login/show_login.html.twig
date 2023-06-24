@@ -1,0 +1,91 @@
+{% extends '::base.html.twig' %}
+{% set ruta_asset = 'resources/LoginBundle/' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12"><h1 class="ixpo-sas">&nbsp</h1></div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6 l6 offset-m3 offset-l3">
+                <div class="card z-depth-2">
+                    <div class="card-content">
+                        {#<span class="card-title">{{content['section_text']['sas_iniciarSesion']}}</span>#}
+                        <form id="frm-login" method="post" action="{{ path('login', {lang: lang}) }}">
+                            <div class="input-field">
+                                <i class="material-icons prefix">perm_identity</i>
+                                <input name="Email" id="Email" type="email" class="validate">
+                                <label for="Email">{{content['general_text']['sas_email']}}</label>
+                            </div>
+                            <div class="input-field">
+                                <i class="material-icons prefix">lock_open</i>
+                                <input name="Password" id="Password" type="password" class="validate">
+                                <label for="Password">{{content['general_text']['sas_password']}}</label>
+                            </div>
+                            <div class="input-field">
+                                <button type="submit" class="waves-effect waves-light btn">{{content['section_text']['sas_entrar']}}</button>
+                            </div>
+                            <input type="hidden" id="Resolucion" name="Resolucion">
+                        </form>
+                    </div>
+                    <div class="card-action right-align">
+                        <img class="ixpo-logo left"
+                             {% if content['comite_organizador']['Logo'] is defined and content['comite_organizador']['Logo'] != "" %}
+                                 src="{{ asset('images/logos-co/' ~ content['comite_organizador']['Logo']) }}" 
+                                 alt="{{ content['comite_organizador']['ComiteOrganizador'] }}" 
+                             {% else %}
+                                 src="{{ asset('images/infoexpo-min.png') }}" 
+                                 alt="infoexpo" 
+                             {% endif %}
+                             >
+                        <a href="#modal-password" class="modal-trigger">{{content['section_text']['sas_olvidasteContraseña']}}</a>
+                    </div>
+                </div>
+                {% if content['eventos'] is defined and content['eventos']|length > 0 %}
+                    <div class="eventos">
+                        {% for evento in content['eventos'] %}
+                            <h5>{{ evento['Evento_' ~ lang|upper] }}</h5>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-password" class="modal">
+        <div class="modal-content">
+            <h4>{{content['section_text']['sas_restablecerContraseña']}}</h4>
+            <div class="row">
+                <form id="frm-restablecer-password" method="post" action="{{ path('login_reset_password_request') }}" class="col s12 m8 offset-m2">
+                    <div class="alert alert-warning-light alert-form">
+                        {{content['section_text']['sas_nota1RestablecerContraseña']}}
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">perm_identity</i>
+                        <input name="Email" id="Email" type="email">
+                        <label for="Email">{{content['general_text']['sas_email']}}</label>
+                    </div>
+                    <div class="input-field">
+                        <button type="submit" class="waves-effect waves-light btn">{{content['section_text']['sas_restablecer']}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var _target_path = "{{ content['_target_path'] }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/login.js') }}"></script>
+{% endblock %}

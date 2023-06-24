@@ -1,0 +1,11 @@
+show_dashboard_ae_administracion_encuesta_constructor_encuesta:
+    path:     /show-dashboard/ae/administracion/encuesta/{lang}
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaConstructorEncuestaBundle:Encuesta:encuesta, lang: es }
+    requirements:
+        lang: es|en
+
+show_dashboard_ae_administracion_encuesta_constructor_encuesta_eliminar:
+    path:     /show-dashboard/ae/administracion/encuesta/eliminar/{lang}
+    defaults: { _controller: ShowDashboardAEAdministracionEncuestaConstructorEncuestaBundle:Encuesta:encuestaEliminar, lang: es }
+    requirements:
+        lang: es|en

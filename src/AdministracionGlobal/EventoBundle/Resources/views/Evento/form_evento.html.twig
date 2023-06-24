@@ -1,0 +1,41 @@
+<div id="mdl-event" class="modal">
+    <div class="modal-content">
+        <h4>{{content['general_text']['sas_evento']}}</h4>
+        <div class="modal-body">
+            <div class="row">
+                <form id="frm-event" class="col col s12 m6 l6 offset-m3 offset-l3">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="Evento_ES" name="Evento_ES" type="text" class="validate" maxlength="50">
+                            <label for="Evento_ES">{{content['section_text']['sas_eventoES']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="Evento_EN" name="Evento_EN" type="text" maxlength="50">
+                            <label for="Evento_EN">{{content['section_text']['sas_eventoEN']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="Evento_PT" name="Evento_PT" type="text" maxlength="50">
+                            <label for="Evento_PT">{{content['section_text']['sas_eventoPT']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="Evento_FR" name="Evento_FR" type="text" maxlength="50">
+                            <label for="Evento_FR">{{content['section_text']['sas_eventoFR']}}</label>
+                        </div>
+                    </div>
+                    <input type="hidden" id="id" name="idEvento" value="">
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</button>
+        <button type="button" class="modal-action btn waves-effect waves-green green save-record">{{content['general_text']['sas_guardar']}}</button>
+    </div>
+</div>

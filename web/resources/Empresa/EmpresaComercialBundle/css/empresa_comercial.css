@@ -1,0 +1,11 @@
+.container{
+    width: 65% !important;
+}
+.space-label{
+    padding-bottom: 5px;
+}
+/*----------------------------------------------------------------------*/
+.mid-content{
+    width: 50%;
+    float: left;
+}

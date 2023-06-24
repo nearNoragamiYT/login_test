@@ -1,0 +1,86 @@
+<div id="modal-template" class="modal modal-fixed-footer modal-m">
+    <form id="frm-template" action="{{ path("show_dashboard_ae_administrador_textos_template") }}" method="post">
+        <div class="modal-content">
+            <h4>{{ content['section_text']['sas_informacionTemplate'] }}</h4>
+            <input type="hidden" id="idTemplate" name="idTemplate">
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="input-field">
+                        <input type="hidden" id="idEvento" name="idEvento" value="{{ content['edicion']['idEvento'] }}">
+                        <input id="Evento" 
+                               type="text" 
+                               class="validate" 
+                               disabled="disabled"
+                               value="{{ content['edicion']['Evento_' ~ lang|upper] }}"
+                               >
+                        <label for="Evento">{{ content['general_text']['sas_evento'] }}</label>
+                    </div>
+                </div>
+                <div class="col s12 m6">
+                    <div class="input-field">
+                        <input type="hidden" id="idEdicion" name="idEdicion" value="{{ content['edicion']['idEdicion'] }}">
+                        <input id="idEdicion" 
+                               type="text" 
+                               class="validate" 
+                               disabled="disabled"
+                               value="{{ content['edicion']['Edicion_' ~ lang|upper] }}"
+                               >
+                        <label for="Edicion">{{ content['general_text']['sas_edicion'] }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="input-field">
+                        <label for="idProductoIxpo" class="active">{{ content['general_text']['sas_producto'] }}</label>
+                        <select class="browser-default" id="idProductoIxpo" name="idProductoIxpo">
+                            <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                            {% for producto in content['productoEdicion'] %}
+                                <option value="{{ producto['idProductoIxpo'] }}">{{ producto['ProductoIxpo'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col s12 m6">
+                    <div class="input-field">
+                        <label for="idModuloIxpo" class="active">{{ content['general_text']['sas_modulo'] }}</label>
+                        <select class="browser-default" id="idModuloIxpo" name="idModuloIxpo">
+                            <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                            {% for producto in content['modulo'] %}
+                                <option value="{{ producto['idModuloIxpo'] }}">{{ producto['Modulo_' ~ lang|upper] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="input-field">
+                        <label for="idVisitanteTipo" class="active">{{ content['section_text']['sas_tipoVisitante'] }}</label>
+                        <select class="browser-default" id="idVisitanteTipo" name="idVisitanteTipo">
+                            {% for visitanteTipo in content['visitanteTipo'] %}
+                                <option value="{{ visitanteTipo['idVisitanteTipo'] }}">{{ visitanteTipo['VisitanteTipo' ~ lang|upper] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field">
+                        <input id="Template" 
+                               name="Template"
+                               type="text" 
+                               class="validate"
+                               >
+                        <label for="Template">{{ content['section_text']['sas_template'] }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{content['general_text']['sas_cancelar']}}</button>
+            <button type="submit" class="modal-action btn waves-effect waves-light green">{{content['general_text']['sas_guardar']}}</button>
+        </div>
+    </form>
+</div>

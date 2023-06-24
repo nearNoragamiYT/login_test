@@ -1,0 +1,10 @@
+{% extends ':System:modal_base.html.twig' %}
+{% set settings = { "class": "modal-md", "id": "confirm-modal" } %}
+{% block title %}
+{% endblock %} 
+{% block body %}
+    <p id="text-confirm" style="font-size: 13pt;"></p>
+{% endblock %}
+{% block buttons %}            
+    <button type="button" class="btn btn-warning btn-submit">{{ content['textosGenerales']['aceptar'] }}</button>
+{% endblock %}

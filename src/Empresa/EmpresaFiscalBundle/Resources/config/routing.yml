@@ -1,0 +1,19 @@
+empresa_empresa_fiscal:
+    path:     /empresa/empresa-fiscal/{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaFiscalBundle:EmpresaFiscal:financialCompanies, idEmpresa: 0 }
+
+empresa_empresa_fiscal_agregar:
+    path:     /empresa/empresa-fiscal-agregar
+    defaults: { _controller: EmpresaEmpresaFiscalBundle:EmpresaFiscal:addFinancialCompany }
+
+empresa_empresa_fiscal_editar:
+    path:     /empresa/empresa-fiscal-editar
+    defaults: { _controller: EmpresaEmpresaFiscalBundle:EmpresaFiscal:updateFinancialCompany }
+
+empresa_empresa_fiscal_borrar:
+    path:     /empresa/empresa-fiscal-borrar
+    defaults: { _controller: EmpresaEmpresaFiscalBundle:EmpresaFiscal:deleteFinancialCompany }
+    
+empresa_empresa_fiscal_cambiar:
+    path:     /empresa/empresa-fiscal-cambiar
+    defaults: { _controller: EmpresaEmpresaFiscalBundle:EmpresaFiscal:changeFinancialCompany }

@@ -1,0 +1,125 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "add-estado-modal", 
+                "fixed": true, 
+                
+                "color": "green", 
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "btn-add-estado"                
+            } 
+%}
+{% block title %}
+    <h5 id="estado">{{content['general_text']['sas_Configuracion']}}</h5>
+{% endblock %}
+{% block body %}
+    <div class="card">
+        <div class="card-content">
+            <form id="EstadoSistema" name="EstadoSistema">
+                <h6 align="left">{{content['general_text']['sas_EstadoSistema']}}:</h6>
+                <div class="row">
+                    <div class="input-field col s3">
+                        <input class="with-gap" name="idCaptura" id="EstadoVerde" value="1" checked type="radio"/>
+                        <label for="EstadoVerde">{{ content['general_text']['sas_verde'] }}</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input class="with-gap" name="idCaptura" id="EstadoAzul" value="2" checked type="radio"/>
+                        <label for="EstadoAzul">{{ content['general_text']['sas_azul'] }}</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input class="with-gap" name="idCaptura" id="EstadoRojo" value="3" checked type="radio"/>
+                        <label for="EstadoRojo">{{ content['general_text']['sas_rojo'] }}</label>
+                    </div>            
+                </div>        
+                <div class="row">
+                    <div class="input-field col s4">
+                        <label class="active">{{content['general_text']['sas_Nodo']}}</label>
+                        <select id="idNodo" name="idNodo" class="browser-default">
+                            <option value="" disabled selected>{{content['general_text']['sas_SeleccioneNodo']}}</option>
+                            <option value="1000">Nuevo Nodo</option>
+                            {% for Nodo in content['Nodo']%}                                    
+                                <option value="{{Nodo['idNodo']}}"> {{Nodo['NombreNodo']}}</option>
+                            {% endfor%}                                                           
+                        </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <label class="active">{{content['general_text']['sas_Evento']}}</label>
+                        <select id="idEvento" name="idEvento" class="browser-default">
+                            <option value="" disabled selected>{{content['general_text']['sas_SeleccionEvento']}}</option>
+                            {% for Evento in content['Evento']%}
+                                {#<option value="{{Evento['idEvento']}}"{% if content['Evento']  is defined and content['Evento'][Evento['idEvento']]['idEvento'] == 4 %}selected{% endif %} >{{Evento['Evento_ES']}}</option>#}
+                                <option value="{{Evento['idEvento']}}"> {{Evento['Evento_ES']}}</option>
+                            {% endfor%} 
+                        </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <label class="active">{{content['general_text']['sas_Edicion']}}</label>
+                        <select id="idEdicion" name="idEdicion" readonly="readonly" class="browser-default">
+                            <option value="" disabled selected>{{content['general_text']['sas_SelectElite']}}</option>
+                            {% for Edicion in content['Edicion'] %}
+                                {#<option value="{{Edicion['idEdicion']}}"{% if content['Edicion']  is defined and content['Edicion'][Edicion['idEdicion']]['idEdicion'] == 30 %}selected{% endif %}>{{Edicion['Edicion_ES']}}</option>#}
+                                <option value="{{Edicion['idEdicion']}}">{{Edicion['Edicion_ES']}}</option>
+                            {% endfor %}
+                        </select>                        
+                    </div>
+                </div>
+                <div class="row" id="rowNombreNodo" name="rowNombreNodo">
+                    <div class="input-field col w4">
+                        <input placeholder="NombreNodo" id="NombreNodo" name="NombreNodo" type="text">
+                        <label for="NombreNodo">Nodo Nuevo</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4">
+                        <label class="active">{{content['general_text']['sas_ClubElite']}}</label>
+                        <select id="ClubElite" name="ClubElite" class="browser-default">
+                            <option value="" disabled selected>{{content['general_text']['sas_SelectElite']}}</option>
+                            <option value="True">{{content['general_text']['sas_Si']}}</option>
+                            <option value="False">{{content['general_text']['sas_No']}}</option>
+                        </select>                        
+                    </div>
+                    <div class="input-field col s4">
+                        <label class="active">{{content['general_text']['sas_Tienda']}}</label>
+                        <select id="Tienda" name="Tienda" class="browser-default">
+                            <option value="" disabled selected>{{content['general_text']['sas_SelectElite']}}</option>
+                            <option value="True">{{content['general_text']['sas_Si']}}</option>
+                            <option value="False">{{content['general_text']['sas_No']}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <label class="active">Autoregistro</label>
+                        <select id="AutoRegistro" name="AutoRegistro" class="browser-default">
+                            <option value="" disabled selected>{{content['general_text']['sas_SelectElite']}}</option>
+                            <option value="True">{{content['general_text']['sas_Si']}}</option>
+                            <option value="False">{{content['general_text']['sas_No']}}</option>
+                        </select>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4">
+                        <label class="active">Gafetes Multiples</label>
+                        <select id="GafeteMultiple" name="GafeteMultiple" class="browser-default">
+                            <option value="" disabled selected>{{content['general_text']['sas_SelectElite']}}</option>
+                            <option value="True">{{content['general_text']['sas_Si']}}</option>
+                            <option value="False">{{content['general_text']['sas_No']}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <label class="active">Preregistro</label>
+                        <select id="Preregistro" name="Preregistro" class="browser-default">
+                            <option value="" disabled selected>{{content['general_text']['sas_SelectElite']}}</option>
+                            <option value="True">{{content['general_text']['sas_Si']}}</option>
+                            <option value="False">{{content['general_text']['sas_No']}}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="ip" name="ip" type="text" placeholder="Dirección Ip">
+                        <label for="ip">{{content['general_text']['sas_Direccion']}}</label>
+                    </div>                    
+                </div>
+            </form>                     
+        </div>
+    </div>            
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

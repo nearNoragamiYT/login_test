@@ -1,0 +1,80 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/LT/LectorasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_lectoras_reporte.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div id="reporte-empresa-lectoras" class="container">
+        <div class="col s12" style="margin-bottom: 15px;">
+            <div class="col s10">
+                <h5 style="margin: 0px;">{{content['section_text']['sas_solicitudLectoras']}}</h5>
+            </div>
+            <div class="btn-export col s2" id="exp-Empresa-table" title="Export Excel">
+                <a  href="{{ path('solicitud_lectora_reporte', {status: "descargar"}) }}">
+                    <label class="lb-export">Exportar</label>
+                    <img src="{{ asset('/images/excel.png') }}"class="img-export">
+                </a>
+            </div>
+        </div>
+        <table id="reporte-solicitud-lectoras-table" class="highlight bordered">
+            <thead class="grey lighten-4">
+                <tr>
+                    {% for header in content["solicitu_lectoras_reporte_metadata"] %}
+                        {% if header["is_visible"] == true %}
+                            <th {#% if header["help-lb"] != "" %}style="width: 7%"{% endif%#}>
+                                {% if header["help-lb"] != "" %}
+                                    <span class="{#info-record#} tooltipped" data-tooltip="{{ header["help-lb"]}}">{{ header["text"] }}</span>
+                                {% else %}
+                                    <span>{{ header["text"] }}</span>
+                                    {#<i class="material-icons info-record tooltipped" data-position="top" data-delay="50" data-tooltip="{{ header["help-lb"]}}">help</i>#}
+                                {% endif %}
+                            </th>
+                        {% endif %}
+                    {% endfor %}
+                    <th style="width: 5%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expositores in content["solicitud_lectoras_reporte"] %}
+                    <tr>
+                        <td>{{ expositores['CodigoCliente'] }}</td>
+                        <td>{{ expositores.DC_NombreComercial }}</td>
+                        <td>{{ expositores.NombreContacto }} <br> {{ expositores.Email }}</td>
+                        <td>{{ expositores.EMSTDListadoStand }}</td>
+                        <td>{{ expositores.LectorasSolicitadas }}</td>
+                        <td>{{ expositores.RentasSitio }}</td>
+                        <td>{{ expositores.NumeroLectorasCortesia }}</td>
+                        <td>{{ expositores.SustitucionEquipo }}</td>
+                        <td>{{ expositores.LectorasAsignadas }}</td>
+                        <td>{{ expositores.LectorasRecibidas }}</td>
+                        <td>
+                            <i class="material-icons edit-record tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content['general_text']['sas_editar'] }}" data-id="{{expositores['idEmpresa']}}">edit</i>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ content['lang'] ~ '.json')}}";
+        var url_edit_empresa_data = "{{ path("show_dashboard_lt_solicitud_lectoras_mostrar") }}";
+                var general_text = {{ content['general_text']|json_encode()|raw }};
+                var section_text = {{ content['section_text']|json_encode()|raw }};
+
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/solicitud_lectoras_reporte.js') }}"></script>
+{% endblock %}

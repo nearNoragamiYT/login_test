@@ -1,0 +1,80 @@
+<h5 class="grey-text col s12">{{content['section_text']['sas_estadisticasManualExpositor']}}</h5>
+{#--- Formas completas, pendientes y no interes ---#}
+<div class="col l4 m4 s12">
+    <div class="card row content-stats" style="background-color: {{EDConfig.colorFondo}};">
+        <div id="loader-all-forms" class="spinner" style="background-color: {{EDConfig.colorFondo}};">
+            <div class="progress" style="background-color: {{EDConfig.primario}};">
+                <div class="indeterminate" style="background-color: {{EDConfig.secundario}};"></div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="chart-container">
+                <canvas  id="all-forms-chart"></canvas>
+            </div>
+            <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-all-forms" data-url="{{path('show_dashboard_ed_actualizar_todas_formas')}}">
+                <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+            </a>
+        </div>
+    </div>
+</div>
+{#--- gafetes y lectoras solicitadas ---#}
+<div style="margin-top:10%;" class="col l4 m4 s12">
+    <div class="col s12 total-only">
+        <div class="card row content-stats" style="background-color: {{EDConfig.colorFondo}};">
+            <div id="loader-badges" class="spinner" style="background-color: {{EDConfig.colorFondo}};">
+                <div class="progress" style="background-color: {{EDConfig.secundario}};">
+                    <div class="indeterminate" style="background-color: {{EDConfig.terciario}};"></div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="card-title" style="color:{{EDConfig.color}};">
+                    <i class="material-icons">label</i>
+                    {{content['section_text']['sas_totalGafetes']}}
+                    <span id="total-badges" class="badge" style="background-color:{{EDConfig.primario}}; color: {{EDConfig.colorFondo}};"></span>
+                </div>
+                <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-badges" data-url="{{path('show_dashboard_ed_actualizar_gefetes')}}">
+                    <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {#---
+    <div class="col s12 total-only">
+        <div class="card row content-stats" style="background-color: {{EDConfig.colorFondo}}">
+            <div id="loader-retrieval" class="spinner" style="background-color: {{EDConfig.colorFondo}};">
+                <div class="progress" style="background-color: {{EDConfig.secundario}};">
+                    <div class="indeterminate" style="background-color: {{EDConfig.terciario}};"></div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="card-title" style="color:{{EDConfig.color}};">
+                    <i class="material-icons">shopping_cart</i>
+                    {{content['section_text']['sas_totalLectoras']}}
+                    <span id="total-retrievals" class="badge" style="background-color:{{EDConfig.primario}}; color: {{EDConfig.colorFondo}};"></span>
+                </div>
+                <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-retrieval" data-url="{{path('show_dashboard_ed_actualizar_lectoras')}}">
+                    <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+                </a>
+            </div>
+        </div>
+    </div>
+     ---#}
+</div>
+{#--- formas Completas y pendientes de las obligatorias ---#}
+<div class="col l4 m4 s12">
+    <div class="card row content-stats" style="background-color: {{EDConfig.colorFondo}};">
+        <div id="loader-obligatory-forms" class="spinner" style="background-color: {{EDConfig.colorFondo}};">
+            <div class="progress" style="background-color: {{EDConfig.terciario}};">
+                <div class="indeterminate" style="background-color: {{EDConfig.primario}};"></div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="chart-container">
+                <canvas  id="obligatory-forms-chart"></canvas>
+            </div>
+            <a class="btn-floating waves-effect waves-light teal refresh" data-loader="loader-obligatory-forms" data-url="{{path('show_dashboard_ed_actualizar_formas_obligatoras')}}">
+                <i class="tooltipped material-icons" data-tooltip="{{content['section_text']['sas_actualizarEstadisticas']}}" data-position="left">refresh</i>
+            </a>
+        </div>
+    </div>
+</div>

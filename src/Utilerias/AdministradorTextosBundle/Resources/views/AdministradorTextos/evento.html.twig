@@ -1,0 +1,55 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Utilerias/AdministradorTextosBundle/' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/administrador_textos.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <nav class="deep-purple">
+            <div class="nav-wrapper">
+                <div class="col s12">
+                    {% for comite in content['comite'] %}
+                        {% if comite.idComiteOrganizador == content.idComiteOrganizador %}
+                            <a href="#!" id="comite" class="breadcrumb dropdown-breadcrumb white-text" data-activates="down-comite">
+                                {{comite.ComiteOrganizador}}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    <ul id="down-comite" class="dropdown-content">
+                        {% for comite in content['comite'] %}
+                            <li>
+                                <a href="{{path('utilerias_administrador_textos_comite', {'idComite': comite.idComiteOrganizador})}}">
+                                    {{comite.ComiteOrganizador}}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {% if content['evento']|length > 0 %}
+                        <a href="#!" id="evento" class="breadcrumb dropdown-breadcrumb white-text" data-activates="down-evento"> Evento</a>
+                        <ul id="down-evento" class="dropdown-content">
+                            {% for evento in content['evento'] %}
+                                <li>
+                                    <a href="{{path('utilerias_administrador_textos_evento', {'idComite': content.idComiteOrganizador, 'idEvento': evento.idEvento} )}}">
+                                        {{evento.evento}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <a href="#!" id="sin" class="breadcrumb dropdown-breadcrumb white-text" disable> Sin Evento</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/breadcrumb.js') }}"></script>
+{% endblock %}

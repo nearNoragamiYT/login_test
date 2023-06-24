@@ -1,0 +1,79 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/AdministracionGlobal/ComiteOrganizadorBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/comite_organizador.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h5>{{content['general_text']['sas_comiteOrganizador']}}</h5>
+        {% if content['co'] is defined and content['co']|length > 0 %}
+            <table class="highlight responsive-table white z-depth-1">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>{{ content['general_text']['sas_comiteOrganizador'] }}</th>
+                        <th class="center-align">{{ content['general_text']['sas_licencias'] }}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for co in content['co'] %}
+                        <tr>
+                            <td class="center-align">
+                                {% if co['Logo'] is defined and co['Logo'] != "" %}
+                                    <img src="{{ asset('images/logos-co/' ~ co['Logo'] ) }}" alt="{{ co['Logo'] }}" class="co-image">
+                                {% endif %}
+                            </td>
+                            <td>{{ co['ComiteOrganizador'] }}</td>
+                            <td class="center-align">{{ co['Licencias'] }}</td>
+                            <td class="right-align">
+                                <a href="{{ path('comite_organizador_editar', { idComiteOrganizador: co['idComiteOrganizador'] }) }}">
+                                    <i class="material-icons edit-record show-loader-top" id-record="{{ co['idComiteOrganizador'] }}">mode_edit</i>
+                                </a>
+                            </td>
+                            <td>
+                                {% if co['Staff'] == false %}
+                                    <i class="material-icons delete-record" id-record="{{ co['idComiteOrganizador'] }}">delete_forever</i>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if content['co']|length > 2 %}
+            <div class="nav-floating-buttons">
+                <a href="{{ path('comite_organizador_nuevo') }}" 
+                   class="btn-floating waves-effect waves-light right green show-loader-top"
+                   ><i class="material-icons tooltipped" data-tooltip="{{ content['general_text']['sas_nuevo'] }} {{ content['general_text']['sas_comiteOrganizador'] }}">add</i></a>
+            </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div id="modal-delete-co" class="modal">
+        <form id="frm-comite-organizador-eliminar" action="{{ path('comite_organizador_eliminar') }}" method="post" >
+            <input type="hidden" id="idComiteOrganizador" name="idComiteOrganizador">
+            <div class="modal-content">
+                <h4>{{ content['section_text']['sas_eliminarCO'] }}</h4>
+                <p>{{ content['section_text']['sas_seguroEliminarCO'] }} <span class="co-nombre"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_cancelar'] }}</button>
+                <button type="submit" class="btn waves-effect waves-light red show-loader-wrapper">{{ content['general_text']['sas_eliminar'] }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var co = {{ content['co']|length ? content['co']|json_encode()|raw : '{}' }}
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/comite_organizador.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-delete-stand", "fixed": false, "size": "modal-s", "color": "orange", "idButton": "delete-stand", "colorButton" : "red" } %}
+{% block title %}{{content['section_text']['sas_eliminarStand']}}{% endblock %}
+{% block body %}
+    <p>{{content['section_text']['sas_seguroEliminarStand']}}</p>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_eliminar']}}
+{% endblock %}

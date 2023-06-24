@@ -1,0 +1,14 @@
+#muestra el detalle de la entrega y recepcion de equipos durante el evento
+show_dashboard_lt_entrega_lectoras_mostrar:
+    path:     /{idEmpresa}
+    defaults: { _controller: ShowDashboardLTEntregaLectorasBundle:EntregaLectoras:mostrar, idEmpresa: 0 }
+    methods: GET
+    requirements:
+        idEmpresa: \d+
+#guarda la informacion de la entrega de equipos al expositor
+show_dashboard_lt_entrega_lectoras_detalle_entrega:
+    path:     /entrega/{idEmpresa}
+    defaults: { _controller: ShowDashboardLTEntregaLectorasBundle:EntregaLectoras:detalleEntrega, idEmpresa: 0 }
+    methods: POST
+    requirements:
+        idEmpresa: \d+

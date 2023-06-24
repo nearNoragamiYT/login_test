@@ -1,0 +1,116 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-add-section", "fixed": true, "size": "modal-m", "textColor":"white-text", "confirmCancel": true, "color": "green", "idButton": "add-section" } %}
+{% block title %}{{content['section_text']['sas_nuevaSeccion']}}{% endblock %}
+{% block body %}
+    <div class="col s12 card-panel blue lighten-5 black-text">{{content['section_text']['sas_notaSeccion']|raw}}</div>
+    <form id="form-add-section" method="POST" enctype="multipart/form-data">
+        {% set show = "col s12" %}
+        {#% if content['idioms']|length is divisible by(2) %}
+            {% set show = "col s6" %}
+        {% endif %#}
+        <div class="row">
+            {% for idiom in content['idioms'] %}
+                {% if idiom is defined and idiom != "" %}
+                    <div class="editor-content {{show}}">
+                        <div class="left-align col s12">
+                            <img class="circle idiom-flag" src="{{asset('images/idioma/' ~ idiom|lower ~ '.png')}}" alt="idioma {{idiom}}">
+                            <div class="divider col s12 grey"></div>
+                        </div>
+                        <div class="col s12">
+                            <label class="header-editor" for="Nombre{{idiom}}">{{content['section_text']['sas_nombreSeccion' ~ idiom]}}</label>
+                            <textarea id="Nombre{{idiom}}" name="Nombre{{idiom}}" class="materialize-textarea required descriptions" row="10">{{content['general_text']['sas_titulo']}}</textarea>
+                        </div>
+                        {#--- <div class="input-field col s12">
+                        <label for="NombreSeccion{{idiom}}">{{content['section_text']['sas_nombreSeccion' ~ idiom]}}</label>
+                    </div> ---#}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col s6">
+                <div class="input-field col s12">
+                    <i class="fa fa-paint-brush prefix"></i>
+                    <input id="ColorFondo" name="ColorFondo" type="text" class="color" value="rgba(235, 235, 235, 1)" readonly="readonly">
+                    <label for="ColorFondo" class="active label-color">{{content['section_text']['sas_colorFondo']}}</label>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="input-field col s12">
+                    <i class="fa fa-paint-brush prefix"></i>
+                    <input id="ColorLetra" name="ColorLetra" type="text" class="color" value="rgba(0, 0, 0, 1)" readonly="readonly">
+                    <label for="ColorLetra" class="active label-color">{{content['section_text']['sas_colorLetra']}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s6">
+                <div class="switch">
+                    {{content['section_text']['sas_visibleWeb']}}
+                    <label class="right">
+                        {{content['general_text']['sas_no']}}
+                        <input name="VisibleWeb" type="checkbox" id="VisibleWeb" value="1" checked="checked"/>
+                        <span class="lever"></span>
+                        {{content['general_text']['sas_si']}}
+                    </label>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="switch">
+                    {{content['section_text']['sas_habiliarSeccion']}}
+                    <label class="right">
+                        {{content['general_text']['sas_no']}}
+                        <input name="HabilitarSeccion" type="checkbox" id="HabilitarSeccion" value="1" checked="checked"/>
+                        <span class="lever"></span>
+                        {{content['general_text']['sas_si']}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="CreacionSAS" name="CreacionSAS" value="1"/>
+        <input type="hidden" id="idSeccionFormatos" name="idSeccionFormatos" value="0"/>
+    </form>
+    <div class="col push-s3 s6">
+        <div id="card-demo" class="card hoverable sticky-action small">
+            <div id="content-dropzone" class="card-image waves-effect waves-block waves-light sticky-action">
+                <div id="update-image" class="div-dropzone">
+                    <span>{{content['section_text']['sas_subirImagen']}}<br><i class="fa fa-cloud-upload"></i></span>
+                    <input type="file" name="modal-imagen" id="modal-imagen" style="display:none">
+                </div>
+                <img class="activator" src="{{asset('images/no-image.png')}}" id="section-img">
+            </div>
+            <div class="card-content center-align" style="border-top: 1px solid rgba(160,160,160,0.2);">
+                <span class="card-title activator" style="color: rgb(0, 0, 0)">
+                    {{content['general_text']['sas_titulo']}}
+                </span>
+            </div>
+            <div class="card-action right-align background-picker" style="background-color: rgba(235, 235, 235, 1)">
+                <a href="#!" class="btn-flat waves-effect waves-light color-picker" style="color: rgb(0, 0, 0)">{{content['section_text']['sas_entrar']}}</a>
+            </div>
+        </div>
+        {#--- <div class="card hoverable example background-picker" style="background-color: rgba(235, 235, 235, 1)">
+    <div class="card-image waves-effect waves-block waves-light sticky-action">
+        <div id="update-image" class="div-dropzone">
+            <span>{{content['section_text']['sas_subirImagen']}}<br><i class="fa fa-cloud-upload"></i></span>
+            <input type="file" name="modal-imagen" id="modal-imagen" style="display:none">
+        </div>
+        <img src="{{asset('images/no-image.png')}}" id="section-img">
+        <span id="section-title" class="card-title activator col s12 color-picker" style="color: rgba(0, 0, 0, 1)">{{content['general_text']['sas_titulo']}}<i class="material-icons right">more_vert</i></span>
+    </div>
+    <div class="card-reveal background-picker" style="background-color: rgba(235, 235, 235, 1)">
+        <span class="card-title color-picker" style="color: rgba(0, 0, 0, 1)"><i class="material-icons right">close</i></span>
+        <p id="section-description" class="color-picker" style="color: rgba(0, 0, 0, 1)">{{content['general_text']['sas_descripcion']}}</p>
+    </div>
+    <div class="card-action right-align">
+        <a href="#" class="btn-flat waves-effect waves-light color-picker" style="color: rgba(0, 0, 0, 1)">{{content['general_text']['sas_entrar']}}</a>
+    </div>
+</div> ---#}
+    </div>
+    <div id="error-image" class="col s12 red-text" style="display: none;">
+    </div>
+    <div class="fixed-action-btn" style="bottom: 60px;">
+        <a id="btn-delete-section" class="btn-floating waves-effect waves-light red right tooltipped" data-tooltip="{{content['general_text']['sas_eliminar']}}">
+            <i class="fa fa-trash-o"></i>
+        </a>
+    </div>
+{% endblock%}

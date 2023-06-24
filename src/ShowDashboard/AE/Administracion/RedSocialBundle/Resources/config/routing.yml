@@ -1,0 +1,3 @@
+show_dashboard_ae_administracion_red_social:
+    path:     /show-dashboard/ae/administracion/red-social
+    defaults: { _controller: ShowDashboardAEAdministracionRedSocialBundle:RedSocial:redSocial }

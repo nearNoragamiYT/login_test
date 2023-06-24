@@ -1,0 +1,40 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "change-financial-modal", 
+                "fixed": true, 
+                "size": "modal-m", 
+                "color": "green",
+                "textColor": "white-text",
+                "confirmCancel": false,
+                "idButton": "btn-change-financial" 
+            }
+%}
+{% block title %}
+    <h6>{{ content["section_text"]["sas_cambiarRazonSocialPrincipal"] }}</h6>
+{% endblock %}
+{% block body %}
+    <form id="change-financial-form" class="col s12">
+        <input type="hidden" id="idEmpresa" name="idEmpresa" value="{{ content["idEmpresa"] }}">
+        <input type="hidden" id="idActual" name="idActual" value="">
+        <div class="input-field col s12">
+            <input id="RazonSocial" name="RazonSocial" type="text" readonly value="">
+            <label for="RazonSocial">{{content['section_text']['sas_razonSocialPrincipalActual']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <label for="idNuevo" class="active space-label">{{ content['section_text']['sas_razonSocialPrincipalNueva'] }}</label>
+            <select id="idNuevo" 
+                    name="idNuevo"
+                    class="browser-default validate"
+                    loader-element=".progress-estado" 
+                    style="margin-top: 5px;"
+                    >
+                <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                {% for contact in content['financial_companies'] %}
+                    <option value="{{ contact["idEmpresaEntidadFiscal"] }}">{{ contact["DF_RazonSocial"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

@@ -1,0 +1,198 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/AE/Administracion/Configuracion/EstilosBundle/' %}
+{% set templates = content['configuracion']['Templates'] %}
+
+{% if content['configuracion']['UrlAE'] != "" %}
+    {% set url_ae = content['configuracion']['UrlAE'] %}
+{% else %}
+    {% set url_ae = content['configuracion']['UrlAEDev'] %}
+{% endif %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/estilos.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    {% include 'ShowDashboardAEAdministracionConfiguracionAjustesBundle:Configuracion:tabsConfiguracionAE.html.twig' with {"selected": "show_dashboard_ae_administracion_configuracion_estilos"} %}
+    <div class="container-fluid">
+        <h5>{{ content['section_text']['sas_configEstilos'] }} <b>{{ content['edicion']['Edicion_' ~ lang|upper] }}</b></h5>
+        <div class="card-panel z-depth-1">
+            <form id="frm-estilos" action="{{ path("show_dashboard_ae_administracion_configuracion_estilos") }}" method="post">
+                <div class="row">
+                    <div class="col s6 m3 input-field">
+                        <input id="ae_colorFondoBody"
+                               name="ae_colorFondoBody"
+                               type="text"
+                               class="color"
+                               {% if content['ae_text'][templates['generales']]['ae_colorFondoBody'] is defined %}
+                                   value="{{ content['ae_text'][templates['generales']]['ae_colorFondoBody']['Texto_ES'] }}"
+                               {% else %}
+                                   value="#f5f5f5"
+                               {% endif %}
+                               >
+                        <label for="ae_colorFondoBody">Color Fondo del Cuerpo</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="ae_colorFondoHeader"
+                               name="ae_colorFondoHeader"
+                               type="text"
+                               class="color"
+                               {% if content['ae_text'][templates['generales']]['ae_colorFondoHeader'] is defined %}
+                                   value="{{ content['ae_text'][templates['generales']]['ae_colorFondoHeader']['Texto_ES'] }}"
+                               {% endif %}
+                               >
+                        <label for="ae_colorFondoHeader">Color Fondo Header</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="ae_colorFondoMenu"
+                               name="ae_colorFondoMenu"
+                               type="text" 
+                               class="color"
+                               {% if content['ae_text'][templates['generales']]['ae_colorFondoMenu'] is defined %}
+                                   value="{{ content['ae_text'][templates['generales']]['ae_colorFondoMenu']['Texto_ES'] }}"
+                               {% endif %}
+                               >
+                        <label for="ae_colorFondoMenu">Color Fondo del Menu</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="ae_colorTextoMenu"
+                               name="ae_colorTextoMenu"
+                               type="text" 
+                               class="color"
+                               prop="color"
+                               {% if content['ae_text'][templates['generales']]['ae_colorTextoMenu'] is defined %}
+                                   value="{{ content['ae_text'][templates['generales']]['ae_colorTextoMenu']['Texto_ES'] }}"
+                               {% endif %}
+                               >
+                        <label for="ae_colorTextoMenu">Color Texto del Menu</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 m3 input-field">
+                        <input id="ae_colorTextoSeccion"
+                               name="ae_colorTextoSeccion"
+                               type="text" 
+                               class="color"
+                               prop="color"
+                               {% if content['ae_text'][templates['generales']]['ae_colorTextoSeccion'] is defined %}
+                                   value="{{ content['ae_text'][templates['generales']]['ae_colorTextoSeccion']['Texto_ES'] }}"
+                               {% endif %}
+                               >
+                        <label for="ae_colorTextoSeccion">Color Texto Seccion</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="ae_colorTituloCard"
+                               name="ae_colorTituloCard"
+                               type="text" 
+                               class="color"
+                               prop="color"
+                               {% if content['ae_text'][templates['generales']]['ae_colorTituloCard'] is defined %}
+                                   value="{{ content['ae_text'][templates['generales']]['ae_colorTituloCard']['Texto_ES'] }}"
+                               {% endif %}
+                               >
+                        <label for="ae_colorTituloCard">Color Texto Título Card</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="ae_colorFondoBotonPrimario"
+                               name="ae_colorFondoBotonPrimario"
+                               type="text" 
+                               class="color"
+                               {% if content['ae_text'][templates['generales']]['ae_colorFondoBotonPrimario'] is defined %}
+                                   value="{{ content['ae_text'][templates['generales']]['ae_colorFondoBotonPrimario']['Texto_ES'] }}"
+                               {% endif %}
+                               >
+                        <label for="ae_colorFondoBotonPrimario">Color Fondo Boton Primario</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="ae_colorTextoBotonPrimario"
+                               name="ae_colorTextoBotonPrimario"
+                               type="text" 
+                               class="color"
+                               prop="color"
+                               {% if content['ae_text'][templates['generales']]['ae_colorTextoBotonPrimario'] is defined %}
+                                   value="{{ content['ae_text'][templates['generales']]['ae_colorTextoBotonPrimario']['Texto_ES'] }}"
+                               {% endif %}
+                               >
+                        <label for="ae_colorTextoBotonPrimario">Color Texto Boton Primario</label>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="submit" class="btn waves-effect waves-light green right show-loader-wrapper">
+                        {{ content['general_text']['sas_guardar'] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="z-depth-1">
+            <ul id="tabs-header" class="tabs">
+                <li class="tab col s3"><a class="active" href="#tab-header-es">{{ content['general_text']['sas_es'] }}</a></li>
+                <li class="tab col s3"><a href="#tab-header-en">{{ content['general_text']['sas_en'] }}</a></li>
+            </ul>
+            <div id="tab-header-es" class="col s12">{% include 'ShowDashboardAEAdministracionConfiguracionEstilosBundle:Estilos:templateAE.html.twig'  with {'lang': 'es'} %}</div>
+            <div id="tab-header-en" class="col s12">{% include 'ShowDashboardAEAdministracionConfiguracionEstilosBundle:Estilos:templateAE.html.twig'  with {'lang': 'en'} %}</div>
+        </div>
+        <br>
+        <div class="z-depth-1 white">
+            <ul id="tabs-sponsor" class="tabs">
+                <li class="tab col s3"><a class="active" href="#tab-sponsor-es">{{ content['general_text']['sas_es'] }}</a></li>
+                <li class="tab col s3"><a href="#tab-sponsor-en">{{ content['general_text']['sas_en'] }}</a></li>
+            </ul>
+            <div id="tab-sponsor-es" class="col s12 center-align">
+                <p class="left-align">
+                    Patrocinador Login<br>
+                    <small class="grey-text">* 120px alto, 550px ancho, formato .jpg o .png</small>
+                </p>
+                <div class="dropzone" id="ae_sponsorLogin" lang="es" folder="sponsor" id-template="{{ content['configuracion']['Templates']['login'] }}"></div>
+                <p class="left-align">
+                    Patrocinador Comprobante<br>
+                    <small class="grey-text">* 100px alto, 800px ancho, formato .jpg o .png</small>
+                </p>
+                <div class="dropzone" id="ae_sponsorComprobante" lang="es" folder="sponsor" id-template="{{ content['configuracion']['Templates']['comprobante'] }}"></div>
+            </div>
+            <div id="tab-sponsor-en" class="col s12 center-align">
+                <p class="left-align">
+                    Sponsor Login<br>
+                    <small class="grey-text">* 120px height, 550px width, format .jpg o .png</small>
+                </p>
+                <div class="dropzone" id="ae_sponsorLogin" lang="en" folder="sponsor" id-template="{{ content['configuracion']['Templates']['login'] }}"></div>
+                <p class="left-align">
+                    Sponsor Confirmation<br>
+                    <small class="grey-text">* 100px height, 800px width, format .jpg o .png</small>
+                </p>
+                <div class="dropzone" id="ae_sponsorComprobante" lang="en" folder="sponsor" id-template="{{ content['configuracion']['Templates']['comprobante'] }}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tap-target cyan white-text" data-activates="templates-obligatorios">
+        <div class="tap-target-content">
+            <h5>{{ content['section_text']['sas_templatesObligatorios'] }}</h5>
+            <ul>
+                <li>generales</li>
+                <li>login</li>
+                <li>recuperar_password</li>
+                <li>datos_generales</li>
+                <li>encuesta</li>
+                <li>comprobante</li>
+                <li>mis_amigos</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{asset('js/jqColorPicker.min.js')}}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script type="text/javascript">
+        var url_ae = "{{ url_ae }}";
+        var templates = {{ templates|json_encode()|raw }};
+        var path_img = url_ae + "images/";
+        var url_upload_images = url_ae + "utilerias/upload-image";
+        var url_remove_image = url_ae + "utilerias/remove-image";
+        var ae_text = {{ content['ae_text'] ? content['ae_text']|json_encode()|raw : '{}' }};
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/estilos.js') }}"></script>
+{% endblock %}

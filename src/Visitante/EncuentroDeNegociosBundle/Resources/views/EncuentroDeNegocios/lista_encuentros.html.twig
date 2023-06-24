@@ -1,0 +1,109 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Visitante/EncuentroDeNegociosBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}    
+    {#    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/datatables.responsive.css') }}"/>
+        <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/dynamic_table.css') }}" />#}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/encuentros.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>    
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row card-panel" style="overflow-x:auto">
+            <div class="btn-export col s2 right" id="exp-distritos-table" title="Export Excel" >
+                <label class="lb-export">Exportar</label>
+                <a id="link_exel_distritos" name="distrito" href="{{path('encuentros_export_encuentros')}}" download>
+                    <img src="{{ asset('/images/excel.png') }}" class="img-export">
+                </a>
+            </div>
+            <div class="btn-export col s2 left">
+                <button class="waves-effect waves-green btn-flat green white-text" id="clearFilters">{{ content["general_text"]["sas_limpiarFiltros"] }}</button>
+            </div>
+            <table id="table-encuentros" class="highlight bordered dataTable" style="width:100%">
+                <thead>
+                    <tr id='x'>
+                        <th width="4%">ID</th>
+                        <th>Nombre Completo</th>
+                        <th>Email</th>
+                        <th width="15%">Nombre Comercial</th>
+                        <th>Cargo</th>
+                        <th>Fecha Preregistro</th>
+                        <th class="center" width="30%" >Autorizar Encuentro de Negocios</th>
+                        <th width="4%">Acciones</th>
+                            {% if content['user']['idUsuario'] != 69 %}
+                            <th width="4%"></th>
+                            {% endif %}
+                            {% if content['user']['idUsuario'] == 1 or content['user']['idUsuario'] == 35 %}
+                            <th width="4%"></th>
+                            {% endif %}
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr id='y'>
+                        <th width="4%">idVisitante</th>
+                        <th>NombreCompleto</th>
+                        <th>Email</th>
+                        <th width="15%">NombreComercial</th>
+                        <th>Cargo</th>
+                        <th>FechaPreregistro</th>
+                        <th width="15%" style="align-content: center;"></th>
+                            {% if content['user']['idUsuario'] != 69 %}
+                            <th width="4%"></th>
+                            {% endif %}
+                            {% if content['user']['idUsuario'] == 1 or content['user']['idUsuario'] == 35 %}
+                            <th width="4%"></th>
+                            {% endif %}
+                    </tr>
+                </tfoot>
+            </table>
+        </div> 
+    </div>
+    <div id="ModalConfirmacionEncuentro" class="modal">
+        <div class="modal-content">
+            <h4>Encuentro de Negocios</h4>
+        </div>
+        <p style="padding-left: 20px;  ">¿Desea autorizar el encuentro de negocios?</p>
+        <div class="modal-footer">
+            <a style="color: white" id="btnEncuentroConfirmar" idVisitante="" class="modal-close waves-effect waves-green btn-flat green ">Aceptar</a>
+            <a style="color: white" id="btnEncuentroCancelar" idVisitante="" class="modal-close waves-effect waves-green btn-flat red ">Cancelar</a>
+        </div>
+    </div>
+    <div id="ModalCancelacionEncuentro" class="modal">
+        <div class="modal-content">
+            <h4>Encuentro de Negocios</h4>
+        </div>
+        <p style="padding-left: 20px;  ">¿Decea cancelar el encuentro de negocios para este usuario?</p>
+        <div class="modal-footer">
+            <a style="color: white" id="btnCancelarEncuentroConfirmar" idVisitante="" class="modal-close waves-effect waves-green btn-flat green ">Aceptar</a>
+            <a style="color: white" id="btnCancelarEncuentroCancelar" idVisitante="" class="modal-close waves-effect waves-green btn-flat red ">Cancelar</a>
+        </div>
+    </div>
+    {% include 'VisitanteAsociadoBundle:Asociado:confirmStatusModal.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var lang = {{ content['lang']|json_encode()|raw }}, Encuentros_table_columns = {{ content['Encuentros_table_columns']|json_encode()|raw }};
+                var url_lang = "{{asset('js/dataTablesLang/' ~ content['lang'] ~ '.json')}}";
+        var url_get_data = "{{ path('get_encuentros') }}", url_update_status_partner = "{{ path('update_encuentros') }}";
+        var url_send_rechazo = '{{ path('encuentros_email_rechazo') }}';
+        var url_update_encuentro = '{{ path('encuentros_update_status') }}';
+        var url_update_encuentro_cancelar = '{{ path('encuentros_update_status_cancelar') }}';
+        var url_send_confirmacion = '{{ path('encuentros_email_confirmacion') }}';
+        var url_visitante_datos_generales = "{{ path('visitante_datos_generales') }}";
+        var url_send_digibage = "{{path('encuentros_send_digibage')}}";
+        var url_download_digibadge = "{{path('encuentros_descargar_gafete')}}";
+                var user = {{content['user']|json_encode()|raw}};
+
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/datepickerLang/' ~ content['lang'] ~ '.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/encuentros.js') }}"></script>
+
+{% endblock %}

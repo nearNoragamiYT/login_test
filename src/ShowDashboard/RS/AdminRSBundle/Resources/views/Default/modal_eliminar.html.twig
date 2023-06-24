@@ -1,0 +1,21 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "delete-estado-modal", 
+                "fixed": true, 
+                "size": "modal-s", 
+                "color": "red", 
+                "textColor": "white-text",
+                "idButton": "btn-delete-estado",  
+                "colorButton": "red"              
+            } 
+%}
+{% block title %}
+    Eliminar Registro
+{% endblock %}
+
+{% block body %}
+    <p id="deleteText"></p>
+{% endblock %}
+
+{% block button %}
+    {{content['general_text']['sas_eliminar']}}
+{% endblock%}

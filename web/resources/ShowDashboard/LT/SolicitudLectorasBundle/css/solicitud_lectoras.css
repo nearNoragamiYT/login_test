@@ -1,0 +1,137 @@
+.container {
+    max-width: none;
+    width: 90%;
+    margin-top: 40px;
+}
+.space-label{
+    /*padding-bottom: 5px;*/
+}
+
+.dropdown-content {
+    width: 215px !important;
+}
+
+.totales-info {
+    /*margin-top: 15px;*/
+    vertical-align: middle;
+    /*line-height: 40px;*/
+}
+
+input[type=text]:disabled{
+    color: #000000;
+    margin-bottom: 0px;
+}
+
+.row .col.offset-s6 {
+    /* margin-left: 48%;*/
+}
+
+span.badge{
+    right: inherit;
+    /*margin-left: 10px;*/
+}
+
+span.badge.new{
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+span.badge.new:after {
+    content: "";
+}
+
+.personal-info{
+    font-weight: bold;
+}
+
+input[type=text]{
+    height: 1.5rem;
+}
+
+.card-panel {
+    padding: 10px;
+    margin: 0rem 0 0rem 0;
+}
+.titulo-servicio{
+    font-size: 1.2rem;
+    color: #444;
+}
+.descripcion-servicio{
+    font-size: .9rem;
+    color: #444;
+}
+
+#editar-servicios{
+    opacity: 1;
+    z-index: 3;
+    position: absolute;
+    right: -15px;
+    top: -15px;
+}
+input[type=number][readonly="readonly"]{
+    color: rgba(0,0,0,0.43);
+    border-bottom: 1px dotted rgba(0,0,0,0.43);
+}
+.detalle-pago input[type=text]{
+    height: 2.5rem;
+}
+
+select{
+    height: 2rem;
+    margin-bottom: 3px;
+}
+#estatus-entrega{
+    margin: 0px;
+}
+#estatus-entrega > div{
+    padding: 10px;
+    font-size: 1.2rem;
+    margin-top: 30px;
+}
+
+#frm-entidad input[type=text], select{
+    height: 3rem;
+}
+
+#Observaciones{
+    padding: 0px;
+}
+
+
+.panel-highlight {
+    transition: box-shadow 400ms !important;
+    box-shadow: 0px 0px 10px 2px  #ff9800 !important;
+}
+
+#estatus-entrega .blue{
+    cursor:pointer;
+}
+
+#tabs-entidad-fiscal  {
+    margin-bottom: 25px;
+}
+
+#tabs-entidad-fiscal a {
+    color:grey
+}
+
+#tabs-entidad-fiscal a.active {
+    color:black;
+    font-size: 15px;
+}
+
+
+.tabs .indicator {
+    bottom: 10px;
+    height: 1px;
+    background-color: #000000;
+}
+
+.delete-entity:hover{
+    color: red;
+    cursor:pointer;
+}
+
+label{
+    color:black;
+}

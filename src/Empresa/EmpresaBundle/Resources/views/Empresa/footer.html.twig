@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    </head>
+    <body>
+        <table>
+            <thead>
+                {#<tr>
+                    <th style="text-align: center">
+                        <label> <b>Categoria:</b> </label> <br>
+                    </th>
+                </tr>#}
+                <tr style="font-size: 19px;">
+                    <td  style="text-align: center">
+                        {#{% filter upper %}
+                            {{content['datosVis']['DE_Cargo'] }}
+                        {% endfilter %}#}
+                        <b>
+                            EXPOSITOR&nbsp;&nbsp;
+                        </b>
+                        <br>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td  style="text-align: center;"><img src="{{ asset("images/Footer2022.png") }}" class="responsive-img" ></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

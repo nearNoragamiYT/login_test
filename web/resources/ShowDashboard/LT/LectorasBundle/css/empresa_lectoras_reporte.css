@@ -1,0 +1,57 @@
+.container {
+    max-width: none;
+    width: 90%;
+    font-size: 12px;
+    position: relative;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 5px 2px 17px -8px;
+    margin-top: 12px;
+}
+.space-label{
+    padding-bottom: 5px;
+}
+/*------------------------------------------------------------------------*/
+.paging_listbox > select{
+    height: 2rem !important;
+}
+.dataTables_length > label > select{
+    height: 2rem !important;
+}
+/*------------------------------------------------------------------------*/
+.btn-export {
+    cursor: pointer;
+    float: left;
+    color: black !important;
+    width: auto;
+    float: right;
+    margin-right: 35px;
+    margin-top: -20px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.btn-export label {
+    cursor: pointer;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    color: #000000;
+}
+
+.btn-export img {
+    width: 30px;
+    height: auto;
+}
+
+.img-export {
+    vertical-align: middle;
+}
+
+.info-record {
+    font-size: 18px;
+    color: #337ab7;
+    cursor: pointer;
+}

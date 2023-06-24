@@ -1,0 +1,78 @@
+#Muestra el admin de formas
+show_dashboard_ed_formas_administrador_formas_mostrar:
+    path:     /
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:mostrar }
+#Cambia el orden de las formas
+show_dashboard_ed_formas_administrador_formas_ordenar:
+    path:     /ordenar
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:ordenar }
+#muesta la tabla de las formas por status
+show_dashboard_ed_formas_administrador_formas_mostrar_tabla_EmpresaForma:
+    path:     /mostrar-empresas
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:mostrarEmpresaForma }
+#edita el email que se le va a enviar a los expositores
+show_dashboard_ed_formas_administrador_formas_editar_email:
+    path:     /editar-email
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:editarEmal }
+#envia el mail a los expositores que seleciiona el comité
+show_dashboard_ed_formas_administrador_formas_enviar_email_expositores:
+    path:     /enviar-emails
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:enviarEmailExpositores }
+#desbloquea o bloquea una forma a un expositor en específico
+show_dashboard_ed_formas_administrador_formas_desbloquear_bloquear_forma:
+    path:     /desbloquear-bloquear-forma
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:desbloquearBloquear }
+#Muestra las formas que no son de interés
+show_dashboard_ed_formas_administrador_formas_mostrar_formas_sin_interes:
+    path:     /mostrar-formas-sin-interes
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:mostrarFormasSinInteres }
+#actualiza la fecha límite
+show_dashboard_ed_formas_administrador_formas_actualizar_fecha:
+    path:     /actualizar-fecha-limite/{idForma}
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:actualizarFecha, idForma: 0 }
+    requirements:
+        idForma: \d+
+#Cambiar el status de la forma(bloquear, desbloquear, obligatoria y obcional)
+show_dashboard_ed_formas_administrador_formas_actualizar_estatus:
+    path:     /estatus-forma
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:cambiarEstatus }
+#Actualizar el PDF de la forma
+show_dashboard_ed_formas_administrador_formas_actualizar_pdf:
+    path:     /actualizar-pdf
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:actualizarPDF }
+#Actualizar el link externo de la forma
+show_dashboard_ed_formas_administrador_formas_actualizar_link:
+    path:     /actualizar-link
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:actualizarLink }
+#Ver las gráficas de las formas
+show_dashboard_ed_formas_administrador_formas_ver_graficas:
+    path:     /actualizar-link/{idForma}
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:verGraficas, idForma: 0 }
+#Agregar imagen de la sección
+show_dashboard_ed_formas_administrador_formas_agregar_imagen:
+    path:     /agregar-imagen
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:agregarImagen }
+#Agregar imagen de la sección
+show_dashboard_ed_formas_administrador_formas_agregar_seccion:
+    path:     /agregar-seccion
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:agregarSeccion }
+#Eliminar una sección agregada desde el sal
+show_dashboard_ed_formas_administrador_formas_eliminar_seccion:
+    path:     /eliminar-seccion/{idSeccionFormatos}
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:eliminarSeccion, idSeccionFormatos: 0 }
+    requirements:
+        idSeccionFormatos: \d+
+#Agregar forma nueva
+show_dashboard_ed_formas_administrador_formas_agregar_forma:
+    path:     /agregar-forma
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:agregarForma }
+#Editar una forma
+show_dashboard_ed_formas_administrador_formas_editar_forma:
+    path:     /editar-forma
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:editarForma }
+    #elimina una forma creada por el comité
+show_dashboard_ed_formas_administrador_formas_eliminar_forma:
+    path:     /eliminar-forma/{idForma}
+    defaults: { _controller: ShowDashboardEDFormasAdministradorFormasBundle:AdministradorFormas:eliminarForma, idForma: 0 }
+    requirements:
+        idForma: \d+

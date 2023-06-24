@@ -1,0 +1,30 @@
+login:
+    path:     /{lang}
+    defaults: { _controller: LoginBundle:Login:login, lang: es }
+    requirements:
+        lang: es|en
+
+login_check:
+    path:   /login_check
+
+logout:
+    path:   /log/logout
+    defaults:  { _controller: LoginBundle:Login:logout }
+
+login_reset_password_request:
+    path:     /utilerias/solicitud-restablecer-password
+    defaults: { _controller: LoginBundle:Login:resetPasswordRequest }
+    requirements:
+        _method:  POST
+
+login_reset_password_token:
+    path:     /utilerias/restablecer-password/{token}/{lang}
+    defaults: { _controller: LoginBundle:Login:resetPasswordToken, lang:es }
+
+reset_password:
+    path:     /restablecer-password
+    defaults: { _controller: LoginBundle:Login:resetPassword }
+
+preview_email:
+    path:     /utilerias/ver-email/{twig}/{lang}
+    defaults: { _controller: LoginBundle:Login:previewEmail, lang:es }

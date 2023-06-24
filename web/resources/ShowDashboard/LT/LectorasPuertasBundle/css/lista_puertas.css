@@ -1,0 +1,32 @@
+.container {
+    max-width: none;
+    width: 90%;
+    font-size: 12px;
+    position: relative;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 5px 2px 17px -8px;
+    margin-top: 12px;
+}
+.space-label{
+    padding-bottom: 5px;
+}
+/*------------------------------------------------------------------------*/
+.paging_listbox > select{
+    height: 2rem !important;
+}
+.dataTables_length > label > select{
+    height: 2rem !important;
+}
+/*------------------------------------------------------------------------*/
+#delete-record-modal{
+    max-width: 30%;
+}
+
+#add-puerta-modal{
+    height: 30% !important;
+    width: 25% !important;
+}

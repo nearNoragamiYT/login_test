@@ -1,0 +1,31 @@
+imports:
+    - { resource: config.yml }
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        console:
+            type:  console
+
+twig:
+    exception_controller:  UtileriasHandleErrorBundle:Exception:showAction
+
+services:
+    kernel.listener.exception:        
+        class: Utilerias\HandleErrorBundle\Controller\ExceptionController
+        arguments: ["@service_container"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }

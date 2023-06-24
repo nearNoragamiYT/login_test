@@ -1,0 +1,130 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/StatLink/DemographicsBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/select2-materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/demog.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+
+    <div id="solicitud-dg" class="container">
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <div class="col s7">
+                {#<h5 style="margin: 0px;">{{content["section_text"]["sas_fm_fichaMontajeDesmontaje"]|raw}}</h5>#}
+                <h5 style="margin: 0px;">{{"Exportaciones Demográficos"}}</h5>
+            </div>
+        </div>
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            {#<h5>{{content["section_text"]["sas_fichaPorVendedor"]|raw}}</h5>#}
+            <h5>{{"Listado de Solicitudes"}}</h5>
+            <div id="SolicitudDG" class="input-field col s12" style="text-align: right;" >
+                <a id="btnSolicitudDG"                      
+                   class="waves-effect waves-light btn  blue tooltipped"                                             
+                   data-position="top"
+                   data-delay="50"
+                   data-tooltip="{{"Click para solicitar una nueva exportación"}}"                      
+                   ><i class="material-icons dp48 right" style="line-height: inherit;">cloud_download</i>{{"Generar Exportación  "}}</a><br><br>
+            </div>
+            <table id="demog-table" class="highlight ">
+                <thead class="grey lighten-4">
+                    <tr>
+                        {#<th td="td_id_solicitud" class="responsiveExpander" style="width: 5%;">{{"#"}}</th>#}
+                        {% for header in content["demog_metadata"]%}
+                            {% if header["is_visible"] == true %}
+                                <th style="width: 5%;">{{ header["text"] }}</th>
+                                {% endif %}
+                            {% endfor %}                    
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, entity in content['solicitudes'] %}                         
+                        <tr id="{{ key }}">
+                            <td class="id_solicitud" style="width:60px;">                               
+                                {{ key}}                                     
+                            </td> 
+                            <td class="FileName" style="width:400px;">                               
+                                {{ entity['file_name']}}                                     
+                            </td>
+                            <td class="FileSize" style="width:100px;">                               
+                                {{ entity['file_size']}}
+                                {% if entity["status"] == 2 %} 
+                                    {{"-"}}
+                                {%endif%}
+                            </td>
+                            <td class="CreationDate" style="width:300px;">                               
+                                {{ entity['fechaCreacion']}}                                     
+                            </td>
+                            <td class="Status" style="width:300px;">                               
+                                {% if entity["status"] == 1 %}
+                                    {{ content["demog_metadata"]['status']["values"][1]}}
+                                {% elseif entity["status"] == 2 %}
+                                    {{ content["demog_metadata"]['status']["values"][2]}}
+                                {% elseif entity["status"] == 3 %}
+                                    {{ content["demog_metadata"]['status']["values"][3] }} 
+                                {% elseif entity["status"] == 4 %}
+                                    {{ content["demog_metadata"]['status']["values"][4] }}  
+                                {% endif %}                                  
+                            </td>
+                            <td style="width:100px;">                               
+                                {% if entity["status"] == 3 %}                                         
+                                    {#<a  
+                                           href="{{ path('stat_link_demographics_download',{'solicitudDG':key})}}"                                             
+                                           href="{{asset('../var/dgfile/'~entity['file_name']~'')}}"                                                 
+                                           style="display: inline-block;" #}                                                              
+                                    <i class="waves-effect waves-light tooltipped material-icons download-dg" 
+                                       data-id="{{entity['file_name']}}" 
+                                       data-position="right"
+                                       data-delay="50" 
+                                       data-tooltip="{{"Disponible"}}"
+                                       href="{{ path('stat_link_demographics_download')}}"
+                                       style="align-content:center;">file_download</i>                                             
+                                {% else %}
+                                    {% if entity["status"] == 4 %}
+                                        <i class="waves-effect waves-light tooltipped material-icons donwload-dg" 
+                                           data-id="{{key}}" 
+                                           data-position="right"
+                                           data-delay="50" 
+                                           data-tooltip="{{"Lo sentimos, hubo un error."}}"
+                                           style="align-content:center;">error_outline</i> 
+                                    {%else%}
+                                        <i class="waves-effect waves-light tooltipped material-icons donwload-dg" 
+                                           data-id="{{key}}" 
+                                           data-position="right"
+                                           data-delay="50" 
+                                           data-tooltip="{{"Espere un momento,  por favor."}}"
+                                           style="align-content:center;">update</i> 
+                                    {% endif%}
+
+                                {% endif %}                                                                                                                                                                  
+                            </td>
+                        </tr>                        
+                    {%endfor%}
+                </tbody>
+            </table>
+
+        </div>
+    {% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+         var url_generate_demographics = "{{ path('stat_link_demographics_generate') }}";
+         var url_download_demographics = "{{ path('stat_link_demographics_download') }}";
+        </script>
+        <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                var procesandoDG = {{content['procesando']}};
+        </script>
+        <script type="text/javascript">
+        var general_text = {{ content['general_text']|json_encode()|raw }};
+            {#var section_text = {{ content['section_text']|json_encode()|raw }};#}
+        </script>
+        <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+        <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/demog.js') }}"></script>
+    {% endblock %}

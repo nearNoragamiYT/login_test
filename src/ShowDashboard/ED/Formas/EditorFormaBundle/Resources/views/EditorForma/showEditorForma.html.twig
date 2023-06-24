@@ -1,0 +1,202 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/ED/Formas/EditorFormaBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <!-- Include Font Awesome. -->
+    <link href="{{ asset(ruta_asset ~ 'css/froala/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Include Editor style. -->
+    <link href="{{ asset(ruta_asset ~ 'css/froala/froala_editor.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset(ruta_asset ~ 'css/froala/froala_style.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Include Code Mirror style -->
+    <link rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/froala/codemirror.min.css') }}">
+
+    <!-- Include Editor Plugins style. -->
+    <link rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/froala/plugins/colors.css') }}">
+    <link rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/froala/plugins/table.css') }}">
+    <link rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/froala/plugins/code_view.css') }}">
+    <link rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/froala/plugins/fullscreen.css') }}">
+    <link rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/froala/plugins/char_counter.css') }}">
+    <link rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/froala/plugins/image.css') }}">
+
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/editorForma.css') }}">
+
+    <style>
+        .editor:before{
+            content: "{{ content['section_text']['ed_clickEditar'] }}";
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="container-editor">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row form-section title-form">
+                        <div class="col s12 m8">
+                            <h4>{{ content['forma']['NombreForma' ~ content['lang']|upper] }}</h4>
+                        </div>
+                        <div class="col s12 m4 right-align">
+                            <h4 class="unknown-content">{{ content['section_text']['ed_status'] }}</h4></span>
+                        </div>
+                    </div>
+                    <div class="row form-section">
+                        <div class="col s12">
+                            <div class="limit-date">{{ content['section_text']['ed_fechaLimite'] }}: {{ content['forma']['FechaLimite']|date("m/d/Y") }}</div>
+                            <div class="form-section-subheader">{{ content['section_text']['ed_notaFechaLimite'] }}</div>
+                            <div class="editor limit-date-form" id="ed_notaFechaLimite">
+                                <div class="froala-editor">
+                                    {%- if content['form_text']['ed_notaFechaLimite'] is defined and content['form_text']['ed_notaFechaLimite']['Texto_' ~ content['lang']|upper] != "" -%}
+                                    {{ content['form_text']['ed_notaFechaLimite']['Texto_' ~ content['lang']|upper]|raw }}
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-section">
+                        <div class="col s12">
+                            <div class="form-section-subheader">{{ content['section_text']['ed_encabezado'] }}</div>
+                            <div class="editor header-form" id="ed_encabezado">
+                                <div class="froala-editor">
+                                    {%- if content['form_text']['ed_encabezado'] is defined and content['form_text']['ed_encabezado']['Texto_' ~ content['lang']|upper] != "" -%}
+                                    {{ content['form_text']['ed_encabezado']['Texto_' ~ content['lang']|upper]|raw }}
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="row form-section">
+                        <div class="col s12">
+                            <div class="form-section-subheader">{{ content['section_text']['ed_informacionContacto'] }}</div>
+                            <div class="editor" id="ed_instruccionesContacto">
+                                <div class="froala-editor">
+                                    {%- if content['form_text']['ed_instruccionesContacto'] is defined and content['form_text']['ed_instruccionesContacto']['Texto_' ~ content['lang']|upper] != "" -%}
+                                    {{ content['form_text']['ed_instruccionesContacto']['Texto_' ~ content['lang']|upper]|raw }}
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="unknown-box"></div>
+                            <div class="unknown-box"></div>
+                            <div class="unknown-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="row form-section">
+                        <div class="col s12">
+                            <div class="form-section-subheader">{{ content['section_text']['ed_instrucciones'] }}</div>
+                            <div class="editor" id="ed_instrucciones">
+                                <div class="froala-editor">
+                                    {%- if content['form_text']['ed_instrucciones'] is defined and content['form_text']['ed_instrucciones']['Texto_' ~ content['lang']|upper] != "" -%}
+                                    {{ content['form_text']['ed_instrucciones']['Texto_' ~ content['lang']|upper]|raw }}
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if content['forma']['idTipoForma'] == 3 %}
+                        {% include 'ShowDashboardEDFormasEditorFormaBundle:EditorForma:tablaServicios.html.twig' %}
+                    {% else %}
+                        <div class="row form-section">
+                            <div class="col s12">
+                                <div class="form-section-subheader">{{ content['section_text']['ed_contenidoForma'] }}</div>
+                                <div class="unknown-box-content"></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="row form-section">
+                        <div class="col s12">
+                            <div class="form-section-subheader">{{ content['section_text']['ed_reglas'] }}</div>
+                            <div class="editor" id="ed_reglas">
+                                <div class="froala-editor">
+                                    {%- if content['form_text']['ed_reglas'] is defined and content['form_text']['ed_reglas']['Texto_' ~ content['lang']|upper] != "" -%}
+                                    {{ content['form_text']['ed_reglas']['Texto_' ~ content['lang']|upper]|raw }}
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="{{ path('show_dashboard_ed_formas_administrador_formas_mostrar') }}" class="btn-link waves-effect btn-flat left">{{ content['section_text']['sas_regresarAlIndice'] }}</a>
+            {#<button type="button" class="btn-preview-form btn waves-effect waves-light green">{{ content['section_text']['sas_previsualizarForma'] }} <i class="material-icons left">remove_red_eye</i></button>#}
+        </div>
+    </div>
+
+    {% if content['forma']['idTipoForma'] == 3 %}
+        {% include 'ShowDashboardEDFormasEditorFormaBundle:Modal:modalShowServicio.html.twig' %}
+    {% endif %}
+
+    {% include 'ShowDashboardEDFormasEditorFormaBundle:Modal:modalDeleteServicio.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Include jQuery. -->
+
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/jquery-1.11.0.min.js') }}"></script>
+    {#---<script type="text/javascript" src="{{ asset('js/jquery-3.0.0.min.js') }}"></script>---#}
+    <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+    {% include ':js:init.js.twig' %}
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.formatter.min.js') }}"></script>
+
+    <script>
+        var lang = "{{ content['lang'] }}";
+        var url_save_html = "{{- content['url_save_html'] -}}",
+                url_delete_image = "{{path('show_dashboard_ed_formas_eliminar_imagen')}}",
+                url_update_service = "{{ path("show_dashboard_ed_formas_servicio") }}",
+                url_upload_image = "{{path('show_dashboard_ed_formas_guardar_imagen')}}";
+
+        var forma = {{- content['forma']|json_encode()|raw -}},
+                servicios = {{- content['servicios']|length > 0 ? content['servicios']|json_encode()|raw : '{}' -}};
+        var currency = null;
+        $.getJSON("{{ asset(ruta_asset ~ 'js/froala/currency.json') }}", function (result) {
+            currency = result;
+        });
+    </script>
+
+    <!-- Include JS files. -->
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/froala_editor.min.js') }}"></script>
+
+    <!-- Include Code Mirror. -->
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/codemirror.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/xml.min.js') }}"></script>
+
+    <!-- Include Plugins. -->
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/font_family.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/font_size.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/colors.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/paragraph_format.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/align.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/lists.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/quote.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/link.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/table.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/fullscreen.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/code_view.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/char_counter.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/plugins/image.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/froala/languages/' ~ content['lang'] ~ '.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/jquery.number.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/cleave.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/editor.js') }}"></script>
+{% endblock %}

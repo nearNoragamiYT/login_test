@@ -1,0 +1,4 @@
+services:
+#    show_dashboard_rs_archivos_rs.example:
+#        class: ShowDashboard\RS\ArchivosRSBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

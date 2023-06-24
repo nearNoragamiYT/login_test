@@ -1,0 +1,36 @@
+{% set lang = content['lang'] %}
+<style>
+    td td{
+        padding-right: 6px !important;
+        padding-left: 6px !important;
+    }
+</style>
+{% include 'EmpresaContratoBundle:PDF:header.html.twig' %}
+<tr>
+    <td colspan="4" style="font-size: 10px">&nbsp;</td>
+</tr>
+{% include 'EmpresaContratoBundle:PDF:entidad_fiscal.html.twig' %}
+<tr>
+    <td colspan="4" style="font-size: 10px">&nbsp;</td>
+</tr>
+{% include 'EmpresaContratoBundle:PDF:datos_comerciales.html.twig' %}
+<tr>
+    <td colspan="4" style="font-size: 10px">&nbsp;</td>
+</tr>
+{% include 'EmpresaContratoBundle:PDF:contacto_evento.html.twig' %}
+<tr>
+    <td colspan="4" style="font-size: 10px">&nbsp;</td>
+</tr>
+{% include 'EmpresaContratoBundle:PDF:espacio.html.twig' %}
+<tr>
+    <td colspan="4" style="font-size: 10px">&nbsp;</td>
+</tr>
+
+{#% include 'EmpresaContratoBundle:PDF:opcion_pago.html.twig' %}
+
+{#% include 'EmpresaContratoBundle:PDF:productos.html.twig' %}
+
+{% include 'EmpresaContratoBundle:PDF:premios.html.twig' %#}
+
+{% include 'EmpresaContratoBundle:PDF:footer.html.twig' %}
+

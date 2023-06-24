@@ -1,0 +1,69 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/AdministracionGlobal/EventoBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/evento.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h4>{{content['general_text']['sas_evento']}}</h4>
+        <div class="z-depth-1 white">
+            <table id="tbl-event" class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>{{content['general_text']['sas_ID']}}</th>
+                        <th>{{content['section_text']['sas_eventoES']}}</th>
+                        <th>{{content['section_text']['sas_eventoEN']}}</th>
+                        <th>{{content['section_text']['sas_eventoPT']}}</th>
+                        <th>{{content['section_text']['sas_eventoFR']}}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>        
+                <tbody>
+                    {% for ev in content['ev'] %}
+                        <tr>
+                            <td>{{ ev['idEvento'] }}</td>
+                            <td>{{ ev['Evento_ES'] }}</td>
+                            <td>{{ ev['Evento_EN'] }}</td>
+                            <td>{{ ev['Evento_PT'] }}</td>
+                            <td>{{ ev['Evento_FR'] }}</td>
+                            <td>
+                                <i class="material-icons edit-record" id-record="{{ ev['idEvento'] }}">mode_edit</i>
+                            </td>
+                            <td>
+                                <i class="material-icons delete-record" id-record="{{ ev['idEvento'] }}">delete_forever</i>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="nav-floating-buttons">
+            <button class="add-record btn-floating waves-effect waves-light right green">
+                <i class="material-icons tooltipped" data-tooltip="{{content['general_text']['sas_agregar']}}">add</i>
+            </button>
+        </div>
+    </div>
+    {% include 'AdministracionGlobalEventoBundle:Evento:form_evento.html.twig' %}
+    {% include 'AdministracionGlobalEventoBundle:Evento:confirm_evento.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var ev = {{ content['ev']|length ? content['ev']|json_encode()|raw : '{}' }};
+        var url_insert = '{{path('evento_nuevo')}}';
+        var url_update = '{{path('evento_editar')}}';
+        var url_delete = '{{path('evento_eliminar')}}';
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/evento.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,40 @@
+visitantes_generales:
+    path:     /visitantes-generales
+    defaults: { _controller: VisitanteVisitantesGeneralesBundle:VisitantesGenerales:visitantes}
+    
+
+visitante_visitante:
+    path:     /visitante/visitantes/{idVisitante}
+    defaults: { _controller: VisitanteVisitantesGeneralesBundle:VisitantesGenerales:showVisitantes, idVisitante: 0 }
+
+visitante_visitantes_update_status:
+    path:     /visitante/visitantes-update-status
+    defaults: { _controller: VisitanteVisitantesGeneralesBundle:VisitantesGenerales:updateStatusVisitantes}
+
+get_visitantes:
+    path:     /get-data-visitantes
+    defaults: { _controller: VisitanteVisitantesGeneralesBundle:VisitantesGenerales:getDataTable }
+    
+update_visitantes:
+    path:     /update-visitanes
+    defaults: { _controller: VisitanteVisitantesGeneralesBundle:VisitantesGenerales:updateStatusVisitanteList }    
+    
+visitantes_email_rechazo:
+    path:     /email_rechazo
+    defaults: { _controller: VisitanteVisitantesGeneralesBundle:VisitantesGenerales:emailRechazo}
+    
+visitantes_email_confirmacion:
+    path:     /email_validacion
+    defaults: { _controller: VisitanteVisitantesGeneralesBundle:VisitantesGenerales:emailConfirmacion}    
+        
+visitantes_export_visitantes:
+    path:     /export-data-visitantes
+    defaults: { _controller: VisitanteVisitantesGeneralesBundle:VisitantesGenerales:exportDataTable }    
+
+visitantes_send_digibage:
+    path:     /send-digibage-general
+    defaults: { _controller: VisitanteVisitantesGeneralesBundle:VisitantesGenerales:sendDigibage }
+
+visitantes_descargar_gafete:
+    path:    /download-gafete-general
+    defaults: { _controller: VisitanteVisitantesGeneralesBundle:VisitantesGenerales:downloadDigibadge }

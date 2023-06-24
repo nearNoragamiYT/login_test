@@ -1,0 +1,121 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaFiscalBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_fiscal.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% if  content['companyOrigin'] == 'lectoras' or content['companyOrigin'] == 'lectoras_simple'  or content['companyOrigin'] == 'solicitud_lectoras'%}
+        {% include 'ShowDashboardLTLectorasBundle:Lectoras:menu_secciones.html.twig' %}
+    {% else %}
+        {% include 'EmpresaEmpresaBundle:Empresa:menu_secciones.html.twig' %}
+    {% endif %}
+    <div id="financial-companies" class="container">
+        {% include 'EmpresaEmpresaBundle:Empresa:detalle_empresa.html.twig' %}
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <h5 class="content-btns" style="margin: 0px;">
+                {{content['section_text']['sas_entidadesFiscales']}}
+                <a id="add-financial-company" class="btn waves-effect waves-light green right">{{ content["section_text"]["sas_agregarEmpresaFiscal"] }}</a>
+                <a id="change-financial-principal" class="btn waves-effect waves-light green right">{{ content["section_text"]["sas_cambiarRazonSocialPrincipal"] }}</a>
+            </h5>
+            <table id="financial-companies-table" class="highlight bordered">
+                <thead class="grey lighten-4">
+                    <tr>
+                        {% for header in content["financial_metadata"] %}
+                            {% if header["is_visible"] == true %}
+                                <th>{{ header["text"] }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        <th style="width: 5%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in content["financial_companies"] %}
+                        <tr id="{{ entity["idEmpresaEntidadFiscal"] }}">
+                            {% for key, value in entity %}
+                                {% if content["financial_metadata"][key] is defined and content["financial_metadata"][key]["is_visible"] == true %}
+                                    {%if content["financial_metadata"][key]["values"] is defined%}
+                                        <td> {{ content["financial_metadata"][key]["values"][value]}} </td>
+                                    {% elseif key == "Principal" %}
+                                        {% if value == 1 %}
+                                            <td>{{ content["section_text"]["sas_si"] }}</td>
+                                        {% else %}
+                                            <td>{{ content["section_text"]["sas_no"] }}</td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td> {{ value }} </td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                                <i class="material-icons edit-record tooltipped" data-position="left" data-delay="50" data-tooltip="{{ content['general_text']['sas_editar'] }}" data-id="{{entity['idEmpresaEntidadFiscal']}}">mode_edit</i>
+                                <i class="material-icons delete-record tooltipped" data-position="right" data-delay="50" data-tooltip="{{ content['general_text']['sas_eliminar'] }}" data-id="{{entity['idEmpresaEntidadFiscal']}}">delete_forever</i>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    {#---
+        <div class="fixed-action-btn" style="bottom: 60px; right: 100px;">
+        <a class="btn-floating btn-large green tooltipped"
+        id="change-financial-principal"
+        data-tooltip="{{ content["section_text"]["sas_cambiarRazonSocialPrincipal"] }}"
+        data-position="left"
+        data-delay="50"
+        >
+        <i class="material-icons">loop</i>
+        </a>
+        </div>
+        <div class="fixed-action-btn" style="bottom: 60px; right: 30px;">
+        <a class="btn-floating btn-large green tooltipped"
+        id="add-financial-company"
+        data-tooltip="{{ content["section_text"]["sas_agregarEmpresaFiscal"] }}"
+        data-position="left"
+        data-delay="50"
+        >
+        <i class="material-icons">add</i>
+        </a>
+        </div>
+     ---#}
+    <div id="delete-record-modal" class="modal">
+        <div class="modal-content">
+            <h6>{{content['section_text']['sas_eliminarRegistro']}}</h6>
+            <p id="deleteText"></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+            <button id="delete-record" type="button" class="modal-action waves-effect waves-red btn-flat red white-text" data-action="delete">{{content['general_text']['sas_eliminar']}}</button>
+        </div>
+    </div>
+    {% include 'EmpresaEmpresaFiscalBundle:EmpresaFiscal:agregar_editar_empresa_fiscal.html.twig' %}
+    {% include 'EmpresaEmpresaFiscalBundle:EmpresaFiscal:cambiar_entidad_fiscal_principal.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_financial_company_add = "{{ path('empresa_empresa_fiscal_agregar') }}";
+        var url_financial_company_update = "{{ path('empresa_empresa_fiscal_editar') }}";
+        var url_financial_company_delete = "{{ path('empresa_empresa_fiscal_borrar') }}";
+        var url_financial_company_change = "{{ path('empresa_empresa_fiscal_cambiar') }}";
+        var url_get_estados = "{{ path('pecc_estados', {'idPais': "0000"}) }}";
+    </script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                var general_text = {{ content['general_text']|json_encode()|raw }};
+                var section_text = {{ content['section_text']|json_encode()|raw }};
+                var financial_companies = {{ content['financial_companies']|json_encode()|raw }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_fiscal.js') }}"></script>
+{% endblock %}

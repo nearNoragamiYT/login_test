@@ -1,0 +1,41 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "change-upgrade-modal", 
+                "fixed": true, 
+                "size": "modal-m", 
+                "color": "green",
+                "textColor": "white-text",
+                "confirmCancel": false,
+                "idButton": "btn-change-upgrade" 
+            }
+%}
+{% block title %}
+    <h6 id="upgrade-head"></h6>
+{% endblock %}
+{% block body %}
+    <form id="change-upgrade-form" class="col s12">
+        <input type="hidden" id="idEmpresa" name="idEmpresa" value="{{content["idEmpresa"]}}">
+        <div class="input-field col s12">
+            <input id="PaqueteActual" name="PaqueteActual" type="text" readonly value="">
+            <label for="PaqueteActual">{{ content["section_text"]["sas_paqueteMKFActual"] }}</label>
+        </div>
+        <div class="input-field col s12">
+            <label for="idNuevoPaquete" class="active space-label">{{ content["section_text"]["sas_paqueteMKFNuevo"] }}</label>
+            {% if content['packages'] is defined and content['packages']|length > 0 %}
+                <select id="idNuevoPaquete" 
+                        name="idNuevoPaquete"
+                        class="browser-default validate"
+                        loader-element=".progress-estado" 
+                        style="margin-top: 5px;"
+                        >
+                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                    {% for package in content['packages'] %}
+                        <option value="{{ package["idPaquete"] }}">{{ package["Paquete" ~ content["lang"]|upper]}}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

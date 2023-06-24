@@ -1,0 +1,24 @@
+{% extends 'MSFloorplanBundle:exAccessLeads:base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <style>
+        header, main, footer{
+            padding-left: 0px !important;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}    
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="page-footer">
+        <img class="right" src="{{ asset("images/infoexpo-min.png") }}" alt="Ixpo">
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

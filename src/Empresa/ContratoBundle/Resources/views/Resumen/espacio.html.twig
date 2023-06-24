@@ -1,0 +1,156 @@
+{# Vendedor #}
+<div class="row">
+    <div class="col s12 m12">
+        <div class="card-panel">
+            <div class="card-content">
+                <h5>{{content['section_text']['sas_vendedor']}}</h5>
+                <p class="personal-info"><i class="material-icons">person_outline</i> <span id="vendedor-nombre">{{ content['vendedor']['Nombre'] }}</span></p>
+                <p class="personal-info"><i class="material-icons">email</i> <span id="vendedor-email">{{ content['vendedor']['Email'] }}</span></p>
+                <input id="vendedor" type="hidden" value="{{content['idUsuario']}}"/>
+            </div>
+        </div>
+    </div>
+</div>
+{# Precios #}
+<div class="row">
+    <div class="col s12 m12">
+        <div class="card-panel">
+            <div class="card-content">
+
+                <div class="col s4">
+                    <h5>{{content['section_text']['sas_seleccionEspacio']}}</h5>
+                    <p>
+                        <label style="font-size: 20px;">{{content['opcion_pago']['Opcion_'~lang|upper] | raw}}</label><br>
+                        {{ content['opcion_pago']['Caracteristicas_'~lang|upper] | raw}}
+                    </p>
+                </div>
+                <div class="col s4">
+                    <h5>{{content['section_text']['sas_cambioMoneda']}}</h5>
+                    <label style="font-size: 20px;">{{content['contrato']['Moneda']}}</label>
+                </div>
+                <div class="row">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</div>
+{# Stands #}
+<div class="row">
+    <div class="col s12 m12">
+        <div class="card-panel">
+            <div class="card-content">
+                <h5>
+                    {{content['section_text']['sas_seleccionEspacio']}}
+                </h5>
+                <table id="tbl-stand" class="highlight">
+                    <thead>
+                        <tr>
+                            <th>{{content['section_text']['sas_etiquetaStand']}}</th>
+                            <th>Zona</th>
+                            <th>{{content['section_text']['sas_numeroStand']}}</th>
+                            <th>{{content['section_text']['sas_precio']}}</th>
+                            <th>{{content['section_text']['sas_dimensiones']}}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set area_total = 0 %}
+                        {% for item in content['empresa_stand'] %}
+                            <tr>
+                                <td>{{item['EtiquetaStand']}}</td>
+                                <td>{{item['Zona']}}</td>
+                                <td>{{item['StandNumber']}}</td>
+                                <td>{% if item['Precio'] != '' %}{{item['Precio']|number_format(2, '.', ',')}}{% else %}0.00{% endif %}</td>
+                                <td>{{item['Stand_W']}}  x  {{item['Stand_H']}}  =  <span class="area">{{ item['Stand_W'] * item['Stand_H'] }}</span></td>
+                                    {% set area_total = area_total + (item['Stand_W'] * item['Stand_H']) %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h5>
+                    {{content['section_text']['sas_otrosConceptos']}}
+                </h5>
+                <table id="table-concepts" class="highlight">
+                    <thead>
+                        <tr>
+                            <th>{{content['general_text']['sas_nombre']}}</th>
+                            <th>{{content['section_text']['sas_descripcion']}}</th>
+                            <th>{{content['section_text']['sas_precio']}}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in content['concepto'] %}
+                            <tr>
+                                <td>{{item['Nombre']}}</td>
+                                <td>{{item['Descripcion']}}</td>
+                                <td>{% if item['Precio'] != '' %}{{item['Precio']|number_format(2, '.', ',')}}{% else %}0.00{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="row">
+                    &nbsp;
+                </div>
+                <div style="float: right;font-size: 20px; margin-right: 12px;">{{content['section_text']['sas_areaTotal']}}: <span id="area-total">{{(area_total - content['contrato']['MetrosDescuento'])}}</span> m<sup>2</sup></div>
+                <div class="row totales">
+                    <div class="col s6 offset-s6 sub">
+                        <div class="col s6 lbl-total">
+                            {{content['section_text']['sas_subtotalStand']}}
+                        </div>
+                        <div class="col s6">
+                            <input id="SubtotalStand" name="SubtotalStand" type="text" class="validate right-align" value="{{content['contrato']['SubtotalStand']|number_format(2, '.', ',')}}" disabled>
+                        </div>
+                    </div>
+                    <div class="col s6 offset-s6 sub">
+                        <div class="col s6 lbl-total">
+                            {{content['section_text']['sas_descuento']}}
+                        </div>
+                        <div class="col s6">
+                            <input id="DescuentoCantidad" name="DescuentoCantidad" type="text" class="validate right-align" value="{{content['contrato']['DescuentoCantidad']|number_format(2, '.', ',')}}" style="background: #fffbe5;" disabled>
+                        </div>
+                    </div>
+                    <div class="col s6 offset-s6 sub">
+                        <div class="col s6 lbl-total">
+                            {{content['section_text']['sas_otrosConceptos']}}
+                        </div>
+                        <div class="col s6">
+                            <input id="OtrosConceptosCantidad" name="OtrosConceptosCantidad" type="text" class="validate right-align" value="{{content['contrato']['OtrosConceptosCantidad']|number_format(2, '.', ',')}}" disabled>
+                        </div>
+                    </div>
+                    <div class="col s6 offset-s6 sub">
+                        <div class="col s6 lbl-total">
+                            {{content['section_text']['sas_decoracion']}}
+                        </div>
+                        <div class="col s6">
+                            <input id="DecoracionCantidad" name="DecoracionCantidad" type="text" class="validate right-align" value="{{content['contrato']['DecoracionCantidad']|number_format(2, '.', ',')}}" style="background: #fffbe5;" disabled>
+                        </div>
+                    </div>
+                    <div class="col s6 offset-s6 sub">
+                        <div class="col s6 lbl-total">
+                            {{content['section_text']['sas_subtotal']}}
+                        </div>
+                        <div class="col s6">
+                            <input id="SubtotalOpcionPago" name="SubtotalOpcionPago" type="text" class="validate right-align" value="{{content['contrato']['SubtotalOpcionPago']|number_format(2, '.', ',')}}" disabled>
+                        </div>
+                    </div>
+                    <div class="col s6 offset-s6 iva">
+                        <div class="col s6 lbl-total">
+                            {{content['section_text']['sas_iva']}}
+                        </div>
+                        <div class="col s6">
+                            <input id="IvaOpcionPago" name="IvaOpcionPago" type="text" class="validate right-align" value="{{content['contrato']['IvaOpcionPago']|number_format(2, '.', ',')}}" disabled>
+                        </div>
+                    </div>
+                    <div class="col s6 offset-s6 total">
+                        <div class="col s6 lbl-total">
+                            {{content['section_text']['sas_total']}}
+                        </div>
+                        <div class="col s6">
+                            <input id="TotalOpcionPago" name="TotalOpcionPago" type="text" class="validate right-align" value="{{content['contrato']['TotalOpcionPago']|number_format(2, '.', ',')}}" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-status-prensa", "fixed": true, "size": "modal-s", "color": "blue", "idButton": "changeStatus" } %}
+{% block title %}Modificar Estatus del Prensa{% endblock %}
+{% block body %}
+    <form id="change-status-form" class="col s12">
+        <div class="input-field col s12" style="margin-top:30px">
+            <label for="idStatusAutorizado" class="active space-label">Estatus Autorizacion</label>
+            {% if content['StatusPrensa'] is defined and content['StatusPrensa']|length > 0 %}
+                <select id="idStatusAutorizado"
+                        name="idStatusAutorizado"
+                        class="browser-default validate"
+                        >
+                    <option value="0" disabled selected>{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                    {% for statusAutorizacion in content['StatusPrensa'] if statusAutorizacion['idStatus'] == 2 %}
+                        <option value="{{ statusAutorizacion['idStatus'] }}">{{ statusAutorizacion['NombreStatus'] }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+        <div class="input-field col s12" style="margin-top:30px; display: none" id="div-motivo-rechazo">
+            <textarea id="MotivoRechazo" name="MotivoRechazo" maxlength="250" class="materialize-textarea" ></textarea>
+            <label for="MotivoRechazo">Motivo cancelación</label>
+        </div>
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock %}

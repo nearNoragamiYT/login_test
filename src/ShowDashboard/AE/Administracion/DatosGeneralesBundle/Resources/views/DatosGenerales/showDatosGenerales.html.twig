@@ -1,0 +1,153 @@
+{% extends 'ShowDashboardAEAdministracionConfiguracionBundle:Base:baseAdministracion.html.twig' %}
+{% set ruta_asset_main_ae = 'resources/ShowDashboard/AE/Administracion/ConfiguracionBundle/' %}
+{% set ruta_asset = 'resources/ShowDashboard/AE/DatosGeneralesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset_main_ae ~ 'css/editorAE.css') }}">
+    <style>
+        .editor:before{
+            content: "{{ content['general_text']['sas_clickEditar'] }}";
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title editor" id="ae_miCuenta" seccion="{{ content['idSeccion'] }}">
+                    <div class="froala-editor">
+                        {% if content['ae_text']['ae_miCuenta'] is defined %}
+                            {{- content['ae_text']['ae_miCuenta']['Texto_' ~ lang|upper]|raw -}}
+                        {% else %}
+                            {{ content['ae_general_text']['ae_miCuenta']['Texto_' ~ lang|upper]|raw }}
+                        {% endif %}
+                    </div>
+                </span>
+                <div class="row">
+                    <div class="col s1">
+                        <p>
+                            <input type="checkbox" id="in_nombre" name="field" value="nombre"/>
+                            <label for="in_nombre"></label>
+                        </p>
+                    </div>
+                    <div class="col s10">
+                        <div class="editor editor-input-text" id="ae_nombre" seccion="{{ content['idSeccion'] }}">
+                            <div class="froala-editor">
+                                {% if content['ae_text']['ae_nombre'] is defined %}
+                                    {{- content['ae_text']['ae_nombre']['Texto_' ~ lang|upper]|raw -}}
+                                {% else %}
+                                    {{ content['ae_general_text']['ae_nombre']['Texto_' ~ lang|upper]|raw }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s1">
+                        <div class="switch">
+                            <label>
+                                Opcional
+                                <input type="checkbox">
+                                <span class="lever"></span>
+                                Requerido
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title editor" id="ae_datosPersonales" seccion="{{ content['idSeccion'] }}">
+                    <div class="froala-editor">
+                        {% if content['ae_text']['ae_datosPersonales'] is defined %}
+                            {{- content['ae_text']['ae_datosPersonales']['Texto_' ~ lang|upper]|raw -}}
+                        {% else %}
+                            {{ content['ae_general_text']['ae_datosPersonales']['Texto_' ~ lang|upper]|raw }}
+                        {% endif %}
+                    </div>
+                </span>
+                {#<div class="editor" id="ae_informacionAdicionalLogin" seccion="{{ content['idSeccion'] }}">
+                    <div class="froala-editor">
+                        {% if content['ae_text']['ae_informacionAdicionalLogin'] is defined %}
+                            {{- content['ae_text']['ae_informacionAdicionalLogin']['Texto_' ~ lang|upper]|raw -}}
+                        {% else %}
+                            {{ content['section_text']['ae_informacionAdicionalEvento'] }}
+                        {% endif %}
+                    </div>
+                </div>#}
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title editor" id="ae_direccion" seccion="{{ content['idSeccion'] }}">
+                    <div class="froala-editor">
+                        {% if content['ae_text']['ae_direccion'] is defined %}
+                            {{- content['ae_text']['ae_direccion']['Texto_' ~ lang|upper]|raw -}}
+                        {% else %}
+                            {{ content['ae_general_text']['ae_direccion']['Texto_' ~ lang|upper]|raw }}
+                        {% endif %}
+                    </div>
+                </span>
+                {#<div class="editor" id="ae_informacionAdicionalLogin" seccion="{{ content['idSeccion'] }}">
+                    <div class="froala-editor">
+                        {% if content['ae_text']['ae_informacionAdicionalLogin'] is defined %}
+                            {{- content['ae_text']['ae_informacionAdicionalLogin']['Texto_' ~ lang|upper]|raw -}}
+                        {% else %}
+                            {{ content['section_text']['ae_informacionAdicionalEvento'] }}
+                        {% endif %}
+                    </div>
+                </div>#}
+            </div>
+        </div>
+
+        {#<div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s12 m7">
+                        <div class="editor" id="ae_informacionLogin" seccion="{{ content['idSeccion'] }}">
+                            <div class="froala-editor">
+                                {% if content['ae_text']['ae_informacionLogin'] is defined %}
+                                    {{- content['ae_text']['ae_informacionLogin']['Texto_' ~ lang|upper]|raw -}}
+                                {% else %}
+                                    <h1 class="light">{{ content['edicion']['Edicion_' ~ lang|upper] }}</h1>
+                                    <h4 class="light">{{ content['edicion']['FechaInicio'] }} - {{ content['edicion']['FechaFin'] }}</h4>
+                                    <h5 class="light">{{ content['edicion']['Ciudad'] }}</h5>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m5">
+                        <div class="card small z-depth-0 grey lighten-3 grey-text valign-wrapper">
+                            <div class="card-content valign">
+                                {{ content['general_text']['sas_editadoInfoexpo'] }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>#}
+        <div class="card">
+            <div class="card-content">
+                <div class="editor" id="ae_informacionAdicionalLogin" seccion="{{ content['idSeccion'] }}">
+                    <div class="froala-editor">
+                        {% if content['ae_text']['ae_informacionAdicionalLogin'] is defined %}
+                            {{- content['ae_text']['ae_informacionAdicionalLogin']['Texto_' ~ lang|upper]|raw -}}
+                        {% else %}
+                            {{ content['section_text']['ae_informacionAdicionalEvento'] }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card grey lighten-3 grey-text valign-wrapper">
+            <div class="card-content valign">
+                {{ content['general_text']['sas_editadoInfoexpo'] }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset(ruta_asset_main_ae ~ 'js/editorAE.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,65 @@
+body{
+    background: #F3F3F5;
+}
+.supported-browsers{
+    width: 30%;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    margin: -130px 0 0 -116px;
+}
+
+.supported-browsers-content{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    background: #fbfbe3;
+    background: #fafbfc;
+    font-size: 12px;
+    color: #7C7B78;
+    border: 1px solid #CACAC5;
+    padding: 5px;
+    text-align: center;
+}
+.supported-browsers label{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    height: auto;
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.content-browser{
+    display: inline-block;
+    width: 0% !important;
+    margin: 0 auto;
+    position: relative;
+    height: auto;
+}
+.browser{
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    float: left;
+    margin: 5px 12px;
+}
+.browser a{
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    position: relative;
+}
+.browser img{
+    vertical-align: middle;
+    border: none;
+}
+.soporte{
+    text-align: right;
+}
+
+
+

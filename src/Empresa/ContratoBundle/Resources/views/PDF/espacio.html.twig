@@ -1,0 +1,139 @@
+<tr>
+    <td colspan="4">
+        <table border="1" width="100%">
+            <tr style="background-color: #eee;">
+                <td colspan="5" style="color: black;font-size: 14px;">
+                    {{content['section_text']['sas_seleccionEspacio']|raw|upper}}
+                </td>
+                <td  style="color: white;font-size: 14px; background-color: black; text-align: center;">
+                    4
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" style="color: black;font-size: 10px; font-weight: bold;">
+                    {#                    {{content['section_text']['sas_Stands']|upper}}#}
+                </td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td style="color: black;font-size: 10px; text-align: left; width: 20%;">
+                    {{content['section_text']['sas_numeroStand']}}
+                </td>
+                <td  style="color: black;font-size: 10px; text-align: left; width: 20%;">
+                    {{content['section_text']['sas_tipoStand']}}
+                </td>
+                <td  style="color: black;font-size: 10px; text-align: left; width: 20%;">
+                    {{content['section_text']['sas_areaTotal']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: left; width: 20%;">
+                    {{content['section_text']['sas_descripcion']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: left; width: 20%;">
+                    {{content['section_text']['sas_Importe']|title}}
+                </td>
+            </tr>
+            {% for s_item in content['empresa_stand'] %}
+                <tr>
+                    <td  style="color: black;font-size: 10px; text-align: left; width: 20%;">
+                        {{s_item['StandNumber']}}
+                    </td>
+                    <td  style="color: black;font-size: 10px; text-align: left; width: 20%;">
+                        {{s_item['TipoStand']}} <br>
+                        Zona: {{s_item['Zona']}}
+                    </td>
+                    <td  style="color: black;font-size: 10px; text-align: left; width: 20%;">
+                        {{s_item['StandArea']}}
+                    </td>
+                    <td style="color: black;font-size: 10px; text-align: left; width: 20%;">
+                        {{content['section_text']['sas_etiquetaStand']}}: {{s_item['EtiquetaStand']}} <br>
+                        {{content['section_text']['sas_dimensiones']}}: {{s_item['Stand_W']}} x {{s_item['Stand_H']}}
+                    </td>
+                    <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                        {% if s_item['Precio'] != '' %}{{s_item['Precio']|number_format(2, '.', ',')}}{% else %}0,00{% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5" style="font-size: 12px">&nbsp;</td>
+            </tr>
+            {#% if content["otros_conceptos"] is defined and content['otros_conceptos'] != "" %}
+                <tr>
+                    <td colspan="5" style="color: black;font-size: 10px; font-weight: bold;">
+                        {{content['section_text']['sas_otrosConceptos']|upper}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="font-size: 12px">&nbsp;</td>
+                </tr>
+            {% endif %#}
+            <tr>
+                <td colspan="3" rowspan="2" style="color: black;font-size: 10px; text-align: left;">
+                    El Stand Contratado Incluye: <b>BASICO- Mampara Blanca y poste octanorm de 1mt. De ancho x 2.5 mts. de alto, 1 Antepecho, 1 Rotulo, 1 Lampara Slim Line, 1 Contacto Electrico doble monofasico de 120 volts / 1000 watts.</b>
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['section_text']['sas_importe'] | raw}}
+                </td>
+                <td colspan="2" style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['contrato']['SubtotalStand']|number_format(2, '.', ',')}}
+                </td>
+            </tr>
+            <tr>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['section_text']['sas_otrosConceptos']}}
+                </td>
+                <td colspan="2" style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['contrato']['OtrosConceptosCantidad']|number_format(2, '.', ',')}}
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="5"  style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['section_text']['sas_observaciones'] | raw}}
+                </td>
+                <td rowspan="5" style="color: black;font-size: 10px; text-align: right;">
+                </td>
+                <td rowspan="3"style="color: black;font-size: 10px; text-align: right; ">
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['section_text']['sas_SubTotal'] | raw}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['contrato']['SubtotalOpcionPago']|number_format(2, '.', ',')}}
+                </td>
+            </tr>
+            <tr>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['section_text']['sas_iva'] | raw}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['contrato']['IvaOpcionPago']|number_format(2, '.', ',')}}
+                </td>
+            </tr>
+            <tr>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['section_text']['sas_total'] | raw}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['contrato']['TotalOpcionPago']|number_format(2, '.', ',')}}
+                </td>
+
+            </tr>
+            <tr>
+                <td  style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content["section_text"]["sas_tipoPrecio"]}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content["section_text"]["sas_fecha"]}}
+                </td>
+                <td  style="color: black;font-size: 10px; text-align: right;">
+                </td>
+            </tr>
+            <tr>
+                <td  style="color: black;font-size: 10px; text-align: right;">
+                    {{content['empresa_stand'][0]['TipoPrecioStand']}}
+                </td>
+                <td colspan="2" style="color: black;font-size: 10px; text-align: right;">
+                    {#                    {{content['section_text']['sas_subtotal'] | raw}}#}
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>

@@ -1,0 +1,10 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-confirm-date", "fixed": false, "size": "modal-s", "color": "orange", "idButton": "btn-confirm-change-date", "colorButton" : "blue" } %}
+{% block title %}  Actualizar Fecha limite Licenia{% endblock %}
+{% block body %}
+    <div class="center"><p><span id="selected-licenses-date"></span></p></div>
+        {% endblock %}
+        {% block button %}
+            {{content['general_text']['sas_aceptar']}}
+        {% endblock %}
+

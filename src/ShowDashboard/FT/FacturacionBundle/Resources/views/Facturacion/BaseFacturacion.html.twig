@@ -1,0 +1,169 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/FT/FacturacionBundle/' %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/Facturacion.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+	{# <div id style="display:none; background-color:#ccc; opacity:0.5; z-index:1002;width: 100%;height: 100%;position: absolute;">
+	
+	</div> #}
+	{# <div id="divModalOp"></div> #}
+		<div class="container-fluid"> <div class="z-depth-1 white">
+			<div class="card">
+				<div class="card-content">
+					<a style="cursor:pointer" onclick="history.back()">Regresar</a>
+					{# <h4>Factura Timbrada</h4> #}
+					<form id='formDtGenerales'>
+						<div>
+							<fieldset class="">
+								<legend class="text-info" style="margin-bottom: 10px;">
+									<h5>Datos Generales</h5>
+								</legend>
+								<div class="row">
+									<div class="input-field col s12 m3">
+										<input id="idCompra" type="text" value="{{content['Factura']['idCompra']}}">
+										<label for="idCompra">ID Compra</label>
+									</div>
+									<div class="input-field col s12 m3">
+										<input id="idFactura" type="text" value="{{content['Factura']['idFactura']}}">
+										<label for="idFactura">ID Factura</label>
+									</div>
+									<div class="input-field col s12 m3">
+										<input id="RazonSocial" type="text" value="{{content['Factura']['DE_RazonSocial']}}">
+										<label for="RazonSocial">Razon Social</label>
+									</div>
+									<div class="input-field col s12 m3">
+										<input id="RazonSocial" type="text" value="{{content['Factura']['RFC']}}">
+										<label for="RazonSocial">RFC</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s12 m3">
+										<input id="Nombre" type="text" value="{{content['Factura']['Nombre']}}">
+										<label for="Nombre">Nombre</label>
+									</div>
+									<div class="input-field col s12 m3">
+										<input id="ApellidoPaterno" type="text" value="{{content['Factura']['ApellidoPaterno']}}">
+										<label for="ApellidoPaterno">Apellido Paterno</label>
+									</div>
+									<div class="input-field col s12 m3">
+										<input id="ApellidoMaterno" type="text" value="{{content['Factura']['ApellidoMaterno']}}">
+										<label for="Apellido Materno">Apellido Materno</label>
+									</div>
+									<div class="input-field col s12 m3">
+										<input id="Email" type="text" value="{{content['Factura']['Email']}}">
+										<label for="Email">Email</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s12 m3">
+										<input id="DE_Telefono" type="text" value="{{content['Factura']['DE_Telefono']}}">
+										<label for="Telefono">Telefono</label>
+									</div>
+									<div class="input-field col s12 m3">
+										<input id="DE_Pais" type="text" value="{{content['Factura']['DE_Pais']}}">
+										<label for="DE_Pais">Pais</label>
+									</div>
+									<div class="input-field col s12 m3">
+										<input id="DE_Estado" type="text" value="{{content['Factura']['DE_Estado']}}">
+										<label for="DE_Estado">Estado</label>
+									</div>
+									<div class="input-field col s12 m3">
+										<input id="DE_Ciudad" type="text" value="{{content['Factura']['DE_Ciudad']}}">
+										<label for="DE_Ciudad">Ciudad</label>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</form>
+					<div>
+						<fieldset class="">
+							<legend class="text-info" style="margin-bottom: 10px;">
+								<h5>Datos Fiscales</h5>
+							</legend>
+							<form id="formDtFiscales">
+								<div class="row">
+									<div class="input-field col s12 m6">
+										<input id="Folio" type="text" value="{{content['Factura']['Folio']}}">
+										<label for="Folio">Folio</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s12 m4">
+										<input id="TicketFacturacion" type="text" value="{{content['Factura']['TicketFacturacion']}}">
+										<label for="TicketFacturacion">Ticket Facturacion</label>
+									</div>
+									<div class="input-field col s12 m4">
+										<input id="FechaPagado" type="text" value="{{content['Factura']['FechaPagado']}}">
+										<label for="FechaPagado">Fecha Pagado</label>
+									</div>
+									<div class="input-field col s12 m4">
+										<input id="UUID" type="text" value="{{content['Factura']['UUID']}}">
+										<label for="UUID">UUID</label>
+									</div>
+								</div>
+							</form>
+						</fieldset>
+					</div>
+					<div class="row" style="margin-top:10px">
+						<div class="col s12">
+							<div class="col s12 m3 center">
+								<a id="btn-enviar-factura" class="waves-effect waves-light btn"
+								{% if content['Factura']['CompraFacturada'] != "t" %}
+								 disabled
+								{% endif %}>
+									<i class="material-icons right">send</i>Enviar</a>
+							</div>
+							<div class="col s12 m3 center">
+								<a class="waves-effect waves-light btn" id="btn-visualizar"
+								{% if content['Factura']['CompraFacturada'] != "t" %}
+								 disabled
+								{% endif %}>
+									<i class="material-icons right">remove_red_eye</i>Visualizar
+								</a>
+							</div>
+							<div class="col s12 m3 center">
+								<a id="btn-Factura" target="_blank"  href="{{content['configuracionPortal']['URLPortal']}}" class="waves-effect waves-light btn "
+								{% if content['Factura']['CompraFacturada'] == "t" %}
+								 disabled
+								{% endif %}>
+									<i class="material-icons right">library_books</i>Facturar
+								</a>
+							</div>
+
+							<div class="col s12 m3 center">
+								<a id="btnCancelar" class="waves-effect waves-light btn red">
+									<i class="material-icons right">cancel</i>Cancelar</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include 'ShowDashboardFTFacturacionBundle:Facturacion:mdlVisualizaFactura.html.twig' %}
+	{% include 'ShowDashboardFTFacturacionBundle:Facturacion:mdlEnviarFactura.html.twig' %}
+	{% include 'ShowDashboardFTFacturacionBundle:Facturacion:mdlCancelacionFactura.html.twig' %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script type="text/javascript">
+		var get_factura_pendiente = "{{ path('send_factura') }}";
+		var url_CancelarF = "{{ path('cancelar_facturas_timbradas') }}"
+		
+
+{# Scripts #}
+	</script>
+	<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+	<script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/Facturacion.js') }}"></script>
+{% endblock %}

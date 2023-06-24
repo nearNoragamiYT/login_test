@@ -1,0 +1,31 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Dec 29, 2016, 4:30:32 PM
+    Author     : John
+*/
+.modal.modal-fixed-footer {
+    height: 80% !important;
+}
+.modal-l {
+    max-height: 80% !important;
+}
+.btn-emarketing-hitory-export label{
+    cursor: pointer;
+    margin-bottom: 0px;
+    margin-right: 5px;
+}
+.btn-emarketing-hitory-export img{
+    width: 30px;
+    vertical-align: middle;
+}
+#percent{
+    position: relative;
+    z-index: 999999999;
+    top: 25%;
+    left: 0%;
+    font-size: 5em;
+}

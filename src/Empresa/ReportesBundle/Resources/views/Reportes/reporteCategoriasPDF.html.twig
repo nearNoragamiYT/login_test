@@ -1,0 +1,112 @@
+{% set ruta_asset = 'resources/Empresa/ReportesBundle/' %}
+{% set edicion = content['idEdicion'] %}
+{% set i=0%}
+
+{% block stylesheets %}
+    <style>
+
+        .container{
+            width: 215mm;
+            height: 282mm;
+            overflow: hidden;
+            margin-bottom: 0px;
+            margin-top: 0px;
+
+        }
+        .row{
+            width: 210mm;
+            height: 5mm;
+            font-size: 10px;
+            text-align: justify;
+            font-family: sans-serif;
+        }
+        .rowright{
+            float: right;
+        }
+        .rowleft{
+            float: left;
+        }
+        .pba {
+            page-break-before: always;
+        }
+
+        p{
+            font-size: 16px;
+        }
+        img{
+            width: 100%;
+        }
+        img1{
+            margin-top: 0px;
+        }
+        img2{
+            margin-bottom: 0px;
+        }
+        img3{
+            width: 20%;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% for key,item in content['data'] %}
+        {% set i=i+1 %}
+        {% if i == 1 %}
+            <div class="container pba" id="container" >                
+                <img class="img1" src="{{ asset('images/reportes/header_pdf_' ~ edicion ~ '.png') }}"><br/><br/>
+            {% endif %}
+            <div class="row" style="font-size: 18px;"><b>{{content['catalogo'][key]['NombreCategoriaES']}}</b></div><br>
+                    {%if i==22 %}
+                        {% set i=0%}
+                {#<img class="img2" src="{{ asset('images/reportes/footer_pdf_' ~ edicion ~ '.png') }}">#}
+            </div>
+        {%endif%}
+        {% for key1,item1 in item %}
+            {% set i=i+1 %}
+            {% if i == 1 %}
+                <div class="container pba" id="container" >
+                    <img class="img1" src="{{ asset('images/reportes/header_indice_por_giros' ~ edicion ~ '.png') }}"><br/><br/>
+                {% endif %}
+                <div class="row" style="font-size: 16px;"><b>{{content['catalogo'][key1]['NombreCategoriaES']}}</b></div><br>
+                        {%if i==22 %}
+                            {% set i=0%}
+                    {#<img class="img2" src="{{ asset('images/reportes/footer_pdf_' ~ edicion ~ '.png') }}">#}
+                </div>
+            {%endif%}
+            {% for item2 in item1 %}
+                {% set i=i+1 %}
+                {% if i == 1 %}
+                    <div class="container pba" id="container" >
+                        <img class="img1" src="{{ asset('images/reportes/header_indice_por_giros' ~ edicion ~ '.png') }}"><br/><br/>
+                    {% endif %}
+                    <div class="row">{{item2['DC_NombreComercial']}}<div style="float:right">{{item2['EMSTDListadoStand']}}</div>
+                    </div><br>
+                    {% if item2['EMSTDListadoStand']|length > 100 %}
+                        <div class="row">
+                            <br><br>
+                        </div>
+                    {% endif %}
+                    {%if i==22 %}
+                        {% set i=0%}
+                        {#<img class="img2" src="{{ asset('images/reportes/footer_pdf_' ~ edicion ~ '.png') }}">#}
+                    </div>
+                {%endif%}
+            {% endfor %}
+
+        {% endfor %}
+
+    {% endfor %}
+    {#<img class="img2" src="{{ asset('images/reportes/footer_pdf_' ~ edicion ~ '.png') }}">#}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        window.print();
+        setTimeout(function () {
+            window.history.back();
+        }, 3000);
+    </script>
+
+{% endblock %}
+

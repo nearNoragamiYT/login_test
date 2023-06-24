@@ -1,0 +1,20 @@
+<ol class="wizard-steps">
+    {% set idContrato = 0 %}
+    {% if content['contrato']['idContrato'] is defined %}
+        {% set idContrato = content['contrato']['idContrato']%}
+    {% endif %}
+    <li class="show-loader-top completed {% if content['current_step'] == "informacion" %} current-step {% endif %}">
+        <a href="{{path('empresa_contrato_informacion', {'idEmpresa': content['empresa']['idEmpresa'], 'idContrato' : idContrato})}}"><i class="btn-floating waves-effect waves-light">1</i> {{ content['general_text']['sas_infoGeneral'] }}</a>
+    </li>
+    <li class="show-loader-top
+        {% if content['completed_step'] is defined and content['completed_step'] >= 2 %}completed{% else %}uncompleted{% endif %}
+        {% if content['current_step'] == "espacio" %}current-step{% endif %}
+        "
+        ><a href="{{path('empresa_contrato_espacio', {'idEmpresa': content['empresa']['idEmpresa'], 'idContrato' : idContrato})}}"><i class="btn-floating waves-effect waves-light">2</i> {{ content['section_text']['sas_seleccionEspacio'] }}</a>
+    </li>
+    <li class="show-loader-top
+        {% if content['completed_step'] is defined and content['completed_step'] >= 3 %}completed{% else %}uncompleted{% endif %}
+        {% if content['current_step'] == "resumen" %}current-step{% endif %}
+        "
+        ><a href="{{path('empresa_contrato_resumen', {'idEmpresa': content['empresa']['idEmpresa'], 'idContrato' : idContrato})}}"><i class="btn-floating waves-effect waves-light">3</i>{{ content['section_text']['sas_resumen'] }}</a></li>
+</ol>

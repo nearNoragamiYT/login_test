@@ -1,0 +1,25 @@
+.block-record {
+    cursor:pointer;
+    color:#D0D0D0;
+}
+
+.block-record:hover {
+    color: #F4D03F;
+}
+
+#add-producto-modal {
+    overflow-y: hidden;
+}
+
+#delete-producto-modal {
+    height: 20%;
+}
+
+.unlock-record {
+    cursor:pointer;
+    color:#D0D0D0;
+}
+
+.unlock-record:hover {
+    color: #52BE80;
+}

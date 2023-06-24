@@ -1,0 +1,7 @@
+visitante_datos_generales:
+    path:     /visitante/datosgenerales/{idVisitante}
+    defaults: { _controller: VisitanteDatosGeneralesBundle:DatosGenerales:DatosGenerales, idVisitante: 0}
+
+visitante_datos_generales_update:
+    path:     /visitante/update
+    defaults: { _controller: VisitanteDatosGeneralesBundle:DatosGenerales:updateGeneralData}

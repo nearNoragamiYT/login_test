@@ -1,0 +1,64 @@
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>NO. DE STANDS:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['ListadoStand'] is defined) %}{{ficha['ListadoStand']}}{% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>BOTH NUMBER:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['ListadoStand'] is defined) %}{{ficha['ListadoStand']}}{% endif %}
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>TIPO DE ESPACIO CONTRATADO:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(tipoEspacio[ficha['idOpcionPago']]['Opcion_ES']) %}{{tipoEspacio[ficha['idOpcionPago']]['Opcion_ES']}}{% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>TYPE OF DISPLAY:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(tipoEspacio[ficha['idOpcionPago']]['Opcion_EN']) %}{{tipoEspacio[ficha['idOpcionPago']]['Opcion_EN']}}{% endif %}
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>NOMBRE DEL ROTULO:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['idOpcionPago'] is defined) %}
+            {% if ficha['idOpcionPago'] == '2' and detalleForma[ficha['idEmpresa']]['DF_Rotulo'] is defined %}
+                {{detalleForma[ficha['idEmpresa']]['DF_Rotulo']}}
+            {% else %}
+                {{'Sin rotulo'}}
+            {% endif %}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>HEADER COMPANY NAME:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['idOpcionPago'] is defined) %}
+            {% if ficha['idOpcionPago'] == '2' and detalleForma[ficha['idEmpresa']]['DF_Rotulo'] is defined %}
+                {{detalleForma[ficha['idEmpresa']]['DF_Rotulo']}}
+            {% else %}
+                {{'No Company Header'}}
+            {% endif %}
+        {% endif %}    
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>STAND CON DOBLE PISO:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(detalleForma[ficha['idEmpresa']]['DF_SegundoPiso'] is defined) %}
+            {% if detalleForma[ficha['idEmpresa']]['DF_SegundoPiso'] == '0' %}
+                {{'SI'}}
+            {% else %}
+                {{'NO'}}
+            {% endif %}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>TWO STOREY BOOTH:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(detalleForma[ficha['idEmpresa']]['DF_SegundoPiso'] is defined) %}
+            {% if detalleForma[ficha['idEmpresa']]['DF_SegundoPiso'] == '0' %}
+                {{'YES'}}
+            {% else %}
+                {{'NO'}}
+            {% endif %}
+        {% endif %}
+    </td>
+</tr>

@@ -1,0 +1,233 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaComercialBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/select2.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_comercial.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% if  content['companyOrigin'] == 'lectoras' or content['companyOrigin'] == 'lectoras_simple'  or content['companyOrigin'] == 'solicitud_lectoras'%}
+        {% include 'ShowDashboardLTLectorasBundle:Lectoras:menu_secciones.html.twig' %}
+    {% else %}
+        {% include 'EmpresaEmpresaBundle:Empresa:menu_secciones.html.twig' %}
+    {% endif %}
+    <div id="comercial-company" class="container">
+        {% include 'EmpresaEmpresaBundle:Empresa:detalle_empresa.html.twig' %}
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <div class="row" style="width: 100%; margin-left: 0px">
+                <h5 class="col s6" style="margin-top: 30px; margin-bottom: 50px;">
+                    {{content['section_text']['sas_informacionComercial']}}
+                </h5>
+                <div class="input-field col s3 mid-content" style="float: right; padding-top: 40px; {% if content['header']['idEtapa'] is not defined or content['header']['idEtapa'] == ""%}display:none;{%endif%}">
+                    <input id="VisibleDirectorio" name="VisibleDirectorio" type="checkbox" value="" readonly>
+                    <label for="VisibleDirectorio">{{ content['section_text']['sas_visibleDirectorio'] }}</label>
+                </div>
+            </div>
+            <form id="save-comercial-form" class="col s12">
+                <div class="row" style="width: 100%; margin-left: 0px">
+                    <div class="input-field col s6 mid-content">
+                        <input id="idEmpresa" name="idEmpresa" type="text" value="" readonly>
+                        <label for="idEmpresa">{{content['section_text']['sas_idEmpresa']}}</label>
+                    </div>
+                    <div class="input-field col s6 mid-content">
+                        <input id="idEmpresaUUID" name="idEmpresaUUID" type="text" value="" readonly>
+                        <label for="idEmpresaUUID" style="padding-left: 10px;">{{content['section_text']['sas_idEmpresaUUID']}}</label>
+                    </div>
+                </div>
+                <div class="input-field col s12">
+                    <input id="CodigoCliente" name="CodigoCliente" type="text" class="validate" value="">
+                    <label for="CodigoCliente" style="padding-left: 10px;">{{content['section_text']['sas_codigoCliente']}}</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="DC_NombreComercial" name="DC_NombreComercial" type="text" class="validate" value="">
+                    <label for="DC_NombreComercial">{{content['section_text']['sas_nombreComercial']}}</label>
+                </div>
+                {% if content['types'] is defined and content['types']|length > 0 %}
+                    <div class="input-field col s12" style="margin-bottom: 30px">
+                        <label for="idEmpresaTipo" class="active space-label" style="padding-left: 10px;">{{ content['section_text']['sas_empresaTipo'] }}</label>
+                        <select id="idEmpresaTipo"
+                                name="idEmpresaTipo"
+                                class="browser-default validate"
+                                >
+                            <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                            {% for type in content['types'] %}
+                                <option value="{{ type['idEmpresaTipo'] }}">{{ type['Tipo' ~ lang|upper] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endif %}
+                <div class="input-field col s12">
+                    <input id="DC_CalleNum" name="DC_CalleNum" type="text" class="validate" >
+                    <label for="DC_CalleNum">{{content['section_text']['sas_dcCalleNum']}}</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="DC_Colonia" name="DC_Colonia" type="text" class="validate" >
+                    <label for="DC_Colonia">{{content['section_text']['sas_dcColonia']}}</label>
+                </div>
+                <div class="row" style="width: 100%; margin-left: 0px">
+                    <div class="input-field col s6 mid-content">
+                        <input id="DC_CodigoPostal" name="DC_CodigoPostal" type="text" class="validate" >
+                        <label for="DC_CodigoPostal" style="padding-left: 10px;">{{content['section_text']['sas_dcCodigoPostal']}}</label>
+                    </div>
+                    <div class="input-field col s6 mid-content">
+                        <input id="DC_Ciudad" name="DC_Ciudad" type="text" class="validate" >
+                        <label for="DC_Ciudad" style="padding-left: 10px;">{{content['section_text']['sas_dcCiudad']}}</label>
+                    </div>
+                </div>
+                <div class="row" style="width: 100%; margin-left: 0px">
+                    <div class="input-field col s6" style="margin-bottom: 25px;">
+                        <label for="DC_idPais" class="active space-label" style="padding-left: 10px;">{{ content['section_text']['sas_dcPais'] }}</label>
+                        {% if content['paises'] is defined and content['paises']|length > 0 %}
+                            <select id="DC_idPais"
+                                    name="DC_idPais"
+                                    class="browser-default validate"
+                                    loader-element=".progress-estado"
+                                    >
+                                <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                {% for pais in content['paises'] %}
+                                    <option value="{{ pais['idPais'] }}">{{ pais['Pais_' ~ lang|upper] }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="DC_idEstado" class="active space-label" style="padding-left: 10px;">{{ content['section_text']['sas_dcEstado'] }}</label>
+                        <select id="DC_idEstado" name="DC_idEstado" class="browser-default">
+                            <option value="">{{ content['general_text']['sas_sinOpcion'] }}</option>
+                            {% if content['estados'] is defined and content['estados']|length > 0 %}
+                                {% for estado in content['estados'] %}
+                                    <option value="{{ estado['idEstado'] }}">{{ estado['Estado'] }}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                        <div class="progress-estado" style="margin-top: -10px">
+                            <div class="progress"><div class="determinate"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="width: 100%; margin-left: 0px">
+                    <div class="input-field col s2">
+                        <input id="DC_TelefonoAreaPais" name="DC_TelefonoAreaPais" type="text" class="validate" >
+                        <label for="DC_TelefonoAreaPais" style="padding-left: 10px;">{{content['section_text']['sas_dcTelefonoAreaPais']}}</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="DC_TelefonoAreaCiudad" name="DC_TelefonoAreaCiudad" type="text" class="validate" >
+                        <label for="DC_TelefonoAreaCiudad" style="padding-left: 10px;">{{content['section_text']['sas_dcTelefonoAreaCiudad']}}</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="DC_Telefono" name="DC_Telefono" type="text" class="validate" >
+                        <label for="DC_Telefono" style="padding-left: 10px;">{{content['section_text']['sas_dcTelefono']}}</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="DC_TelefonoExtension" name="DC_TelefonoExtension" type="text" class="validate" >
+                        <label for="DC_TelefonoExtension" style="padding-left: 10px;">Extension</label>
+                    </div>
+                </div>
+                <div class="input-field col s12">
+                    <input id="DC_PaginaWeb" name="DC_PaginaWeb" type="text" class="validate" >
+                    <label for="DC_PaginaWeb">{{content['section_text']['sas_dcPaginaWeb']}}</label>
+                </div>
+                <div class="input-field col s4">
+                    <label for="primary-category" class="active">{{content['section_text']['sas_agregarCategoria']}}</label>
+                    <select id="primary-category" name="primary-category" class="browser-default" >
+                        <option value="" selected="selected">{{content['general_text']['sas_seleccionaOpcion']}}</option>
+                        {% for item in content['categoria'] if item['Nivel'] == 1 %}
+                            <option value="{{item['idCategoria']}}">{{item['NombreCategoria' ~ lang|upper]}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-field col s4">
+                    <label for="second-category" class="active">{{content['general_text']['sas_subCategoria']}}</label>
+                    <select id="second-category" name="second-category" class="browser-default" disabled>
+                        <option value="" selected="selected">{{content['general_text']['sas_seleccionaOpcion']}}</option>
+                        {% for item in content['categoria']|sort if item['Nivel'] == 1 %}
+                            <option value="{{item['idCategoria']}}">{{item['NombreCategoria' ~ lang|upper]}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="left-align  col s4">
+                    <a id="add-category" class="btn waves-effect waves-light green left" style="margin-top: 1.2rem;">{{content['general_text']['sas_agregar']}}</a>
+                </div>
+                <div class="left-align  col s12">
+                    <div class="row" id="category-wrapper" style="margin-top: 20px">
+                        {% for item in content['empresa_categoria'] %}
+                            {% if content['categoria'][item['idCategoria']]['ActivaOtro'] == 1 %}
+                                <div class="chip" id-record="{{item['idCategoria']}}" padres="{{item['Padres']}}" active-other="1">{{content['section_text']['sas_otro']}}: {{item['DC_TextoCategoria']}}<i class="close material-icons" >close</i></div>
+                            {% else %}
+                                <div class="chip" id-record="{{item['idCategoria']}}" padres="{{item['Padres']}}">{{content['categoria'][item['idCategoria']]['NombreCategoria' ~ lang|upper]}}<i class="close material-icons" >close</i></div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="row" id="otro" style="display: none">
+                        <div class="input-field col s3">
+                            <input id="other" type="text" class="validate">
+                            <label class="active" for="other">Otro</label>
+                        </div>
+                        <a id="other-category" class="btn-floating waves-effect waves-light green btn-sm" style="margin-top: 25px"><i class="material-icons">add</i></a>
+                    </div>
+                </div>
+                <div class="input-field col s12">
+                    <textarea id="DC_DescripcionES" class="validate materialize-textarea" name="DC_DescripcionES" rows="4" length="300"></textarea>
+                    <label for="DC_DescripcionES">{{content['section_text']['sas_dcDescripcionES']}}</label>
+                </div>
+                <div class="input-field col s12">
+                    <textarea id="DC_DescripcionEN" class="validate materialize-textarea" name="DC_DescripcionEN" rows="4" length="300"></textarea>
+                    <label for="DC_DescripcionEN">{{content['section_text']['sas_dcDescripcionEN']}}</label>
+                </div>
+                {% if content['header']['idEtapa'] is defined and content['header']['idEtapa'] != ""%}
+                    <div class="input-field col s4">
+                        <h5>{{content['section_text']['sas_seleccionaPadre']}}</h5>
+                        <select id="parent" name="parent" class="browser-default">
+                            {% for item in content['empresa_padres'] %}
+                                <option value="{{item['idEmpresa']}}" {% if content['comercial_company']['idEmpresaPadre'] == item['idEmpresa']%}selected="selected"{% endif %}>{{item['DC_NombreComercial']}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {%endif%}
+            </form>
+            <p>&nbsp;</p>
+            <div style="text-align: right;">
+                <button type="button" id="saveComercialData" class="waves-effect waves-green btn-flat green white-text">{{content['general_text']['sas_guardar']}}</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var list_categoies = {{content['categoria']|json_encode()|raw}};
+                var url_comercial_company_save = "{{ path('empresa_empresa_comercial_guardar') }}";
+        var url_get_estados = "{{ path('pecc_estados', {'idPais': "0000"}) }}";
+    </script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                var comercialData = {{ content["comercial_company"]|json_encode()|raw }};
+        {% if content['Adicional'] is defined and content['Adicional'] == true %}
+            $(document).find('input, textarea, button, select, option').not('#confirm-cancel, .x-close').attr('disabled', true);
+            $(document).find('.modal .waves-green, .delete-record, .green').addClass('no-action');
+            var items = document.getElementsByClassName('no-action');
+            $.each(items, function (i, v) {
+                var id = $(this).attr('id');
+                if (id !== undefined) {
+                    document.getElementById(id).addEventListener('click', function (e) {
+                        e.stopPropagation();
+                    }, true);
+                } else {
+                    v.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                    }, true);
+                }
+            });
+        {% endif %}
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/select2.full.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_comercial.js') }}"></script>
+{% endblock %}

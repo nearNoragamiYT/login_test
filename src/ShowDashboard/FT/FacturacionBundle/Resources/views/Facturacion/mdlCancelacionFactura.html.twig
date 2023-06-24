@@ -1,0 +1,50 @@
+<div id="Canelacion" class="modal">
+	<div class="modal-content">
+		<h4>Cancelacion Factura</h4>
+		<i>Recuerda que en los comprobantes fiscales con un monto superior a los $5,000 pesos requerirás la aceptación del receptor para que proceda su cancelación.</1>
+		<div id="data">
+			<div class="input-field col s12 m3">
+				<input id="RFC" type="text" value="{{content['Factura']['RFC']}}" readonly>
+				<label for="RFC">RFC</label>
+			</div>
+			<div class="input-field col s12 m4">
+				<input id="UUID" type="text" value="{{content['Factura']['UUID']}}" readonly>
+				<label for="UUID">UUID</label>
+			</div>
+			<i>El botón de consultar es para buscar documentos relacionadas con el UUID</1><br>
+			<i>*Recomendación: se recomienda usar antes del motivo “01”</1><br>
+
+			<div class="input-field col s12 m2">
+				<a id="ConsultaUUID" class="waves-effect waves-light btn">
+					<i class="material-icons right">search</i>Consultar</a>
+			</div>
+			<br>
+			{# <label>Browser Select</label> #}
+			<select id="motivo" class="browser-default" onchange="listadoIdFactura(event)">
+				<option disabled selected>Motivo Cancelacion</option>
+				{% for MotivoCance in content['motivoCancelacion']|sort %}
+					<option idmc="{{MotivoCance['idMotivoCancelacion']}}" value="{{MotivoCance['Clave']}}">({{MotivoCance['Clave']}}) -
+						{{MotivoCance['Descripcion']}}
+					</option>
+				{% endfor %}>
+			</select>
+
+			<div class="input-field col s12 m3">
+				<input id="UUIDCambio" type="text" value="{{content['Factura']['FolioSustitucion']}}" readonly>
+				<label for="UUIDCambio">Folio de Sustitucion (UUID)</label>
+			</div>
+		</div>
+
+		<input id="idFact" name="id" type="text" value='{{content['Factura']['idFactura']}}' hidden>
+		<input id="UUIDCompra" name="id" type="text" value='{{content['Factura']['UUID']}}' hidden>
+		<input id="idcofiguracion" name="id" type="text" value='{{content['configuracion']['idConfiguracion']}}' hidden>
+
+		<div class="modal-footer" style="margin-bottom:10px;">
+			<a id="" class="waves-effect waves-light btn red left close-modal-cancelacion">
+				<i class="material-icons right">cancel</i>Cerrar</a>
+
+			<a id="enviar-cancelacion" class="waves-effect waves-light btn enviar-modal-cancelacion">
+				<i class="material-icons left">send</i>Cancelar</a>
+		</div>
+	</div>
+</div>

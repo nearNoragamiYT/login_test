@@ -1,0 +1,170 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 23, 2016, 10:54:04 AM
+    Author     : Javier
+*/
+table{
+    font-size: 0.9rem;
+    cursor: default;
+}
+table td {
+    padding: 2px;
+}
+
+.chip{
+    font-size: 10px;
+    line-height: 15px;
+    height: 15px;
+    padding: 0 2px;
+    border-radius: 5px;
+}
+
+img.evento-edicion{
+    height: 25px;
+    cursor: pointer;
+}
+
+img.img-logo-edicion{
+    height: 30px;
+    vertical-align: middle;
+}
+
+.inactivo{
+    color: #c3c3c3;
+}
+
+.inactivo .reactivar-cuenta{
+    color: #004d40;
+    cursor: pointer;
+}
+
+.inactivo .reactivar-cuenta:hover{
+    color: #2e7d32;
+}
+
+/* -------------- */
+.modulos-edicion{
+    font-size: 0.9rem;
+}
+
+.collapsible-body p{
+    padding: 0px;
+}
+
+.modulos-container {
+    padding-left: 12px;
+}
+
+.modulos-container p:hover{
+    background-color: #f2f2f2;
+}
+
+.modulos-container [type="checkbox"]+label{
+    font-size: 0.8rem;
+}
+
+
+.modulos-container .submodulos-container{
+    padding-left: 20px;
+}
+
+.modulos-container [type="checkbox"]:checked+label+.permisos-modulo{
+    opacity: 1;
+}
+
+.permisos-modulo{
+    display: inline-block;
+    position: relative;
+    padding-left: 10px;
+    width: auto;
+    float: right;
+    opacity: 0;
+}
+
+.permisos-modulo [type="checkbox"]{
+    position: relative;
+    left: initial;
+    color: #9e9e9e;
+    cursor: pointer;
+    opacity: 1;
+    visibility: hidden;
+}
+
+.permisos-modulo [type="checkbox"]:after{
+    font-family: 'Material Icons';
+    visibility: visible;
+}
+
+.permisos-modulo [type="checkbox"]:checked{
+    color: #26a69a;
+}
+
+.permisos-modulo [type="checkbox"][value="w"]:after{
+    content: "create";
+}
+
+.permisos-modulo [type="checkbox"][value="u"]:after{
+    content: "autorenew";
+}
+
+.permisos-modulo [type="checkbox"][value="d"]:after{
+    content: "delete";
+}
+
+/* old version */
+
+.card .card-header{
+    padding: 20px;
+    border-radius: 0 0 2px 2px;
+    background: #e0e0e0;
+}
+
+.card .card-header.card-account{
+    background: #4285f4;
+    color: white;
+}
+
+.card .card-header .card-title{
+    width: 100%;
+    display: block;
+    position: relative;
+    font-size: 1.4rem;
+}
+
+.card .card-header .card-subtitle{
+    width: 100%;
+    display: block;
+    position: relative;
+    font-size: 0.8rem;
+    font-weight: 400;
+    opacity: 0.5;
+}
+
+.card .fixed-action-btn {
+    position: relative;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
+}
+
+.fixed-action-btn.horizontal ul li{
+    margin-top: 0px;
+}
+
+.submodulos{
+    margin-left: 20px;
+}
+
+.submodulos p{
+    margin: 0px;
+}
+
+.submodulos label{
+    font-size: 0.9rem;
+}
+
+/* old version */

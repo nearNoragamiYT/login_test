@@ -1,0 +1,19 @@
+admin_prod_rs_homepage:
+    path:     /show-dashboard/AdminProdRS
+    defaults: { _controller: ShowDashboardRSAdminProdRSBundle:Productos:Productos }
+
+insert_producto_rs:
+    path:     /show-dashboard/insertProductoRS
+    defaults: { _controller: ShowDashboardRSAdminProdRSBundle:Productos:insertProdRS }
+
+delete_producto_rs:
+    path:     /show-dashboard/deleteProductoRS
+    defaults: { _controller: ShowDashboardRSAdminProdRSBundle:Productos:deleteProdRS }
+
+update_producto_rs:
+    path:     /show-dashboard/updateProductoRS
+    defaults: { _controller: ShowDashboardRSAdminProdRSBundle:Productos:updateProdRS }
+
+update_producto_status_rs:
+    path:     /show-dashboard/updateProductoStatus
+    defaults: { _controller: ShowDashboardRSAdminProdRSBundle:Productos:updateProdStatRS }

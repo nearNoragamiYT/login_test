@@ -1,0 +1,7 @@
+show_dashboard_ae_administracion_configuracion_ajustes:
+    path:     /show-dashboard/ae/administracion/configuracion
+    defaults: { _controller: ShowDashboardAEAdministracionConfiguracionAjustesBundle:Ajustes:ajustes }
+
+show_dashboard_ae_administracion_configuracion_ajustes_eliminar:
+    path:     /show-dashboard/ae/administracion/configuracion/eliminar
+    defaults: { _controller: ShowDashboardAEAdministracionConfiguracionAjustesBundle:Ajustes:ajustesEliminar }

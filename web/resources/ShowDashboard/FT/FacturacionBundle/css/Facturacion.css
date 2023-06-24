@@ -1,0 +1,22 @@
+.size-modal-visualizar-factura{
+    width: 100%;
+    border:none;
+}
+
+.size-modal-enviar-email{
+    width: 50%;
+    height:30%;
+    border:none;
+}
+.modal-footer{
+    margin-top: 70px;
+}
+
+
+@media (max-width: 1536px) {
+    .size-modal-enviar-email{
+        width: 50%;
+        height:40%;
+       
+    }
+}

@@ -1,0 +1,21 @@
+<div id="{% if conf.id is defined and conf.id != "" %}{{conf.id}}{% else %}modal{% endif %}" class="modal modal-color {% if conf.fixed is defined and conf.fixed == true %}modal-fixed-footer modal-color-fixed{% endif %}{% if conf.size is defined and conf.size != ""%} {{conf.size}}{% endif %}">
+    <div class="{% if conf.color is defined and conf.color != "" %}{{conf.color}}{% else %}green{% endif %} {% if conf.textColor is defined and conf.textColor != "" %}{{conf.textColor}}{% else %}white-text{% endif %}" style="padding: 10px;">
+        <h6>
+            <a class="{% if conf.confirmCancel is defined and conf.confirmCancel == true %}confirmation{% else %}modal-action modal-close{% endif %} btn-flat left waves-gray right x-close {% if conf.textColor is defined and conf.textColor != "" %}{{conf.textColor}}{% else %}white-text{% endif %}">X</a>
+            <div class="modal-title">{% block title %}{% endblock %}</div>
+        </h6>
+    </div>
+    <div class="modal-progress progress white">
+        <div class="indeterminate {% if conf.color is defined and conf.color != "" %}{{conf.color}}{% else %}green{% endif %}"></div>
+    </div>
+    <div class="modal-content">
+        <div class="row">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="{% if conf.confirmCancel is defined and conf.confirmCancel == true %}confirmation{% else %}modal-action modal-close{% endif %} btn-link waves-effect btn-flat left">Cancelar</a>
+        <button id="{% if conf.idButton is defined and conf.idButton != "" %}{{conf.idButton}}{% else %}save{% endif %}" type="button" class="modal-action waves-effect waves-green btn-flat {% if conf.colorButton is defined and conf.colorButton != "" %}{{conf.colorButton}}{% else %}green{% endif %} white-text">{% block button %}Guardar{% endblock %}</button>
+    </div>
+</div>

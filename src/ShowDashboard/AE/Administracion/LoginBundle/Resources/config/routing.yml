@@ -1,0 +1,3 @@
+show_dashboard_ae_administracion_login:
+    path:     /show-dashboard/ae/administracion/login/{lang}
+    defaults: { _controller: ShowDashboardAEAdministracionLoginBundle:Login:login, lang: es }

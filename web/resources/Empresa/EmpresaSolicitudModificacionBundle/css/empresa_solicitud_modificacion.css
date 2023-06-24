@@ -1,0 +1,46 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Dec 6, 2016, 4:20:55 PM
+    Author     : JL
+*/
+#delete-record-modal{
+    max-width: 30%;
+}
+#change-financial-modal{
+    height: 35% !important;
+}
+/*-- end id selectors --*/
+/*-- start class selectors --*/
+.container {
+    max-width: none;
+    width: 90%;
+}
+.space-label{
+    padding-bottom: 5px;
+}
+.paging_listbox > select{
+    height: 2rem !important;
+}
+.dataTables_length > label > select{
+    height: 2rem !important;
+}
+.badge-info{
+    border-radius: 5px;
+    padding: 0.3rem .7rem;
+    font-size: 1rem;
+}
+.collapsible-header{
+    background-color: #eeeeee;
+    -webkit-transition: background-color 500ms linear;
+    -ms-transition: background-color 500ms linear;
+    transition: background-color 500ms linear;
+    color: #000000;
+}
+.collapsible-header.active{
+    background-color: #263238;
+    color: #ffffff;
+}

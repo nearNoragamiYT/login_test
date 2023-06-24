@@ -1,0 +1,44 @@
+<div id="mdl-product" class="modal">
+    <div class="modal-content">
+        <h4>{{content['general_text']['sas_producto']}}</h4>
+        <div class="modal-body">
+            <div class="row">
+                <form id="frm-product" class="col col s12 m6 l6 offset-m3 offset-l3">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select id="idEdicion" name="idEdicion">
+                                <option value="0">{{content['general_text']['sas_seleccionaOpcion']}}</option>
+                                {% for ed in content['ed'] %}
+                                    <option value="{{ed['idEdicion']}}">{{ ed['Edicion_' ~ lang|upper] }}</option>
+                                {% endfor %}
+                            </select>
+                            <label>{{content['general_text']['sas_edicion']}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="Nombre" name="Nombre" type="text" class="validate" maxlength="30">
+                            <label for="Nombre">{{content['general_text']['sas_nombre']}}</label>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left: 10px;margin-top: 15px;">
+                        <label style="font-size: 1rem;">{{content['section_text']['sas_personalizado']}}?</label>
+                        <div class="switch">
+                            <label>
+                                {{content['general_text']['sas_no']}}
+                                <input id="Personalizado" name="Personalizado" type="checkbox" value="TRUE">
+                                <span class="lever"></span>
+                                {{content['general_text']['sas_si']}}
+                            </label>
+                        </div>
+                    </div>
+                    <input type="hidden" id="id" name="idProductoIxpo" value="">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+        <button id="save-record" type="button" class="modal-action btn waves-effect waves-green green">{{content['general_text']['sas_guardar']}}</button>
+    </div>
+</div>

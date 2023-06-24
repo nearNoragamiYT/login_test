@@ -1,0 +1,9 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-next-step", "fixed": false, "size": "modal-s", "color": "blue", "idButton": "btn-next-step", "colorButton" : "green" } %}
+{% block title %}{{content['general_text']['sas_continuar']}}{% endblock %}
+{% block body %}
+    <p>{{content['general_text']['sas_guardoExitoContinuar']|raw}}</p>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock %}

@@ -1,0 +1,132 @@
+{% set asset_path = 'resources/Attendee/GafetesBundle/' %}
+{% set header = asset(asset_path ~ 'images/gafete.png') %}
+
+{% if app.environment == 'prod' %}
+    {% set path = app.request.baseUrl  ~ '/' %}
+{% else %}
+    {% set path = app.request.baseUrl ~ '/../'   %}
+{% endif %}
+{% set lang = app.session.get('lang') %}
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/gafete.css') }}">
+        <style>
+            #bground {
+                background-image: url('{{ header }}');
+                background-repeat: no-repeat;
+                background-position: center top;
+                background-size: 100% 100%;
+                margin: 0 auto;
+            }
+            @page {         
+                size: auto;     
+                margin: 0mm;
+            }
+            @media print {
+                bground {
+                    position: absolute;
+                    display: block;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    top: 0;
+                    -webkit-print-color-adjust: exact; 
+                }
+                body {      
+                    border: none;         
+                    margin: 0px;
+                }
+                .arrow-down {
+                    left: 904px;
+                    top: 585px;
+                    display: none;
+                }
+                .arrow-right {
+                    left: 450px;
+                    top: 604px;
+                    display: none;
+                }
+                .logo-evento {
+                    -webkit-print-color-adjust: exact; 
+                }
+                .no-print {
+                    display: none;
+                }
+                .barcode-td{
+                    margin-top: 80px;
+                } 
+            }
+        </style>
+    </head>
+    <body onload="{#javascript:printFrame()#}javascript:window.print();" id="bground">
+        <div class="no-print">
+            <button class="waves-effect waves-light btn orange no-print" onclick="javascript:printFrame();" style="float: right;">{{ content['template_text']['ae_imprimir'] }}</button>
+        </div>
+        <table class="table-content">
+            <tbody>
+                <tr class="first-tr">
+                    <td class="first-td">
+                        <table class="table-codes">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {#<div class="logo-evento">
+                                            {% if content['general_text']['ae_logo_1'] is defined and content['general_text']['ae_logo_1'] != "" %}
+                                                <img src="{{ content['config']['UrlSAS'] ~ 'images/logos-co/header/' ~ content['general_text']['ae_logo_1'] }}" alt="{{ content['general_text']['ae_logo_1'] }}" class="responsive-img">
+                                            {% else %}
+                                                <h3>Logo</h3>
+                                                <span>del Evento</span>
+                                            {% endif %}
+                                        </div>#}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img class="barcode-td" alt="{{ content['visitante']['idVisitante'] }}" src="{{ path ~ '/barcode/barcode.php?barcode=V' ~ content['visitante']['idVisitante'] ~ '&width=385&height=45&format=png' }}" style="width:385px;height:45px;" />
+                                    </td>
+                                </tr>
+                                <tr>   
+                                    <td>
+                                        <h2 style="margin-bottom: 14px; margin-top: 0;">{{ content['visitante']['Nombre'] }} <br/>{{ content['visitante']['ApellidoPaterno'] }} {{ content['visitante']['ApellidoMaterno'] }}</h2>
+                                        <h3 style="margin: 5px; margin-bottom: 13px;">{{ content['visitante']['DE_RazonSocial']|raw }}</h3>     
+                                        {% if content['visitante']['DE_Cargo'] is defined and content['visitante']['DE_Cargo'] is not empty %}
+                                            <h4 style="margin: 5px; margin-bottom: 14px;">
+                                                <span clasS="important">{{ content['visitante']['DE_Cargo']|raw }}</span>
+                                            </h4>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center; height: 80px;">
+                                        <img class="qrcode" alt="{{ content['visitante']['idVisitante'] }}" src="{{ path ~ '/qrcode/main.php?qrcode=' ~ content['qrGafete'] ~ '&size=3' }}" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td class="second-td">
+                        {#<h4>{{ content['template_text']['ae_espacioPublicitario'] }}</h4>#}
+                    </td>
+                </tr>
+
+                <tr class="second-tr">
+                    <td class="first-td">
+                        {#<h4>{{ content['template_text']['ae_informacionAdicional'] }}</h4>#}
+                    </td>
+                    <td class="second-tr">
+                        <div class="gafete-info">
+                            {#<h4>{{ content['template_text']['ae_instrucciones'] }}</h4>
+                              {{ content['template_text']['ae_instruccionesLista']|raw }}#}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <img src="{{asset(asset_path ~ '/images/arrow-curved-down.png')}}" class="arrow-down" />
+        <img src="{{asset(asset_path ~ '/images/arrow-curved-right.png')}}" class="arrow-right" />
+
+        <script type="text/javascript" src="{{ asset(asset_path ~ 'js/gafete.js') }}"></script>
+        {#<script type="text/javascript">
+            $(printFrame());
+        </script>#}
+    </body>
+</html>

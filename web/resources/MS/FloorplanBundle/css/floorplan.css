@@ -1,0 +1,14 @@
+.tabs .indicator {
+    background-color: #1565c0 !important;
+}
+
+#export{
+    position: fixed;
+    top: 0;
+    display: block;
+    height: 55px;
+}
+
+td {
+    padding: 8px 5px;
+}

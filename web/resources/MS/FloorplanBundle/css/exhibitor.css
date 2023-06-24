@@ -1,0 +1,48 @@
+.dataTables_filter{
+    display: none;
+}
+
+.custom-filters-summary{
+    margin-bottom: 10px;
+}
+
+#log-table_wrapper{
+     padding: 10px;      
+}
+
+table.table-bordered.dataTable{
+    border-collapse: collapse !important;
+}
+
+.img-export{
+    vertical-align: middle;
+}
+
+.tabs .indicator {
+    background-color: #1565c0 !important;
+}
+
+#export{
+    position: fixed;
+    top: 0;
+    display: block;
+    height: 55px;
+}
+
+td.responsive-table {
+    padding: 8px 5px;
+}
+
+.help-button{
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+}
+
+.btn-table{
+    border-radius: 20px;
+}
+
+td{
+  padding: 5px 3px  !important;
+}

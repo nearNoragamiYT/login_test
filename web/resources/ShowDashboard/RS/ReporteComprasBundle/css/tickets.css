@@ -1,0 +1,114 @@
+.modal {
+    height: 1000px;
+    width: 500px;
+}
+/*.modal-content {
+    overflow-y: hidden !important;
+}*/
+
+/*#rowtipoTicket {estilos tipo de ticket
+    margin-left: 25px !important; 
+    margin-bottom: 0px !important;
+}
+
+#divtipoTicket{
+    text-align: right;
+    width: 207px; 
+    font-size: 13px;
+}*/
+
+/*#rownumeroCompra {estilos de numero de compra
+    margin-left: 130px !important; 
+    margin-bottom: 0px !important;
+}
+
+#divnumeroCompra {
+    text-align: right;
+    width: 250px; 
+    margin-top: 2px; 
+    font-size: 13px;
+}
+
+#rownumeroReferencia {
+    margin-left: 50px ; 
+    margin-bottom: 0px;
+}
+
+#divnumeroReferencia {
+    text-align: right;
+    width: 207px; 
+    margin-top: 2px; 
+    font-size: 13px;
+}
+
+#rowfechaCompra {
+    margin-left: 25px !important; 
+    margin-bottom: 0px !important; 
+    margin-left: 25px !important;
+}
+
+#divfechaCompra {
+    text-align: right;
+    width: 207px; 
+    margin-top: 2px; 
+    font-size: 13px;
+}
+
+#rowTableHeaders {
+    margin-bottom: 0px !important;
+}
+
+#tableHeaders {
+    font-size: 15px;
+    width: 215px; 
+    margin-left:25px !important;
+}
+
+#tableTotals {
+    text-align: right;
+    width: 170px;
+    margin-top: 80px;
+    font-size: 12px;
+    margin-left: 60px;
+}
+
+#rs_factura {
+    text-align:center;
+    width: 250px;
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#rs_datosFicales{
+    text-align:center;
+    width: 250px;
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: justify;
+}
+
+#rs_solicitarFactura{
+    text-align:center;
+    width: 250px;
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: justify;
+}
+#rs_habiles{
+    text-align:center;
+    width: 250px;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+#rs_text {
+    text-align:center;
+    width: 250px;
+    font-size: 13px;
+    margin-top: 10px;
+}*/
+
+/*#barCode {
+    margin-left: -35px !important;
+}*/

@@ -1,0 +1,7 @@
+show_dashboard_ae_administracion_configuracion_conexion:
+    path:     /show-dashboard/ae/administracion/configuracion/conexion
+    defaults: { _controller: ShowDashboardAEAdministracionConfiguracionConexionBDBundle:ConexionBD:conexionBD }
+
+show_dashboard_ae_administracion_configuracion_conexion_eliminar:
+    path:     /show-dashboard/ae/administracion/configuracion/conexion/eliminar
+    defaults: { _controller: ShowDashboardAEAdministracionConfiguracionConexionBDBundle:ConexionBD:conexionBDEliminar }

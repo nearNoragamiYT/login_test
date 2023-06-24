@@ -1,0 +1,194 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 19, 2016, 12:49:08 PM
+    Author     : Javier
+*/
+body{
+    background: #edeff0;
+}
+
+.container{
+    background: #fff;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 96%;
+}
+
+.header-wizard{
+    padding: 10px;
+    background: #4285f4;
+    color: #fff;
+}
+
+.wizard-title-step{
+    color: #4285f4;
+    font-weight: 300;
+}
+
+.img-ixpo-wizard{
+    max-width: 100px;
+}
+
+.wizard-title-step i{
+    font-style: normal;
+}
+
+.wizard-title{
+    margin: 0px;
+}
+
+.wizard-steps{
+    font-size: 0.8rem;
+    -webkit-box-shadow: 0 5px 5px -3px rgba(0,0,0,0.16);
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,0.16);
+    border-bottom: 1px solid rgba(0,0,0,0.16);
+    margin: 0px;
+    padding: 8px 0px;
+    text-align: center;
+    background: #FFF;
+}
+
+.wizard-steps li{
+    position: relative;
+    display: inline-block;
+    cursor: default;
+    vertical-align: text-top;
+    text-align: center;
+    width: calc(95% / 8);
+}
+
+.wizard-steps li i{
+    display: block;
+    margin: 0 auto;
+    font-style: normal;
+    background: #bdbdbd;
+    margin-bottom: 3px;
+}
+
+.wizard-steps li:not(:last-child):after {
+    position: absolute;
+    content: '';
+    height: 5px;
+    background: #edeff0;
+    margin: 0;
+    width: 100%;
+    top: 17px;
+    left: 50%;
+}
+
+.wizard-steps li.completed{
+    color: green;
+}
+
+.wizard-steps li.completed i{
+    background: #d4ecd4;
+    color: green;
+}
+
+.wizard-steps li.completed:not(.current-step) i:hover,
+.wizard-steps li.completed:not(.current-step) i:focus,
+.wizard-steps li.completed:not(.current-step) i:active{
+    background: #a5d6a7;
+}
+
+.wizard-steps li.current-step{
+    color: #4285f4;
+}
+
+.wizard-steps li.current-step i{
+    background: #4285f4;
+    color: #fff;
+}
+
+.wizard-steps li.completed:not(:last-child):after {
+    background: #d4ecd4;
+}
+
+.wizard-content{
+    padding: 20px;
+}
+
+.wizard-content section{
+    display: none;
+}
+
+.wizard-content section:first-child{
+    display: block;
+}
+
+.content-image-preview{
+    text-align: center;
+    height: 150px;
+}
+
+.content-image-preview img{
+    max-height: 150px;
+    width: auto;
+    max-width: 100%;
+}
+
+.note{
+    font-size: .9rem;
+}
+
+.note .note-title{
+    font-weight: 500;
+}
+
+.note ul{
+    font-size: 90%;
+    margin: 0;
+}
+
+.card h5{
+    font-size: 1.5rem;
+    margin-top: 0px;
+}
+
+.secondary-info{
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.bottom-info{
+    text-align: right;
+    font-size: 0.85rem;
+}
+
+.card .fixed-action-btn{
+    position: relative;
+    right: 0px;
+}
+
+.fixed-action-btn > a{
+    margin-top: 15px;
+}
+
+select.browser-default{
+    margin: 5px 0px 15px 0px;
+}
+
+@media all and (max-width: 600px) {
+    .wizard-steps li:not(.current-step),
+    .wizard-steps li.current-step i{
+        color: transparent;
+    }
+
+    .wizard-steps li{
+        width: calc(90% / 7);
+    }
+
+    .wizard-steps li i{
+        width: 10px;
+        height: 10px;
+    }
+
+    .wizard-steps li:not(:last-child):after {
+        height: 1px;
+        top: 6px;
+    }
+}

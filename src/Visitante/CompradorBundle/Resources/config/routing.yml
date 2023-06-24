@@ -1,0 +1,27 @@
+visitante_comprador:
+    path:     /comprador
+    defaults: { _controller: VisitanteCompradorBundle:Comprador:compradores }
+
+get_comprador:
+    path:     /get-data-comprador
+    defaults: { _controller: VisitanteCompradorBundle:Comprador:getDataTable }
+    
+email_rechazo_comprador:
+    path:     /email_rechazo_comprador
+    defaults: { _controller: VisitanteCompradorBundle:Comprador:emailRechazo}
+    
+email_confirmacion_comprador:
+    path:     /email_validacion_comprador
+    defaults: { _controller: VisitanteCompradorBundle:Comprador:emailConfirmacion}     
+
+comprador_send_digibage:
+    path:    /send-digibadge-comprador
+    defaults: { _controller: VisitanteCompradorBundle:Comprador:sendDigibadge }
+
+comprador_download_digibadge:
+    path:   /download-digibadge-comprador
+    defaults: { _controller: VisitanteCompradorBundle:Comprador:downloadDigibadge } 
+
+export_comprador:
+    path:     /export-data-comprador
+    defaults: { _controller: VisitanteCompradorBundle:Comprador:exportDataTable }      

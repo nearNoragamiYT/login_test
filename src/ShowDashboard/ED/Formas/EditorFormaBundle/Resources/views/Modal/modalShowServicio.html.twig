@@ -1,0 +1,106 @@
+<div id="modal-servicio" class="modal modal-fixed-footer modal-m">
+    <form id="frm-servicio">
+        <div class="modal-content">
+            <div class="modal-title">{{ content['section_text']['ed_informacionServicio'] }}</div>
+            <input type="hidden" id="idServicio" name="idServicio">
+            <input type="hidden" id="idForma" name="idForma">
+            <input type="hidden" id="idEdicion" name="idEdicion">
+            <input type="hidden" id="idEvento" name="idEvento">
+            <div class="row">
+                <div class="col s12 input-field">
+                    <input id="Titulo{{ content['lang']|upper }}"
+                           name="Titulo{{ content['lang']|upper }}"
+                           type="text"
+                           class="validate"
+                           >
+                    <label for="Titulo{{ content['lang']|upper }}">{{ content['section_text']['ed_titulo'] }}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 input-field">
+                    <input id="Descripcion{{ content['lang']|upper }}"
+                           name="Descripcion{{ content['lang']|upper }}"
+                           type="text"
+                           class="validate"
+                           >
+                    <label for="Descripcion{{ content['lang']|upper }}">{{ content['section_text']['ed_descripcion'] }}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 input-field">
+                    <input id="PrecioAntesFecha{{ content['lang']|upper }}"
+                           name="PrecioAntesFecha{{ content['lang']|upper }}"
+                           type="text"
+                           class="validate taxable"
+                           taxed-field="PrecioAntesFechaFinal"
+                           >
+                    <label for="PrecioAntesFecha{{ content['lang']|upper }}">{{ content['section_text']['ed_precioAntesIVA'] }}</label>
+                </div>
+                <div class="col s12 m6 input-field">
+                    <input id="PrecioAntesFechaFinal"
+                           type="text"
+                           readonly="readonly"
+                           >
+                    <label for="PrecioAntesFechaFinal">{{ content['section_text']['ed_precioDespuesIVA'] }}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <p>
+                        <input type="checkbox" id="FechaLimiteCheck" />
+                        <label for="FechaLimiteCheck">{{ content['section_text']['ed_aplicarCambioFecha'] }}</label>
+                    </p>
+                </div>
+                <div class="col s12 input-field">
+                    <input id="FechaLimite"
+                           name="FechaLimite"
+                           type="text"
+                           class="validate"
+                           >
+                    <label for="FechaLimite">{{ content['section_text']['ed_fechaLimite'] }}  {{ content['section_text']['sas_formatoFechaLimite'] }}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 input-field">
+                    <input id="PrecioDespuesFecha{{ content['lang']|upper }}"
+                           name="PrecioDespuesFecha{{ content['lang']|upper }}"
+                           type="text"
+                           class="validate taxable"
+                           taxed-field="PrecioDespuesFechaFinal"
+                           >
+                    <label for="PrecioDespuesFecha{{ content['lang']|upper }}">{{ content['section_text']['ed_precioDespues'] }}</label>
+                </div>
+                <div class="col s12 m6 input-field">
+                    <input id="PrecioDespuesFechaFinal"
+                           type="text"
+                           readonly="readonly"
+                           >
+                    <label for="PrecioDespuesFechaFinal">{{ content['section_text']['ed_precioDespuesIVA'] }}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6 m6 input-field">
+                    <input id="Orden"
+                           name="Orden"
+                           type="number"
+                           class="validate"
+                           >
+                    <label for="Orden">{{ content['section_text']['ed_orden'] }}</label>
+                </div>
+                <div class="col s6 m6 input-field">
+                    <input id="Moneda{{lang|upper}}"
+                           name="Moneda{{lang|upper}}"
+                           type="text"
+                           class="validate autocomplete"
+                           autocomplete="off"
+                           >
+                    <label for="Moneda{{lang|upper}}">{{content['section_text']['sas_moneda']}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_atras'] }}</button>
+            <button type="submit" class="btn waves-effect waves-light green">{{ content['general_text']['sas_guardar'] }}</button>
+        </div>
+    </form>
+</div>

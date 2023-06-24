@@ -1,0 +1,35 @@
+{% set ruta_asset = 'resources/Empresa/EmpresaBundle/' %}
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/menu_secciones.css') }}" media="screen,projection">
+{% endblock %}
+<nav class="company-menu indigo">
+    <div class="nav-wrapper">
+        <ul class="left">
+            <li id="empresa-comercial">
+                <a href="{{ path('empresa_empresa_comercial', {'idEmpresa': content["idEmpresa"]}) }}">
+                    {{ content["section_text"]["sas_informacionComercial"] }}
+                </a>
+            </li>
+            <li id="empresa-fiscal">
+                <a href="{{ path('empresa_empresa_fiscal', {'idEmpresa': content["idEmpresa"]}) }}">
+                    {{ content["section_text"]["sas_entidadesFiscales"] }}
+                </a>
+            </li>
+            <li id="solicitud-lectoras">
+                <a href="{{ path('show_dashboard_lt_solicitud_lectoras_mostrar', {'idEmpresa': content["idEmpresa"]}) }}">
+                    {{ content["section_text"]["sas_solicitudLectoras"] }}
+                </a>
+            </li>
+            <li id="empresa-lectoras">
+                <a href="{{ path('empresa_lectora', {'idEmpresa': content["idEmpresa"]}) }}">
+                    {{ content["section_text"]["sas_asignacionLectoras"] }}
+                </a>
+            </li>
+            <li id="entrega-lectoras">
+                <a href="{{ path('show_dashboard_lt_entrega_lectoras_mostrar', {'idEmpresa': content["idEmpresa"]}) }}">
+                    {{content['general_text']['sas_entregaLectoras']}}
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

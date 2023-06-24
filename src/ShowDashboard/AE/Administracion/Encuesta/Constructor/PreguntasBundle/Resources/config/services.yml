@@ -1,0 +1,4 @@
+services:
+#    show_dashboard_ae_administracion_encuesta_constructor_preguntas.example:
+#        class: ShowDashboard\AE\Administracion\Encuesta\Constructor\PreguntasBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

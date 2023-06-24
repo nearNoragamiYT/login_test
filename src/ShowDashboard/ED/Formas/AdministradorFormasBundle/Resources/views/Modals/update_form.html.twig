@@ -1,0 +1,61 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-update-form", "fixed": true, "textColor":"white-text", "confirmCancel": true, "color": "green", "idButton": "update-form" } %}
+{% block title %}{% endblock %}
+{% block body %}
+    <form id="form-update" method="post">
+        <div class="col s12">
+            <div class="input-field col s6 push-s3">
+                <input type="text" id="Identificador" name="Identificador" />
+                <label for="Identificador">{{content['section_text']['sas_identificador']}}</label>
+            </div>
+        </div>
+        {% set show = "col s12" %}
+        {% if content['idioms']|length is divisible by(2) %}
+            {% set show = "col s6" %}
+        {% endif %}
+        {% for idiom in content['idioms'] %}
+            <div class="{{show}}">
+                <div class="center-align col s12">
+                    <img class="circle idiom-flag" src="{{asset('images/idioma/' ~ idiom|lower ~ '.png')}}" alt="idioma {{idiom}}">
+                    <div class="divider col s12 grey"></div>
+                </div>
+                <div class="input-field col s12">
+                    <input type="text" id="NombreForma{{idiom}}" name="NombreForma{{idiom}}" class="required" />
+                    <label for="NombreForma{{idiom}}">{{content['section_text']['sas_nombreForma'  ~ idiom]}}</label>
+                </div>
+                <div class="input-field col s12">
+                    <textarea type="text" id="Descripcion{{idiom}}" name="Descripcion{{idiom}}" class="materialize-textarea" length="250"></textarea>
+                    <label for="Descripcion{{idiom}}">{{content['section_text']['sas_descripcion' ~ idiom]}}</label>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col s6">
+            <p>{{content['section_text']['sas_verFormaED']}}</p>
+            <div class="switch">
+                <label>
+                    {{content['general_text']['sas_no']}}
+                    <input type="checkbox" id="FormaVisibleWeb" name="FormaVisibleWeb" value="1"/>
+                    <span class="lever"></span>
+                    {{content['general_text']['sas_si']}}
+                </label>
+            </div>
+        </div>
+        <div class="col s6">
+            <p>{{content['section_text']['sas_habilitarForma']}}</p>
+            <div class="switch">
+                <label>
+                    {{content['general_text']['sas_no']}}
+                    <input type="checkbox" id="Habilitado" name="Habilitado" value="1"/>
+                    <span class="lever"></span>
+                    {{content['general_text']['sas_si']}}
+                </label>
+            </div>
+        </div>
+        <input type="hidden" id="idForma" name="idForma" value="0" />
+    </form>
+    <div class="fixed-action-btn" style="bottom: 60px;">
+        <a id="btn-delete-form" class="btn-floating waves-effect waves-light red right tooltipped" data-tooltip="{{content['general_text']['sas_eliminar']}}">
+            <i class="fa fa-trash-o"></i>
+        </a>
+    </div>
+{% endblock%}

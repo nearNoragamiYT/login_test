@@ -1,0 +1,167 @@
+{% extends 'WizardWizardBundle:Wizard:showWizard.html.twig' %}
+
+{% set ruta_asset_section = 'resources/Wizard/EventoBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset_section ~ 'css/evento.css') }}">
+{% endblock %}
+
+{% block content_step %}
+    <section id="wizard-evento">
+        <h5 class="wizard-title-step">{{ content['section_text']['sas_tituloPaso5'] }}</h5>
+        <div class="eventos" {% if content['eventos']|length == 0 %}style="display: none;"{% endif %}>
+            <div class="row">
+                {% for evento in content['eventos'] %}
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="fixed-action-btn horizontal click-to-toggle right">
+                                    <a class="btn-floating waves-effect transparent z-depth-0">
+                                        <i class="material-icons black-text ">more_vert</i>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a class="btn-floating blue white-text">
+                                                <i class="material-icons edit" 
+                                                   id-evento="{{ evento['idEvento'] }}"
+                                                   title="{{ content['general_text']['sas_editar'] }}"
+                                                   >edit</i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn-floating red white-text">
+                                                <i class="material-icons delete" 
+                                                   id-evento="{{ evento['idEvento'] }}"
+                                                   title="{{ content['general_text']['sas_eliminar'] }}"
+                                                   >delete_forever</i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="card-title"><h5>{{ evento['Evento_' ~ lang|upper] }}</h5></span>
+                                <div class="secondary-info grey-text">
+                                    {% if evento['Evento_EN'] != "" %}{{ evento['Evento_EN'] }}<br>{% endif %}
+                                    {% if evento['Evento_FR'] != "" %}{{ evento['Evento_FR'] }}<br>{% endif %}
+                                    {% if evento['Evento_PT'] != "" %}{{ evento['Evento_PT'] }}<br>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% if loop.last%}
+                            <button class="btn-floating btn-large waves-effect waves-light right green btn-new-ef" title="{{ content['section_text']['sas_nuevoEvento'] }}"><i class="material-icons">add</i></button>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="nav-buttons">
+                <a href="{{ path('wizard_contacto') }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['general_text']['sas_atras'] }}</a>
+                <a href="{{ path('wizard_edicion') }}" class="btn waves-effect waves-light green show-loader-top">{{ content['general_text']['sas_siguiente'] }}</a>
+            </div>
+        </div>
+        <div class="frm-evento" {% if content['eventos']|length > 0 %}style="display: none;"{% endif %}>
+            <form id="frm-evento" action="{{ path('wizard_evento') }}" method="post">
+                <input type="hidden" 
+                       id="idEvento" 
+                       name="idEvento"
+                       {% if content['evento']['idEvento'] is defined %}
+                           value="{{ content['evento']['idEvento'] }}"
+                       {% endif %}
+                       >
+                <input type="hidden" 
+                       id="idComiteOrganizador" 
+                       name="idComiteOrganizador"
+                       {% if content['configuration']['idComiteOrganizador'] is defined %}
+                           value="{{ content['configuration']['idComiteOrganizador'] }}"
+                       {% endif %}
+                       >
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="Evento_ES" 
+                               name="Evento_ES"
+                               type="text" 
+                               class="validate" 
+                               {% if content['evento']['Evento_ES'] is defined %}
+                                   value="{{ content['evento']['Evento_ES'] }}"
+                               {% endif %}
+                               >
+                        <label for="Evento_ES">{{ content['section_text']['sas_eventoES'] }} <img src="{{ asset('images/idioma/es.png') }}" alt="es" class="img-label-lang">)</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="Evento_EN" 
+                               name="Evento_EN"
+                               type="text" 
+                               class="validate" 
+                               {% if content['evento']['Evento_EN'] is defined %}
+                                   value="{{ content['evento']['Evento_EN'] }}"
+                               {% endif %}
+                               >
+                        <label for="Evento_EN">{{ content['section_text']['sas_eventoEN'] }} <img src="{{ asset('images/idioma/en.png') }}" alt="en" class="img-label-lang">)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="Evento_FR" 
+                               name="Evento_FR"
+                               type="text" 
+                               class="validate" 
+                               {% if content['evento']['Evento_FR'] is defined %}
+                                   value="{{ content['evento']['Evento_FR'] }}"
+                               {% endif %}
+                               >
+                        <label for="Evento_FR">{{ content['section_text']['sas_eventoFR'] }} <img src="{{ asset('images/idioma/fr.png') }}" alt="fr" class="img-label-lang">)</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="Evento_PT" 
+                               name="Evento_PT"
+                               type="text" 
+                               class="validate" 
+                               {% if content['evento']['Evento_PT'] is defined %}
+                                   value="{{ content['evento']['Evento_PT'] }}"
+                               {% endif %}
+                               >
+                        <label for="Evento_PT">{{ content['section_text']['sas_eventoPT'] }} <img src="{{ asset('images/idioma/pt.png') }}" alt="pt" class="img-label-lang">)</label>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    {% if content['eventos']|length > 0 %}
+                        <button type="button" class="btn-link waves-effect btn-flat left btn-cancel-submit">{{ content['general_text']['sas_cancelar'] }}</button>
+                    {% else %}
+                        <a href="{{ path('wizard_contacto') }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['general_text']['sas_atras'] }}</a>
+                    {% endif %}
+                    <button type="submit" class="btn waves-effect waves-light green">
+                        {% if content['eventos']|length > 0 %}
+                            {{ content['general_text']['sas_guardar'] }}
+                        {% else %}
+                            {{ content['general_text']['sas_siguiente'] }}
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <div id="modal-delete-evento" class="modal">
+        <form id="frm-evento-eliminar" action="{{ path('wizard_evento_eliminar') }}" method="post">
+            <input type="hidden" id="idEvento" name="idEvento" value="" >
+            <div class="modal-content">
+                <h4>{{ content['section_text']['sas_eliminarEvento'] }}</h4>
+                <p>{{ content['section_text']['sas_eliminarEventoAdvertencia'] }} "<b class="evento"></b>"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_cancelar'] }}</button>
+                <button type="submit" class="btn waves-effect waves-light red show-loader-wrapper">{{ content['general_text']['sas_eliminar'] }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var eventos = {{ content['eventos']|length ? content['eventos']|json_encode()|raw : '{}' }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset_section ~ 'js/evento.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,141 @@
+<tr>
+    <td colspan="4">
+        <table border="1" width="100%">
+            <tr style="background-color: #eee;">
+                <td colspan="5" style="color: black;font-size: 14px;">
+                    {{content['section_text']['sas_informacionFacturacion']|raw|upper}}
+                </td>
+                <td  style="color: white;font-size: 14px; background-color: black; text-align: center;">
+                    1
+                </td>
+            </tr>
+            <tr>
+                <td style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_razonSocial']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['entidad_fiscal']['DF_RazonSocial']}}
+                </td>
+            </tr>
+            <tr>
+                <td style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_rfc']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['entidad_fiscal']['DF_RFC']}}
+                </td>
+                {#<td colspan="2" style="color: black;font-size: 10px; text-align: left;">
+                    Anexar copia del RFC
+                </td>#}
+            </tr>
+            {#<tr>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['section_text']['sas_razonSocial']}}
+                </td>
+                <td colspan="4" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['entidad_fiscal']['DF_RazonSocial']}}
+                </td>
+            </tr>#}
+            <tr>
+                <td style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_dcCalleNum']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['entidad_fiscal']['DF_Calle']}}
+                    {% if content['entidad_fiscal']['DF_NumeroExterior'] is defined and content['entidad_fiscal']['DF_NumeroExterior'] != "" %}
+                        Ext: {{content['entidad_fiscal']['DF_NumeroExterior']}},
+                    {% endif %}
+                    {% if content['entidad_fiscal']['DF_NumeroInterior'] is defined and content['entidad_fiscal']['DF_NumeroInterior'] != "" %}
+                        Int: {{content['entidad_fiscal']['DF_NumeroInterior']}}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_colonia']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: left;">
+                    {{content['entidad_fiscal']['DF_Colonia']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_codigoPostal']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: left; ">
+                    {{content['entidad_fiscal']['DF_CodigoPostal']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_ciudad']}}
+                </td>
+                <td  style="color: black;font-size: 10px; text-align: left;">
+                    {{content['entidad_fiscal']['DF_Ciudad']}}
+                </td>
+            </tr>
+            <tr>
+                <td style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_estado']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: left; ">
+                    {{content['entidad_fiscal']['DF_Estado']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_pais']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: left;">
+                    {{content['entidad_fiscal']['DF_Pais']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_telefono']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: left;">
+                    ({{content['empresa']['DC_TelefonoAreaCiudad']}})({{content['empresa']['DC_Telefono']}})
+                </td>
+            </tr>
+            <tr >
+                <td rowspan="3" style="font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_ejecutivo']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_nombreContacto']}}
+                </td>
+                <td colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['empresa']['DC_Nombre']}}
+                </td>
+            </tr>
+            <tr >
+                <td rowspan="1" style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_puesto']}}
+                </td>
+                <td rowspan="1" colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['empresa']['DC_Puesto']}}
+                </td>
+            </tr>
+            <tr >
+                <td rowspan="1" style="color: black;font-size: 10px; text-align: right;">
+                    {{content['section_text']['sas_correo']}} 
+                </td>
+                <td rowspan="1" colspan="5" style="color: black;font-size: 10px; text-align: left;">
+                    {{content['empresa']['DC_Email']}}
+                </td>
+            </tr>
+            {#---
+            <tr>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['section_text']['sas_responsablePago']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%;">
+                    {{content['section_text']['sas_nombreContacto']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: left; width: 20%;">
+                    {{content['entidad_fiscal']['DF_RepresentanteLegal']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; width: 20%">
+                    {{content['section_text']['sas_email']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: left; width: 20%">
+                    {{content['entidad_fiscal']['DF_Email']}}
+                </td>
+            </tr>
+             ---#}
+        </table>
+    </td>
+</tr>

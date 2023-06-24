@@ -1,0 +1,9 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-send-email", "color": "amber", "idButton": "send-email"} %}
+{% block title %}{{content['section_text']['sas_atencion']}}{% endblock %}
+{% block body %}
+    <p id="info-send"></p>
+{% endblock%}
+{% block button %}
+    {{content['general_text']['sas_enviar']}}
+{% endblock%}

@@ -1,0 +1,44 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "change-contact-modal", 
+                "fixed": true, 
+                "size": "modal-m", 
+                "color": "green",
+                "textColor": "white-text",
+                "confirmCancel": false,
+                "idButton": "btn-change-contact" 
+            }
+%}
+{% block title %}
+    <h6 id="contact-head2"></h6>
+{% endblock %}
+{% block body %}
+    <form id="change-contact-form" class="col s12">
+        <input type="hidden" id="idActual" name="idActual" value="">
+        <input type="hidden" id="idTipoActual" name="idTipoActual" value="">
+        <div class="input-field col s12">
+            <input id="NombreCompleto" name="NombreCompleto" type="text" readonly value="">
+            <label for="NombreCompleto">{{content['section_text']['sas_contactoPrincipalActual']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <label for="idNuevo" class="active space-label">{{ content['section_text']['sas_contactoPrincipalNuevo'] }}</label>
+            {% if content['contact_types'] is defined and content['contact_types']|length > 0 %}
+                <select id="idNuevo" 
+                        name="idNuevo"
+                        class="browser-default validate"
+                        loader-element=".progress-estado" 
+                        style="margin-top: 5px;"
+                        >
+                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                    {% for contact in content['contacts'] %}
+                        <option value="{{ contact["idContacto"] }}" data-type="{{ contact["idContactoTipo"] }}">
+                            {{ contact["Nombre"] ~ " " ~ contact["ApellidoPaterno"] ~ " - " ~ content["contact_types"][contact["idContactoTipo"]]["ContactoTipo" ~ content["lang"]|upper] }}
+                        </option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

@@ -1,0 +1,77 @@
+{# {% set section_block = 'width: 100mm !important;height: 180mm !important;' %} #}
+{% set digi_header = 'height: 50px !important; width: 50px !important;' %}
+{#{% set img_header = 'margin-left: 65px !important;margin-top: 0px !important;' %}#}
+{# {% set row = 'margin-left: 80px !important; font-size: 8px' %}
+{% set label = 'font-weight: bold !important;font-size: 10px;' %}
+{% set td = 'font-size: 13px' %}
+{% set side_td = 'width: 20px !important' %}
+{% set footer = 'background-color: rgb(229, 232, 232 !important; height: 20mm !important; width: 100mm !important;font-size:6px !important; text-align: center !importan;' %}
+{% set first_text = 'Fechas de acceso: 13, 14 y 15 de octubre' %}
+{% set second_text = '3 dias de Congreso, Programa paralelo, Speaker room y vip, Zona de networking, Media District, Latam' %}
+{% set third_text = 'Smart City Awards, Restaurante y Plataforma virtual completa.' %}
+{% set patrocinadores = 'color: white' %}
+{% set first_row = 'margin-top: 15px !important' %}
+{% set invitado_label = 'background-color: bloack !important; color: white !important;' %} #}
+{% if app.environment == 'prod' %}
+    {% set path = app.request.baseUrl  ~ '/' %}
+{% else %}
+    {% set path = app.request.baseUrl ~ '/../'   %}
+{% endif %}
+{% set lang = app.session.get('lang') %}
+
+{% block body %}
+    <div {#style="background-color: rgb(123,104,238);"#}>
+        {# <div style="position: relative;padding: 0;font-size: 11px;text-align: center;color: white; background-color: blue; height: 40px;" >
+             {% filter upper %}
+                 {{content['infoticket']['BoletoES'] }}
+ 
+             {% endfilter %}               
+ 
+         </div>#}
+
+        {# <div style="{{ section_block }} background-color: {{ content['digibadge']['ColorFondo']}} !important"> #}
+        <div style="text-align:center;">
+            <table  style="margin: 0 auto;" cellpadding="4">
+                <tr >
+                    <td  style="text-align: center;">
+                        <img src="{{ asset("images/Header2022.png") }}" class="responsive-img">
+                    </td>
+                </tr>
+                {#<tr >
+                    <td  style="text-align: left">
+                        <label style="font-size: 11px;"> 
+                            <b>Nombre:</b> 
+                        </label>
+                    </td>
+                </tr>#}
+                <tr style="font-size: 19px;">
+                    <td  style="text-align: center;line-height: 50px; ">
+                        <b>
+                            {% filter upper %}
+                                {{content['datosVis']['NombreCompleto'] }}
+                            {% endfilter %}
+                        </b>
+                    </td>
+                </tr>
+            </table>
+            <table style="margin: 0 auto;">
+                <tr style="font-size: 16px;">
+                    <td  style="text-align: center">
+                        <b>
+                            {% filter upper %}
+                                {{content['datosVis']['DE_RazonSocial']|raw }}
+                            {% endfilter %}
+                        </b>
+                    </td>
+                    {#<td  style="text-align: left">
+                        {% filter upper %}
+                            {{content['datosVis']['DE_Cargo'] }}
+                        {% endfilter %}
+                    </td>#}
+                </tr>
+            </table>
+            {# <img src="{{ asset("images/logo-infoticket-baja.png") }}"  class="responsive-img" style="margin-top: 0 auto; position: absolute; width: 100%; height: 70px !important;"> #}
+
+        </div>
+    </div>
+{% endblock %}

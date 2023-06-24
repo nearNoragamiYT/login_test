@@ -1,0 +1,3 @@
+services:
+    verificador_modulo:
+        class: ShowDashboard\DashboardBundle\Model\DashboardModel

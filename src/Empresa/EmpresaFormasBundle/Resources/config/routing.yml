@@ -1,0 +1,13 @@
+empresa_empresa_formas_mostrar:
+    path:     /{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaFormasBundle:EmpresaFormas:mostrar, idEmpresa: 0 }
+    methods: GET
+    requirements:
+        idEmpresa: \d+
+#actualiza el status de bloqueado de la forma por expositor
+empresa_empresa_formas_actualiza_bloqueo:
+    path:     /actualizar-bloqueo/{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaFormasBundle:EmpresaFormas:actualizarBloqueo, idEmpresa: 0 }
+    methods: POST
+    requirements:
+        idEmpresa: \d+

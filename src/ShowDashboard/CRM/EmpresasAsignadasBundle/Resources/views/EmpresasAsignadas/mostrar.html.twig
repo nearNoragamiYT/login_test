@@ -1,0 +1,40 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/CRM/EmpresasAsignadasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/ixpoFilters.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresas_asignadas.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div id="assigned-companies" class="container-fluid">
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <table id="assigned-companies-table">
+            </table>
+        </div>
+    </div>
+    {% include 'ShowDashboardCRMEmpresasAsignadasBundle:EmpresasAsignadas:modal_cambiar_asesor.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_apply_filters = "{{ path('show_dashboard_crm_empresas_asignadas_aplicar_filtros') }}";
+        var url_update_advisor = "{{ path('show_dashboard_crm_empresas_asignadas_cambiar_asesor') }}";
+        var count
+                = {{ content['count'] }};
+                var fieldsFilters = {{ content['fields']|json_encode()|raw  }};
+                var config = {{ content['config']|json_encode()|raw  }};
+                var assigned_companies = {{ content['empresas_asignadas']|json_encode()|raw  }};
+                var active_filters = {{ content['filters_empresas_asignadas']|json_encode()|raw  }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.ixpoFilters.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresas_asignadas.js') }}"></script>
+{% endblock %}
+

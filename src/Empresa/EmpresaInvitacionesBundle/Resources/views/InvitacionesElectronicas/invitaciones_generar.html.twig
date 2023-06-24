@@ -1,0 +1,55 @@
+{#% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-generate-invitation", 
+                "fixed": true, 
+                "size": "modal-m",  
+                "color": "green",
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "btn-generate-invitation" 
+            }
+%}
+{% block title %}
+    <h6 id="head-generate-invitation"></h6>
+{% endblock %}
+{% block body %}
+    <form id="form-generate-invitation" class="col s12">
+        {% if content['idEmpresa'] is defined%}
+                <input type="hidden" id="idEmpresa" name="idEmpresa" value="{{ content['idEmpresa'] }}">                
+        {% endif %}         
+        <div class="input-field col s12">
+            <input min="0" max="10" value="" id="number" name="number" type="number" class="validate">
+            <label for="number">{{content['section_text']['sas_numeroInvitaciones']}}</label>
+        </div>      
+    </form>
+{% endblock %#}
+
+<div id="modal-generate-invitation" class="modal modal-m">
+    <div class="modal-header">        
+    </div>
+    <div class="modal-content">        
+        <h4 id="head-generate-invitation">{{content['section_text']["sas_agregarInvitacion"]}}</h4>       
+        <p id='message-generate-invitations'></p><br>           
+        <b>{{content["section_text"]["sas_ed_nota"]~': '}}</b>{{content["section_text"]["sas_ed_notaGenerarInvitacion"]}}
+        <br> 
+        {% if content['idEmpresa'] is defined%}
+                <input type="hidden" id="idEmpresa" name="idEmpresa" value="{{ content['idEmpresa'] }}" >                
+        {% endif %} 
+        <div class="input-field col s12 m6">
+            <input 
+                type="number"
+                id="input-invitations-number"
+                name="InvitationsNumber"
+                class="validate"                                                       
+                value=""   
+                min="1" 
+                max="15"
+                readonly
+                />
+            <label for="input-InvitationsNumber">{{content['section_text']['sas_numeroInvitaciones']}}</label>
+        </div>                                                    
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="modal-close btn-link waves-effect btn-flat left"> {{content['general_text']['sas_cancelar']}}</button>
+        <a href class="btn waves-effect waves-light show-loader-processing btn-generate green disabled" id="btn-generate-invitations">{{'Generar'}}</a>
+    </div>
+</div>

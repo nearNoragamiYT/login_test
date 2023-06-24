@@ -1,0 +1,4 @@
+services:
+#    utilerias_administrador_textos.example:
+#        class: Utilerias\AdministradorTextosBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

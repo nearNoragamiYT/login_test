@@ -1,0 +1,15 @@
+producto:
+    path:     /administracion-global/producto
+    defaults: { _controller: AdministracionGlobalProductoBundle:Producto:producto }
+
+producto_nuevo:
+    path:     /administracion-global/producto/nuevo
+    defaults: { _controller: AdministracionGlobalProductoBundle:Producto:productoNuevo }
+    
+producto_editar:
+    path:     /administracion-global/producto/editar
+    defaults: { _controller: AdministracionGlobalProductoBundle:Producto:productoEditar }
+    
+producto_duplicar:
+    path:     /administracion-global/producto/duplicar
+    defaults: { _controller: AdministracionGlobalProductoBundle:Producto:productoDuplicar }

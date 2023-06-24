@@ -1,0 +1,4 @@
+services:
+#    visitante_visitante.example:
+#        class: Visitante\VisitanteBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

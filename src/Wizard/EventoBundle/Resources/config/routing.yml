@@ -1,0 +1,7 @@
+wizard_evento:
+    path:     /asistente/evento
+    defaults: { _controller: WizardEventoBundle:Evento:evento }
+
+wizard_evento_eliminar:
+    path:     /asistente/evento/eliminar
+    defaults: { _controller: WizardEventoBundle:Evento:eventoEliminar }

@@ -1,0 +1,225 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Aug 26, 2016, 12:21:10 PM
+    Author     : Javier
+*/
+
+/* Mantener estilos sin Materializecss */
+.fr-wrapper ul{
+    -webkit-padding-start: 40px;
+    list-style-type: initial;
+}
+
+.fr-wrapper ul li{
+    list-style-type: initial;
+}
+
+body{
+    background: #f3f3f3;
+}
+
+/* Estilo Forma */
+
+.form-section{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-section:first-child{
+    margin-top: 0px;
+}
+
+.form-section:last-child{
+    margin-bottom: 0px;
+}
+
+.form-section-subheader{
+    color: #7C7E89;
+    font-size: .8rem;
+    font-family: monospace;
+    text-transform: uppercase;
+}
+
+.title-form{
+    color: #428bca;
+}
+
+.limit-date{
+    text-align: center;
+    color: red;
+    font-size: 1.3rem;
+}
+
+/*.header-form{
+    font-size: 1.5rem;
+}*/
+
+/*.limit-date-form .fr-box.fr-basic .fr-element,
+.limit-date-form{
+    text-align: center;
+    color: red;
+    font-weight: 300;
+}
+
+.headline-form .fr-box.fr-basic .fr-element,
+.headline-form{
+    text-align: center;
+    color: red;
+    font-size: 18px;
+}*/
+
+.service-description{
+    font-size: 0.7rem;
+    color: #ababab;
+    font-weight: 300;
+}
+
+/* Estilo Forma */
+
+/* Editor de texto */
+
+.unknown-content{
+    color: #dedede;
+}
+.unknown-box{
+    background: #eaeaea;
+    width: 100%;
+    height: 12px;
+    display: block;
+    margin-top: 10px;
+}
+.unknown-box-content{
+    background: #eaeaea;
+    width: 100%;
+    height: 100px
+}
+
+.editor{
+    border: 1px;
+    border-style: dashed;
+    border-color: #bbbbbb;
+    display: block;
+    position: relative;
+    min-height: 40px;
+    border-radius: 5px;
+}
+
+.editor:after {
+    font-family: "Material Icons";
+    content: "edit";
+    display: block;
+    position: absolute;
+    top: -20px;
+    right: 0px;
+    color: grey;
+    cursor: pointer;
+}
+
+.editor:hover{
+    border-color: transparent;
+}
+
+.editor:before{
+    width: 100%;
+    height: 100%;
+    background: rgba(240,240,240,0.8);
+    position: absolute;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: grey;
+    border: 1px;
+    border-style: dashed;
+    border-color: #222;
+    border-radius: 5px;
+    display: none;
+}
+
+.editor:hover:before{
+    display: block;
+}
+
+.section-editing .froala-editor{
+    margin-bottom: 10px;
+}
+
+.froala-controls{
+    text-align: right;
+}
+
+.froala-controls a{
+    margin: 5px;
+}
+
+.froala-controls i{
+    font-size: 1rem;
+}
+
+.editor .btn-save-editor,
+.editor .btn-cancel-editing{
+    display: none;
+}
+
+.editing{
+    display: block;
+    position: relative;
+}
+
+.saving-editor{
+    width: 100%;
+    height: 100%;
+    background: rgba(240,240,240,0.8);
+    position: absolute;
+    z-index: 10;
+}
+
+.saving-editor .progress{
+    margin: 0px;
+}
+
+.section-editing{
+    background: #FFF;
+    z-index: 1001;
+    position: relative;
+}
+/* Editor de texto */
+
+/* Servicios */
+.form-section-control{
+    margin-top: 10px;
+}
+
+.tbl-servicios{
+    font-size: 0.9rem;
+}
+
+.tbl-servicios th, 
+.tbl-servicios td{
+    vertical-align: top;
+}
+
+/*.tbl-servicios th:not(.left-align), 
+.tbl-servicios td:not(.left-align){
+    text-align: right;
+    vertical-align: top;
+}*/
+
+.th-note{
+    display: block;
+    font-weight: 300;
+    font-size: 0.8rem;
+}
+
+.tbl-servicios .material-icons{
+    font-size: 20px;
+}
+
+.modal-title{
+    /*padding: 24px;*/
+    font-size: 1.64rem;
+}
+/* Servicios */

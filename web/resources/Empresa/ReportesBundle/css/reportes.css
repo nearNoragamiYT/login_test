@@ -1,0 +1,18 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 26/10/2016, 01:26:05 PM
+    Author     : Sergio Amaya
+    Edited     : Eduardo Cervantes
+    Date       : 24/01/2017 12:00:45 PM
+*/
+.show-record{
+    color: #dedede !important;
+}
+.show-record:hover{
+    color: #00e676 !important;
+    cursor: pointer;
+}

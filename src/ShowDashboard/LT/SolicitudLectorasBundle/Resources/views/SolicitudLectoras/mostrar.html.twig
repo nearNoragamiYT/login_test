@@ -1,0 +1,381 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/LT/SolicitudLectorasBundle/' %}
+
+{% if content['SolicitudLectora']['Lang'] is null %}
+    {% set lang_forma = content["lang"] %}
+{% else %}
+    {% set lang_forma = content['SolicitudLectora']['Lang'] %}
+{% endif %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/solicitud_lectoras.css') }}">
+{% endblock %}
+{% block content %}
+    {% if  content['companyOrigin'] == 'lectoras' or content['companyOrigin'] == 'lectoras_simple'  or content['companyOrigin'] == 'solicitud_lectoras'%}
+        {% include 'ShowDashboardLTLectorasBundle:Lectoras:menu_secciones.html.twig' %}
+    {% else %}
+        {% include 'EmpresaEmpresaBundle:Empresa:menu_secciones.html.twig' %}
+    {% endif %}
+    <div id="asignacion-lectoras" class="container">
+        {# {{ dump(content['Services']) }} #}
+        <div class="row card-panel" style="margin-bottom: 25px; margin-top: 30px;">
+            {# {{ dump(content['SolicitudLectora']) }} #}
+            <div class="col s4">
+                <br>
+                {# <a href="{{content['linkSolicitudLectorasED']}}" target="blank" class="waves-effect waves-light btn indigo">{{content['section_text']['sas_solicitarLectoras']}}</a> #}
+                <h5>{{content["header"]["DC_NombreComercial"]}}</h5>
+                <h6>
+                    {% if not(content["header"]["idEtapa"] is defined) %}
+                    {{ content["section_text"]["sas_prospecto"] }}
+                    {% elseif content["header"]["idEtapa"] == 1 %}
+                    {{ content["section_text"]["sas_precontratos"] }}
+                    {% elseif content["header"]["idEtapa"] == 2 %}
+                    {{ content["section_text"]["sas_expositor"] }}
+                    {% endif %}
+                </h6>
+                {% if content["header"]["EMSTDListadoStand"] is defined %}
+                <h6>{{ "Stands: " ~ content["header"]["EMSTDListadoStand"] }}</h6>
+                {% endif %}
+                {# {{content['section_text']['sas_estatusPagoSolicitud']}}: <b>{{content['StatusPago'][content['SolicitudLectora']['StatusPago']]['StatusPago'~content["lang"]|upper]}}</b> #}
+            </div>
+            <div class="col s4" style="text-align: center;">
+                {# <a href="{{content['linkSolicitudLectorasED']}}" target="blank" class="waves-effect waves-light btn green">{{content['section_text']['sas_solicitarLectoras']}}</a> #}
+            </div>
+            <div class="col s4" style="text-align:right;">
+                <br>
+                {% if content["header"]["idPaquete"] is defined and content["header"]["idPaquete"] != "" %}
+                    <h5>{{ content["packages"][content["header"]["idPaquete"]]["Paquete" ~ content["lang"]|upper] }}</h5>
+                {% endif %}
+                {# Verificamos el estatus de pago para el mensaje de entrea StatusPago 1 = Pagado#}
+                {% if content['SolicitudLectora']['StatusPago'] == 1 %}
+                    {% set msg = "Entregar Equipos" %}
+                    {% set cls = "blue" %}
+                {% else %}
+                    {% set msg = "NO Entregar Equipos" %}
+                    {% set cls = "red" %}
+                {% endif %}
+                <div id="estatus-entrega" class="card">
+                    <div class="card-content white-text center-align {{cls}}">{{msg}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row card-panel" style="margin-bottom: 25px; position: relative;">
+            {% if content['SolicitudLectora']['ModificacionComite'] is defined and content['SolicitudLectora']['ModificacionComite'] == 0 %}
+                {% include ":complementos:not_edit.html.twig"%}
+                <span id="editar-servicios" class="btn-floating btn-large waves-effect waves-light blue tooltipped" data-position="left" data-tooltip="{{content['section_text']['sas_editarLectoras']}}"><i class="material-icons">mode_edit</i></span>
+            {% endif %}
+            <h5>{{content['section_text']['sas_solicitudLectoras']}}</h5>
+            {% set despues = false %}
+            {% for servicio in content['Services'] if not despues %}
+                {% if servicio['PrecioDespuesFecha' ~ lang_forma|upper] is defined and servicio['PrecioDespuesFecha' ~ lang_forma|upper] != ""%}
+                    {% set despues = true %}
+                {% endif %}
+            {% endfor %}
+            <div class="lectoras">
+                <table id="tbl-lectoras" class="bordered">
+                    <thead >
+                        <tr>
+                            <th> {{content['general_text']['sas_cantidad']}} </th>
+                            <th> {{content['section_text']['sas_tipoLectora']}} </th>
+                                {% if despues == true %}
+                                <th>{{content['section_text']['sas_precioAntesFecha']|raw}}</th>
+                                <th>{{content['section_text']['sas_fechaLimite']|raw}}</th>
+                                <th>{{content['section_text']['sas_precioAntesFecha']|raw}}</th>
+                                {% else %}
+                                <th>  Precio </th>
+                                {% endif %}
+                            <th>Moneda</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    {% for id,servicio in content['Services'] %}
+                        <tr>
+                            <td>
+                                <input type="number" min="0" id="cantidad-{{id}}" class="cantidades" data-id="{{id}}" value="{% if content['solicitud_lectoras'][id]['Cantidad'] is defined and content['solicitud_lectoras'][id]['Cantidad'] != "" %}{{ content['solicitud_lectoras'][id]['Cantidad'] }}{%else%}0{% endif %}">
+                            </td>
+                            <td style="width:30%;">
+                                <div class="titulo-servicio">{{servicio['Titulo' ~ lang_forma|upper]|raw}}</div>
+                                <div class="descripcion-servicio">{{servicio['Descripcion' ~ lang_forma|upper]|raw}}</div>
+                            </td>
+                            {% if despues == true %}
+                                <td class="center-align" {% if servicio['FechaLimite'] is defined and servicio['FechaLimite'] >= "now"|date("Y/m/d") %}id="precio-{{id}}"{% endif %}>
+                                    <input name="select-precio-{{id}}" type="radio" id="antes-{{id}}"  id-record="{{id}}"  class="with-gap change-precio"  {% if servicio['FechaLimite'] is defined and servicio['FechaLimite'] >= "now"|date("Y/m/d") %} checked {% endif %}/>
+                                    <label for="antes-{{id}}">  {{ servicio['PrecioAntesFecha' ~ lang_forma|upper] }}</label>
+                                </td>
+                                <td>
+                                    {{ servicio['FechaLimite'] }}
+                                </td>
+                                <td class="center-align" {% if servicio['FechaLimite'] is defined and servicio['FechaLimite'] < "now"|date("Y/m/d") %}id="precio-{{id}}"{% endif %}>
+                                    <input name="select-precio-{{id}}" type="radio" id="despues-{{id}}" id-record="{{id}}"  class="with-gap change-precio" {% if servicio['FechaLimite'] is defined and servicio['FechaLimite'] < "now"|date("Y/m/d") %} checked {% endif %}/>
+                                    <label for="despues-{{id}}">    {{ servicio['PrecioDespuesFecha' ~ lang_forma|upper] }}</label>
+                                </td>
+                            {% else %}
+                                <td id="precio-{{id}}">
+                                    {{ servicio['PrecioAntesFecha' ~ lang_forma|upper] }}
+                                </td>
+                            {% endif %}
+                            <td class="center-align">
+                                {{ servicio['Moneda' ~ lang_forma|upper] }}
+                            </td>
+                            <td>
+                                <input type="number" min="0" id="total-{{id}}" class="totales" readonly="readonly" value="{% if content['solicitud_lectoras'][id]['Total'] is defined and content['solicitud_lectoras'][id]['Total'] != "" %}{{ content['solicitud_lectoras'][id]['Total'] }}{% else %}0.00{% endif %}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <div class="totales-info">
+                    <div class="col s6 offset-s6">
+                        <div class="col s8 lbl-total right-align">
+                            {{content['section_text']['sas_subtotal']}}:
+                        </div>
+                        <div class="col s3">
+                            <input id="SubtotalLectoras" name="SubtotalLectoras" type="number" class="validate right-align" readonly="readonly" value="{% if content['SolicitudLectora']['Subtotal'] is defined and content['SolicitudLectora']['Subtotal'] != "" %}{{content['SolicitudLectora']['Subtotal']}}{% else %}0.00{%endif%}">
+                        </div>
+                    </div>
+                    <div class="col s6 offset-s6 iva right-align">
+                        <div class="col s8 lbl-total">
+                            {{content['section_text']['sas_iva']}}:
+                        </div>
+                        <div class="col s3">
+                            <input id="IvaLectoras" name="IvaLectoras" type="number" class="validate right-align" readonly="readonly" value="{% if content['SolicitudLectora']['IVA'] is defined and content['SolicitudLectora']['IVA'] != "" %}{{content['SolicitudLectora']['IVA']}}{% else %}0.00{%endif%}">
+                        </div>
+                    </div>
+                    <div class="col s6 offset-s6 total right-align">
+                        <div class="col s8 lbl-total">
+                            {{content['section_text']['sas_total']}}:
+                        </div>
+                        <div class="col s3">
+                            <input id="TotalLectoras" name="TotalLectoras" type="number" class="validate right-align" readonly="readonly" value="{% if content['SolicitudLectora']['IVA'] is defined and content['SolicitudLectora']['Total'] != "" %}{{content['SolicitudLectora']['Total']}}{% else %}0.00{%endif%}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 right-align">
+                <span id="agregar-servicios" class="btn waves-effect-waves-light green">{{content['section_text']['sas_guardarLectoras']}}</span>
+            </div>
+        </div>
+        {# CAMPOS DE PAGO ACUMULADO, HISTORIAL PAGO, MONEDA LECTORA Y FACTURA LECTORA#}
+        <div class="detalle-pago">
+            <div class="row card-panel" style="margin-bottom: 25px;">
+                <h5>{{content['section_text']['sas_detallePago']}}</h5>
+                <div class="col s12">
+                    <div class="col s6">
+                        <div class="row">
+                            <div class="col s6 right-align">
+                                <span id="p-status" >{{content['section_text']['sas_estatusPago']}}:</span>
+                            </div>
+                            <div class="col s6 m6">
+                                <select id="status-pago" class="browser-default show-message" idStatus="{{content['SolicitudLectora']['StatusPago']}}">
+                                    <option value="" {% if content['SolicitudLectora']['StatusPago']<1 %}selected="selected"{% endif %}>{{content['general_text']['sas_seleccionaOpcion']}}</option>
+                                    {% for item in content['StatusPago'] %}
+                                        <option value="{{item['idStatusPago']}}" {% if content['SolicitudLectora']['StatusPago'] == item['idStatusPago'] %}selected="selected"{% endif %}>{{item['StatusPago'~content["lang"]|upper]}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6 right-align">
+                                <span>{{content['section_text']['sas_formaPago']}}:</span>
+                            </div>
+                            <div class="col s6 m6">
+                                <select id="forma-pago" class="browser-default show-message" idFormaPago="{{content['SolicitudLectora']['idFormaPago']}}">
+                                    <option value="" {% if content['SolicitudLectora']['idFormaPago']<1 %}selected="selected"{% endif %}>{{content['general_text']['sas_seleccionaOpcion']}}</option>
+                                    {% for item in content['FormaPago'] %}
+                                           <option value="{{item['idFormaPago']}}" {% if content['DetallePago']['idFormaPago'] is defined  and  content['DetallePago']['idFormaPago'] == item['idFormaPago'] %}selected="selected"{% endif %}>{{item['FormaPago'~content["lang"]|upper]}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6 right-align">
+                                <span>{{content['section_text']['sas_fechaPago']}}:</span>
+                            </div>
+                            <div class="col s6 m6">
+                                <input id="FechaPago" type="text" name="FechaPago" class="datepicker show-message" value="{{content['SolicitudLectora']['FechaActualizacionStatusPago']}}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6 right-align">
+                                <span>{{content['section_text']['sas_observaciones']}}:</span>
+                            </div>
+                            <div class="col s6 m6">
+                                <textarea id="Observaciones" name="Observaciones" class="materialize-textarea">{% if content['DetallePago']['Observaciones'] is defined %}{{content['DetallePago']['Observaciones']}}{% endif %}</textarea>
+                                {# Boton guardar observaciones #}
+                                <button id="guardar-observaciones" type="button" class="modal-action waves-effect waves-green btn-flat green white-text" data-action="save">{{content['section_text']['sas_guardarObservaciones']}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <form id="save-detalle-pago-json">
+                            <div class="row">
+                                <div class="col s6 right-align">
+                                    <span>{{content['section_text']['sas_pagoTotal']}}:</span>
+                                </div>
+                                <div class="col s6 m6">
+                                    <input id="PagoAcumulado" name="PagoAcumulado" type="text" class="validate show-message" value="{% if content['DetallePago']['PagoAcumulado'] is defined %}{{content['DetallePago']['PagoAcumulado']}}{% endif %}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s6 right-align">
+                                    <span>{{content['section_text']['sas_monedaPago']}}:</span>
+                                </div>
+                                <div class="col s6 right-align">
+                                    <select id="MonedaLectora" name="MonedaLectora" class="browser-default show-message">
+                                        <option value="" selected="selected">{{content['general_text']['sas_seleccionaOpcion']}}</option>
+                                        <option value="1" {% if content['DetallePago']['MonedaLectora'] is defined and content['DetallePago']['MonedaLectora'] == 1 %} selected="selected"{% endif %}>{{content['general_text']['sas_monedaMxn']}}</option>
+                                        <option value="2" {% if content['DetallePago']['MonedaLectora'] is defined and content['DetallePago']['MonedaLectora'] == 2 %}selected="selected"{% endif %}>{{content['general_text']['sas_monedaUsd']}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s6 right-align">
+                                    <span>{{content['section_text']['sas_numeroFactura']}}:</span>
+                                </div>
+                                <div class="col s6 m6">
+                                    <input id="FacturaLectora" name="FacturaLectora" type="text" class="validate show-message"  style="text-transform: uppercase;" value="{% if content['DetallePago']['FacturaLectora'] is defined %}{{content['DetallePago']['FacturaLectora']}}{% endif %}" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 right-align">
+                                    {# Boton guadar #}
+                                    <button id="save-record" type="button" class="modal-action waves-effect waves-green btn-flat green white-text" data-action="save">{{content['general_text']['sas_guardar']}}</button>
+                                    <input type="hidden" name="idContacto" id="idContacto" value="{% if content['DetallePago']['idContacto'] is defined %}{{content['DetallePago']['idContacto']}}{% endif %}"/>
+                                    <input type="hidden" name="idEmpresaEntidadFiscal" id="idEmpresaEntidadFiscal" value="{% if content['DetallePago']['idEmpresaEntidadFiscal'] is defined %}{{content['DetallePago']['idEmpresaEntidadFiscal']}}{% endif %}"/>
+                                    <input type="hidden" name="HistorialPagoAcumulado" id="HistorialPagoAcumulado" value="{% if content['DetallePago']['HistorialPagoAcumulado'] is defined %}{{content['DetallePago']['HistorialPagoAcumulado']}}{% endif %}"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if content['contactoPago'] is not null %}
+            <div class="contacto">
+                <div class="row card-panel" style="margin-bottom: 25px;">
+                    <h5>{{content['general_text']['sas_contacto']}}</h5>
+                    <div class="col s12">
+                        <div class="col s6">
+                            <div class="row">
+                                <div class="col s3 right-align">
+                                    <span class="personal-info">{{content['general_text']['sas_stands']}}:</span>
+                                </div>
+                                <div class="col s9 m9">
+                                    <span id="lbl-EMSTDListadoStand">{{content["header"]["EMSTDListadoStand"]}} </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s3 right-align">
+                                    <span class="personal-info">{{content['general_text']['sas_nombre']}}:</span>
+                                </div>
+                                <div class="col s9 m9">
+                                    <span id="lbl-NombreContacto">{{content['contactoPago']['NombreCompleto']}} </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s3 right-align">
+                                    <span class="personal-info">{{content['general_text']['sas_puesto']}}:</span>
+                                </div>
+                                <div class="col s9 m9">
+                                    <span id="lbl-Puesto-Contacto">{{content['contactoPago']['Puesto']}} </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="row">
+                                <div class="col s3 right-align">
+                                    <span class="personal-info">{{content['general_text']['sas_email']}}:</span>
+                                </div>
+                                <div class="col s9 m9">
+                                    <span id="lbl-Email-Contacto">{{content['contactoPago']['Email']}} </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s3 right-align">
+                                    <span class="personal-info">{{content['general_text']['sas_telefono']}}:</span>
+                                </div>
+                                <div class="col s9 m9">
+                                    <span id="lbl-Telefono-Contacto">{{content['contactoPago']['TelefonoCompleto']}} </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s3 right-align">
+                                    <span class="personal-info">{{content['general_text']['sas_telefonoMovil']}}:</span>
+                                </div>
+                                <div class="col s9 m9">
+                                    <span id="lbl-TelefonoMovil-Contacto">{{content['contactoPago']['Celular']}} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="entidad-fiscal">
+            <div class="row card-panel entity-panel" style="margin-bottom: 25px;">
+                <a id="btn-edit-entidad" class="secondary-content dropdown-button btn-floating waves-effect waves-light btn-sm blue" data-activates="dropdown-entidad">
+                    <i class="tiny material-icons">mode_edit</i>
+                </a>
+                <ul id="dropdown-entidad" class="dropdown-content" style="width: 200px!important;">
+                    {% for item in content['entidad_fiscal'] if item['idEmpresaEntidadFiscal'] is defined %}
+                        <li><a id-record="{{ item['idEmpresaEntidadFiscal'] }}" class="edit-entidad">{{item['DF_RazonSocial']}}</a></li>
+                        {% endfor %}
+                </ul>
+                <span id="nota-entidad"></span>
+                <h5>{{content['general_text']['sas_entidadFiscal']}}</h5>
+                <ul id="tabs-entidad-fiscal" class="tabs tabs-fixed-width"></ul>
+                {#<div class="col s12 add-entity left-align" style="margin-bottom: -25px; margin-left: 35px;">
+                    <a class="btn-floating green tooltipped secondary-content"
+                       id="add-entidad-fiscal-solicitud"
+                       data-tooltip="Agregar Entidad Fiscal"
+                       data-position="rigth"
+                       data-delay="50"
+                       >
+                        <i class="material-icons">add</i>
+                    </a>
+                </div>#}
+                <div class="col s12 center-align" style="margin-top: 20px;">
+                    <a class="secondary-content btn-floating green dropdown-button" id="add-entidad-fiscal-solicitud" data-activates="dropdown-entidad-nueva">
+                        <i class="material-icons">add</i>
+                    </a>
+                    <ul id="dropdown-entidad-nueva" class="dropdown-content" style="width: 200px!important;">
+                        <li><a id-record="0" class="new-entidad">{{content['general_text']['sas_nuevaEntidadFiscal']}}</a></li>
+                            {% for item in content['entidad_fiscal'] if item['idEmpresaEntidadFiscal'] is defined %}
+                            <li><a id-record="{{ item['idEmpresaEntidadFiscal'] }}" class="new-entidad">{{item['DF_RazonSocial']}}</a></li>
+                            {% endfor %}
+                    </ul>
+                    <button id="save-entidad-fiscal" type="button" class="modal-action waves-effect waves-green btn-flat green white-text" style="display:none">{{content['general_text']['sas_guardar']}}</button>
+                </div>
+
+            </div>
+
+            <input type="hidden" id="idEmpresaEntidadFiscalSolicitud" value="{% if content['solicitud_entidad_fiscal'] is not null %}{{content['solicitud_entidad_fiscal']}}{% endif %}"/>
+            <input type="hidden" id="ListaEmpresaEntidaFiscal" value="{% if content['solicitud_lista_entidades_fiscales'] is not null %}{{content['solicitud_lista_entidades_fiscales']}}{% endif %}"/>
+        </div>
+        <input type="hidden" id="idEmpresa" value="{{content['idEmpresa']}}"/>
+        {% include 'ShowDashboardLTSolicitudLectorasBundle:Modal:confirmar_estatus_pago.html.twig' %}
+        {% include 'ShowDashboardLTSolicitudLectorasBundle:Modal:confirmar_forma_pago.html.twig' %}
+        {% include 'ShowDashboardLTSolicitudLectorasBundle:Modal:confirmar_fecha_pago.html.twig' %}
+        {% include 'ShowDashboardLTSolicitudLectorasBundle:Modal:formulario_entidad_fiscal.html.twig' %}
+        {% include 'ShowDashboardLTSolicitudLectorasBundle:Modal:comfirmar_eliminar_entdiad_fiscal.html.twig' %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var list_entidad_fiscal
+        = {{ content['entidad_fiscal']|json_encode()|raw }};
+                var url_save_payment_status = "{{path('show_dashboard_lt_solicitud_lectoras_actualizar_estatus_pago')}}",
+                url_request_retrievals = "{{path('show_dashboard_lt_solicitud_lectoras_solicitar_lectoras', {'idEmpresa': content['idEmpresa']})}}",
+                url_save_payment_method = "{{path('show_dashboard_lt_solicitud_lectoras_actualizar_forma_pago')}}",
+                url_save_payment_date = "{{path('show_dashboard_lt_solicitud_lectoras_actualizar_fecha_pago')}}",
+                url_update_payment_detail = "{{path('show_dashboard_lt_solicitud_lectoras_actualizar_detalle_pago')}}";
+        var url_insert_entidad = "{{ path('show_dashboard_lt_solicitud_lectoras_nueva_entidad_fiscal') }}";
+        var url_get_estados = "{{ path('pecc_estados', {'idPais': "0000"}) }}";
+        var url_save_entidad = "{{path('show_dashboard_lt_solicitud_lectoras_guardar_entidad_fiscal')}}";
+        var url_edit_empresa_lectoras = "{{ path('empresa_lectora', {'idEmpresa': content["idEmpresa"]}) }}";
+        var lang_forma = "{{lang_forma}}";
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/solicitud_lectoras.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+{% endblock %}

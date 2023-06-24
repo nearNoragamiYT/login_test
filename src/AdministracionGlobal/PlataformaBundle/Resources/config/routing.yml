@@ -1,0 +1,15 @@
+plataforma:
+    path:     /administracion-global/plataforma
+    defaults: { _controller: AdministracionGlobalPlataformaBundle:Plataforma:plataforma }
+    
+plataforma_nuevo:
+    path:     /administracion-global/plataforma/nuevo
+    defaults: { _controller: AdministracionGlobalPlataformaBundle:Plataforma:plataformaNuevo }
+    
+plataforma_editar:
+    path:     /administracion-global/plataforma/editar
+    defaults: { _controller: AdministracionGlobalPlataformaBundle:Plataforma:plataformaEditar }
+    
+plataforma_eliminar:
+    path:     /administracion-global/plataforma/eliminar
+    defaults: { _controller: AdministracionGlobalPlataformaBundle:Plataforma:plataformaEliminar }

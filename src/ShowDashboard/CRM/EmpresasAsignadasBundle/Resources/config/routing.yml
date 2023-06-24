@@ -1,0 +1,14 @@
+show_dashboard_crm_empresas_asignadas_mostrar:
+    path:     /
+    defaults: { _controller: ShowDashboardCRMEmpresasAsignadasBundle:EmpresasAsignadas:mostrar }
+    methods: GET
+
+show_dashboard_crm_empresas_asignadas_aplicar_filtros:
+    path:     /aplicar-filtros
+    defaults: { _controller: ShowDashboardCRMEmpresasAsignadasBundle:EmpresasAsignadas:aplicarFiltros }
+    methods: POST
+
+show_dashboard_crm_empresas_asignadas_cambiar_asesor:
+    path:     /cambiar-asesor
+    defaults: { _controller: ShowDashboardCRMEmpresasAsignadasBundle:EmpresasAsignadas:agregarAsesor }
+    methods: POST

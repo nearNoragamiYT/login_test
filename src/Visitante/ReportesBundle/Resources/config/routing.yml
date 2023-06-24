@@ -1,0 +1,41 @@
+visitante_reportes_generales:
+    path:     /visitante/reportes-generales
+    defaults: { _controller: VisitanteReportesBundle:Reportes:reportesGeneralesList }
+    
+visitante_reportes_compra:
+    path:     /visitante/reporte-compra/{idProducto}
+    defaults: { _controller: VisitanteReportesBundle:Reportes:reporteCompras, idProducto:0 }    
+    
+visitante_reportes_transaccion:
+    path:     /visitante/reporte-transaccion
+    defaults: { _controller: VisitanteReportesBundle:Reportes:reporteTransacion }
+    
+visitante_reportes_asociado_producto:
+    path:     /visitante/asociado-producto
+    defaults: { _controller: VisitanteReportesBundle:Reportes:reporteAsociadosProducto }
+
+
+
+visitante_reporte_general_compradores_invitados:
+    path:     /visitante/compadores-invitados
+    defaults: { _controller: VisitanteReportesBundle:Reportes:reporteCompradoresInvitados }
+
+visitante_reporte_general_asociados:
+    path:     /visitante/asociados
+    defaults: { _controller: VisitanteReportesBundle:Reportes:reporteGeneralAsociados }
+
+visitante_reporte_general_sin_compras:
+    path:     /visitante/sin-compras
+    defaults: { _controller: VisitanteReportesBundle:Reportes:reporteSinCompras }
+
+visitante_reporte_asociados_clicker:
+    path:     /visitante/asociados-clicker
+    defaults: { _controller: VisitanteReportesBundle:Reportes:reporteAsociadosClicker }
+
+visitante_reporte_visitantes_clicker:
+    path:     /visitante/visitantes-clicker
+    defaults: { _controller: VisitanteReportesBundle:Reportes:reporteVisitantesClicker }
+
+visitante_reporte_compradores_clicker:
+    path:     /visitante/compradores-clicker
+    defaults: { _controller: VisitanteReportesBundle:Reportes:reporteCompradoresClicker }

@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+{% set lang = app.session.get('lang') %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}{{ content['edicion']['Edicion_' ~ lang|upper] }}{% endblock %}
+
+{% block menu %}
+    {% include '::menu.html.twig' with {'full': true} %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h5 class="header-panel">{{ content['template_text']['ae_imprimeGafete'] }}</h5>
+        <div class="row">
+            <iframe class="col s12" src="{{ path('ae_gafete_frame', {'lang': lang}) }}" style="height: 500px;border: none;"></iframe>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

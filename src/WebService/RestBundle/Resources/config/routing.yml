@@ -1,0 +1,39 @@
+#ws_login:
+#    path:     /login
+#    defaults: { _controller: WebServiceRestBundle:WebService:login }
+#    
+#ws_visitors:
+#    path:     /visitors
+#    defaults: { _controller: WebServiceRestBundle:VisitorWS:getVisitors }
+
+#ws_visitors_sync:
+#    path:     /sync-visitors
+#    defaults: { _controller: WebServiceRestBundle:VisitorWS:setSyncVisitors }
+#    
+#ws_visitors_catalog:
+#    path:     /catalog-visitors
+#    defaults: { _controller: WebServiceRestBundle:VisitorWS:Catalog }
+# 
+#ws_visitor:
+#    path:     /visitor
+#    defaults: { _controller: WebServiceRestBundle:VisitorWS:getVisitor }
+#    
+#ws_pecc:
+#    path:     /pecc
+#    defaults: { _controller: WebServiceRestBundle:PeccWS:pecc }
+    
+ws_exhibitors:
+    path:     /exhibitors
+    defaults: { _controller: WebServiceRestBundle:ExhibitorsWS:exhibitors }
+    
+ws_booths:
+    path:     /booths
+    defaults: { _controller: WebServiceRestBundle:ExhibitorsWS:booths } 
+    
+ws_categories:
+    path:     /categories
+    defaults: { _controller: WebServiceRestBundle:ExhibitorsWS:categories }
+    
+ws_pavilions:
+    path:     /pavilions
+    defaults: { _controller: WebServiceRestBundle:ExhibitorsWS:pavilions }

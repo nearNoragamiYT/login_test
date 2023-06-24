@@ -1,0 +1,19 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-update-link", "fixed": false, "size": "modal-m", "textColor":"white-text", "confirmCancel": true, "color": "purple", "idButton": "update-link" } %}
+{% block title %}{% endblock %}
+{% block body %}
+    <form id="form-link" >
+        <div class="row">
+            <div class="col push-s2 s8">
+                <div class="input-field">
+                    <i class="fa fa-link prefix"></i>
+                    <input id="link" type="text" name="link" class="required webPage" >
+                    <label for="link" class="">{{content['section_text']['sas_linkExterno']}}</label>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col s12">
+        <span id="last-update-link" class="card right teal white-text last"></span>
+    </div>
+{% endblock%}

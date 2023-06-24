@@ -1,0 +1,14 @@
+<div id="mdl-delete-module" class="modal">
+    <form id="frm-module-delete" method="post" action="{{ path('modulo_eliminar') }}">
+        <input type="hidden" name="idModuloIxpo">
+        <div class="modal-content">
+            <h4>{{content['section_text']['sas_eliminarModulo']}}</h4>
+            <p>{{content['section_text']['sas_seguroEliminarModulo']}}</p>
+            <p><b id="modulo-nombre"></b></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="modal-action modal-close waves-effect btn-flat left">{{content['general_text']['sas_descartar']}}</button>
+            <button type="submit" class="modal-action btn waves-effect red white-text show-loader-wrapper">{{content['general_text']['sas_eliminar']}}</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,23 @@
+{% extends 'ShowDashboardLTReportesBundle:exAccessLeads:base_main_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/LT/ReportesBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}   
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/GlobalReport/material-ui.css') }}">  
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/GlobalReport/react-table.css') }}">  
+{% endblock %}
+
+{% block content %}
+    <div id="app-bar"></div>
+    <div id="global-report" class="centered"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }} 
+    
+    <script src="{{ asset(ruta_asset ~ 'js/GlobalReport/global-report.js') }}"></script>
+    <script src="{{ asset(ruta_asset ~ 'js/GlobalReport/main.js') }}"></script>
+    <script src="{{ asset(ruta_asset ~ 'js/GlobalReport/runtimemain.js') }}"></script>
+    <script src="{{ asset(ruta_asset ~ 'js/GlobalReport/global-report.js.map') }}"></script>
+    <script src="{{ asset(ruta_asset ~ 'js/GlobalReport/main.js.map') }}"></script>
+    <script src="{{ asset(ruta_asset ~ 'js/GlobalReport/runtimemain.js.map') }}"></script>
+{% endblock %}

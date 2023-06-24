@@ -1,0 +1,35 @@
+<table  style="width: 100%;margin:5px;">
+    <tr>
+        <th rowspan="3"  style="text-align: left; width: 20%;">
+            {% if app.environment == 'dev'%}
+                <img src="{{asset('images/logo_2022_es.png')}}" alt="{{app.session.get('edicion')["Edicion_" ~ lang|upper]}}">
+            {% else %}
+                <img src="{{content["ruta"] ~ '/images/logo_2022_es.png'}}" alt="{{app.session.get('edicion')["Edicion_" ~ lang|upper]}}">
+            {% endif %}
+        </th>
+        <th rowspan="3" style="text-align: center; width: 40%; font-size: 14px;">
+            {{content['section_text']['sas_convenioTitulo']|raw}}
+        </th>
+        <th style="font-size: 14px; width: 20%; height: 35px; text-align: right; border-collapse: separate; border-spacing: 10px;">
+            {{content['section_text']['sas_codigoCliente']}}
+        </th>
+        <th style="font-size: 14px; width: 20%; height: 35px; border: 1px #000000 solid; border-collapse: separate; border-spacing: 10px;">
+            {{content["empresa"]["CodigoCliente"]}}
+        </th>
+    </tr>
+    <tr>
+        <th style="font-size: 14px; width: 20%; text-align: right; border-collapse: separate; border-spacing: 10px;">
+            {{content['section_text']['sas_pedido']}}
+        </th>
+        <th style="font-size: 14px; width: 20%; border: 1px #000000 solid; border-collapse: separate; border-spacing: 10px;">
+
+        </th>
+    </tr>
+    <tr>
+        <th style="font-size: 14px; width: 20%; text-align: right; border-collapse: separate; border-spacing: 10px;">
+            {{content['section_text']['sas_fecha']}}
+        </th>
+        <th style="font-size: 14px; width: 20%; border: 1px #000000 solid; border-collapse: separate; border-spacing: 10px;">
+            {{"now"|date("d/M/Y")}}
+        </th>
+    </tr>

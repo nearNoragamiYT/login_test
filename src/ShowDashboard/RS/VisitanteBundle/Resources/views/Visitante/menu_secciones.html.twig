@@ -1,0 +1,22 @@
+{% set ruta_asset = 'resources/Visitante/VisitanteBundle/' %}
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/visitante.css') }}" media="screen,projection">
+{% endblock %}
+<nav class="visitante-menu indigo">
+    <div class="nav-wrapper">
+        <ul class="left hide-on-med-and-down">
+            <li id="visitante-datosgenerales" class="load">
+                <a href="{{ path('visitante_datos_generales', {'idVisitante': content["idVisitante"]}) }}">
+                    {{ content['general_text']['sas_datosGenerales'] }}
+                </a>
+            </li>
+        </ul>
+        <ul class="left hide-on-med-and-down">
+            <li id="visitante-perfil" class="load">
+                <a href="{{ path('visitante_perfil', {'idVisitante': content["idVisitante"]}) }}">
+                    {{ content['general_text']['sas_perfil'] }}
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

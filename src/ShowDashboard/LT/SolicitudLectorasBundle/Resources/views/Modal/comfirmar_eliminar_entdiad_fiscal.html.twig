@@ -1,0 +1,9 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-confirm-delete-entidad", "fixed": false, "size": "modal-s", "color": "orange", "idButton": "delete-entidad" } %}
+{% block title %}{{"Eliminar EntidadFiscal"}}{% endblock %}
+{% block body %}
+    <p>{{"Estas Seguro de Eliminar la entidad fiscal de la solicitud"}}</p>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock %}

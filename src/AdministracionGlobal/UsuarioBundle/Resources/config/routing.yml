@@ -1,0 +1,19 @@
+usuario:
+    path:     /administracion-global/usuario
+    defaults: { _controller: AdministracionGlobalUsuarioBundle:Usuario:usuario }
+
+usuario_agregar:
+    path:     /administracion-global/usuario/nuevo
+    defaults: { _controller: AdministracionGlobalUsuarioBundle:Usuario:usuarioInformacion, idUsuario: "" }
+
+usuario_editar:
+    path:     /administracion-global/usuario/informacion/{idUsuario}
+    defaults: { _controller: AdministracionGlobalUsuarioBundle:Usuario:usuarioInformacion, idUsuario: "" }
+
+usuario_eliminar:
+    path:     /administracion-global/usuario/eliminar
+    defaults: { _controller: AdministracionGlobalUsuarioBundle:Usuario:usuarioEliminar }
+
+usuario_reactivar:
+    path:     /administracion-global/usuario/reactivar
+    defaults: { _controller: AdministracionGlobalUsuarioBundle:Usuario:usuarioReactivar }

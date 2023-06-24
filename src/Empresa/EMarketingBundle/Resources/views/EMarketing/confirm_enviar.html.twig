@@ -1,0 +1,10 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-confirm-sending", "fixed": false, "size": "modal-s", "color": "orange", "idButton": "btn-confirm-send-emarketing", "colorButton" : "blue" } %}
+{% block title %}{{content['section_text']['sas_enviarEmarketing']}}{% endblock %}
+{% block body %}
+    <p>{{content['section_text']['sas_seguroEnviarEmarketing']}}</p>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_enviar']}}
+{% endblock %}
+

@@ -1,0 +1,100 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "add-edition-contact-modal",
+                "fixed": true,
+                "size": "modal-m",
+                "color": "green",
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "btn-add-contact"
+            }
+%}
+{% block title %}
+    <h6 id="contact-head"></h6>
+{% endblock %}
+{% block body %}
+    <div id="select-action">
+        <select id="generalContacts"
+                name="generalContacts"
+                class="browser-default"
+                loader-element=".progress-estado"
+                style="margin-top: 5px;"
+                >
+            <option value="">{{ content["general_text"]["sas_seleccionaOpcion"] }}</option>
+            <option value="0">{{ content['section_text']['sas_nuevoContacto'] }}</option>
+            {% for contact in content['generalContacts'] %}
+                <option value="{{ contact["idContacto"] }}">
+                    {{ contact["nombrecompleto"] ~ " - " ~ contact["Puesto"] }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <form id="add-contact-form" class="col s12" style="display: none;">
+        <input type="hidden" id="idEmprea" name="idEmpresa" value="{{ content['idEmpresa'] }}">
+        <div class="input-field col s12">
+            <label for="idContactoTipo" class="active space-label">{{ content['section_text']['sas_tipoContacto'] }}</label>
+            {% if content['contact_types'] is defined and content['contact_types']|length > 0 %}
+                <select id="idContactoTipo"
+                        name="idContactoTipo"
+                        class="browser-default validate"
+                        loader-element=".progress-estado"
+                        style="margin-top: 5px;"
+                        >
+                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                    {% for type in content['contact_types'] %}
+                        <option value="{{ type["idContactoTipo"] }}">{{ type["ContactoTipo" ~ lang|upper] }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+        <div class="input-field col s12">
+            <input id="Nombre" name="Nombre" type="text" class="validate toUpper" maxlength="100">
+            <label for="Nombre">{{content['section_text']['sas_nombreContacto']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="ApellidoPaterno" name="ApellidoPaterno" type="text" class="validate toUpper" maxlength="100">
+            <label for="ApellidoPaterno">{{content['section_text']['sas_paternoContacto']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="ApellidoMaterno" name="ApellidoMaterno" type="text" class="validate toUpper" maxlength="100">
+            <label for="ApellidoMaterno">{{content['section_text']['sas_maternoContacto']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="Email" name="Email" type="text" class="validate" maxlength="100">
+            <label for="Email">{{content['section_text']['sas_emailContacto']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="EmailAlterno" name="EmailAlterno" type="text" class="validate" maxlength="100">
+            <label for="EmailAlterno">{{content['section_text']['sas_emailAlternoContacto']}}</label>
+        </div>
+        <div id="passwordRow">
+            <div class="input-field col s11">
+                <input id="Password" name="Password" type="text" class="" maxlength="100" readonly>
+                <label for="Password">{{content['section_text']['sas_passwordContacto']}}</label>
+            </div>
+            <div class="col s1">
+                <span id="changePassword"
+                      class="btn-floating waves-effect waves-light tooltipped"
+                      data-position="right"
+                      data-tooltip="Cambiar Password"
+                      style="margin-left: -10px; margin-top: 10px;">
+                    <i class="material-icons">loop</i>
+                </span>
+            </div>
+        </div>
+        <div class="input-field col s12" >
+            <input id="Puesto" name="Puesto" type="text" class="validate toUpper" maxlength="100">
+            <label for="Puesto">{{content['section_text']['sas_puestoContacto']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="Telefono" name="Telefono" type="text" class="validate" >
+            <label for="Telefono">{{content['section_text']['sas_telefono']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="Celular" name="Celular" type="text" class="validate" >
+            <label for="Celular">{{content['section_text']['sas_celular']}}</label>
+        </div>
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

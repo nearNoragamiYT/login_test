@@ -1,0 +1,110 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/ContratoBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/contrato.css') }}">
+    <style>
+        [type="checkbox"]+label {
+            margin-right: 20px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <section>
+        {% include 'EmpresaContratoBundle:Contrato:steps.html.twig' %}
+        {% include 'EmpresaContratoBundle:Contrato:status.html.twig' %}       
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel">
+                    <h5>{{content['section_text']['sas_productosAdicionales']}}</h5>
+                    {%for item in content['costo_adicional'] %}
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="ca-row">
+                                    {% set ca_value = '' %}
+                                    <input type="checkbox" id="ca-{{item['idCostoAdicional']}}" price="{{item['Precio']}}" value="{{item['idCostoAdicional']}}" class="ca" {% if content['empresa_costo_adicional'][item['idCostoAdicional']] is defined %}{% set ca_value = content['empresa_costo_adicional'][item['idCostoAdicional']]['Cantidad'] %}checked="checked"{% endif %}/>
+                                    <label for="ca-{{item['idCostoAdicional']}}">{{item['Costo' ~ lang|upper]}}</label>
+                                </div>
+                                {% set disabled = '' %}
+                                {% if ca_value == '' %}
+                                    {% set disabled = 'disabled' %}
+                                {% endif %}
+                                <p class="ca-description">{{item['DescripcionCorta' ~ lang|upper]|replace({"%input%": "<input id='ca-amount-" ~ item['idCostoAdicional'] ~ "' type='text' class='ca-amount' value='" ~ ca_value ~ "' " ~ disabled ~ "/>"})|raw}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <h5>{{ content['section_text']['sas_premioExelencia'] }}</h5>
+                    <p><b>{{ content['section_text']['sas_notaPremioExelencia'] }}</b></p>
+                    {% for item in content['premio'] %}                        
+                        {% if item['idPremio'] == 4 %}                            
+                            <p><b>{{content['section_text']['sas_notaResponsableSocial'] }}</b></p>
+                            <input type="radio" id="premio-si" i="{{item['idPremio']}}" name="premio-{{item['idPremio']}}" value="1" class="premio-resp" {% if content['contrato']['Premios'][item['idPremio']] is defined and content['contrato']['Premios'][item['idPremio']]['ResponsableSocial'] == 1 %}checked="checked"{% endif %}/>
+                            <label for="premio-si">{{content['section_text']['sas_si']}}</label>
+                            <input type="radio" id="premio-no" i="{{item['idPremio']}}" name="premio-{{item['idPremio']}}" value="0" class="premio-resp" {% if content['contrato']['Premios'][item['idPremio']] is not defined or content['contrato']['Premios'][item['idPremio']] is defined and content['contrato']['Premios'][item['idPremio']]['ResponsableSocial'] == 0 %}checked="checked"{% endif %}/>
+                            <label for="premio-no">{{content['section_text']['sas_no']}}</label>
+                        {% else %}
+                            <input type="checkbox" id="premio-{{item['idPremio']}}"  value="{{item['idPremio']}}" class="premio" es="{{item['PremioES']}}" en="{{item['PremioEN']}}" {% if content['contrato']['Premios'][item['idPremio']] is defined %}checked="checked"{% endif %}/>
+                            <label for="premio-{{item['idPremio']}}">{{item['Premio' ~ lang|upper]}}</label>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {# Totales #}
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card-panel">
+                    <div class="card-content">
+                        <div class="row totales">
+                            <div class="col s6 offset-s6 sub">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_subtotal']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="SubtotalCostoAdicional" name="SubtotalCostoAdicional" type="text" class="validate right-align" value="{{content['contrato']['SubtotalCostoAdicional']|number_format(2, '.', ',')}}" disabled>
+                                </div>
+                            </div>
+                            <div class="col s6 offset-s6 iva">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_iva']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="IvaCostoAdicional" name="IvaCostoAdicional" type="text" class="validate right-align" value="{{content['contrato']['IvaCostoAdicional']|number_format(2, '.', ',')}}" disabled>
+                                </div>
+                            </div>
+                            <div class="col s6 offset-s6 total">
+                                <div class="col s6 lbl-total">
+                                    {{content['section_text']['sas_total']}}
+                                </div>
+                                <div class="col s6">
+                                    <input id="TotalCostoAdicional" name="TotalCostoAdicional" type="text" class="validate right-align" value="{{content['contrato']['TotalCostoAdicional']|number_format(2, '.', ',')}}" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'EmpresaContratoBundle:Contrato:confirm_next.html.twig' %}
+        <input type="hidden" id="idEmpresa" value="{{content['empresa']['idEmpresa']}}" />
+        <input type="hidden" id="idContrato" value="{{content['contrato']['idContrato']}}" />
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col s4">
+                <a href="{{ path('empresa_empresa_contrato', {'idEmpresa': content['empresa']['idEmpresa']}) }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['section_text']['sas_regresarListaContratos'] }}</a>
+            </div>
+            <div class="col s4 center-align">                
+                <a id="btnSaveContract" class="waves-effect waves-light btn green">{{content['general_text']['sas_guardarSeguir']}}</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_save_productos = "{{path('empresa_contrato_productos_guardar')}}";
+        var url_next_step = "{{path('empresa_contrato_resumen', {'idEmpresa': content['empresa']['idEmpresa'], 'idContrato': content['contrato']['idContrato']})}}";
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/productos.js') }}"></script>   
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/general.js') }}"></script>   
+{% endblock %}

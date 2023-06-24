@@ -1,0 +1,93 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "add-financial-company-modal",
+                "fixed": true,
+                "size": "modal-m",
+                "color": "green",
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "btn-add-financial-company" } %}
+{% block title %}
+    <h6 id="financial-companies-head"></h6>
+{% endblock %}
+{% block body %}
+    <form id="add-financial-company-form" class="col s12">
+        <input type="hidden" id="idEmprea" name="idEmpresa" value="{{ content['idEmpresa'] }}">
+        <input type="hidden" id="Principal" name="Principal" value="">
+        <div class="input-field col s12">
+            <input id="DF_RazonSocial" name="DF_RazonSocial" type="text" class="validate" value="">
+            <label for="DF_RazonSocial">{{content['section_text']['sas_razonSocial']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="DF_RFC" name="DF_RFC" type="text" class="validate" >
+            <label for="DF_RFC">{{content['section_text']['sas_rfc']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="DF_Calle" name="DF_Calle" type="text">
+            <label for="DF_Calle">{{content['section_text']['sas_dfCalle']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="DF_Colonia" name="DF_Colonia" type="text">
+            <label for="DF_Colonia">{{content['section_text']['sas_dfColonia']}}</label>
+        </div>
+        {#---
+        <div class="input-field col s12">
+            <input id="DF_NumeroExterior" name="DF_NumeroExterior" type="text">
+            <label for="DF_NumeroExterior">{{content['section_text']['sas_dfNumeroExterior']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="DF_NumeroInterior" name="DF_NumeroInterior" type="text">
+            <label for="DF_NumeroInterior">{{content['section_text']['sas_dfNumeroInterior']}}</label>
+        </div>
+        ---#}
+        <div class="input-field col s12">
+            <input id="DF_CodigoPostal" name="DF_CodigoPostal" type="text">
+            <label for="DF_CodigoPostal">{{content['section_text']['sas_dfCodigoPostal']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="DF_Ciudad" name="DF_Ciudad" type="text" class="validate" >
+            <label for="Ciudad">{{content['section_text']['sas_dfCiudad']}}</label>
+        </div>
+        <div class="input-field col s12" style="margin-bottom: 30px">
+            <label for="DF_idPais" class="active space-label">{{ content['section_text']['sas_dfPais'] }}</label>
+            {% if content['paises'] is defined and content['paises']|length > 0 %}
+                <select id="DF_idPais"
+                        name="DF_idPais"
+                        class="browser-default validate"
+                        loader-element=".progress-estado"
+                        >
+                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                    {% for pais in content['paises'] %}
+                        <option value="{{ pais['idPais'] }}">{{ pais['Pais_' ~ lang|upper] }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+        <div class="input-field col s12" style="margin-bottom: 25px">
+            <label for="DF_idEstado" class="active space-label">{{ content['section_text']['sas_dfEstado'] }}</label>
+            <select id="DF_idEstado" name="DF_idEstado" class="browser-default validate">
+                <option value="0">{{ content['general_text']['sas_sinOpcion'] }}</option>
+                {% if content['estados'] is defined and content['estados']|length > 0 %}
+                    {% for estado in content['estados'] %}
+                        <option value="{{ estado['idEstado'] }}">{{ estado['Estado'] }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <div class="progress-estado">
+                <div class="progress"><div class="determinate"></div></div>
+            </div>
+        </div>
+        {#---
+        <div class="input-field col s12">
+            <input id="DF_RepresentanteLegal" name="DF_RepresentanteLegal" type="text"  >
+            <label for="DF_RepresentanteLegal">{{content['section_text']['sas_responsablePago']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="DF_Email" name="DF_Email" type="text">
+            <label for="DF_Email">{{content['section_text']['sas_dfEmail']}}</label>
+        </div>
+         ---#}
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

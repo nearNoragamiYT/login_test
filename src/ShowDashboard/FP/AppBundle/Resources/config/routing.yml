@@ -1,0 +1,7 @@
+app_export_categorias:
+    path:  /app-export-categorias
+    defaults: { _controller: ShowDashboardFPAppBundle:App:Categorias }
+    
+app_export_exhibitors:
+    path:  /app-export-exhibitor
+    defaults: { _controller: ShowDashboardFPAppBundle:App:exhibitors }

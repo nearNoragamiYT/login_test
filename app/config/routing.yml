@@ -1,0 +1,424 @@
+show_dashboard_ft:
+    resource: "@ShowDashboardFTFacturacionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ft_configuracion:
+    resource: "@ShowDashboardFTConfiguracionBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+show_dashboard_ft_datosfiscales:
+    resource: "@ShowDashboardFTDatosFiscalesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+visitante_compras_torneo:
+    resource: "@VisitanteComprasTorneoBundle/Resources/config/routing.yml"
+    
+show_dashboard_lt_reportes:
+    resource: "@ShowDashboardLTReportesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_lt_main:
+    resource: "@ShowDashboardLTMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_lt_entrega_lectoras:
+    resource: "@ShowDashboardLTEntregaLectorasBundle/Resources/config/routing.yml"
+    prefix:   /show-dashboard/lt/entrega-lectoras
+
+show_dashboard_lt_solicitud_lectoras:
+    resource: "@ShowDashboardLTSolicitudLectorasBundle/Resources/config/routing.yml"
+    prefix:   /show-dashboard/lt/solicitud-lectoras
+
+show_dashboard_lt_lectoras:
+    resource: "@ShowDashboardLTLectorasBundle/Resources/config/routing.yml"
+    
+visitante_comprador:
+    resource: "@VisitanteCompradorBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+visitante_reportes:
+    resource: "@VisitanteReportesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_empresa_invitaciones:
+    resource: "@EmpresaEmpresaInvitacionesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_rs_reporte_compras:
+    resource: "@ShowDashboardRSReporteComprasBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_rs_admin_encuesta:
+    resource: "@ShowDashboardRSAdminEncuestaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_rs_datos_generales:
+    resource: "@ShowDashboardRSDatosGeneralesBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+show_dashboard_rs_visitante_perfil:
+    resource: "@ShowDashboardRSVisitanteBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+show_dashboard_rs_admin_prod_rs:
+    resource: "@ShowDashboardRSAdminProdRSBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_rs_main:
+    resource: "@ShowDashboardRSMainBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+show_dashboard_rs_estadisticas_rs:
+    resource: "@ShowDashboardRSEstadisticasRSBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+show_dashboard_rs_archivos_rs:
+    resource: "@ShowDashboardRSArchivosRSBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_rs_asistente:
+    resource: "@ShowDashboardRSAsistenteRSBundle/Resources/config/routing.yml"
+    
+show_dashboard_rs_admin_rs:
+    resource: "@ShowDashboardRSAdminRSBundle/Resources/config/routing.yml"
+    prefix:   /
+
+visitante_asociado:
+    resource: "@VisitanteAsociadoBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+visitante_prensa:
+    resource: "@VisitantePrensaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+visitantes_generales:
+    resource: "@VisitanteVisitantesGeneralesBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+visitante_registromultiple:
+    resource: "@VisitanteRegistroMultipleBundle/Resources/config/routing.yml"
+    prefix:   /
+
+visitante_compras:
+    resource: "@VisitanteComprasBundle/Resources/config/routing.yml"
+
+visitante_perfil:
+    resource: "@VisitantePerfilBundle/Resources/config/routing.yml"
+    prefix:   /
+
+visitante_datos_generales:
+    resource: "@VisitanteDatosGeneralesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_fp_app:
+    resource: "@ShowDashboardFPAppBundle/Resources/config/routing.yml"
+    prefix:   /
+
+visitante_visitante:
+    resource: "@VisitanteVisitanteBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+visitante_encuentro_negocios:
+    resource: "@VisitanteEncuentroDeNegociosBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ms_api:
+    resource: "@MSApiBundle/Resources/config/routing.yml"
+
+show_dashboard_crm_asesores_comerciales:
+    resource: "@ShowDashboardCRMAsesoresComercialesBundle/Resources/config/routing.yml"
+    prefix:   /show-dashboard/crm/asesores-comerciales
+
+show_dashboard_crm_main:
+    resource: "@ShowDashboardCRMMainBundle/Resources/config/routing.yml"
+    prefix:   /show-dashboard/crm
+
+show_dashboard_crm_empresas_asignadas:
+    resource: "@ShowDashboardCRMEmpresasAsignadasBundle/Resources/config/routing.yml"
+    prefix:   /show-dashboard/crm/empresas-asignadas
+
+web_service_rest:
+    resource: "@WebServiceRestBundle/Resources/config/routing.yml"    
+    prefix:   /api/
+
+show_dashboard_ae_administracion_configuracion_estilos:
+    resource: "@ShowDashboardAEAdministracionConfiguracionEstilosBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_configuracion_conexion_bd:
+    resource: "@ShowDashboardAEAdministracionConfiguracionConexionBDBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_configuracion_ajustes:
+    resource: "@ShowDashboardAEAdministracionConfiguracionAjustesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_encuesta_constructor_preguntas:
+    resource: "@ShowDashboardAEAdministracionEncuestaConstructorPreguntasBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_encuesta_constructor_encuesta:
+    resource: "@ShowDashboardAEAdministracionEncuestaConstructorEncuestaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_solicitud_paquete:
+    resource: "@EmpresaSolicitudPaqueteBundle/Resources/config/routing.yml"
+    prefix:   /show-dashboard/ed/solicitud-paquetes
+
+stat_link_estadistica:
+    resource: "@StatLinkEstadisticaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ms_floorplan:
+    resource: "@MSFloorplanBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_encuesta_export_encuesta:
+    resource: "@ShowDashboardAEAdministracionEncuestaExportEncuestaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_encuesta_export_encuesta:
+    resource: "@ShowDashboardAEAdministracionEncuestaExportEncuestaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_empresa_formas:
+    resource: "@EmpresaEmpresaFormasBundle/Resources/config/routing.yml"
+    prefix:   /empresa/formas
+
+empresa_empresa_gafetes:
+    resource: "@EmpresaEmpresaGafetesBundle/Resources/config/routing.yml"
+    prefix:   /empresa/empresa-gafetes
+
+empresa_e_marketing:
+    resource: "@EmpresaEMarketingBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_empresa_ficha_montaje:
+    resource: "@EmpresaEmpresaFichaMontajeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_empresa_solicitud_modificacion:
+    resource: "@EmpresaEmpresaSolicitudModificacionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_fp_graphic:
+    resource: "@ShowDashboardFPGraphicBundle/Resources/config/routing.yml"
+empresa_empresa_datos_adicionales:
+    resource: "@EmpresaEmpresaDatosAdicionalesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_reportes:
+    resource: "@EmpresaReportesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administrador_textos_template_texto:
+    resource: "@ShowDashboardAEAdministradorTextosTemplateTextoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administrador_textos_template:
+    resource: "@ShowDashboardAEAdministradorTextosTemplateBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_configuracion:
+    resource: "@ShowDashboardAEAdministracionConfiguracionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_red_social:
+    resource: "@ShowDashboardAEAdministracionRedSocialBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_comprobante:
+    resource: "@ShowDashboardAEAdministracionComprobanteBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_datos_generales:
+    resource: "@ShowDashboardAEAdministracionDatosGeneralesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_administracion_login:
+    resource: "@ShowDashboardAEAdministracionLoginBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_ventas:
+    resource: "@EmpresaVentasBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cuenta:
+    resource: "@CuentaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_usuario:
+    resource: "@AdministracionGlobalUsuarioBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_main:
+    resource: "@AdministracionGlobalMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_empresa_contacto:
+    resource: "@EmpresaEmpresaContactoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_st_main:
+    resource: "@ShowDashboardSTMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ae_main:
+    resource: "@ShowDashboardAEMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_fp_main:
+    resource: "@ShowDashboardFPMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ft_main:
+    resource: "@ShowDashboardFTMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ed_main:
+    resource: "@ShowDashboardEDMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_empresa_contrato:
+    resource: "@EmpresaEmpresaContratoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_empresa_comercial:
+    resource: "@EmpresaEmpresaComercialBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_fp_floorplan:
+    resource: "@ShowDashboardFPFloorplanBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_empresa_fiscal:
+    resource: "@EmpresaEmpresaFiscalBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_contrato:
+    resource: "@EmpresaContratoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+empresa_empresa:
+    resource: "@EmpresaEmpresaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_ed_formas_administrador_formas:
+    resource: "@ShowDashboardEDFormasAdministradorFormasBundle/Resources/config/routing.yml"
+    prefix:   /show-dashboard/ed/administrador-formas
+
+show_dashboard_ed_formas_editor_forma:
+    resource: "@ShowDashboardEDFormasEditorFormaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show_dashboard_dashboard:
+    resource: "@ShowDashboardDashboardBundle/Resources/config/routing.yml"
+    prefix:   /
+
+wizard_wizard:
+    resource: "@WizardWizardBundle/Resources/config/routing.yml"
+    prefix:   /
+
+wizard_usuario:
+    resource: "@WizardUsuarioBundle/Resources/config/routing.yml"
+    prefix:   /
+
+wizard_producto:
+    resource: "@WizardProductoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+wizard_edicion:
+    resource: "@WizardEdicionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+wizard_evento:
+    resource: "@WizardEventoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+wizard_contacto:
+    resource: "@WizardContactoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+wizard_entidad_fiscal:
+    resource: "@WizardEntidadFiscalBundle/Resources/config/routing.yml"
+    prefix:   /
+
+wizard_comite_organizador:
+    resource: "@WizardComiteOrganizadorBundle/Resources/config/routing.yml"
+    prefix:   /
+
+wizard_informacion_general:
+    resource: "@WizardInformacionGeneralBundle/Resources/config/routing.yml"
+    prefix:   /
+
+utilerias_pecc:
+    resource: "@UtileriasPECCBundle/Resources/config/routing.yml"
+    prefix:   /
+
+utilerias_administrador_textos:
+    resource: "@UtileriasAdministradorTextosBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_modulo:
+    resource: "@AdministracionGlobalModuloBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_log:
+    resource: "@AdministracionGlobalLogBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_comite_personal:
+    resource: "@AdministracionGlobalComitePersonalBundle/Resources/config/routing.yml"
+    prefix:   /administracion-global/comite-personal
+
+administracion_global_edicion:
+    resource: "@AdministracionGlobalEdicionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_entidad_fiscal:
+    resource: "@AdministracionGlobalEntidadFiscalBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_plataforma:
+    resource: "@AdministracionGlobalPlataformaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_producto:
+    resource: "@AdministracionGlobalProductoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_comite_organizador:
+    resource: "@AdministracionGlobalComiteOrganizadorBundle/Resources/config/routing.yml"
+    prefix:   /
+
+utilerias_handle_error:
+    resource: "@UtileriasHandleErrorBundle/Resources/config/routing.yml"
+    prefix:   /
+
+login:
+    resource: "@LoginBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_evento:
+    resource: "@AdministracionGlobalEventoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_plataforma:
+    resource: "@AdministracionGlobalPlataformaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+administracion_global_comite_organizador:
+    resource: "@AdministracionGlobalComiteOrganizadorBundle/Resources/config/routing.yml"
+    prefix:   /
+
+utilerias_handle_error:
+    resource: "@UtileriasHandleErrorBundle/Resources/config/routing.yml"
+    prefix:   /
+
+login:
+    resource: "@LoginBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+stat_link_demographics:
+    resource: "@StatLinkDemographicsBundle/Resources/config/routing.yml"
+    prefix:   /

@@ -1,0 +1,98 @@
+{% set edicion = content['idEdicion'] %}
+{% block stylesheets %}
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        @media print{
+            .page-break  { display:block; page-break-before:always; }
+        }
+        th, td {
+            padding: 15px;
+        }
+        upper{
+            text-transform: uppercase;
+        }
+        .page-break, .page-break td{
+            border-color: #FFF !important;
+        }
+        @page {
+            widows: 100%;
+            margin: auto;
+        }
+    </style>
+{% endblock %}
+{%if content['without_print'] is  defined %}
+    {% set table= "border: 1px solid black; border-collapse: collapse; font-size: 12px;" %}
+    {% set td = " padding: 15px;  border: 1px solid black; border-collapse: collapse;" %}
+    {% set pagebreak = "display:block; page-break-before:always; border-color: #FFF !important;"%}
+    {% set pagebreaktd = "border-color: #FFF !important; border: 1px solid black; border-collapse: collapse;" %}
+{% endif %}
+{% set ruta_logo = 'images/logos-co/header/header_pdf_' ~ edicion ~ '.png' %}
+{% block content %}
+    {% set tipoempresa = content['empresa_tipo']%}
+    {% set entidadfiscal = content['entidades_fiscales']%}
+    {% set vendedores = content['sellers']%}
+    {#% set detalleForma = content['detalle_forma']%#}
+    {% set tipoEspacio = content['tipo_espacio']%}
+    {% set empresaMontaje = content['empresa_montaje']%}
+    {% set montajeActividad = content['montaje_actividad']%}
+    {% set montajeVehiculo = content['montaje_vehiculo']%}
+    {% set desmontaje = content['desmontaje']%}
+    {% for ficha in content['fichas_montaje'] %}
+        <div class="row">
+            <table cellspacing="3" {%if content['without_print'] is not defined %} width="1037" align="center" {%else%} style="{{table}}" {% endif %}>
+                <tbody>
+                    <tr>
+                        <td colspan="24">
+                            <div {%if content['without_print'] is defined %} style="height: 90px;" {%endif%}><img src="{{ absolute_url(asset(ruta_logo)) }}" {%if content['without_print'] is defined %} style="width: 180px;" {%endif%}></div>
+                            <div>
+                                {% if desmontaje == '1' %}
+                                    <h2>FICHA DE DESMONTAJE</h2>
+                                    <big><i>DISMANTLING ACCESS PASS</i></big>
+                                {% else %}
+                                    <h2>FICHA DE MONTAJE</h2>
+                                    <big><i>SET UP ACCESS PASS</i></big>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="12" align="CENTER" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><h3><ins>DATOS EXPOSITOR</ins></h3></td>
+                        <td colspan="12" align="CENTER" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><h3><ins><i>EXHIBITOR INFORMATION</i></ins></h3></td>
+                    </tr>
+                    {% include 'EmpresaEmpresaFichaMontajeBundle:SeccionesFicha:ficha_pdf_generalData.html.twig' %}
+                    <tr>
+                        <td colspan="12" align="CENTER" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><ins>DATOS DEL STAND:</ins></td>
+                        <td colspan="12" align="CENTER" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><ins><i>BOTH INFORMATION:</i></ins></td>
+                    </tr>
+                    {% include 'EmpresaEmpresaFichaMontajeBundle:SeccionesFicha:ficha_pdf_bothData.html.twig' %}
+                    <tr>
+                        {% if desmontaje == '1' %}
+                            <td colspan="12" align="CENTER" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><ins>INGRESO A DESMONTAJE:</ins></td>
+                            <td colspan="12" align="CENTER" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><ins><i>DISMANTLING ACCESS:</i></ins></td>
+                                    {% else %}
+                            <td colspan="12" align="CENTER" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><ins>INGRESO A MONTAJE:</ins></td>
+                            <td colspan="12" align="CENTER" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><ins><i>SET UP ACCESS:</i></ins></td>
+                                    {% endif %}
+                    </tr>
+                    {% if desmontaje == '1' %}
+                        {% include 'EmpresaEmpresaFichaMontajeBundle:SeccionesFicha:ficha_pdf_dismantlingAccess.html.twig' %}
+                    {% else %}
+                        {% include 'EmpresaEmpresaFichaMontajeBundle:SeccionesFicha:ficha_pdf_setUpAccess.html.twig' %}
+                    {% endif %}
+                {% include 'EmpresaEmpresaFichaMontajeBundle:SeccionesFicha:ficha_pdf_companies.html.twig' %}
+                </tbody>
+            </table>
+        </div>
+        {#% if loop.last == false %}         
+            <div class="page-break" {%if content['without_print'] is defined %} style="{{pagebreak}}" {%endif%}></div>
+        {% endif %#}
+    {% endfor %}
+{% endblock %}
+{% block javascripts %}
+    {% if content['without_print'] is not defined %}
+        <script type="text/javascript">window.print();</script>
+    {% endif %}
+{% endblock %}

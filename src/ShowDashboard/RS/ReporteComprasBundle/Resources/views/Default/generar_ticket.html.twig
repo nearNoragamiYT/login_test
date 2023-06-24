@@ -1,0 +1,192 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set asset_path = 'resources/ShowDashboard/RS/ReporteComprasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/tickets.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    {% include 'ShowDashboardRSReporteComprasBundle:Default:menu_compras.html.twig' with {ruta:app.request.attributes.get('_route')} %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-content ">
+                <form id="generaTicket"  onkeypress="return anular(event);">
+                    <div class="card-panel blue-grey center" id="">
+                        <span class="card-title white-text" id="HeaderArchivosBD">{{content['general_text']['rs_reimpresionTicket']}}</span>
+                    </div>
+                    <div class="row">
+                        <div class="col s6  input-field">                               
+                            <div class="input-field col s12 m9">
+                                <input id="idCompra" name="idCompra" class="validate" type="text" value="" placeholder="Ingresa el numero de compra">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button id="btn-buscar" value="Buscar" type="button" class="waves-effect waves-light btn resets" style="margin-top: 43px; left: -120px">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal modal-fixed-footer" >
+            <div class="modal-content" id="ejemplo">
+                <div class="card active">
+                    {%  for tipo in content['tipos'] %}
+                        <div class="card-content" id="divticket">
+                            <div class="container" style="width: 300px; margin-left: 50px; font: 150% sans-serif;">
+                                <div class="row">
+                                    <div class="col s12">
+                                        {#{% if content['edicion']['idEdicion'] == 7 and content['edicion']['idEvento'] == 4 %}#}                           
+                                        <img src="{{ asset('images/header_antad_2020.png') }}" class="responsive-img" style="width: 300px; margin-left: -10px;">
+                                        {#{% else %}#}
+                                        {#<img src="{{ asset('images/header/header_esi.jpg') }}" class="responsive-img"  style="width: 200px; margin-left: 25px;">#}
+                                        {#{% endif%} #}   
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row" style="margin-left: 65px !important; font-size: 20px;">
+                                    <div class="col s12" style="text-align: right;width: 207px;">
+                                        <div id="TipoTicket">{{ tipo }}</div>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="row" id="rownumeroCompra">
+                                    <div style="margin-left: 170px !important; margin-bottom: 0px !important; font-size: 19px; font-weight: bold;" class="col s12 comp" id="idcompra-{{tipo}}">
+                                    </div>
+                                </div>                                    
+                                <div style="margin-left: 70px !important; margin-bottom: 0px !important; font-size: 19px; font-weight: bold;"class="row" id="rownumeroReferencia">
+                                    <div class="col s12">
+                                        <b>{{content['general_text']['rs_numReferencia']}}</b>
+                                        <br>
+                                        <div id="Referencia-{{tipo}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="rowfechaCompra">
+                                    <div style="margin-left: 77px !important; margin-bottom: 0px !important; font-size: 16px;" class="col s12" id="fechaCompra-{{tipo}}">
+                                    </div>
+                                </div>
+                                {#                    <div class="row" style="margin-left: 25px !important">
+                                                        <div class="col s12" style="
+                                                             width: 207px;
+                                                             text-align: right;
+                                                             margin-top: 2px;
+                                                             font-size: 15px;                          
+                                                             ">
+                                                            {{content['general_text']['rs_texto']}}
+                                                        </div>                
+                                                    </div>#}
+                                <div class="row" id="rowTableHeaders">
+                                    <div class="col s12">
+                                        <table style="font-size: 18px; margin-left: 25px !important;" id="tableHeaders">
+                                            <tr>
+                                                <th style="text-align: center;"> {{content['general_text']['rs_cantidad']}} </th>
+                                                <th style="text-align: center;"> {{content['general_text']['rs_producto']}} </th>
+                                                <th style="text-align: center;"> {{content['general_text']['rs_precioUnidad']}} </th>
+                                            </tr>
+                                            <tbody>  
+                                                <tr>
+                                                    <td style="text-align: center;" id="cantidad-{{tipo}}"></td>
+                                                    <td style="text-align: center;" id="producto-{{tipo}}"></td>
+                                                    <td style="text-align: center;" id="precio-{{tipo}}"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>                
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <table style="
+                                               text-align-last: end;
+                                               width: 240px;
+                                               margin-top: 80px;
+                                               font-size: 14px;
+                                               margin-left: 20px;
+                                               "><tr>
+                                                <th style="font-size: 17px;"> {{content['general_text']['rs_subTotal']}} </th>
+                                                <td id="subTotal-{{tipo}}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="font-size: 17px;"> {{content['general_text']['rs_iva']}} </th>
+                                                <td id="iva-{{tipo}}"></td>
+                                            </tr>
+
+                                            <tr>
+                                                <th style="font-size: 17px;"> {{content['general_text']['rs_total']}} </th>
+                                                <td id="monedaT-{{tipo}}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="font-size: 17px;"> {{content['general_text']['rs_formaPago']}}</th>
+                                                <td id="formaPago-{{tipo}}"></td> 
+                                            </tr>
+                                        </table>
+                                    </div>                
+                                </div>
+                                <div class="row">
+                                    <div style="text-align:center; width: 250px;  margin-top: 10px; font-size: 15px;" class="col s12" id="rs_factura">  
+                                        {{content['general_text']['rs_factura']}}
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align:center; width: 250px; margin-top: 10px; text-align: justify; font-size: 17px;" class="row" id="rs_datosFicales" style="">
+                                    <div class="col s12">
+                                        {{content['general_text']['rs_datosFiscales']}}
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align:center; width: 250px; margin-top: 10px; text-align: justify; font-size: 17px;" class="row" id="rs_solicitarFactura">
+                                    <div class="col s12">
+                                        {{content['general_text']['rs_solicitarFactura']}}
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align:center; width: 250px; margin-top: 10px; font-size: 17px;" class="row" id="rs_habiles">
+                                    <div class="col s12">
+                                        {{content['general_text']['rs_habiles']}}
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align:center; width: 250px; margin-top: 10px; font-size: 17px;" class="row" id="rs_text">
+                                    <div class="col s12">
+                                        <b>{{content['general_text']['rs_text']}}</b>
+                                    </div>
+                                </div>
+                                <br>                                
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <p>-----------------------------------</p>
+                                    </div>
+                                </div>
+                            </div>           
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="cancelar" class="btn-link waves-effect btn-flat left">Cancelar</a>
+                <button onclick="imprSelec('ejemplo')" value="imprimir div"  class="waves-effect waves-light btn-flat green white-text"/>Imprimir</button>
+            </div>
+        </div>
+        <!----modal---->    
+    </div>
+{% endblock%}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_datos = "{{path('rs_impresionTicket')}}";
+    </script>
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/reimpresionTicket.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>  
+{% endblock %}

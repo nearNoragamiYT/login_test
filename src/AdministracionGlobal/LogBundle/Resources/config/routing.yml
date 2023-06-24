@@ -1,0 +1,11 @@
+log:
+    path:     /administracion-global/log
+    defaults: { _controller: AdministracionGlobalLogBundle:Log:Log }
+    
+log_get_to_datatable:
+    path:  /administracion-global/get-datatable
+    defaults: { _controller: AdministracionGlobalLogBundle:Log:getToDataTable }
+    
+log_export_data:
+    path:  /administracion-global/export-log
+    defaults: { _controller: AdministracionGlobalLogBundle:Log:exportLogData }

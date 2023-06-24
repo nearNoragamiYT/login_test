@@ -1,0 +1,124 @@
+{% extends '::base_main_dashboard.html.twig' %}
+
+{% set edicion = app.session.get('edicion') %}
+
+{% set plataformas = null %}
+{% if app.session.get('plataformas_usuario')[edicion['idEdicion']] is defined %}
+	{% set plataformas = app.session.get('plataformas_usuario')[edicion['idEdicion']] %}
+{% endif %}
+{% set plataformaIxpo = null %}
+{% if plataformas[app.session.get('idPlataformaIxpo')] is defined %}
+	{% set plataformaIxpo = plataformas[app.session.get('idPlataformaIxpo')] %}
+{% endif %}
+
+{% set modulos_usuario = null %}
+{% if app.session.get('modulos_usuario')[edicion['idEdicion']] is defined %}
+	{% set modulos_usuario = app.session.get('modulos_usuario')[edicion['idEdicion']] %}
+{% endif %}
+
+{% set permisos_modulo = false %}
+{% if content['breadcrumb'] is defined and content['breadcrumb']|last['Permisos'] is defined %}
+	{% set permisos_modulo = content['breadcrumb']|last['Permisos'] %}
+{% endif %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+
+{% block sidenav %}
+	{{ parent() }}
+	{% if plataformas|length > 0 %}
+		<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="waves-effect collapsible-header">
+						{{ content['general_text']['sas_plataforma'] }}
+						{% if plataformaIxpo %}
+							<span class="chip">{{ plataformaIxpo['Prefijo'] }}</span>
+						{% endif %}
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+					<div class="collapsible-body">
+						<ul>
+							{% for plataforma in plataformas %}
+								<li>
+									{% if user["idTipoUsuario"] == 1 and plataforma['RutaConfiguracion'] is defined and plataforma['RutaConfiguracion'] != "" %}
+										<a href="{{ path(plataforma['RutaConfiguracion']) }}" class="show-loader-top configuracion-plataforma">
+											<i class="material-icons">settings</i>
+										</a>
+									{% endif %}
+									<a href="{{ plataforma['Ruta'] ? path(plataforma['Ruta']) : "#" }}" class="waves-effect {% if plataforma['Ruta'] %}show-loader-top{% endif %}">{{ plataforma['PlataformaIxpo'] }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<div class="divider"></div>
+		</li>
+	{% endif %}
+
+	{% if plataformaIxpo and modulos_usuario[plataformaIxpo['idPlataformaIxpo']] is defined %}
+		{% for modulo in modulos_usuario[plataformaIxpo['idPlataformaIxpo']] %}
+			{% if modulo['SubModulos']|length == 0 %}
+				<li>
+					<a class="waves-effect {% if modulo['Publicado'] and modulo['Ruta'] %}show-loader-top{% endif %}" {% if modulo['Publicado'] and modulo['Ruta'] %} href="{{ path(modulo['Ruta']) }}" {% endif %}>{{ modulo['Modulo_' ~ lang|upper] }}</a>
+				</li>
+			{% else %}
+				<li class="no-padding">
+					<ul class="collapsible collapsible-accordion">
+						<li>
+							<a class="waves-effect collapsible-header" {% if modulo['Publicado'] and modulo['Ruta'] %} href="{{ path(modulo['Ruta']) }}" {% endif %}>{{ modulo['Modulo_' ~ lang|upper] }}<i class="material-icons right">arrow_drop_down</i>
+							</a>
+							<div class="collapsible-body">
+								<ul>
+									{% for SubModulo in modulo['SubModulos'] %}
+										<li>
+											<a class="waves-effect {% if SubModulo['Publicado'] and SubModulo['Ruta'] %}show-loader-top{% endif %}" {% if SubModulo['Publicado'] and SubModulo['Ruta'] %} href="{{ path(SubModulo['Ruta']) }}" {% endif %}>{{ SubModulo['Modulo_' ~ lang|upper] }}</a>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</li>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+	{# <div class="row">
+		        <div class="col m2">{{ dump(edicion) }}</div>
+		        <div class="col m2">{{ dump(plataformas) }}</div>
+		        <div class="col m2">{{ dump(plataformaIxpo) }}</div>
+		        <div class="col m2">{{ dump(modulos_usuario) }}</div>
+		        <div class="col m2">{{ dump(permisos_modulo) }}</div>
+		    </div> #}
+	<a href="{{ path("show_dashboard_edicion", { "idEdicion": edicion['idEdicion'], "lang": lang } ) }}" class="breadcrumb waves-effect waves-light show-loader-top">
+		{{ edicion['Edicion_' ~ lang|upper] }}
+	</a>
+	{% if plataformaIxpo %}
+		<a {% if plataformaIxpo['Ruta'] != "" %} href="{{ path(plataformaIxpo['Ruta']) }}" {% endif %} class="breadcrumb waves-effect waves-light {% if plataformaIxpo['Ruta'] %}show-loader-top{% endif %}">{{ plataformaIxpo['PlataformaIxpo'] }}
+		</a>
+	{% endif %}
+	{% if content['breadcrumb'] is defined and content['breadcrumb']|length > 0 %}
+		{% for crumb in content['breadcrumb'] if crumb['Modulo_' ~ lang|upper] is defined %}
+			<a {% if crumb['Ruta'] is defined and crumb['Ruta'] != "" %} href="{{ path(crumb['Ruta']) }}" class="breadcrumb waves-effect waves-light show-loader-top" {% elseif crumb['url'] is defined and crumb['url'] != "" %} href="{{ crumb['url'] }}" class="breadcrumb waves-effect waves-light show-loader-top" {% else %} class="breadcrumb waves-effect waves-light" {% endif %}>{{ crumb['Modulo_' ~ lang|upper] }}
+			</a>
+			{% set modulo_permisos = crumb['Permisos'] %}
+		{% endfor %}
+	{% endif %}
+{% endblock %}
+
+
+{% block content %}{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		var tabPermission = "";
+var currentRoute = "";{% if content['tabPermission'] is defined %}tabPermission = {{ content['tabPermission']|json_encode()|raw }};{% endif %}{% if content['currentRoute'] is defined %}currentRoute = {{ content['currentRoute']|json_encode()|raw }};{% endif %}
+	</script>
+	<script type="text/javascript" src="{{ asset('resources/ShowDashboard/DashboardBundle/js/tabs_permissions.js') }}"></script>
+{% endblock %}

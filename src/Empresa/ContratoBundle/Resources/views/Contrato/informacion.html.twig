@@ -1,0 +1,277 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/ContratoBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/contrato.css') }}">
+{% endblock %}
+{% block content %}
+    <section>
+        {% include 'EmpresaContratoBundle:Contrato:steps.html.twig' %}
+        {% include 'EmpresaContratoBundle:Contrato:status.html.twig' %}
+        {# EntidadFiscal #}
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card-panel entity-panel">
+                    <div class="card-content">
+                        <a class="secondary-content dropdown-button btn-floating waves-effect waves-light btn-sm blue" data-activates="dropdown-entidad">
+                            <i class="tiny material-icons">mode_edit</i>
+                        </a>
+                        <ul id="dropdown-entidad" class="dropdown-content" style="width: 200px!important;">
+                            <li><a id-record="0" class="edit-entidad">{{content['section_text']['sas_nuevaEntidadFiscal']}}</a></li>
+                                {% for item in content['entidad_fiscal'] if item['idEmpresaEntidadFiscal'] is defined %}
+                                <li><a id-record="{{ item['idEmpresaEntidadFiscal'] }}" class="edit-entidad">{{item['DF_RazonSocial']}}</a></li>
+                                {% endfor %}
+                        </ul>
+                        <h5>{{content['section_text']['sas_entidadFiscal']}}</h5>
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_razonSocial']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-RazonSocial">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_RazonSocial'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_RazonSocial']}} {% endif %}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_pais']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-Pais">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Pais'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Pais']}} {% endif %}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_rfc']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-RFC">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_RFC'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_RFC']}} {% endif %}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_estado']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-Estado">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Email'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Estado']}} {% endif %}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_ciudad']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-Ciudad">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Ciudad'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Ciudad']}} {% endif %}</span>
+                            </div>
+                        </div>
+                        {#---
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_colonia']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-Colonia">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Colonia'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Colonia']}} {% endif %}</span>
+                            </div>
+                        </div>
+                         ---#}
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_calle']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-Calle">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Calle'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Calle']}} {% endif %}</span>
+                            </div>
+                        </div>
+                        {#---
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_numeroExterior']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-NumeroExterior">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_NumeroExterior'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_NumeroExterior']}} {% endif %}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_numeroInterior']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-NumeroInterior">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_NumeroInterior'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_NumeroInterior']}} {% endif %}</span>
+                            </div>
+                        </div>
+                         ---#}
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_codigoPostal']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-CodigoPostal">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_CodigoPostal'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_CodigoPostal']}} {% endif %}</span>
+                            </div>
+                        </div>
+                        {#---
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_representanteLegal']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-RepresentanteLegal">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_RepresentanteLegal'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_RepresentanteLegal']}} {% endif %}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s2 right-align">
+                                <span class="personal-info">{{content['section_text']['sas_email']}}:</span>
+                            </div>
+                            <div class="col s9">
+                                <span id="lbl-Email">{% if content['contrato']['idEmpresaEntidadFiscal'] is defined and content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Email'] != '' %} {{content['entidad_fiscal'][content['contrato']['idEmpresaEntidadFiscal']]['DF_Email']}} {% endif %}</span>
+                            </div>
+                        </div>
+                         ---#}
+                        <input type="hidden" id="idEmpresaEntidadFiscalSel" value="{% if content['contrato']['idEmpresaEntidadFiscal'] is defined %}{{content['contrato']['idEmpresaEntidadFiscal']}}{% endif %}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# Contactos #}
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card-panel contact-panel">
+                    <h5>{{content['section_text']['sas_contactosResponsables']}}</h5>
+                    <div class="row" style="border-bottom: 1px solid #CCC;">
+                        <div class="col s6 m6" style="border-right: 1px solid #CCC;">
+                            <a class="secondary-content dropdown-button btn-floating waves-effect waves-light btn-sm blue" data-activates="dropdown-contacto-1">
+                                <i class="tiny material-icons">mode_edit</i>
+                            </a>
+                            <ul id="dropdown-contacto-1" class="dropdown-content dropdown-content-contact" style="width: 200px!important;">
+                                <li><a id-record="0" class="edit-contact" type="1">{{content['section_text']['sas_nuevoContacto']}}</a></li>
+                                    {% for item in content['contacto'] if item['idContacto'] is defined %}
+                                    <li><a id-record="{{ item['idContacto'] }}" class="edit-contact" type="1">{{item['Nombre'] ~ ' ' ~ item['ApellidoPaterno'] ~ ' ' ~ item['ApellidoMaterno']}}</a></li>
+                                    {% endfor %}
+                            </ul>
+                            <h6>{{content['section_text']['sas_llenadoDirectorioExpositores']}}</h6>
+                            <p class="personal-info"><span><i class="material-icons">person</i> <span id="lbl-1-name">{% if content['contrato']['Contactos']['1']['Nombre'] is defined %}{{content['contrato']['Contactos']['1']['Nombre'] ~ ' ' ~ content['contrato']['Contactos']['1']['ApellidoPaterno'] ~ ' ' ~ content['contrato']['Contactos']['1']['ApellidoMaterno']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">work</i> <span id="lbl-1-title">{% if content['contrato']['Contactos']['1']['Puesto'] is defined %}{{content['contrato']['Contactos']['1']['Puesto']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">email</i> <span id="lbl-1-email">{% if content['contrato']['Contactos']['1']['Email'] is defined %}{{content['contrato']['Contactos']['1']['Email']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">local_phone</i> <span id="lbl-1-phone">{% if content['contrato']['Contactos']['1']['Telefono'] is defined %}{{content['contrato']['Contactos']['1']['Telefono']}}{% endif %}</span></span></p>
+                        </div>
+                        <div class="col s6 m6" >
+                            <a class="secondary-content dropdown-button btn-floating waves-effect waves-light btn-sm blue edit-contact" data-activates="dropdown-contacto-2">
+                                <i class="tiny material-icons">mode_edit</i>
+                            </a>
+                            <ul id="dropdown-contacto-2" class="dropdown-content dropdown-content-contact" style="width: 200px!important;">
+                                <li><a id-record="0" class="edit-contact" type="2">{{content['section_text']['sas_nuevoContacto']}}</a></li>
+                                    {% for item in content['contacto'] if item['idContacto'] is defined %}
+                                    <li><a id-record="{{ item['idContacto'] }}" class="edit-contact" type="2">{{item['Nombre'] ~ ' ' ~ item['ApellidoPaterno'] ~ ' ' ~ item['ApellidoMaterno']}}</a></li>
+                                    {% endfor %}
+                            </ul>
+                            <h6>{{content['section_text']['sas_pagos']}}</h6>
+                            <p class="personal-info"><span><i class="material-icons">person</i> <span id="lbl-2-name">{% if content['contrato']['Contactos']['2']['Nombre'] is defined %}{{content['contrato']['Contactos']['2']['Nombre'] ~ ' ' ~ content['contrato']['Contactos']['2']['ApellidoPaterno'] ~ ' ' ~ content['contrato']['Contactos']['2']['ApellidoMaterno']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">work</i> <span id="lbl-2-title">{% if content['contrato']['Contactos']['2']['Puesto'] is defined %}{{content['contrato']['Contactos']['2']['Puesto']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">email</i> <span id="lbl-2-email">{% if content['contrato']['Contactos']['2']['Email'] is defined %}{{content['contrato']['Contactos']['2']['Email']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">local_phone</i> <span id="lbl-2-phone">{% if content['contrato']['Contactos']['2']['Telefono'] is defined %}{{content['contrato']['Contactos']['2']['Telefono']}}{% endif %}</span></span></p>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col s6 m6" style="border-right: 1px solid #CCC;">
+                            <a type="3" class="secondary-content dropdown-button btn-floating waves-effect waves-light btn-sm blue edit-contact" data-activates="dropdown-contacto-3">
+                                <i class="tiny material-icons">mode_edit</i>
+                            </a>
+                            <ul id="dropdown-contacto-3" class="dropdown-content dropdown-content-contact" style="width: 200px!important;">
+                                <li><a id-record="0" class="edit-contact" type="3">{{content['section_text']['sas_nuevoContacto']}}</a></li>
+                                    {% for item in content['contacto'] if item['idContacto'] is defined %}
+                                    <li><a id-record="{{ item['idContacto'] }}" class="edit-contact" type="3">{{item['Nombre'] ~ ' ' ~ item['ApellidoPaterno'] ~ ' ' ~ item['ApellidoMaterno']}}</a></li>
+                                    {% endfor %}
+                            </ul>
+                            <h6>{{content['section_text']['sas_atencionEvento']}}</h6>
+                            <p class="personal-info"><span><i class="material-icons">person</i> <span id="lbl-3-name">{% if content['contrato']['Contactos']['3']['Nombre'] is defined %}{{content['contrato']['Contactos']['3']['Nombre'] ~ ' ' ~ content['contrato']['Contactos']['3']['ApellidoPaterno'] ~ ' ' ~ content['contrato']['Contactos']['3']['ApellidoMaterno']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">work</i> <span id="lbl-3-title">{% if content['contrato']['Contactos']['3']['Puesto'] is defined %}{{content['contrato']['Contactos']['3']['Puesto']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">email</i> <span id="lbl-3-email">{% if content['contrato']['Contactos']['3']['Email'] is defined %}{{content['contrato']['Contactos']['3']['Email']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">local_phone</i> <span id="lbl-3-phone">{% if content['contrato']['Contactos']['3']['Telefono'] is defined %}{{content['contrato']['Contactos']['3']['Telefono']}}{% endif %}</span></span></p>
+                        </div>
+                        <div class="col s6 m6">
+                            <a type="4" class="secondary-content dropdown-button btn-floating waves-effect waves-light btn-sm blue edit-contact" data-activates="dropdown-contacto-4">
+                                <i class="tiny material-icons">mode_edit</i>
+                            </a>
+                            <ul id="dropdown-contacto-4" class="dropdown-content dropdown-content-contact" style="width: 200px!important;">
+                                <li><a id-record="0" class="edit-contact" type="4">{{content['section_text']['sas_nuevoContacto']}}</a></li>
+                                    {% for item in content['contacto'] if item['idContacto'] is defined %}
+                                    <li><a id-record="{{ item['idContacto'] }}" class="edit-contact" type="4">{{item['Nombre'] ~ ' ' ~ item['ApellidoPaterno'] ~ ' ' ~ item['ApellidoMaterno']}}</a></li>
+                                    {% endfor %}
+                            </ul>
+                            <h6>{{content['section_text']['sas_firmaConvenio']}}</h6>
+                            <p class="personal-info"><span><i class="material-icons">person</i> <span id="lbl-4-name">{% if content['contrato']['Contactos']['4']['Nombre'] is defined %}{{content['contrato']['Contactos']['4']['Nombre'] ~ ' ' ~ content['contrato']['Contactos']['4']['ApellidoPaterno'] ~ ' ' ~ content['contrato']['Contactos']['4']['ApellidoMaterno']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">work</i> <span id="lbl-4-title">{% if content['contrato']['Contactos']['4']['Puesto'] is defined %}{{content['contrato']['Contactos']['4']['Puesto']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">email</i> <span id="lbl-4-email">{% if content['contrato']['Contactos']['4']['Email'] is defined %}{{content['contrato']['Contactos']['4']['Email']}}{% endif %}</span></span></p>
+                            <p class="personal-info-sub"><span><i class="material-icons">local_phone</i> <span id="lbl-4-phone">{% if content['contrato']['Contactos']['4']['Telefono'] is defined %}{{content['contrato']['Contactos']['4']['Telefono']}}{% endif %}</span></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# EmpresaTipo #}
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card-panel company-type-panel">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s6 m6">
+                                <h5>{{content['section_text']['sas_empresaTipo']}}</h5>
+                                {% for item in content['empresa_tipo'] %}
+                                    <p>
+                                        <input id="EmpresaTipo{{loop.index}}" name="EmpresaTipo" type="radio" value="{{item['idEmpresaTipo']}}" {%if content['empresa']['idEmpresaTipo'] == item['idEmpresaTipo'] %} checked="checked"{% endif %} class="empresaTipo" coexpositor="{{item['Coexpositor']}}"/>
+                                        <label for="EmpresaTipo{{loop.index}}">{{item['Tipo' ~ lang|upper]}}</label>
+                                    </p>
+                                {% endfor %}
+                            </div>
+                            <div class="col s6 m6 seleccion-padre">
+                                <div class="input-field col s5">
+                                    <h5>{{content['section_text']['sas_seleccionaPadre']}}</h5>
+                                    <select id="idEmpresaPadre" name="idEmpresaPadre" class="browser-default">
+                                        <option value="" selected="selected">{{content['general_text']['sas_seleccionaOpcion']}}</option>
+                                        {% for item in content['empresa_padres'] %}
+                                            <option value="{{item['idEmpresa']}}" {% if content['empresa']['idEmpresaPadre'] is defined and  content['empresa']['idEmpresaPadre'] == item['idEmpresa']%}selected="selected"{% endif %}>{{item['DC_NombreComercial']}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col s4">
+                <a href="{{ path('empresa_empresa_contrato', {'idEmpresa': content['empresa']['idEmpresa']}) }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['section_text']['sas_regresarListaContratos'] }}</a>
+            </div>
+            <div class="col s4 center-align">
+                <a id="btnSaveContract" class="waves-effect waves-light btn green">{{content['general_text']['sas_guardarSeguir']}}</a>
+            </div>
+        </div>
+        <input type="hidden" id="c_contact" value="{% if content['contrato']['Contactos'] is defined and content['contrato']['Contactos']|length > 0 %}{{content['contrato']['Contactos']|json_encode()}}{% endif %}"/>
+        <input type="hidden" id="idContrato" value="{% if content['contrato']['idContrato'] is defined %}{{content['contrato']['idContrato']}}{% endif %}"/>
+    </section>
+    {% include 'EmpresaContratoBundle:Forms:form_entidad.html.twig' %}
+    {% include 'EmpresaContratoBundle:Forms:form_contacto.html.twig' %}
+    {% include 'EmpresaContratoBundle:Contrato:confirm_next.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        {#var path_event_edition = "{{ path("show_dashboard_dashboard_select_edition") }}";#}
+            var list_vendedor = {{ content['vendedor']|json_encode()|raw }};
+                    var list_entidad_fiscal = {{ content['entidad_fiscal']|json_encode()|raw }};
+                    var list_contacto = {{ content['contacto']|json_encode()|raw }};
+            var url_get_estados = "{{ path('pecc_estados', {'idPais': "0000"}) }}";
+            var url_insert_entidad = "{{ path('empresa_contrato_entidad_fiscal_nuevo') }}";
+            var url_insert_contacto = "{{ path('empresa_contrato_contacto_nuevo') }}";
+            var url_save_information = "{{ path('empresa_contrato_informacion_guardar') }}";
+        {% set idContrato = 0 %}
+        {% if content['contrato']['idContrato'] is defined %}
+            {% set idContrato = content['contrato']['idContrato']%}
+        {% endif %}
+            var url_next_step = "{{path('empresa_contrato_espacio', {'idEmpresa': content['empresa']['idEmpresa'], 'idContrato' : idContrato})}}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/informacion.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/general.js') }}"></script>
+{% endblock %}

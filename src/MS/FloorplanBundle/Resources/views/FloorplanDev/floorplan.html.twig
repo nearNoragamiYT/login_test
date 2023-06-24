@@ -1,0 +1,210 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/MS/FloorplanBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}    
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/dev/floorplan.css') }}">  
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">    
+{% endblock %}
+
+{% block content %}    
+    <div class="container-fluid">
+        <form method="POST" id="form-export" target="_blank" action="{{ path('ms_fp_export') }}">
+            <input type="hidden" value="{{ content['FechaIni'] }}" id="ini">
+            <input type="hidden" value="{{ content['FechaFin'] }}" id="fin">
+        </form>      
+        <div class="section">   
+            <!-- Start of Floorplan with Scrollspy -->
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <div id="date" class="section scrollspy">
+                        <div class="white">
+                            <h4>Rango de Fechas</h4>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <label for="from" >&nbspFecha de Inicio</label>
+                                            <input id="from" type="date" class="datepicker" value="{{ content['FechaIni']}}">
+                                        </td>
+                                        <td>
+                                            <label for="to">Fecha de Termino</label>
+                                            <input id="to" type="date" class="datepicker" value="{{ content['FechaFin']}}">
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-large update green darken-3">Aplicar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                        
+                    </div>                    
+
+                    <div id="exhibitors" class="scrollspy">                        
+                        <div class="row white">               
+                            <div class="green darken-3">
+                                <h4 class="white-text">&nbspExpositores</h4>
+                            </div>
+                            <div id="top_ex" class="col s12">                                
+                                {% include 'MSFloorplanBundle:fpDev:t10_expositores.html.twig' %}
+                            </div>
+                            <div class='section hide-on-small-only'>
+                                <div class='row'>
+                                    <div class='col l6'>
+                                        <a id="button-exhibitors" class="waves-effect waves-light btn green darken-3 white-text export-exhibitors" href="#!">
+                                            <i class='material-icons left'>file_download</i>Descargar Todos los Expositores
+                                        </a>
+                                    </div>
+                                    <div class='col l6 hide-on-med-only'>
+                                        <a class="waves-effect waves-light btn modal-trigger green darken-3 white-text" href="#exhibitor_list">
+                                            <i class='material-icons left'>person</i>Mostrar Todos los Expositores
+                                        </a>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="card-panel green darken-3">
+                                            <span class="white-text">
+                                                <h5 class="center-align" >Total de Recorridos</h5>
+                                                <h3 class="center-align" id="totalTour">0</h3>     
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col s12 l6">
+                                        <div class="card-panel green darken-3">
+                                            <span class="white-text">
+                                                <h5 class="center-align" >Total de Leads con App {{ content['NombreEvento'] }}</h5>
+                                                <h3 class="center-align" id="totalApp">0</h3>     
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 l6">
+                                        <div class="card-panel green darken-3">
+                                            <span class="white-text">
+                                                <h5 class="center-align" >Total de Leads con Scanner Mi/Mini</h5>
+                                                <h3 class="center-align" id="totalMiMini">0</h3>     
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="exhibitor_list" class="modal modal-fixed-footer">
+                        <div class="modal-content">
+                            <h4>&nbspListado de Expositores</h4>
+                            {% include 'MSFloorplanBundle:fpDev:expositores.html.twig' %}
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close btn grey darken-3 white-text">Cerrar</a>
+                        </div>
+                    </div>
+
+                    <div id="search" class="scrollspy">                        
+                        <div class="row white">            
+                            <div class="red darken-3">
+                                <h4 class="white-text">&nbspBúsquedas</h4>
+                            </div>                              
+                            {% include 'MSFloorplanBundle:fpDev:t10_busquedas.html.twig' %}  
+                            {% include 'MSFloorplanBundle:fpDev:descarga_busquedas.html.twig' %}
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="card-panel red darken-3">
+                                            <span class="white-text">
+                                                <h5 class="center-align" >Total de Busquedas</h5>
+                                                <h3 class="center-align" id="totalSearch">0</h3>     
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+
+                    <div id="search_list" class="modal modal-fixed-footer">
+                        <div class="modal-content">
+                            <h4>&nbspListado de Búsquedas</h4>
+                            {% include 'MSFloorplanBundle:fpDev:busquedas.html.twig' %}
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close btn grey darken-3 white-text">Cerrar</a>
+                        </div>
+                    </div>
+
+                    <div id="categories_list" class="modal modal-fixed-footer">
+                        <div class="modal-content">
+                            <h4>Listado de Categorias</h4>
+                            {% include 'MSFloorplanBundle:fpDev:categorias.html.twig' %}
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close btn grey darken-3 white-text">Cerrar</a>
+                        </div>
+                    </div>
+
+                    <div id="graphic" class="scrollspy">                        
+                        <div class="row white">
+                            <div class="blue darken-3">
+                                <h4 class="white-text">&nbspPlano Interactivo</h4>
+                            </div>
+                            <div class="col s12">
+                                <div id="main_chart">
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                {% include 'MSFloorplanBundle:fpDev:plano_interactivo.html.twig' %}
+                            </div>                          
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col hide-on-small-only m3 l2">
+                    <ul class="toc-wrapper pinned section table-of-contents">
+                        <li><a href="#date">Rango de Fechas</a></li>                        
+                        <li><a href="#exhibitors">Expositores</a></li>
+                        <li><a href="#search">Búsquedas</a></li>  
+                        <li><a href="#graphic">Plano Interactivo</a></li>
+                    </ul>
+                </div>
+            </div>   
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}  
+    <script>
+        $(document).ready(function () {
+            $('.scrollspy').scrollSpy();
+        });
+        var ms_lang ={{ content['textos']|json_encode()|raw }} ,
+                url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var FechaIni = "{{ content['FechaIni'] }}",
+                FechaFin = "{{ content['FechaFin'] }}";
+        var url_exhibitor_details = "{{ path('ms_fp_dev_detalles_expositores') }}",
+                url_search_details = "{{ path('ms_fp_dev_detalles_busquedas') }}",
+                url_floorplan_details = "{{ path('ms_fp_dev_detalles_plano_interactivo') }}",
+                evName = "{{ content['NombreEvento'] }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{asset('resources/MS/FloorplanBundle/js/datepickerLang/' ~ lang ~ '.js')}}"></script>
+    <script src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script src="{{ asset('resources/MS/FloorplanBundle/js/default.js') }}"></script>
+    <script src="{{ asset('resources/MS/FloorplanBundle/js/export.js') }}"></script>
+    <script src="{{ asset('resources/MS/FloorplanBundle/js/dev/floorplan.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+    </script>
+    <script>
+        $('.datepicker').pickadate();
+    </script>    
+{% endblock %}
+
+

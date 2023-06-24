@@ -1,0 +1,149 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: "@LoginBundle/Resources/config/services.yml" }
+    - { resource: "@UtileriasHandleErrorBundle/Resources/config/services.yml" }
+    - { resource: "@AdministracionGlobalComiteOrganizadorBundle/Resources/config/services.yml" }
+    - { resource: "@AdministracionGlobalPlataformaBundle/Resources/config/services.yml" }
+    - { resource: "@AdministracionGlobalComitePersonalBundle/Resources/config/services.yml" }
+    - { resource: "@AdministracionGlobalEdicionBundle/Resources/config/services.yml" }
+    - { resource: "@AdministracionGlobalLogBundle/Resources/config/services.yml" }
+    - { resource: "@UtileriasPECCBundle/Resources/config/services.yml" }
+    - { resource: "@AdministracionGlobalModuloBundle/Resources/config/services.yml" }
+    - { resource: "@UtileriasAdministradorTextosBundle/Resources/config/services.yml" }
+    - { resource: "@WizardInformacionGeneralBundle/Resources/config/services.yml" }
+    - { resource: "@WizardComiteOrganizadorBundle/Resources/config/services.yml" }
+    - { resource: "@WizardEntidadFiscalBundle/Resources/config/services.yml" }
+    - { resource: "@WizardContactoBundle/Resources/config/services.yml" }
+    - { resource: "@WizardEventoBundle/Resources/config/services.yml" }
+    - { resource: "@WizardEdicionBundle/Resources/config/services.yml" }
+    - { resource: "@WizardProductoBundle/Resources/config/services.yml" }
+    - { resource: "@WizardUsuarioBundle/Resources/config/services.yml" }
+    - { resource: "@WizardWizardBundle/Resources/config/services.yml" }
+    - { resource: "@AdministracionGlobalProductoBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardDashboardBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardEDFormasEditorFormaBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaFiscalBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardEDFormasAdministradorFormasBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardFPFloorplanBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaContratoBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaComercialBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaContratoBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardEDMainBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardFPMainBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardAEMainBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardSTMainBundle/Resources/config/services.yml" }
+    - { resource: "@AdministracionGlobalMainBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaContactoBundle/Resources/config/services.yml" }
+    - { resource: "@AdministracionGlobalUsuarioBundle/Resources/config/services.yml" }
+    - { resource: "@CuentaBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaVentasBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardAEAdministracionLoginBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardAEAdministracionDatosGeneralesBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardAEAdministracionComprobanteBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardAEAdministracionRedSocialBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardAEAdministracionConfiguracionBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardAEAdministradorTextosTemplateBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardAEAdministradorTextosTemplateTextoBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaReportesBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaDatosAdicionalesBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaSolicitudModificacionBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaFichaMontajeBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEMarketingBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaGafetesBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaFormasBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardCRMEmpresasAsignadasBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardCRMMainBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardCRMAsesoresComercialesBundle/Resources/config/services.yml" }
+    - { resource: "@MSApiBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardFPAppBundle/Resources/config/services.yml" }
+    - { resource: "@VisitanteDatosGeneralesBundle/Resources/config/services.yml" }
+    - { resource: "@VisitantePerfilBundle/Resources/config/services.yml" }
+    - { resource: "@VisitanteAsociadoBundle/Resources/config/services.yml" }
+    - { resource: "@EmpresaEmpresaInvitacionesBundle/Resources/config/services.yml" }
+    - { resource: "@VisitanteComprasBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardLTLectorasBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardLTSolicitudLectorasBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardLTEntregaLectorasBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardLTMainBundle/Resources/config/services.yml" }
+    - { resource: "@VisitanteReportesBundle/Resources/config/services.yml" }
+    - { resource: "@VisitanteCompradorBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardLTReportesBundle/Resources/config/services.yml" }
+    - { resource: "@VisitanteComprasTorneoBundle/Resources/config/services.yml" }
+    - { resource: "@ShowDashboardFTFacturacionBundle/Resources/config/services.yml" }
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+
+framework:
+    #esi:             ~
+    #translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    serializer:
+        enabled: true
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    encryption: tls
+    port:       587
+    auth_mode:  login
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+#    spool:     { type: memory }
+    
+fos_rest:
+    format_listener:
+        enabled: true
+        rules:
+            - { path: '^/api/', priorities: ['json'], fallback_format: json, prefer_extension: false }
+            - { path: '/', stop: true }

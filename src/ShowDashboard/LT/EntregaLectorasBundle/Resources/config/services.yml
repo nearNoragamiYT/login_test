@@ -1,0 +1,4 @@
+services:
+#    show_dashboard_lt_entrega_lectoras.example:
+#        class: ShowDashboard\LT\EntregaLectorasBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

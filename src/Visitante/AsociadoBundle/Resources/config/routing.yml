@@ -1,0 +1,40 @@
+asociados:
+    path:     /asociados
+    defaults: { _controller: VisitanteAsociadoBundle:Asociado:asociados}
+    
+
+visitante_asociados:
+    path:     /visitante/asociados/{idVisitante}
+    defaults: { _controller: VisitanteAsociadoBundle:Asociado:showAsociados, idVisitante: 0 }
+
+visitante_asociados_update_status:
+    path:     /visitante/asociados-update-status
+    defaults: { _controller: VisitanteAsociadoBundle:Asociado:updateStatusAsociado}
+
+get_asociados:
+    path:     /get-data-asociados
+    defaults: { _controller: VisitanteAsociadoBundle:Asociado:getDataTable }
+    
+update_asociados:
+    path:     /update-asociados
+    defaults: { _controller: VisitanteAsociadoBundle:Asociado:updateStatusAsociadoList }    
+    
+asociado_email_rechazo:
+    path:     /email_rechazo
+    defaults: { _controller: VisitanteAsociadoBundle:Asociado:emailRechazo}
+    
+asociado_email_confirmacion:
+    path:     /email_validacion
+    defaults: { _controller: VisitanteAsociadoBundle:Asociado:emailConfirmacion}    
+        
+asociado_export_asociados:
+    path:     /export-data-asociados
+    defaults: { _controller: VisitanteAsociadoBundle:Asociado:exportDataTable }    
+
+asociado_send_digibage:
+    path:     /send-digibage
+    defaults: { _controller: VisitanteAsociadoBundle:Asociado:sendDigibage }
+
+asociado_descargar_gafete:
+    path:    /download-gafete
+    defaults: { _controller: VisitanteAsociadoBundle:Asociado:downloadDigibadge }

@@ -1,0 +1,34 @@
+{% extends 'StatLinkEstadisticaBundle::base_estadistica.html.twig' %}
+{% set ruta_asset = 'resources/StatLink/EstadisticaBundle/' %}
+{% block title %}{{content['section_text']['sl_tituloPerfil']}}{% endblock %}
+
+{% block chartTitle %}{{ content['breadcrumb'][0]['Modulo_' ~ lang|upper] }}: {{content['section_text']['sl_tituloPerfil']}}{% endblock %}
+
+{% block table %}
+    <thead>
+    <th>{{content['section_text']['sl_tablaIndice']}}</th>
+    <th>{{ content['section_text']['sl_tablaPerfil'] }}</th>
+    <th>{{ content['section_text']['sl_tablaTotal'] }}</th>
+</thead>
+<tbody>
+    {% for record in content['result'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ record['Perfil'] }}</td>
+            <td>{{ record['Preregistro'] }}</td>
+        </tr>
+    {% endfor %}    
+</tbody>
+{% endblock %}
+
+{% block textscript %}
+    <script>
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var data_graph = {{ content['result']|json_encode()|raw }};
+        var column_label = "{{content['section_text']['sl_tablaRegistrados']}}";
+    </script>
+{% endblock %}
+
+{% block actionscript %}
+    <script src="{{ asset(ruta_asset ~'js/perfil.js') }}"></script>
+{% endblock %}

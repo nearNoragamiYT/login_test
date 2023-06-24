@@ -1,0 +1,124 @@
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        SU EMPRESA TIENE EL INGRESO AUTORIZADO A EXPO ABIERTA A PARTIR DE:
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>INGRESO A ANDENES SÓLO PARA VEHICULOS MAYORES A 3 ½ TONS.<br>
+        <br>
+        {% if(ficha['MontajeDiaSalida'] is defined) %}
+            {%if ficha['MontajeDiaSalida']!= ''%}
+                {{'DÍA: '~ ficha['MontajeDiaSalida']}}<br>
+            {% else %}
+                {{'DÍA: '~ 'no registró este dato'}}<br>
+            {% endif %}
+        {% endif %}
+        {% if(ficha['MontajeHorarioSalida'] is defined) %}
+            {%if ficha['MontajeHorarioSalida']!= ''%}
+                {{'HORARIO: '~ ficha['MontajeHorarioSalida']}}<br>
+            {% else %}
+                {{'HORARIO: '~ 'no registró este dato'}}<br>
+            {% endif %}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>ACCESS TO “EXPO ABIERTA”  WAITING AREA  FROM:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>ONLY 3 ½ TONS TRUCKS AND TRAILERS CAN ENTER TO THE UNLOADING DOCK AREA<br>
+        <br>
+        {% if(ficha['MontajeDiaSalida'] is defined) %}
+            {%if ficha['MontajeDiaSalida']!= ''%}
+                {{'DAY: '~ ficha['MontajeDiaSalida']}}<br>
+            {% else %}
+                {{'DAY: '~ 'no data register'}}<br>
+            {% endif %}
+        {% endif %}
+        {% if(ficha['MontajeHorarioSalida'] is defined) %}
+            {%if ficha['MontajeHorarioSalida']!= ''%}
+                {{'HOUR: '~ ficha['MontajeHorarioSalida']}}<br>
+            {% else %}
+                {{'HOUR: '~ 'no data register'}}<br>
+            {% endif %}
+        {% endif %}
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>PUERTA DE ANDEN AL INGRESO:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['MontajeAndenSalida'] is defined) %}
+            {%if ficha['MontajeAndenSalida']!= ''%}
+                {{ficha['MontajeAndenSalida']}}
+            {% else %}
+                {{'no registró este dato'}}
+            {% endif %}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>DOCKING AREA ASSIGNED:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['MontajeAndenSalida'] is defined) %}
+            {%if ficha['MontajeAndenSalida']!= ''%}
+                {{ficha['MontajeAndenSalida']}}
+            {% else %}
+            {{'no data register'}}
+            {% endif %}
+        {% endif %}
+    </td>
+</tr>
+<tr>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>DESMONTAJE GENERAL:
+        <ul>
+            <li>Jueves 19 a partir de 20:00 hrs. hasta Viernes 20 a las 12:00 hrs.</li>
+        </ul>
+    </td>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>GENERAL DISMANTLNG SCHEDULE:
+        <ul>
+            <li>Thursday 19 from 20:00 hrs. until Friday 20 at 12:00 hrs.</li>
+        </ul>
+    </td>
+</tr>
+{#<tr class="page-break" {%if content['without_print'] is defined %} style="{{pagebreak}}" {%endif%}>
+    <td colspan="24" {%if content['without_print'] is defined %} style="{{pagebreaktd}}" {%endif%}>
+    </td>
+</tr>#}
+<tr>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <strong>PROCEDIMIENTO 1: Instrucciones para el Ingreso del Personal:</strong>
+        <ul>
+            <li><strong>TODO EL PERSONAL QUE INGRESE AL PISO DE EXPOSICIÓN DURANTE LOS DÍAS DE MONTAJE DEBERÁ PORTAR CASCO</strong> </li>
+            <li>Si su empresa <ins>si</ins> aparece registrada en esta ficha favor de presentarse en el Módulo de Seguridad con su ficha para su registro.</li>
+            <li>Deberá traer lista del personal que estará registrando para su ingreso, si no cuenta con la lista deberá anotar a todas las personas en el formato que le entregará el módulo de seguridad. </li>
+            <li>Si su empresa <ins>no</ins> aparece registrada en esta ficha, deberá presentarse en el Modulo de Seguridad con una carta membretada del expositor autorizando su ingreso a montaje.</li>
+            <li><ins>Todos</ins> las personas que ingresen durante el Montaje deberán vestir playera con el logotipo de la empresa, usar el equipo de seguridad debido.</li>
+        </ul>
+    </td>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <strong>Instructions for registration of staff:</strong>
+        <ul>
+            <li>If your company <strong>IS</strong> registered in this form, please proceed to the Security Desk located in Salon Guadalajara loading dock, to get your access.</li>
+            <li>If your company in <strong>NOT</strong> registered in this form, please proceed to the Security Desk with a letterhead of the exhibitor company giving you the authorization to access to the Exhibit Hall.</li>
+            <li><strong>All personnel (contractors)  are required to wear shirts with the logo of their company and some safety elements: Helmet, Boots and Harness.</strong></li>
+            <li>Contractors must show a list of their personnel registered to have access to the exhibit Hall ; otherwise they will have to register them in the Security Desk.</li>
+        </ul>
+    </td>
+</tr>
+<tr>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <strong>Instrucciones para el Ingreso de los Vehículos:</strong>
+        <ul>
+            <li>Revise el Horario asignado a Espera de Anden para el Desmontaje, antes de ese horario no se le permitirá el ingreso a espera.</li>
+            <li>Presentarse en Expo Abierta (Sobre Av. Mariano Otero) y mostrar su Ficha de Desmontaje.</li>
+            <li>Se le asignará un número de camión y lugar para espera hasta la autorización de ingreso a Andenes.</li>
+            <li>Una vez autorizado su ingreso, se le indicará la puerta de andén asignada.</li>
+            <li>Si 10 minutos antes del tiempo asignado personal de Maniobras Transmal  considera que no terminará en el tiempo estipulado, le indicará que contrate personal de maniobras extra de acuerdo a la cantidad de material que quede pendiente por cargar, además de realizar el pago a Expo Guadalajara por el tiempo excedido, en caso contrario deberá abandonar las  patio de maniobras.</li>
+            <li><ins>El chofer no podrá abandonar el Vehículo por ningún motivo, en caso de que el chofer se encuentre solo para las realizar las maniobras deberá pagar personal que le apoye en el Módulo de Transmal o bien deberá abandonar el patio de maniobras y entrar a espera en Expo Abierta</ins></li>
+        </ul>
+    </td>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <strong>Instructions for registration of vehicles</strong>
+        <ul>
+            <li>Check out the assigned Move-out Time , no previous access will be allowed.</li>
+            <li>You must show the DISMANTLING ACCESS PASS, go to the “OPEN EXPO” Parking  of Expo Guadalajara which is a waiting docking area.</li>
+            <li>You will receive the Docking number area assigned.</li>
+            <li>You will receive the Number of Docking area to load.</li>
+            <li>If 10 minutes before the time is up Transmal staff considers that the contractors will not finish on the appointed time , they will suggest to hire extra time to accomplish activities. Extra time must be paid to Expo Guadalajara, otherwise you willl be asked to leave the docking area.</li>
+            <li><ins>The driver can not leave the vehicle for any reason. In case the driver is alone for these activities, he must hire personnel with Transmal or wait in Open Expo area.</ins></li>
+        </ul>
+    </td>
+</tr>
+

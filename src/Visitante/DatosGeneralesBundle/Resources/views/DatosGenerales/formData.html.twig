@@ -1,0 +1,534 @@
+<form action="" method="post" id="frm-datos-generales">
+    <div class="card">
+        <div class="card-content">
+            <div class="dg-section">
+                <span class="card-title">{{ content['template_text']['ae_cuenta'] }}</span>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input 
+                            type="text"
+                            id="idVisitante"
+                            name="idVisitante"
+                            class="required"
+                            readonly
+                            {% if content['visitante']['idVisitante'] is defined %}
+                                value="{{ content['visitante']['idVisitante'] }}"                     
+                            {% endif %}
+                            />
+                        <label for="idVisitante">{{ content['general_text']['sas_ID'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input 
+                            type="email"
+                            id="Email"
+                            name="Email"
+                            class="required toLower"
+                            readonly 
+                            {% if content['visitante']['Email'] is defined %}
+                                value="{{ content['visitante']['Email'] }}"                                                               
+                            {% endif %}
+                            />
+                        <label for="Email">{{ content['general_text']['sas_email'] }}</label>
+                    </div>
+                </div>
+                 {#<div class="row">
+
+                    <div class="col s4 m3">
+                        <label class="toUpper"  style="color: blue; font-size: 16px;" for="Enviados">Total Gafetes Enviados: {{content['cuentasGafete']['NumeroEnvios']}}</label>
+                    </div>
+                    <div class="col s4 m3">
+                        <label class="toUpper"  style="color: blue; font-size: 16px;" for="UltimoEnviado">Fecha Ultimo Enviado: {{content['countSend']}}</label>
+                    </div>
+
+                    <div class="col s4 m3">
+                        <label class="toUpper"  style="color: blue; font-size: 16px;" for="Descargados">Total Gafetes Descargados: {{ content['cuentasGafete']['NumeroDescargas'] }}</label>
+                    </div>
+                    <div class="col s4 m3">
+                        <label class="toUpper" style="color: blue; font-size: 16px;" for="Descargados">Fecha Ultimo Descargado: {{ content['countDownload']}}</label>
+                    </div>
+                </div>#}
+            </div>
+            <div class="divider"></div>
+            <div class="dg-section">
+                {% if content['view'] == "registro_multiple" %}
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input 
+                                type="text"
+                                id="DE_RazonSocial"
+                                name="DE_RazonSocial"
+                                class="validate toUpper"
+                                {% if content['visitante']['DE_RazonSocial'] is defined %}
+                                    value="{{ content['visitante']['DE_RazonSocial'] }}"
+                                {% endif %}
+                                />
+                            <label for="DE_RazonSocial">Empresa, Universidad, Institución</label>
+                        </div>
+                    {% elseif content['view'] == "visitante"  or  content['view'] == "compradores" %}  
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input 
+                                    type="text"
+                                    id="DE_RazonSocial"
+                                    name="DE_RazonSocial"
+                                    class="validate toUpper"
+                                    {% if content['visitante']['DE_RazonSocial'] is defined %}
+                                        value="{{ content['visitante']['DE_RazonSocial'] }}"
+                                    {% endif %}
+                                    />
+                                <label for="DE_RazonSocial">{#{{ content['template_text']['ae_cargo'] }}#} Nombre Comercial</label>
+                            </div>
+                        {%else%}
+                            <div class="input-field col s12 m6">
+                                <select id="idNombreComercial" 
+                                        name="idNombreComercial"
+                                        class="browser-default validate"
+                                        >
+                                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                    {% for nc in content['nc'] %}
+                                        <option value="{{ nc['idNombreComercial'] }}"
+                                                {% if content['visitante']['idNombreComercial'] is defined and nc['idNombreComercial'] == content['visitante']['idNombreComercial']%}
+                                                    selected
+                                                {% endif %}
+                                                >{{ nc['Descripcion' ~ lang|upper] }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="idNombreComercial" class="active">Nombre Comercial</label>
+                            </div>
+                            <div class="input-field col s12 m6"  id="hide_NombreComercialOtro">
+                                <input 
+                                    type="text"
+                                    id="NombreComercialOtro"
+                                    name="NombreComercialOtro"
+                                    class="validate toUpper"
+                                    {% if content['visitante']['NombreComercialOtro'] is defined %}
+                                        value="{{ content['visitante']['NombreComercialOtro'] }}"
+                                    {% endif %}
+                                    />
+                                <label for="NombreComercialOtro">Otro Nombre Comercial</label>
+                            </div>
+                        </div>
+                    {%endif%}
+                    <div class="row">
+                        <div class="input-field col s16 m3">
+                            <input 
+                                type="text"
+                                id="Nombre"
+                                name="Nombre"
+                                class="validate required toUpper"
+                                {% if content['visitante']['Nombre'] is defined %}
+                                    value="{{ content['visitante']['Nombre'] }}"
+                                {% endif %}
+                                />
+                            <label for="Nombre">{{ content['general_text']['sas_nombre'] }}</label>
+                        </div>
+                        <div class="input-field col s6 m3">
+                            <input 
+                                type="text"
+                                id="ApellidoPaterno"
+                                name="ApellidoPaterno"
+                                class="validate required toUpper"
+                                {% if content['visitante']['ApellidoPaterno'] is defined %}
+                                    value="{{ content['visitante']['ApellidoPaterno'] }}"
+                                {% endif %}
+                                />
+                            <label for="ApellidoPaterno">{{ content['general_text']['sas_apellidoPaterno'] }}</label>
+                        </div>
+                        <div class="input-field col s6 m3">
+                            <input 
+                                type="text"
+                                id="ApellidoMaterno"
+                                name="ApellidoMaterno"
+                                class="validate toUpper"
+                                {% if content['visitante']['ApellidoMaterno'] is defined %}
+                                    value="{{ content['visitante']['ApellidoMaterno'] }}"
+                                {% endif %}
+                                />
+                            <label for="ApellidoMaterno">{{ content['general_text']['sas_apellidoMaterno'] }}</label>
+                        </div>
+                    </div>
+                    {% if content['view'] == "registro_multiple" %}
+                        <div class="input-field col s12 m6">
+                            <select id="idVisitanteTipo" 
+                                    name="idVisitanteTipo"
+                                    class="browser-default validate"
+                                    >
+                                <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                {% for area in content['AreaMultiple'] %}
+                                    <option value="{{ area['idVisitanteTipo'] }}"
+                                            {% if content['visitante']['idVisitanteTipo'] is defined and area['idVisitanteTipo'] == content['visitante']['idVisitanteTipo']%}
+                                                selected
+                                            {% endif %}
+                                            >{{ area['VisitanteTipoES']}}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="DE_idArea" class="active"> Área</label>
+                        </div>
+                    {% endif %}
+                    {% if content['view'] == "registro_multiple" %}
+                        <div class="input-field col s12 m6">
+                            <input 
+                                type="text"
+                                id="Movil"
+                                name="Movil"
+                                class="validate"
+                                maxlength="14"
+                                {% if content['visitante']['Movil'] is defined %}
+                                    value="{{ content['visitante']['Movil'] }}"
+                                {% endif %}
+                                />
+                            <label for="Movil">{{ content['template_text']['ae_movil'] }}</label>
+                        </div>
+                    {% else %}
+                        <div class="row">
+                            <div class="input-field col s3 m2">
+                                {% set DE_AreaPais = "" %}
+                                {% if content['visitante']['DE_AreaPais'] is defined and content['visitante']['DE_AreaPais'] != "" %}
+                                    {% set DE_AreaPais = content['visitante']['DE_AreaPais'] %}
+                                {% elseif content['visitante']['DE_idPais'] is defined and content['paises'][content['visitante']['DE_idPais']] is defined %}
+                                    {% set DE_AreaPais = content['paises'][content['visitante']['DE_idPais']]['CodigoTelefonoInt'] %}
+                                {% endif %}
+                                <select id="DE_AreaPais" 
+                                        name="DE_AreaPais"
+                                        class="browser-default validate"
+                                        >
+                                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                    {% for pais in content['paises'] %}
+                                        <option value="{{ pais['CodigoTelefonoInt'] }}"
+                                                {% if DE_AreaPais is defined and pais['CodigoTelefonoInt'] == DE_AreaPais%}
+                                                    selected
+                                                {% endif %}
+                                                >+ {{ pais['CodigoTelefonoInt'] }} ({{ pais['Pais_' ~ lang|upper]|title }})</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="DE_AreaPais" class="active">{{ content['template_text']['ae_ladaPais'] }}</label>
+                            </div>
+                            <div class="input-field col s3 m1">
+                                <input 
+                                    type="text"
+                                    id="DE_AreaCiudad"
+                                    name="DE_AreaCiudad"
+                                    class="validate"
+                                    maxlength="4"
+                                    {% if content['visitante']['DE_AreaCiudad'] is defined %}
+                                        value="{{ content['visitante']['DE_AreaCiudad'] }}"
+                                    {% endif %}
+                                    />
+                                <label for="DE_AreaCiudad">{{ content['template_text']['ae_lada'] }}</label>
+                            </div>
+                            <div class="input-field col s6 m3">
+                                <input 
+                                    type="text"
+                                    id="DE_Telefono"
+                                    name="DE_Telefono"
+                                    class="validate"
+                                    maxlength="10"
+                                    {% if content['visitante']['DE_Telefono'] is defined %}
+                                        value="{{ content['visitante']['DE_Telefono'] }}"
+                                    {% endif %}
+                                    />
+                                <label for="DE_Telefono">{{ content['template_text']['ae_telefono'] }}</label>
+                            </div>
+
+                            <div class="input-field col s12 m6">
+                                <input 
+                                    type="text"
+                                    id="Movil"
+                                    name="Movil"
+                                    class="validate"
+                                    maxlength="14"
+                                    {% if content['visitante']['Movil'] is defined %}
+                                        value="{{ content['visitante']['Movil'] }}"
+                                    {% endif %}
+                                    />
+                                <label for="Movil">{{ content['template_text']['ae_movil'] }}</label>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {#<div class="input-field col s12 m6">
+                        <input 
+                            type="text"
+                            id="Fax"
+                            name="Fax"
+                            class="validate"
+                            {% if content['visitante']['Fax'] is defined %}
+                                value="{{ content['visitante']['Fax'] }}"
+                            {% endif %}
+                            />
+                        <label for="Fax">{{ content['template_text']['ae_fax'] }}</label>
+                    </div>#}
+
+                    {#<div class="row">                    
+                        <div class="input-field col s12 m6">
+                            <input 
+                                type="text"
+                                id="Nextel"
+                                name="Nextel"
+                                class="validate"
+                                {% if content['visitante']['Nextel'] is defined %}
+                                    value="{{ content['visitante']['Nextel'] }}"
+                                {% endif %}
+                                />
+                            <label for="Nextel">{{ content['template_text']['ae_nextel'] }}</label>
+                        </div>
+                    </div>#}
+                    {#                <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input 
+                                                type="text"
+                                                id="EmailOpcional"
+                                                name="EmailOpcional"
+                                                class="validate toLower"
+                                                {% if content['visitante']['EmailOpcional'] is defined %}
+                                                    value="{{ content['visitante']['EmailOpcional'] }}"
+                                                {% endif %}
+                                                />
+                                            <label for="EmailOpcional">{{ content['template_text']['ae_emailOpcional'] }}</label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input 
+                                                type="text"
+                                                id="DE_WebPage"
+                                                name="DE_WebPage"
+                                                class="validate"
+                                                {% if content['visitante']['DE_WebPage'] is defined %}
+                                                    value="{{ content['visitante']['DE_WebPage'] }}"
+                                                {% endif %}
+                                                />
+                                            <label for="DE_WebPage">{{ content['template_text']['ae_paginaWeb'] }}</label>
+                                        </div>
+                                    </div>#}
+                    <div class="row">
+                        {#                   <div class="input-field col s12 m6">
+                                               <input 
+                                                   type="text"
+                                                   id="DE_RazonSocial"
+                                                   name="DE_RazonSocial"
+                                                   class="validate toUpper"
+                                                   {% if content['visitante']['DE_RazonSocial'] is defined %}
+                                                       value="{{ content['visitante']['DE_RazonSocial'] }}"
+                                                   {% endif %}
+                                                   />
+                                               <label for="DE_RazonSocial">{{ content['template_text']['ae_empresa'] }}</label>
+                                           </div>
+                                           <div class="input-field col s12 m6">
+                                               <input 
+                                                   type="text"
+                                                   id="DE_Cargo"
+                                                   name="DE_Cargo"
+                                                   class="validate toUpper"
+                                                   {% if content['visitante']['DE_Cargo'] is defined %}
+                                                       value="{{ content['visitante']['DE_Cargo'] }}"
+                                                   {% endif %}
+                                                   />
+                                               <label for="DE_Cargo">{{ content['template_text']['ae_cargo'] }}</label>
+                                           </div>#}
+                        {% if  content['view'] == "prensa" %}  
+                            <div class="input-field col s12 m6">
+                                <input 
+                                    type="text"
+                                    id="DE_RazonSocial"
+                                    name="DE_RazonSocial"
+                                    class="validate toUpper"
+                                    {% if content['visitante']['DE_RazonSocial'] is defined %}
+                                        value="{{ content['visitante']['DE_RazonSocial'] }}"
+                                    {% endif %}
+                                    />
+                                <label for="DE_RazonSocial">{#{{ content['template_text']['ae_cargo'] }}#} Medio</label>
+                            </div>
+                        {% elseif  content['view'] == "registro_multiple" %}
+                        {% else %}
+                            <div class="input-field col s12 m6">
+                                <select id="DE_idArea" 
+                                        name="DE_idArea"
+                                        class="browser-default validate"
+                                        >
+                                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                    {% for area in content['area'] %}
+                                        <option value="{{ area['idArea'] }}"
+                                                {% if content['visitante']['DE_idArea'] is defined and area['idArea'] == content['visitante']['DE_idArea']%}
+                                                    selected
+                                                {% endif %}
+                                                >{{ area['Descripcion' ~ lang|upper] }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="DE_idArea" class="active">{#{{ content['template_text']['ae_pais'] }}#} Área</label>
+                                <div class="input-field col s12 m4" id="hide_AreaOtro" style="margin-top: 20px; padding: 0px 0px 0px 0px !important;">
+                                    <input 
+                                        type="text"
+                                        id="AreaOtro"
+                                        name="AreaOtro"
+                                        class="validate toUpper"
+                                        {% if content['visitante']['AreaOtro'] is defined %}
+                                            value="{{ content['visitante']['AreaOtro'] }}"
+                                        {% endif %}
+                                        />
+                                    <label for="AreaOtro" style="left: 0px !important;">{#{{ content['template_text']['ae_cargo'] }}#} Otra Área</label>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if content['view'] == "prensa" or content['view'] == "registro_multiple" %}
+                            <div class="input-field col s12 m6">
+                                <input 
+                                    type="text"
+                                    id="DE_Cargo"
+                                    name="DE_Cargo"
+                                    class="validate toUpper"
+                                    {% if content['visitante']['DE_Cargo'] is defined %}
+                                        value="{{ content['visitante']['DE_Cargo'] }}"
+                                    {% endif %}
+                                    />
+                                <label for="DE_Cargo">Cargo</label>
+                            </div>
+                        {% else %}
+                            <div class="input-field col s12 m6">
+                                <select id="DE_idCargo" 
+                                        name="DE_idCargo"
+                                        class="browser-default validate"
+                                        >
+                                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                    {% for cargo in content['cargo'] %}
+                                        <option value="{{ cargo['idCargo'] }}"
+                                                {% if content['visitante']['DE_idCargo'] is defined and cargo['idCargo'] == content['visitante']['DE_idCargo']%}
+                                                    selected
+                                                {% endif %}
+                                                >{{ cargo['Descripcion' ~ lang|upper] }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="DE_idArea" class="active">{#{{ content['template_text']['ae_pais'] }}#} Cargo</label>
+                                <div class="input-field col s12 m4" id="hide_CargoOtro" style="margin-top: 20px; padding: 0px 0px 0px 0px !important;">
+                                    <input 
+                                        type="text"
+                                        id="CargoOtro"
+                                        name="CargoOtro"
+                                        class="validate toUpper"
+                                        {% if content['visitante']['AreaOtro'] is defined %}
+                                            value="{{ content['visitante']['AreaOtro'] }}"
+                                        {% endif %}
+                                        />
+                                    <label for="CargoOtro" style="left: 0px !important;">{#{{ content['template_text']['ae_cargo'] }}#} Otro Cargo</label>
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="dg-section">
+                    <span class="card-title">{{ content['template_text']['ae_direccion'] }}</span>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <select id="DE_idPais" 
+                                    name="DE_idPais"
+                                    class="browser-default validate"
+                                    loader-element=".progress-estado"
+                                    >
+                                <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                                {% for pais in content['paises'] %}
+                                    <option value="{{ pais['idPais'] }}"
+                                            {% if content['visitante']['DE_idPais'] is defined and pais['idPais'] == content['visitante']['DE_idPais']%}
+                                                selected
+                                            {% endif %}
+                                            >{{ pais['Pais_' ~ lang|upper] }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="DE_Pais" class="active">{{ content['template_text']['ae_pais'] }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <div class="progress-pecc">
+                                <div class="progress indigo lighten-4"><div class="indeterminate indigo lighten-1"></div></div>
+                            </div>
+                            <input 
+                                type="text"
+                                id="DE_CP"
+                                name="DE_CP"
+                                loader-element=".progress-pecc"
+                                autocomplete="off"
+                                class="validate"
+                                {% if content['visitante']['DE_CP'] is defined %}
+                                    value="{{ content['visitante']['DE_CP'] }}"
+                                {% endif %}
+                                />
+                            <label for="DE_CP">{{ content['template_text']['ae_codigoPostal'] }}</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <div class="progress-estado">
+                                <div class="progress indigo lighten-4"><div class="indeterminate indigo lighten-1"></div></div>
+                            </div>
+                            <select id="DE_idEstado" 
+                                    name="DE_idEstado" 
+                                    class="browser-default validate"
+                                    >
+                                <option value="">
+                                    {% if content['estados'] is defined %}
+                                        {% if content['estados']|length > 0 %}
+                                            {{ content['general_text']['sas_seleccionaOpcion'] }}
+                                        {% else %}
+                                            {{ content['general_text']['sas_sinOpciones'] }}
+                                        {% endif %}
+                                    </option>
+                                    {% for estado in content['estados'] %}
+                                        <option value="{{ estado['idEstado'] }}"
+                                                {% if content['visitante']['DE_idEstado'] is defined and estado['idEstado'] == content['visitante']['DE_idEstado']%}
+                                                    selected
+                                                {% endif %}
+                                                >{{ estado['Estado'] }}</option>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ content['general_text']['sas_sinOpciones'] }}
+                                    </option>
+                                {% endif %}
+                            </select>
+                            <label for="DE_idEstado" class="active">{{ content['template_text']['ae_estado'] }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input 
+                                type="text"
+                                id="DE_Ciudad"
+                                name="DE_Ciudad"
+                                class="validate toUpper"
+                                {% if content['visitante']['DE_Ciudad'] is defined %}
+                                    value="{{ content['visitante']['DE_Ciudad'] }}"
+                                {% endif %}
+                                />
+                            <label for="DE_Ciudad">{{ content['template_text']['ae_ciudad'] }}</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input 
+                                type="text"
+                                id="DE_Colonia"
+                                name="DE_Colonia"
+                                class="validate toUpper"
+                                {% if content['visitante']['DE_Colonia'] is defined %}
+                                    value="{{ content['visitante']['DE_Colonia'] }}"
+                                {% endif %}
+                                />
+                            <label for="DE_Colinia">{{ content['template_text']['ae_colonia'] }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m12">
+                            <input 
+                                type="text"
+                                id="DE_Direccion"
+                                name="DE_Direccion"
+                                class="validate toUpper"
+                                {% if content['visitante']['DE_Direccion'] is defined %}
+                                    value="{{ content['visitante']['DE_Direccion'] }}"
+                                {% endif %}
+                                />
+                            <label for="DE_Direccion">{{ content['template_text']['ae_calleNumero'] }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="card-action">
+                    <button type="submit" class="btn waves-effect waves-light green add-btn" {% if permisos_modulo["Editar"] == false %} disabled {% endif %}  >{{ content['general_text']['sas_guardar'] }}</button>
+                </div>
+            </div>
+        </div>
+</form>

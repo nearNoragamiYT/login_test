@@ -1,0 +1,10 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-confirm-fecha", "fixed": false, "size": "modal-s", "color": "orange", "idButton": "change-fecha" } %}
+{% block title %}{{content['section_text']['sas_cambiarFechaPago']}}{% endblock %}
+{% block body %}
+    <p>{{content['section_text']['sas_seguroCambiarFechaPago']|raw}}</p>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock %}
+

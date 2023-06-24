@@ -1,0 +1,10 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-confirm-update", "fixed": false, "size": " modal-s", "color": "orange", "idButton": "btn-confirm-update", "colorButton" : " blue" } %}
+{% block title %}Confirmación de actualización de estatus{% endblock %}
+{% block body %}
+    ¿Está seguro de actualizar el estatus?  
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock %}
+

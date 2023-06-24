@@ -1,0 +1,65 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "add-lectora-empresa-modal",
+                "fixed": true,
+                "size": "modal-m",
+                "color": "green",
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "btn-add-lectora-empresa" } %}
+{% block title %}
+    <h6 id="empresa-lectora-head"></h6>
+{% endblock %}
+{% block body %}
+    <form id="add-empresa-lectora-form" class="col s12">
+        <input type="hidden" id="idEmpresa" name="idEmpresa" value="{{ content['idEmpresa'] }}">
+        <input type="hidden" id="EmailEmpresa" name="EmailEmpresa" value="{{ content['EmailEmpresa'] }}">
+        <div class="input-field col s12" style="margin-top:30px">
+            <label for="idScannerTipo" class="active space-label">{{ content['section_text']['sas_tipoLectora'] }}</label>
+            {% if content['lectoras_tipo'] is defined and content['lectoras_tipo']|length > 0 %}
+                <select id="idScannerTipo"
+                        name="idScannerTipo"
+                        class="browser-default validate"
+                        >
+                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                    {% for tipolectoras in content['lectoras_tipo'] %}
+                        <option value="{{ tipolectoras['idScannerTipo'] }}" AppIxpo="{{tipolectoras['AppIxpo']}}"  RequierePassport="{{tipolectoras['RequierePassport']}}">{{ tipolectoras['ScannerTipo'] }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+            <input type="hidden" id="ScannerTipo" name="ScannerTipo" value="">
+        </div>
+        <div class="nota col s12">
+            <span id="NotaCodigoScanner"></span>
+        </div>
+        <div class="input-field col s12" id="etiqueta" >
+            <input id="EtiquetaApp" name="EtiquetaApp" type="text" class="validate" value="" >
+            <label for="EtiquetaApp">{{content['section_text']['sas_correoEtiqueta']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="CodigoScanner" name="CodigoScanner" type="text" class="validate" value="">
+            <label for="CodigoScanner">{{content['section_text']['sas_codigoLectora']}}</label>
+        </div>
+        <div class="input-field col s12" style="margin-bottom: 30px">
+            <label for="idStatusScanner" class="active space-label">{{ content['section_text']['sas_statusLectora'] }}</label>
+            {% if content['status_scanner'] is defined and content['status_scanner']|length > 0 %}
+                <select id="idStatusScanner"
+                        name="idStatusScanner"
+                        class="browser-default validate "
+                        disabled>
+                    <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                    {% for statuslectoras in content['status_scanner'] %}
+                        <option value="{{ statuslectoras['idStatusScanner'] }}">{{ statuslectoras['Status'] }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+            <input type="hidden" id="Status" name="Status" value="">
+        </div>
+        <div class="input-field col s12" style="margin-top: -15px;">
+            <input type="checkbox" class="filled-in" id="Cortesia" name="Cortesia"  />
+            <label for="Cortesia">{{content['section_text']['sas_marcarComoCortesia']}}</label>
+        </div>
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

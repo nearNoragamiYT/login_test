@@ -1,0 +1,155 @@
+html {
+    font-size: 1em;
+    line-height: 1.4;
+}
+main{
+    margin-bottom: -2%;
+}
+
+footer.page-footer .footer-copyright {
+    height: 68px;
+}
+
+footer.page-footer .footer-copyright .container{
+    margin-top: 10px;
+}
+
+#floorplan{
+    margin-top: -14px;
+    position: relative;
+}
+
+#floorplan.toggled{
+    margin-left: 270px;
+}
+
+#fp-controls{
+    padding-top: 18px;
+    position: fixed;
+    right: 0;
+    width: 65px;
+    text-align: center;
+    color: #444;
+    z-index: 1000;
+}
+
+#toolbar{
+    height: 42px;
+}
+
+#booth-control{
+    margin-top: -12px;
+}
+
+#center-select{
+    margin-top: -9px;
+}
+
+#search{
+    margin-top: -12px;
+}
+
+#number2search{
+    height: 30px;
+}
+
+#hall-select{
+    height: 31px;
+}
+
+#pavilion-select{
+    height: 31px;
+}
+
+#new-booth .material-icons{
+    height: 36px;
+    line-height: 36px;
+}
+
+#remove .material-icons{
+    height: 36px;
+    line-height: 36px;
+}
+
+form {
+    display: inline-block;
+}
+#search-form{
+    margin-left: 23px;
+}
+
+form#search {
+    float: right;
+}
+
+#frm-booth {
+    z-index: 999;
+    top: 106px;
+    position: absolute;
+    width: 270px;
+    background: #fff;
+    overflow: auto;
+    height: calc(100% - 145px);
+}
+
+#search-list{
+    top:40px !important;
+    display: block !important;
+}
+
+#search-list.empty{
+    display: none !important;
+}
+
+#search-list li {
+    min-height: 20px;
+    font-size: 13px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: gainsboro;
+    padding-left: 7px;
+    padding-right: 2px;
+}
+
+
+#layout {
+    display: none;
+}
+
+#owner {
+    width: 20em;
+}
+
+.footer-infoexpo {
+    display: none;
+}
+
+.main-container {
+    margin: 0px;
+    padding: 74px 0px;
+    width: 100%;
+}
+
+#fp-wrapper{
+    background-color: #f5f5f5;
+    padding-left: 5px;
+}
+
+.error {
+    color: #F44336;
+    font-size: 12px;
+    margin-top: -14px;
+}
+
+.modal{
+    max-width: 500px;
+}
+
+@media only screen and (max-width: 1440px) {
+    #label-new-booth{
+        display: none;
+    }
+    #label-remove{
+        display: none;
+    }
+}

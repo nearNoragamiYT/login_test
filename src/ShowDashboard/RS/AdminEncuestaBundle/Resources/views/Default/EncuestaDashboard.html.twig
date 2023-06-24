@@ -1,0 +1,85 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set asset_path = 'resources/ShowDashboard/RS/AdminEncuestaBundle/' %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/adminEncuesta.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-panel blue-grey" id="">
+                    <span class="card-title white-text center" id="HeaderConfigEncuesta">Administrador de encuesta</span>                    
+                </div> 
+                <form id="encuesta" name="encuesta">
+                    <div class="row">
+                        <div class="card">                    
+                            <table id="table" class="highlight responsive-table bordered">       
+                                <thead class="grey lighten-4">
+                                    <tr>
+                                        <th>Estado Pregunta</th>
+                                        <th>Numero Pregunta</th>
+                                        <th>Pregunta</th>                            
+                                        <th>Evento</th>
+                                        <th>Edicion</th>
+                                        <th>Tipo de Encuesta</th>              
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for pregunta in content['Preguntas'] %}
+                                        <tr id-preg="{{pregunta['idPregunta']}}">                                
+                                            <td>{% if pregunta['Activa'] is defined and pregunta['Activa'] == 1 %}Mostrando{% else %} Oculta {% endif %}</td>
+                                            <td>{{pregunta['idPregunta']}}</td>
+                                            <td>{{pregunta['PreguntaES']}}</td>
+                                            <td>{{pregunta['Evento_ES']}}</td>
+                                            <td>{{pregunta['Edicion_ES']}}</td>
+                                            {#<td>
+                                                {% if pregunta['ClubElite'] == 1%}
+                                                    General/ClubElite
+                                                {% elseif pregunta['ClubElite'] == 0 %}
+                                                    General
+                                                    {% else %}
+                                                        Sin asignar
+                                                {% endif %}
+                                            </td>#}
+                                            <td>
+                                                {% if pregunta['Activa'] == 1 %}
+                                                    <i class="material-icons block-record tooltipped" id-block="{{ pregunta['idPregunta'] }}" estado="{{pregunta['Activa']}}" data-position="left"  data-tooltip="Bloquear Pregunta">lock</i>
+                                                {% else %}
+                                                    <i class="material-icons unlock-record tooltipped" id-unlock ="{{pregunta['idPregunta'] }}" data-position="left" data-tooltip="Desbloquear Pregunta">lock_open</i>
+                                                {% endif %}
+                                                <i class="material-icons edit-record tooltipped " id-edit="{{pregunta['idPregunta']}}" data-position="left" data-tooltip="Editar" >mode_edit</i>
+                                            </td>     
+                                        </tr>
+                                    {% endfor %}                           
+                                </tbody>                    
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>                
+    </div>
+    {% include 'ShowDashboardRSAdminEncuestaBundle:Default:preguntaRespuesta.html.twig' %} 
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript">
+        var getPollAnswers
+                = "{{ path('admin_encuesta_get_answers')}}";
+        var questions
+        = {{ content ["Preguntas"]|json_encode()|raw }};
+                var update_Answers
+                = "{{ path('update_answers')}}";
+        var deactivate_Question
+                = "{{ path('question_deactivation')}}";
+    </script>
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/adminEncuesta.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}

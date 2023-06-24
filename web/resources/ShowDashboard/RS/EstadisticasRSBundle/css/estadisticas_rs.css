@@ -1,0 +1,30 @@
+td {
+    padding: 1px 3px;
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 550px;
+    width: 550px;
+}
+.totalTD{
+    font-size: 14px;
+}
+
+.table{
+  font-size: 11px;
+  border: 1pt solid black;    
+}
+
+.row1{
+    border: 1pt solid gray;
+}
+
+.text{
+    font-size: 14px; 
+}
+
+.tr1{
+    background-color: red;
+}

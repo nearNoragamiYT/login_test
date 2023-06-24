@@ -1,0 +1,190 @@
+.DTFC_LeftBodyLiner {
+    margin-top: -6px;
+    background: white;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+}
+
+.DTFC_LeftBodyWrapper {
+    overflow: visible !important;
+}
+
+table.DTFC_Cloned thead, table.DTFC_Cloned tfoot {
+    border-bottom: 1px solid #d0d0d0 !important;
+}
+
+.custom-filters-form .custom-filters {
+    float: left;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+}
+
+.collapsible {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.respuesta {
+    padding: 0px 0px 0px 0px !important;
+    margin: 0px;
+}
+
+p {
+    padding: 0px !important;
+    margin-bottom: 15px !important;
+    margin-top: -5px !important;
+}
+
+.collapsible-header {
+    line-height: 1.8rem !important;
+    padding-top: 8px !important;
+}
+
+thead {
+    font-size: 12px !important;
+}
+
+td { 
+    padding-left: 5px !important;
+}
+
+.div-dinamic-table{
+    position: relative;
+    float: left;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    /*    margin-bottom: 10px;
+        margin-top: 10px;*/
+    border-radius: 5px;
+    background-color: white;
+}
+
+.dataTables_processing {
+    top: 0px !important;
+    left: 0px !important;
+    margin-left: 0px !important;
+    margin-top: 0px !important; 
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    text-align: center !important;
+    font-size: 1.2em !important;
+    background-color: white !important;
+    color: rgba(0,0,0,0.87) !important;
+    opacity: 0.8!important;
+    filter: alpha(opacity=80)!important;
+    z-index: 100 !important; 
+    padding: 8rem 0 !important;
+}
+
+table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting {
+    padding-right: 3px; 
+}
+
+.container-fluid {
+    padding: 0% 2% !important;
+}
+
+.collapsible-body {
+    padding-top: .0rem;
+    padding-right: .5rem;
+    padding-bottom: .5rem;
+    padding-left: .5rem;
+}
+
+table.dataTable {
+    margin-top: 0px !important;
+}
+
+.tabs .indicator {
+    background-color: #26a69a;
+}
+
+.tabs .tab a {
+    color: rgba(38,166,154,0.7);
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    background-color: transparent;
+    color: #26a69a;
+}
+
+#graficas-swipe {
+    top: 0px !important;
+    left: 0px !important;
+    margin-left: 0px !important;
+    margin-top: 36px !important;
+    position: absolute !important;
+    width: 100% !important;
+    text-align: center !important;
+    font-size: 1.2em !important;
+    background-color: white !important;
+    color: rgba(0,0,0,0.87) !important;
+    z-index: 99 !important;
+    padding-bottom: 10px;
+}
+
+#tab-dmmografic{
+    margin-top: -10px;
+}
+
+.tabs{
+    height: 35px;
+    line-height: 35px;
+}
+
+.tabs .tab {
+    line-height: 35px;
+    height: 35px;
+}
+
+.pad-label {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin: 0px;
+}
+
+.container-grafic{
+    background: white;
+    width: 97%;
+    height: 85%; 
+}
+
+div[dir="ltr"]{
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+} 
+
+#div-dinamic-table{
+    font-size: 11px;
+}
+
+.subtitle{
+    font-style: italic;
+    color: #9F9F9F;
+}
+
+#menu-slide{
+    position: fixed;
+    top: 0;
+    right: 5px;
+    height: 55px; 
+}
+
+.count-filter{
+    display: none;
+}
+#sumary-badge{
+    margin-top: 7px;
+}
+.dataTables_wrapper .dataTables_info, 
+.dataTables_wrapper label, 
+.dataTables_paginate select {
+     font-size: 11px; 
+}

@@ -1,0 +1,163 @@
+<div class="row">
+    <div class="col s12 m12">
+        <div class="card-panel entity-panel">
+            <div class="card-content">
+                <h5>{{content['section_text']['sas_entidadFiscal']}}</h5>
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_razonSocial']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-RazonSocial">{{content['entidad_fiscal']['DF_RazonSocial']}} </span>
+                    </div>
+                </div>
+                {#---
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_representanteLegal']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-RepresentanteLegal">{{content['entidad_fiscal']['DF_RepresentanteLegal']}} </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_email']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-Email">{{content['entidad_fiscal']['DF_Email']}}</span>
+                    </div>
+                </div>
+                ---#}
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_rfc']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-RFC">{{content['entidad_fiscal']['DF_RFC']}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_calle']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-Calle">{{content['entidad_fiscal']['DF_Calle']}}</span>
+                    </div>
+                </div>
+                {#---
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_numeroExterior']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-NumeroExterior">{{content['entidad_fiscal']['DF_NumeroExterior']}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_numeroInterior']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-NumeroInterior">{{content['entidad_fiscal']['DF_NumeroInterior']}}</span>
+                    </div>
+                </div>
+                ---#}
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_ciudad']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-Ciudad">{{content['entidad_fiscal']['DF_Ciudad']}}</span>
+                    </div>
+                </div>
+                {#---
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_colonia']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-Colonia">{{content['entidad_fiscal']['DF_Colonia']}}</span>
+                    </div>
+                </div>
+                 ---#}
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_pais']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-Pais">{{content['entidad_fiscal']['DF_Pais']}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_estado']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-Estado">{{content['entidad_fiscal']['DF_Estado']}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s2 right-align">
+                        <span class="personal-info">{{content['section_text']['sas_codigoPostal']}}:</span>
+                    </div>
+                    <div class="col s9 m9">
+                        <span id="lbl-CodigoPostal">{{content['entidad_fiscal']['DF_CodigoPostal']}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{# Contactos #}
+<div class="row">
+    <div class="col s12 m12">
+        <div class="card-panel">
+            <h5>{{content['section_text']['sas_contactosResponsables']}}</h5>
+            <div class="row" style="border-bottom: 1px solid #CCC;">
+                <div class="col s6 m6" style="border-right: 1px solid #CCC;">
+                    <h6>{{content['section_text']['sas_llenadoDirectorioExpositores']}}</h6>
+                    <p class="personal-info"><span><i class="material-icons">person</i> <span id="lbl-1-name">{% if content['contrato']['Contactos']['1']['Nombre'] is defined %}{{content['contrato']['Contactos']['1']['Nombre'] ~ ' ' ~ content['contrato']['Contactos']['1']['ApellidoPaterno'] ~ ' ' ~ content['contrato']['Contactos']['1']['ApellidoMaterno']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">work</i> <span id="lbl-1-title">{% if content['contrato']['Contactos']['1']['Puesto'] is defined %}{{content['contrato']['Contactos']['1']['Puesto']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">email</i> <span id="lbl-1-email">{% if content['contrato']['Contactos']['1']['Email'] is defined %}{{content['contrato']['Contactos']['1']['Email']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">local_phone</i> <span id="lbl-1-phone">{% if content['contrato']['Contactos']['1']['Telefono'] is defined %}{{content['contrato']['Contactos']['1']['Telefono']}}{% endif %}</span></span></p>
+                </div>
+                <div class="col s6 m6" style="border-right: 1px solid #CCC;">
+                    <h6>{{content['section_text']['sas_pagos']}}</h6>
+                    <p class="personal-info"><span><i class="material-icons">person</i> <span id="lbl-2-name">{% if content['contrato']['Contactos']['2']['Nombre'] is defined %}{{content['contrato']['Contactos']['2']['Nombre'] ~ ' ' ~ content['contrato']['Contactos']['2']['ApellidoPaterno'] ~ ' ' ~ content['contrato']['Contactos']['2']['ApellidoMaterno']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">work</i> <span id="lbl-2-title">{% if content['contrato']['Contactos']['2']['Puesto'] is defined %}{{content['contrato']['Contactos']['2']['Puesto']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">email</i> <span id="lbl-2-email">{% if content['contrato']['Contactos']['2']['Email'] is defined %}{{content['contrato']['Contactos']['2']['Email']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">local_phone</i> <span id="lbl-2-phone">{% if content['contrato']['Contactos']['2']['Telefono'] is defined %}{{content['contrato']['Contactos']['2']['Telefono']}}{% endif %}</span></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6 m6" style="border-right: 1px solid #CCC;">
+                    <h6>{{content['section_text']['sas_atencionEvento']}}</h6>
+                    <p class="personal-info"><span><i class="material-icons">person</i> <span id="lbl-3-name">{% if content['contrato']['Contactos']['3']['Nombre'] is defined %}{{content['contrato']['Contactos']['3']['Nombre'] ~ ' ' ~ content['contrato']['Contactos']['3']['ApellidoPaterno'] ~ ' ' ~ content['contrato']['Contactos']['3']['ApellidoMaterno']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">work</i> <span id="lbl-3-title">{% if content['contrato']['Contactos']['3']['Puesto'] is defined %}{{content['contrato']['Contactos']['3']['Puesto']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">email</i> <span id="lbl-3-email">{% if content['contrato']['Contactos']['3']['Email'] is defined %}{{content['contrato']['Contactos']['3']['Email']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">local_phone</i> <span id="lbl-3-phone">{% if content['contrato']['Contactos']['3']['Telefono'] is defined %}{{content['contrato']['Contactos']['3']['Telefono']}}{% endif %}</span></span></p>
+                </div>
+                <div class="col s6 m6">
+                    <h6>{{content['section_text']['sas_firmaConvenio']}}</h6>
+                    <p class="personal-info"><span><i class="material-icons">person</i> <span id="lbl-3-name">{% if content['contrato']['Contactos']['4']['Nombre'] is defined %}{{content['contrato']['Contactos']['4']['Nombre'] ~ ' ' ~ content['contrato']['Contactos']['4']['ApellidoPaterno'] ~ ' ' ~ content['contrato']['Contactos']['4']['ApellidoMaterno']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">work</i> <span id="lbl-3-title">{% if content['contrato']['Contactos']['4']['Puesto'] is defined %}{{content['contrato']['Contactos']['4']['Puesto']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">email</i> <span id="lbl-3-email">{% if content['contrato']['Contactos']['4']['Email'] is defined %}{{content['contrato']['Contactos']['4']['Email']}}{% endif %}</span></span></p>
+                    <p class="personal-info-sub"><span><i class="material-icons">local_phone</i> <span id="lbl-3-phone">{% if content['contrato']['Contactos']['4']['Telefono'] is defined %}{{content['contrato']['Contactos']['4']['Telefono']}}{% endif %}</span></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m12">
+        <div class="card-panel">
+            <div class="card-content">
+                <h5>{{content['section_text']['sas_empresaTipo']}}</h5>
+                <p>
+                    {{content['empresa_tipo']['Tipo' ~ lang|upper]}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

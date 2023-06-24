@@ -1,0 +1,144 @@
+{% extends 'ShowDashboardAEAdministracionConfiguracionBundle:Base:baseAdministracion.html.twig' %}
+{% set ruta_asset_main_ae = 'resources/ShowDashboard/AE/Administracion/ConfiguracionBundle/' %}
+{% set ruta_asset = 'resources/ShowDashboard/AE/LoginBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset_main_ae ~ 'css/editorAE.css') }}">
+    <style>
+        .editor:before{
+            content: "{{ content['general_text']['sas_clickEditar'] }}";
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% set lang = content['lang'] is defined ? content['lang'] : lang %}
+    <div class="container-fluid">
+        <div class="right-align">
+            <button type="button" class="waves-effect waves-light btn dropdown-button white blue-text" data-activates='drop-lang'> <i class="material-icons left">g_translate</i>{{ content['general_text']['sas_cambiarIdioma'] }}</button>
+            {#<div class="lang-change chip dropdown-button" data-activates='drop-lang'>
+                <img src="{{ asset("images/idioma/" ~ lang ~ ".png") }}" alt="{{ lang }}"> {{ content['general_text']['sas_cambiarIdioma'] }}
+            </div>#}
+            <!-- Dropdown Structure -->
+            <ul id='drop-lang' class='dropdown-content'>
+                <li><a href="{{ path("show_dashboard_ae_administracion_login", { "lang" : "es" }) }}" class="show-loader-top">{{ content['general_text']['sas_es'] }}</a></li>
+                <li><a href="{{ path("show_dashboard_ae_administracion_login", { "lang" : "en" }) }}" class="show-loader-top">{{ content['general_text']['sas_en'] }}</a></li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s12 m7">
+                        <div class="editor" id="ae_informacionLogin" idTemplate="{{ content['idTemplate'] }}">
+                            <div class="froala-editor">
+                                {% if content['template_text']['ae_informacionLogin'] is defined and content['template_text']['ae_informacionLogin']['Texto_' ~ lang|upper] != "" %}
+                                    {{- content['template_text']['ae_informacionLogin']['Texto_' ~ lang|upper]|raw -}}
+                                {% else %}
+                                    <h1 class="light">{{ content['edicion']['Edicion_' ~ lang|upper] }}</h1>
+                                    <h4 class="light">{{ content['edicion']['FechaInicio'] }} - {{ content['edicion']['FechaFin'] }}</h4>
+                                    <h5 class="light">{{ content['edicion']['Ciudad'] }}</h5>
+                                    {#<p>{{ content['edicion']['Ciudad'] }}</p>#}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m5">
+                        <div class="card small z-depth-0 grey lighten-3 grey-text valign-wrapper">
+                            <div class="card-content valign">
+                                {{ content['general_text']['sas_editadoInfoexpo'] }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <div class="editor" id="ae_informacionAdicionalLogin" idTemplate="{{ content['idTemplate'] }}">
+                    <div class="froala-editor">
+                        {% if content['template_text']['ae_informacionAdicionalLogin'] is defined %}
+                            {{- content['template_text']['ae_informacionAdicionalLogin']['Texto_' ~ lang|upper]|raw -}}
+                        {% else %}
+                            {{ content['section_text']['ae_informacionAdicionalEvento'] }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <div id="login-sponsor" class="dropzone"></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <div class="editor" id="ae_proteccionDatos" idTemplate="{{ content['idTemplate'] }}">
+                    <div class="froala-editor">
+                        {% if content['template_text']['ae_proteccionDatos'] is defined %}
+                            {{- content['template_text']['ae_proteccionDatos']['Texto_' ~ lang|upper]|raw -}}
+                        {% else %}
+                            {{ content['section_text']['ae_informacionAdicionalEvento'] }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card grey lighten-3 grey-text valign-wrapper">
+            <div class="card-content valign">
+                {{ content['general_text']['sas_editadoInfoexpo'] }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% set lang = content['lang'] is defined ? content['lang'] : lang %}
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script>
+        Dropzone.autoDiscover = false;
+        Dropzone.options.loginSponsor = false;
+        var dzLoginSponsor = new Dropzone("div#login-sponsor", {
+            url: url_save_image,
+            paramName: "ae_loginSponsor", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            maxFiles: 1,
+            parallelUploads: 1,
+            uploadMultiple: false,
+            addRemoveLinks: true,
+            init: function () {
+                var ae_sponsor = "{{ content['template_text']['ae_loginSponsor'] is defined and content['template_text']['ae_loginSponsor']['Texto_' ~ lang|upper] != "" ? content['template_text']['ae_loginSponsor']['Texto_' ~ lang|upper] : "" }}";
+                if (isset(ae_sponsor)) {
+                    var mockFile = {name: ae_sponsor, size: 12345};
+                    this.emit("addedfile", mockFile);
+                    this.emit("thumbnail", mockFile, "{{ asset('images/sponsor/ae/') }}" + ae_sponsor);
+                    this.emit("complete", mockFile);
+                }
+
+                this.on("sending", function (file, xhr, formData) {
+                    formData.append("idTemplate", "{{ content['idTemplate'] }}");
+                });
+
+                this.on("success", function (file, response) {
+                    if (response['status']) {
+                        $(file.previewElement).find('img').attr("src", "{{ asset('images/sponsor/ae/') }}" + file.name);
+                        return;
+                    }
+                    this.removeFile(file);
+                    show_alert("danger", response);
+                    return;
+                });
+
+                this.on("error", function (file, errorMessage, xhr) {
+                    show_alert("danger", errorMessage);
+                    this.removeFile(file);
+                });
+                this.on("maxfilesexceeded", function (file) {
+                    this.removeFile(file);
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset_main_ae ~ 'js/editorAE.js') }}"></script>
+{% endblock %}

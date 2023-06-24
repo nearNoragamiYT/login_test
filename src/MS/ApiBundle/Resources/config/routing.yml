@@ -1,0 +1,15 @@
+ms_index:
+    path:     /msapi
+    defaults: { _controller: MSApiBundle:Api:index }
+    
+ms_visit:
+    path:     /msapi/visit
+    defaults: { _controller: MSApiBundle:Api:visit }
+    
+ms_leaving:
+    path:     /msapi/leaving
+    defaults: { _controller: MSApiBundle:Api:leaving }
+    
+ms_search:
+    path:     /msapi/search
+    defaults: { _controller: MSApiBundle:Api:search }

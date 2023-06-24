@@ -1,0 +1,45 @@
+.container {
+    max-width: none;
+    width: 90%;
+}
+#companies{
+    margin-top: 25px;
+}
+.space-label{
+    padding-bottom: 5px;
+}
+#delete-record-modal{
+    max-width: 30%;
+}
+.paging_listbox > select{
+    height: 2rem !important;
+}
+.dataTables_length > label > select{
+    height: 2rem !important;
+}
+
+.dataTables_filter{
+    display: none;
+}
+.custom-filters-summary{
+    margin-bottom: 10px;
+}
+#Empresa-table_wrapper{
+     padding: 10px;      
+}
+table.table-bordered.dataTable{
+    border-collapse: collapse !important;
+}
+.img-export{
+    vertical-align: middle;
+}
+.pagination li a {
+    font-size: .8rem;
+}
+/*.checkbox-green[type="checkbox"]:disabled {
+    border: 2px solid #4CAF50;
+    background-color: #4CAF50;
+}*/
+.wrapper-dynamic-table {
+    margin-bottom: 80px;
+}

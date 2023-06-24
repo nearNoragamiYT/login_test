@@ -1,0 +1,30 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Aug 12, 2016, 12:17:11 PM
+    Author     : Javier
+*/
+
+.card-usuario .card-image{
+    padding: 10px;
+}
+
+.card-usuario .card-image img{
+    max-width: 100px;
+    max-height: 400px;
+}
+
+.frm-usuario{
+    display: none;
+}
+
+.chip{
+    font-size: 10px;
+    line-height: 15px;
+    height: 15px;
+    padding: 0 2px;
+    border-radius: 5px;
+}

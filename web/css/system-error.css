@@ -1,0 +1,98 @@
+body{
+    background: #f4ff81;
+}
+
+h1, h2, h3, h4{
+    font-weight: 100;
+}
+
+.msg-sorry{
+    color: #827717;
+}
+
+.astronauta{
+    margin-top: 20px;
+}
+
+.error{
+    border-radius: 5px;
+    background: white;
+}
+
+.error-code{
+    font-size: 170px;
+    color: #f1f1f1;
+    text-shadow: -1px -2px #CCC;
+    vertical-align: middle;
+    margin: 0px;
+    font-weight: 400;
+}
+
+.error-msj{
+    margin: 0px;
+    margin-bottom: 8px;
+    color: red;
+    font-weight: 300;
+}
+
+.error-url{
+    background: #E2E2E1;
+    padding: 5px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.error-url i{
+    padding: 0px 5px;
+    border-right: 1px solid #DDD;
+    margin-right: 5px;
+}
+
+.error-url span{
+    background: #fff;
+    color: #757575;
+    border-radius: 5px;
+    width: 100%;
+    display: inline-block;
+    padding: 3px;
+}
+
+.error p{
+    padding: 10px;
+    margin: 0px;
+    font-size: .8rem;
+}
+
+.error p.error-txt{
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-bottom: 0px;
+}
+
+.error-ayuda{
+    font-size: 1.6rem;
+}
+
+#scene img{
+    display: inline-block !important;
+    position: relative !important;
+}
+
+.error-content{
+    background: #FFF;
+}
+
+.col.padding-col{
+    padding: 15px 0px;
+}
+
+.astronauta{
+    max-width: 350px;
+}
+
+.infoexpo{
+    max-width: 300px;
+}
+
+.face-to-face{
+    max-width: 564px;
+}

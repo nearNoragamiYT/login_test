@@ -1,0 +1,23 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-emarketing",
+                "fixed": false,
+                "size": "modal-s",
+                "color": "green",
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "btn-save-emarketing"
+            }
+%}
+{% block title %}
+    {{ content["section_text"]["sas_nuevoEmarketing"] }}
+{% endblock %}
+{% block body %}
+    <form id="frm-emarketing">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="NombreEmarketing" name="NombreEmarketing" type="text" class="validate" maxlength="100">
+                <label for="NombreEmarketing">{{content['section_text']['sas_emarketing']}}</label>
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/FT/FacturacionBundle/' %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/FacturasPendientes.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<div class="z-depth-1 white">
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">
+					<b>Listado de facturas Pendientes</b>
+				</span>
+			</div>
+		</div>
+		<table id="tbl-facturas-pendientes" class="bordered highlight" style="width:100%">
+			<thead>
+				<tr>
+					<th>ID Compra</th>
+					<th>Nombre Completo</th>
+					<th>Estatus Factura</th>
+					<th>Fecha Pago</th>
+					<th>Referencias</th>
+					<th>Operaciones</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script type="text/javascript">
+		const url_get_facturas_pendientes = "{{ path('get_facturas_pendientes') }}",
+			  url_detalle_factura = "{{ path('facturas_detalle') }}"
+	</script>
+	<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+	<script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/FacturasPendientes.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,189 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set asset_path = 'resources/ShowDashboard/RS/ReporteComprasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/jquery.timepicker.min.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/reporteCompras.css') }}" media="screen,projection"/>
+{% endblock %}
+
+{% block content %}    
+    {% include 'ShowDashboardRSReporteComprasBundle:Default:menu_compras.html.twig' with {ruta:app.request.attributes.get('_route')} %}
+    <div class=" container-fluid">
+        <div class="card">
+            <div class="card-content">
+                <form id="purchasesReport">
+                    <div class="card-panel blue-grey center">
+                        <span class="card-title white-text" id="HeaderArchivosBD">Compras en Sitio</span>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <label class="active">Totales reportes</label>
+                            <select id="btn-total" name="campo">
+                                <option value="" selected>Selecciona una opcion</option>
+                                {% for key, campos in content['campo'] %}
+                                    <option value="{{key}}">{{campos}}</option>
+                                {% endfor %}
+                            </select>                            
+                        </div>
+                        <div class="input-field col s3 nodo">                           
+                            <label class="active">Filtro</label>
+                            <select id="filtro" name="filtro">
+                                <option value="" selected>Filtrar</option>
+                                {% for filtro in content['filtro'] %}                                    
+                                    <option value="{{filtro['idNodo']}}">{{filtro['NombreNodo']}}</option>
+                                {% endfor%}
+                            </select>
+                        </div>
+                        <a class="waves-effect waves-light btn filter" id="btnFiltrar" style="margin-top: 18px;">Aplicar filtro</a>
+                    </div>                    
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <input type="text" id="fechaInicial" name="fechaInicial" class="datepicker">
+                            <label for="fechaInicial">Fecha Inicial</label>
+                        </div>
+                        <div class="input-field col s3">
+                            {#<input type="text" id="horaInicial" name="horaInicial" class="timepicker">
+                            <label for="horaInicial">Hora Inicial</label>#}
+
+                            <input type="time" id="horaInicial" name="horaInicial" min="07:00" max="20:00" required>
+                        </div>
+                        <div class="input-field col s3">
+                            {#                            <input type="text" id="horaFinal" name="horaFinal" class="timepicker">
+                                                        <label for="horaFinal">Hora Final</label>#}
+
+                            <input type="time" id="horaFinal" name="horaFinal" min="07:00" max="20:00" required>
+                        </div>
+                        <div class="input-field col s3">
+                            <input type="text" id="fechaFinal" name="fechaFinal" class="datepicker dtData">
+                            <label for="fechaFinal">Fecha Final</label>
+                        </div>       
+                    </div>         
+                    <div class="row">
+                        <a class="waves-effect waves-light btn right reset" id="btnPurchases">Buscar Compras</a>
+                    </div>
+                    <div class="row">
+                        <a class="waves-effect waves-light btn right" id="clear">limpiar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {#    <div class="container-fluid">
+            <div id="Compras">Compras completas y canceladas</div>
+            <div class="card" id="tablaAPC">
+                <div class="card-content">
+                    <table id="apcTable">
+                        <tr>
+                            <th>Compras Completas</th>
+                            <td id="comprasCompletas"></td>
+                        </tr>
+                        <tr>
+                            <th>Compras Canceladas</th>
+                            <td id="comprasCanceladas"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>                
+        </div>#}
+    <div class="container-fluid close">         
+        <div class="card hide" id="divTabla">
+            <div class="card-content">
+                <div class=" col s2 right" title="Export Excel" >
+                    <label class="lb-export">Exportar</label>
+                    <a id="btnExportacion" href="{{ path('rs_download_excelReport') }}" download>
+                        <img src="{{ asset('/images/excel.png') }}" class="img-export">
+                    </a>
+                </div>
+                <table id="comprasTable" class="compact stripe">
+                    <thead>
+                        <tr>
+                            <th>Compra</th>
+                            <th>Fecha</th>                          
+                            <th>Visitante</th>                          
+                            <th>Email</th>
+                            <th>Producto</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>     
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>                  
+
+    <div class="container-fluid close2">         
+        <div class="card hide" id="divTabla2">
+            <div class="card-content">
+                <div class=" col s2 right" title="Export Excel" >
+                    <label class="lb-export">Exportar</label>
+                    <a id="btnExportacion2" href="{{ path('rs_download_excelReportes') }}" download>
+                        <img src="{{ asset('/images/excel.png') }}" class="img-export">
+                    </a>
+                </div>
+                <table id="comprasTables" class="compact stripe">
+                    <thead>
+                        <tr>
+                            <th>Compra</th>
+                            <th>Forma de pago</th>
+                            <th>Fecha</th>                          
+                            <th>Visitante</th>                          
+                            <th>Email</th>
+                            <th>Producto</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>     
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid close3">         
+        <div class="card hide" id="divTabla3">
+            <div class="card-content">
+                <div class=" col s2 right" title="Export Excel" >
+                    <label class="lb-export">Exportar</label>
+                    <a id="btnExportacion3" href="{{ path('rs_download_excelNodo') }}" download>
+                        <img src="{{ asset('/images/excel.png') }}" class="img-export">
+                    </a>
+                </div>
+                <table id="comprasTabless" class="compact stripe">
+                    <thead>
+                        <tr>
+                            <th>Compra</th>
+                            <th>Nodo</th>
+                            <th>Fecha</th>                          
+                            <th>Visitante</th>                          
+                            <th>Email</th>
+                            <th>Producto</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>     
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}   
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>   
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/jquery.timepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/reporteCompras.js') }}"></script>
+    <script type="text/javascript">
+        var url_generateReport = "{{path('rs_generate_report')}}";
+        var url_reportes = "{{path('rs_generate_reportes')}}";
+        var url_reporteNodo = "{{path('rs_generate_reportNodo')}}";
+        var url_updateReporteNodo = "{{path('rs_generate_updateReportNodo')}}";
+        var url_compraStatus = "{{path('rs_StatusCompras')}}";
+        var url_datosCompras = "{{path('rs_impresionTicket')}}";
+    </script>
+{% endblock %}

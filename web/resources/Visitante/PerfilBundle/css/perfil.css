@@ -1,0 +1,71 @@
+h2 {
+    width: auto;
+    padding-left: 1%;
+    display: inline-block;
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-size: 18px;
+}
+
+label {
+    font-size: 1rem;
+    color: #9e9e9e;
+}
+
+.material-icons {
+    font-size: 10px;
+}
+
+.pregunta {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.pregunta_header {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: -5px;
+}
+
+.respuesta {
+    display: inline-block;
+    position: relative;
+    height: auto;
+    vertical-align: top;
+}
+
+.respuesta_label, .respuesta_select, .respuesta_label_abierta {
+    display: table-cell;
+    position: relative;
+    width: auto;
+    height: auto;
+    padding: 5px 0px;
+    vertical-align: top;
+}
+
+.pregunta_respuesta {
+    display: inline-table;
+    position: relative;
+    width: 96%;
+    height: auto;
+    padding: 0% 3%;
+    height: auto;
+}
+
+input[type=text][readonly="readonly"]{
+    font-size: 0.9rem;
+    color: #9e9e9e;
+    padding: 0% 10%;
+    margin-bottom: 0px;
+}
+
+.card-panel {
+    padding: 10px;
+}

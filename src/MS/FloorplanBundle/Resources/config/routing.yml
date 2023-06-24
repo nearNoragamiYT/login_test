@@ -1,0 +1,250 @@
+ms_fp_general:
+    path:  /show-dashboard/st/fp/plano
+    defaults: { _controller: MSFloorplanBundle:Floorplan:floorplan }
+    
+ms_fp_general_admin:
+    path:  /show-dashboard/st/fp/plano/adminview
+    defaults: { _controller: MSFloorplanBundle:Floorplan:floorplanAdminView }
+    methods: [POST]
+    
+ms_fp_ex_bookmark_refresh:
+    path:  /show-dashboard/st/fp/bookmark/refresh
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getBookmarkRefresh }
+
+ms_fp_ex_detalles:
+    path:  /show-dashboard/st/fp/get/details
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getExhibitorsDetailsPost }
+    methods: [POST]
+
+ms_fp_cantidad_clicks:
+    path:  /show-dashboard/st/fp/get/clicks
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getAmountOfClicksPost }
+    methods: [POST]
+
+ms_fp_busquedas:
+    path:  /show-dashboard/st/fp/get/search
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getSearchPost }
+    methods: [POST]
+
+ms_fp_visitantes:
+    path:  /show-dashboard/st/fp/get/visitors
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getVisitorsInfoPost }
+
+ms_fp_tour:
+    path:  /show-dashboard/st/fp/get/tour
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getMyTourPost }
+    methods: [POST]
+
+ms_fp_productos:
+    path:  /show-dashboard/st/fp/get/products
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getProductsPost }
+    methods: [POST]
+
+ms_fp_fechas:
+    path:  /show-dashboard/st/fp/get/dates
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getDatesPost }
+    methods: [POST]
+
+ms_fp_kioskos:
+    path:  /show-dashboard/st/fp/get/kiosk
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getKioskClicksPost }
+    methods: [POST]
+
+ms_fp_kioskos_fechas:
+    path:  /show-dashboard/st/fp/get/kioskdates
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getKioskDatesPost }
+    methods: [POST]
+
+ms_fp_general_kioskos:
+    path:  /show-dashboard/st/fp/kiosko
+    defaults: { _controller: MSFloorplanBundle:Floorplan:kiosk }
+    methods: [POST]
+
+ms_fp_expositores_base:
+   path:  /show-dashboard/st/fp/expositor/{idExpositor}
+   defaults: { _controller: MSFloorplanBundle:Floorplan:exhibitor, idExpositor: 1 }
+   methods: [GET]
+
+###Exhibitors
+ms_fp_ed_ex_detalles:
+    path:  /show-dashboard/st/fp/exhibitor/details
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getExhibitorDetailsPost }
+    methods: [POST]
+    
+ms_fp_ed_ex_detalles_dia:
+    path:  /show-dashboard/st/fp/exhibitor/details/day
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getExhibitorAmountPost }
+    methods: [POST]
+
+ms_fp_ed_productos:
+    path:  /show-dashboard/st/fp/exhibitor/details/products
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getExProductsPost }
+    methods: [POST]
+    
+ms_fp_ex_visitor_get:
+    path:  /show-dashboard/st/get
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getToDataTable }
+    methods: [POST]
+    
+ms_fp_ex_visitor_get_tour:
+    path:  /show-dashboard/st/fp/get/visitors_tour
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getVisitorTours }
+    methods: [POST]
+    
+ms_fp_ex_visitor_get_to_datatable:
+    path:  /show-dashboard/st/getToDataTable
+    defaults: { _controller: MSFloorplanBundle:Floorplan:getToDataTable }
+    methods: [POST]
+
+ms_fp_ex_visitor_export_general_data:
+    path:  /show-dashboard/st/export/generalData
+    defaults: { _controller: MSFloorplanBundle:Floorplan:exportGeneralData }
+    methods: [POST]
+    
+###Export
+ms_fp_export:
+    path:  /show-dashboard/st/fp/exportGenericData
+    defaults: { _controller: MSFloorplanBundle:Export:exportGenericData }
+    methods: [POST]
+    
+###External Acces
+ms_fp_exhibitor_access:
+    path:  /fp/exhibitor/ms/{lang}/{token}
+    defaults: { _controller: MSFloorplanBundle:ExAccess:exhibitor,lang: es }
+    
+ms_ex_detalles:
+    path:  /fp/exhibitor/details
+    defaults: { _controller: MSFloorplanBundle:ExAccess:getExhibitorDetailsPost }
+   
+    
+ms_ex_detalles_dia:
+    path:  /fp/exhibitor/details/day
+    defaults: { _controller: MSFloorplanBundle:ExAccess:getExhibitorAmountPost }
+    
+
+ms_productos:
+    path:  /fp/exhibitor/details/products
+    defaults: { _controller: MSFloorplanBundle:ExAccess:getExProductsPost }
+    
+    
+ms_ex_visitor_get:
+    path:  /fp/exhibitor/get
+    defaults: { _controller: MSFloorplanBundle:ExAccess:getToDataTable }
+    
+    
+ms_ex_visitor_get_tour:
+    path:  /fp/exhibitor/get/visitors_tour
+    defaults: { _controller: MSFloorplanBundle:ExAccess:getVisitorTours }
+    
+    
+ms_ex_visitor_get_to_datatable:
+    path:  /fp/exhibitor/getToDataTable
+    defaults: { _controller: MSFloorplanBundle:ExAccess:getToDataTable }
+    
+
+ms_ex_visitor_export_general_data:
+    path:  /fp/exhibitor/export/generalData
+    defaults: { _controller: MSFloorplanBundle:ExAccess:exportGeneralData }
+
+###Export Access
+ms_ex_export:
+    path:  /fp/exhibitor/exportGenericData
+    defaults: { _controller: MSFloorplanBundle:Export:exportGenericData }
+    methods: [POST]
+    
+####################NEW MS######################
+
+ms_fp_dev_general:
+    path:  /show-dashboard/st/dev/plano
+    defaults: { _controller: MSFloorplanBundle:FloorplanDev:floorplan }
+    
+ms_fp_dev_expositores_base:
+   path:  /show-dashboard/st/dev/expositor/{idExpositor}
+   defaults: { _controller: MSFloorplanBundle:FloorplanExhibitorDev:exhibitor, idExpositor: 1 }
+   methods: [GET]
+   
+####################NEW POST FLOORPLAN MS######################
+ms_fp_dev_detalles_expositores:
+   path:  /show-dashboard/st/dev/expositores
+   defaults: { _controller: MSFloorplanBundle:FloorplanDev:exhibitorDetail }
+   methods: [POST,GET]
+
+ms_fp_dev_detalles_busquedas:
+   path:  /show-dashboard/st/dev/busquedas
+   defaults: { _controller: MSFloorplanBundle:FloorplanDev:searchDetail }
+   methods: [POST,GET]
+   
+ms_fp_dev_detalles_plano_interactivo:
+   path:  /show-dashboard/st/dev/plano-interactivo
+   defaults: { _controller: MSFloorplanBundle:FloorplanDev:floorplanDetail }
+   methods: [POST,GET]
+   
+ms_fp_dev_visitor_get_leads_to_datatable:
+    path:  /show-dashboard/st/dev/{idExpositor}/getLeadsToDataTable
+    defaults: { _controller: MSFloorplanBundle:FloorplanExhibitorLeadsDev:getLeadsToDataTable, idExpositor: 1 }
+    methods: [POST,GET]
+####################NEW POST EXHIBITOR MS######################
+ms_fp_dev_expositores_grafica:
+   path:  /show-dashboard/st/dev/expositor/{idExpositor}/grafica
+   defaults: { _controller: MSFloorplanBundle:FloorplanExhibitorDev:exhibitorGraphic, idExpositor: 1 }
+   methods: [POST,GET]
+   
+ms_fp_dev_expositores_tour:
+   path:  /show-dashboard/st/dev/expositor/{idExpositor}/recorrido
+   defaults: { _controller: MSFloorplanBundle:FloorplanExhibitorDev:exhibitorTour, idExpositor: 1 }
+   methods: [POST,GET]
+   
+ms_fp_dev_expositores_scanner_app:
+   path:  /show-dashboard/st/dev/expositor/{idExpositor}/scanner-app
+   defaults: { _controller: MSFloorplanBundle:FloorplanExhibitorDev:exhibitorScannerApp, idExpositor: 1 }
+   methods: [POST,GET]
+   
+ms_fp_dev_expositores_scanner_terceros:
+   path:  /show-dashboard/st/dev/expositor/{idExpositor}/scanner-terceros
+   defaults: { _controller: MSFloorplanBundle:FloorplanExhibitorDev:exhibitorScannerThird, idExpositor: 1 }
+   methods: [POST,GET]
+   
+ms_fp_dev_expositores_interactiones:
+   path:  /show-dashboard/st/dev/expositor/{idExpositor}/interacciones
+   defaults: { _controller: MSFloorplanBundle:FloorplanExhibitorDev:exhibitorInter, idExpositor: 1 }
+   methods: [POST,GET]
+##################### NEW LEADS EXHIBITOR MS ###############
+ms_fp_dev_expositores_leads_base_express:
+   path:  /show-dashboard/st/dev/expositor-leads-express/{idExpositor}
+   defaults: { _controller: MSFloorplanBundle:FloorplanDev:exhibitorLeads, idExpositor: 1 }
+   methods: [GET]
+
+ms_fp_dev_expositores_leads_base:
+   path:  /show-dashboard/st/dev/expositor-leads/{idExpositor}
+   defaults: { _controller: MSFloorplanBundle:FloorplanExhibitorLeadsDev:exhibitorLeads, idExpositor: 1 }
+   methods: [GET]
+   
+ms_fp_dev_expositores_app_leads_base_express:
+   path:  /show-dashboard/st/dev/expositor-app-leads-express/{idExpositor}
+   defaults: { _controller: MSFloorplanBundle:FloorplanDev:exhibitorAppLeads, idExpositor: 1 }
+   methods: [GET]
+   
+ms_fp_dev_expositores_app_leads_base:
+   path:  /show-dashboard/st/dev/expositor-app-leads/{idExpositor}
+   defaults: { _controller: MSFloorplanBundle:FloorplanDev:exhibitorAppLeads, idExpositor: 1 }
+   methods: [GET]
+   
+##################### NEW LEADS EXHIBITOR ###############
+lt_dev_exhibitor_access:
+    path:  /lt/exhibitor/{lang}/{token}
+    defaults: { _controller: MSFloorplanBundle:ExAccessLeads:exhibitor,lang: es }
+
+lt_dev_grid_expositores_base_leads:
+   path:  /lt/exhibitor/grid-leads
+   defaults: { _controller: MSFloorplanBundle:ContactosLecturas:configGrid}
+   methods: [GET]
+   
+lt_dev_expositores_base_leads:
+   path:  /lt/exhibitor/leads
+   defaults: { _controller: MSFloorplanBundle:ContactosLecturas:exhibitorLeads}
+   methods: [GET]
+   
+lt_dev_expositores_excel:
+   path:  /lt/exhibitor/leads-excel
+   defaults: { _controller: MSFloorplanBundle:ContactosLecturas:totalLeads}
+   methods: [GET]

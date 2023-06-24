@@ -1,0 +1,48 @@
+show_dashboard_facturacion:
+  path: /facturacion
+  defaults: { _controller: ShowDashboardFTFacturacionBundle:Facturacion:index }
+
+facturas_timbradas:
+  path: /facturacion/timbradas
+  defaults:
+    { _controller: ShowDashboardFTFacturacionBundle:Facturacion:timbradas }
+
+get_facturas_timbradas:
+    path:     /facturacion/timbradas/get
+    defaults: { _controller: ShowDashboardFTFacturacionBundle:Facturacion:getFacturasTimbradas }
+
+facturas_canceladas:
+  path: /facturacion/canceladas
+  defaults:
+    { _controller: ShowDashboardFTFacturacionBundle:Facturacion:canceldas }
+
+get_facturas_canceladas:
+    path:     /facturacion/canceladas/get
+    defaults: { _controller: ShowDashboardFTFacturacionBundle:Facturacion:getFacturasCanceladas }
+
+facturas_pendientes:
+  path: /facturacion/pendientes
+  defaults:
+    { _controller: ShowDashboardFTFacturacionBundle:Facturacion:pendientes }
+
+get_facturas_pendientes:
+    path:     /facturacion/pendientes/get
+    defaults: { _controller: ShowDashboardFTFacturacionBundle:Facturacion:getFacturasPendientes }
+
+facturas_detalle:
+  path: /facturacion/detalle-factura/{idFactura}
+  defaults:
+    { _controller: ShowDashboardFTFacturacionBundle:Facturacion:detalleFactura, idFactura: 0 }
+
+send_factura:
+  path: /facturacion/enviar-factura
+  defaults:
+    { _controller: ShowDashboardFTFacturacionBundle:Facturacion:sendEmailFactura }
+
+send_Idfacturas:
+  path: /facturacion/sendEmailFacturas
+  defaults:
+    { _controller: ShowDashboardFTFacturacionBundle:Facturacion:sendEmailFacturas }
+cancelar_facturas_timbradas:
+    path:     /facturacion/timbradas/get/cancelar
+    defaults: { _controller: ShowDashboardFTFacturacionBundle:Facturacion:cancelacionFactura }

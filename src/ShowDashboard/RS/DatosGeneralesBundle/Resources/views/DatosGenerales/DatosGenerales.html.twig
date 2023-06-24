@@ -1,0 +1,84 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/RS/DatosGeneralesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/datosgenerales.css') }}" media="screen,projection">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/perfil.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {#{% include 'ShowDashboardRSVisitanteBundle:Visitante:menu_secciones.html.twig' %}#}
+
+    <div class="card-content">
+        <div class="card-panel">
+            <h5 class="header-panel no-print">{{ content['general_text']['ae_datosGenerales'] }}</h5>
+            <div class="card-datos">
+
+                {% if content['view'] == "elite" %}       
+                    {% include 'ShowDashboardRSDatosGeneralesBundle:DatosGenerales:formDataDisable.html.twig' %}
+                {% endif %}
+                {% if content['view'] == "visitante" %}       
+                    {% include 'ShowDashboardRSDatosGeneralesBundle:DatosGenerales:formData.html.twig' %}
+                {% endif %}               
+            </div>
+        </div>
+
+
+        <div class="card-panel">
+            <h5 class="header-panel no-print">{{ content['general_text']['ae_encuesta'] }}</h5>
+            <div class="card-datos">
+                {% include 'ShowDashboardRSDatosGeneralesBundle:DatosGenerales:perfil.html.twig'%} 
+            </div>
+        </div>
+
+
+        <div class="card-panel">
+            <h5 class="header-panel no-print">{{ content['general_text']['ae_ediciones'] }}</h5>
+            <div class="card-datos">
+                {% include 'ShowDashboardRSDatosGeneralesBundle:DatosGenerales:ediciones.html.twig'%} 
+            </div>
+        </div>
+
+
+        <div class="card-panel">
+            <h5 class="header-panel no-print">{{ content['general_text']['ae_lecturas'] }}</h5>
+            <div class="card-datos">
+                {% include 'ShowDashboardRSDatosGeneralesBundle:DatosGenerales:lecturas.html.twig'%} 
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+                url_visitante_datos_generales = "{{ path('visitante_datos_generales_rs') }}",
+                url_update_datosgenerales = "{{ path('visitante_datos_generales_update_rs') }}",
+                url_get_estados = "{{ path('pecc_estados', {'idPais': "0000"}) }}"
+        ,
+                url_get_pecc = "{{ path('pecc_codigo_postal', {'codigoPostal': "00000"}) }}",
+                preguntas = {{ content['preguntas']|json_encode()|raw }},
+                respuestas = {{ content['respuestas']|json_encode()|raw }},
+                profile = {{ content['profile']|json_encode()|raw}};
+
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/datosgenerales.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/perfil.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/pecc.js') }}"></script>
+{% endblock %}
+

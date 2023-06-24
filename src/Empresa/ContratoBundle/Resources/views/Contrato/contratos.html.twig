@@ -1,0 +1,71 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/ContratoBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/datatables.responsive.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/dynamic_table.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/contratos.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div id="ventas" class="container">
+        <div id="slide-list-div" style="margin-top: 20px">
+            <div class="row">
+                <div id="cover-contrato-table" class="col-xs-12"></div>
+            </div>
+        </div>
+    </div>
+    {#<div class="fixed-action-btn" style="bottom: 60px; right: 90px;">
+        <a class="btn-floating btn-large green tooltipped"
+           id="add-company"
+           data-tooltip="{{ content["section_text"]["sas_agregarEmpresa"] }}"
+           data-position="left"
+           data-delay="50"
+           >
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+    <div id="delete-record-modal" class="modal">
+        <div class="modal-content">
+            <h6>{{content['section_text']['sas_eliminarRegistro']}}</h6>
+            <p id="deleteText"></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+            <button id="delete-record" type="button" class="modal-action waves-effect waves-red btn-flat red white-text" data-action="delete">{{content['general_text']['sas_eliminar']}}</button>
+        </div>
+    </div>#}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var lang = {{ content['lang']|json_encode()|raw }},
+                url_lang = "{{asset('js/dataTablesLang/' ~ content['lang'] ~ '.json')}}",
+                Contrato_table_columns = {{ content['Contrato_table_columns']|json_encode()|raw }},
+                Contrato_table_column_categories = {{ content['Contrato_table_column_categories']|json_encode()|raw }};
+        {#companies = {{ content['companies']|json_encode()|raw }};#}
+
+            var url_contrato_get_to_dt = "{{ path("contrato_get_to_datatable") }}",
+                    url_contrato_get_to_dt_filtro = "{{ path("ventas_get_to_datatable_filtro") }}",
+                    url_export_contrato_data = "{{ path("ventas_export_data") }}",
+                    url_set_session = "{{ path("ventas_set_session") }}",
+                    url_get_session = "{{ path("ventas_get_session") }}",
+                    img_excel = "{{ asset("images/excel.png") }}";
+    </script>
+
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.responsive.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.columnFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/selectFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.customFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/dynamic_table.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/contratos.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+services:
+#    show_dashboard_ae_administrador_textos_template.example:
+#        class: ShowDashboard\AE\AdministradorTextos\TemplateBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

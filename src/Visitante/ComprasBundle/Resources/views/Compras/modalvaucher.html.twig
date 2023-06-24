@@ -1,0 +1,21 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modalView", 
+                "fixed": true, 
+                "size": "modal-fixed-footer", 
+                "color": "green", 
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "btn-add-servicio"
+                
+            } 
+%}
+{% block title %}
+    <h5 id="service">Voucher</h5>
+{% endblock %}
+{% block body %} 
+    <br>
+    <div id="mostrarTicket" style="margin:auto"> 
+    </div>
+
+
+{% endblock %}

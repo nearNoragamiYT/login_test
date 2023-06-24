@@ -1,0 +1,3 @@
+show_dashboard_ft:
+  path: /show-dashboard/ft
+  defaults: { _controller: ShowDashboardFTMainBundle:Main:index }

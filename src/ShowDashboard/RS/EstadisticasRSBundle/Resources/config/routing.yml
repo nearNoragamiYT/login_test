@@ -1,0 +1,20 @@
+show_dashboard_rs_estadisticas_rs_homepage:
+    path:     /estadisticasRS
+    defaults: { _controller: ShowDashboardRSEstadisticasRSBundle:Estadisticas:estadisticas }
+
+show_dashboard_rs_estadisticas_rs_asistenciadia:
+    path:     /estadisticasRSAsistencia
+    defaults: { _controller: ShowDashboardRSEstadisticasRSBundle:Estadisticas:asistenciadia }
+    
+show_dashboard_rs_estadisticas_rs_asistenciahora:
+    path:     /estadisticasRSasistenciaHora
+    defaults: { _controller: ShowDashboardRSEstadisticasRSBundle:Estadisticas:asistenciahora }
+    
+show_dashboard_rs_estadisticas_rs_comparacioasistencia:
+    path:     /estadisticasRScomparacioAsistencia
+    defaults: { _controller: ShowDashboardRSEstadisticasRSBundle:Estadisticas:comparacionasistencia }    
+    
+show_dashboard_rs_estadisticas_rs_clubelite:
+    path:     /estadisticasRSCE
+    defaults: { _controller: ShowDashboardRSEstadisticasRSBundle:Estadisticas:clubElite }               
+

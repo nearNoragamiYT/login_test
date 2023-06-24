@@ -1,0 +1,11 @@
+empresa_empresa_contrato:
+    path:     /empresa/empresa-contrato/{idEmpresa}
+    defaults: { _controller: EmpresaEmpresaContratoBundle:EmpresaContrato:contractsByCompany, idEmpresa: 0 }
+
+empresa_empresa_contrato_cancelar:
+    path:     /empresa/empresa-contrato-cancelar
+    defaults: { _controller: EmpresaEmpresaContratoBundle:EmpresaContrato:cancelContract }
+
+empresa_empresa_paquete_cambiar:
+    path:     /empresa/empresa-paquete-cambiar
+    defaults: { _controller: EmpresaEmpresaContratoBundle:EmpresaContrato:changeUpgrade }

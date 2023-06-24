@@ -1,0 +1,21 @@
+{% extends 'WizardWizardBundle:Wizard:showWizard.html.twig' %}
+
+{% block content_step %}
+    <section id="wizard-informacion-general">
+        <h5 class="wizard-title-step">{{ content['section_text']['sas_bienvenidaWizard'] }}</h5>
+        <div class="row">
+            <div class="col s12">
+                <p>{{ content['section_text']['sas_instruccionesWizard']|raw }}</p>
+                <img class="img-ixpo-wizard right" src="{{ asset('images/infoexpo.png') }}" alt="infoexpo">
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="{{ path('logout') }}" 
+                    class="btn-link waves-effect btn-flat left show-loader-top"
+                    >{{ content['general_text']['sas_salir'] }}</a>
+            <a href="{{ path('wizard_comite_organizador') }}" 
+                    class="btn waves-effect waves-light green show-loader-top"
+                    >{{ content['general_text']['sas_siguiente'] }}</a>
+        </div>
+</section>
+{% endblock %}

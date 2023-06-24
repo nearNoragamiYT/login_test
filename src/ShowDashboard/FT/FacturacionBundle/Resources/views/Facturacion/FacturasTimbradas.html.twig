@@ -1,0 +1,74 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/FT/FacturacionBundle/' %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/FacturasTimbradas.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+
+	<div class="container-fluid">
+		<div class="z-depth-1 white">
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">
+						<b>Listado de facturas Timbradas</b>
+					</span>
+				</div>
+			</div>
+			<table id="tbl-facturas-timbradas" class="bordered highlight" style="width:100%">
+				<thead>
+					<tr>
+						<th width="5%">
+							<a class="{#tooltipped#} check_all" data-position="top" data-delay="50" data-tooltip="Seleccionar Todos">
+								<input type="checkbox" id="btn-select-all" onchange="listadoAllIdFactura(event)"/>
+								<label for="btn-select-all"></label>
+							</a>
+						</th>
+						<th>ID Compra</th>
+						<th>Nombre Completo</th>
+						<th>Fecha Pago</th>
+						<th>Estatus Factura</th>
+						<th>Fecha Timbrado</th>
+						<th>Operaciones</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div class="fixed-action-btn" style="bottom: 60px; right: 90px;">
+			<a id="btn-email" class="btn-floating btn-large green tooltipped" {# id="send-email-to-all" #} data-tooltip="{{ "envio de correo" }}" data-position="left" data-delay="50">
+				<i class="material-icons">email</i>
+			</a>
+		</div>
+	</div>
+
+	<div id="modal1" class="modal">
+		<div class="modal-content">
+			<h4>Correos no enviados</h4>
+			<div id="data"></div>
+		</div>
+		<div class="modal-footer" style="margin-bottom:10px;">
+			<a id="" class="waves-effect waves-light btn red left close-modal">
+				<i class="material-icons right">cancel</i>Cerrar</a>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script type="text/javascript">
+		const url_get_facturas_timbradas = "{{ path('get_facturas_timbradas') }}",
+url_envio_idEmail ="{{ path('send_Idfacturas') }}",
+url_detalle_factura = "{{ path('facturas_detalle') }}",
+url_pdf_factura = {{ content['url_pdfs']|json_encode()|raw }},
+url_xml_factura = {{ content['url_xmls']|json_encode()|raw }};
+	</script>
+	<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+	<script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/FacturasTimbradas.js') }}"></script>
+{% endblock %}

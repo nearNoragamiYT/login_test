@@ -1,0 +1,39 @@
+prensa:
+    path:     /prensa
+    defaults: { _controller: VisitantePrensaBundle:Prensa:prensa}
+    
+get_prensa:
+    path:     /get-data-prensa
+    defaults: { _controller: VisitantePrensaBundle:Prensa:getDataTable }
+
+visitante_prensa:
+    path:     /visitante/prensa/{idVisitante}
+    defaults: { _controller: VisitantePrensaBundle:Prensa:showPrensa, idVisitante: 0 }
+
+visitante_prensa_update_status:
+    path:     /visitante/prensa-update-status
+    defaults: { _controller: VisitantePrensaBundle:Prensa:updateStatusPrensa}
+    
+update_prensa:
+    path:     /update-prensa
+    defaults: { _controller: VisitantePrensaBundle:Prensa:updateStatusPrensaList }    
+    
+prensa_email_rechazo:
+    path:     /email_rechazo_prensa
+    defaults: { _controller: VisitantePrensaBundle:Prensa:emailRechazo}
+    
+prensa_email_confirmacion:
+    path:     /email_validacion-prensa
+    defaults: { _controller: VisitantePrensaBundle:Prensa:emailConfirmacion}    
+        
+prensa_export_prensa:
+    path:     /export-data-prensa
+    defaults: { _controller: VisitantePrensaBundle:Prensa:exportDataTable }    
+
+prensa_send_digibage:
+    path:     /send-digibage-prensa
+    defaults: { _controller: VisitantePrensaBundle:Prensa:sendDigibage}
+
+download_gafete_prensa:
+    path:     /download-gafete-prensa
+    defaults: { _controller: VisitantePrensaBundle:Prensa:downloadDigibadge}

@@ -1,0 +1,24 @@
+admin_floorplan_homepage:
+  path:  /show-dashboard/fp/admin
+  defaults: { _controller: ShowDashboardFPFloorplanBundle:Floorplan:index }  
+admin_floorplan_pavilions:
+  path: /show-dashboard/fp/pavilions
+  defaults: { _controller: ShowDashboardFPFloorplanBundle:Pavilions:index }
+  methods: [GET]
+admin_floorplan_pavilion:
+  path: /show-dashboard/fp/get_pavilion/{id}/{sala}                                                    
+  defaults: { _controller: ShowDashboardFPFloorplanBundle:Pavilions:get, id: 1, sala: 1}
+  methods: [GET]
+  requirements:
+    id: \d+
+admin_floorplan_create:
+  path: /show-dashboard/fp/create
+  defaults: { _controller: ShowDashboardFPFloorplanBundle:Stands:create }
+  methods: [POST]
+admin_floorplan_update:
+  path: /show-dashboard/fp/update
+  defaults: { _controller: ShowDashboardFPFloorplanBundle:Stands:update }
+admin_floorplan_destroy:
+  path: /show-dashboard/fp/destroy
+  defaults: { _controller: ShowDashboardFPFloorplanBundle:Stands:destroy }
+  methods: [DELETE, POST]

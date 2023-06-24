@@ -1,0 +1,145 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/MS/FloorplanBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}    
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/> 
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/exhibitor.css') }}">  
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <form method="POST" id="form-export" target="_blank" action="{{ path('ms_fp_export') }}">
+            <input type="hidden" value="{{ content['FechaIni'] }}" id="ini">
+            <input type="hidden" value="{{ content['FechaFin'] }}" id="fin">
+        </form>        
+        <div class="section">   
+            <!-- Start of Floorplan with Scrollspy -->
+            <div class="row">
+                <div class="col s12 white">
+                    <h4 id="exName" class="header black-text">Expositor: {{ content['NombreExpositor'] }}</h4>
+                </div>
+                <div class="col s12 m9 l10">
+                    <div id="date" class="section scrollspy">
+                        <div class="white">
+                            <h4>Rango de Fechas</h4>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <label for="from" >Fecha de Inicio</label>
+                                            <input id="from" type="date" class="datepicker" value="{{ content['FechaIni']}}">
+                                        </td>
+                                        <td>
+                                            <label for="to">Fecha de Termino</label>
+                                            <input id="to" type="date" class="datepicker" value="{{ content['FechaFin']}}">
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-large update green darken-3">Aplicar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                        
+                    </div>
+
+                    <div id="leads" class="section scrollspy">
+                        <div class="row white">
+                            <div class="orange darken-3">
+                                <h4 class="white-text">Leads</h4>
+                            </div>
+                            {% include 'MSFloorplanBundle:exDev:leads.html.twig' %}
+                        </div>
+                    </div>
+
+                    <div id="tours" class="section scrollspy">                                                
+                        <div class="row white">
+                            <div class="green darken-3">
+                                <h4 class="white-text">Recorridos</h4>
+                            </div>
+                            <div class="container">
+                                <div class="col s12 l6">
+                                    {% include 'MSFloorplanBundle:exDev:recorridos.html.twig' %}
+                                </div>
+                                <div class="col s12 l6 hide-on-med-and-down">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <th>
+                                                    <a class="green darken-3 waves-effect waves-light btn-large">
+                                                        <i class="material-icons left">file_download</i>Descargar Personas con Recorrido
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <a class="green darken-3 waves-effect waves-light btn-large">
+                                                        <i class="material-icons left">person</i>Mostrar Personas con Recorrido
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="floorplan" class="section scrollspy">                                              
+                        <div class="row white">
+                            <div class="blue darken-3">
+                                <h4 class="white-text">Plano Interactivo</h4>
+                            </div>  
+                            <div class="col s12">
+                                {% include 'MSFloorplanBundle:exDev:interacciones.html.twig' %}
+                            </div>
+                            <div class="col s12">
+                                <div id="exChart">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col m3 l2 hide-on-small-only">
+                    <ul class="toc-wrapper pinned section table-of-contents">
+                        <li><a href="#date">Rango de Fechas</a></li>                        
+                        <li><a href="#leads">Leads</a></li>
+                        <li><a href="#tours">Recorridos</a></li>                        
+                        <li><a href="#floorplan">Plano Interactivo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}  
+    <script>
+        $(document).ready(function () {
+            $('.scrollspy').scrollSpy();
+        });
+        var ms_lang ={{ content['textos']|json_encode()|raw }} ,
+                url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var FechaIni = "{{ content['FechaIni'] }}",
+                FechaFin = "{{ content['FechaFin'] }}";
+        var url_exhibitor_graphic = "{{ path('ms_fp_dev_expositores_grafica',{'idExpositor':content.idExpositor}) }}",
+                url_exhibitor_tour = "{{ path('ms_fp_dev_expositores_tour',{'idExpositor':content.idExpositor}) }}",
+                url_exhibitor_scanner_app = "{{ path('ms_fp_dev_expositores_scanner_app',{'idExpositor':content.idExpositor}) }}",
+                url_exhibitor_scanner_third = "{{ path('ms_fp_dev_expositores_scanner_terceros',{'idExpositor':content.idExpositor}) }}",
+                url_exhibitor_interactions = "{{ path('ms_fp_dev_expositores_interactiones',{'idExpositor':content.idExpositor}) }}";
+    </script>    
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{asset('resources/MS/FloorplanBundle/js/datepickerLang/' ~ lang ~ '.js')}}"></script>
+    <script src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script src="{{asset(ruta_asset ~ 'js/datepickerLang/' ~ lang ~ '.js')}}"></script>    
+    <script src="{{ asset( ruta_asset ~ 'js/dev/exhibitor.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+    </script>
+    <script>
+        $('.datepicker').pickadate();
+    </script>    
+{% endblock %}

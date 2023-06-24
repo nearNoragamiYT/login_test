@@ -1,0 +1,167 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/AE/Administracion/Configuracion/ConexionBDBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {% include 'ShowDashboardAEAdministracionConfiguracionAjustesBundle:Configuracion:tabsConfiguracionAE.html.twig' with {"selected": "show_dashboard_ae_administracion_configuracion_conexion"} %}
+    <div class="container-fluid">
+        <h5>{{ content['section_text']['sas_configConexion'] }} <b>{{ content['edicion']['Edicion_' ~ lang|upper] }}</b></h5>
+        <div class="card-panel z-depth-1">
+            <form id="frm-conexion" action="{{ path("show_dashboard_ae_administracion_configuracion_conexion") }}" method="post">
+                <input id="idConexion" 
+                       name="idConexion" 
+                       type="hidden" 
+                       {% if content['conexion']['idConexion'] is defined %}
+                           value="{{ content['conexion']['idConexion'] }}"
+                       {% endif %}
+                       >
+                <div class="row">
+                    <div class="col s12">
+                        <span class="card-header">{{ content['section_text']['sas_conexionFM'] }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 m6 input-field">
+                        <input id="idEdicion" 
+                               name="idEdicion"
+                               type="hidden" 
+                               {% if content['edicion']['idEdicion'] is defined %}
+                                   value="{{ content['edicion']['idEdicion'] }}"
+                               {% endif %}
+                               >
+                        <input id="Edicion" 
+                               type="text" 
+                               class="validate"
+                               disabled
+                               {% if content['edicion']['Edicion_' ~ lang|upper] is defined %}
+                                   value="{{ content['edicion']['Edicion_' ~ lang|upper] }}"
+                               {% endif %}
+                               >
+                        <label for="Edicion">{{ content['general_text']['sas_edicion'] }}</label>
+                    </div>
+                    <div class="col s6 m6 input-field">
+                        <input id="idEvento" 
+                               name="idEvento"
+                               type="hidden" 
+                               {% if content['edicion']['idEvento'] is defined %}
+                                   value="{{ content['edicion']['idEvento'] }}"
+                               {% endif %}
+                               >
+                        <input id="Evento" 
+                               type="text" 
+                               class="validate" 
+                               disabled
+                               {% if content['edicion']['Evento_' ~ lang|upper] is defined %}
+                                   value="{{ content['edicion']['Evento_' ~ lang|upper] }}"
+                               {% endif %}
+                               >
+                        <label for="Evento">{{ content['general_text']['sas_evento'] }}</label>
+                    </div>
+                    <div class="col s6 m6 input-field">
+                        <input id="Servidor" 
+                               name="Servidor"
+                               type="text" 
+                               class="validate" 
+                               {% if content['conexion']['Servidor'] is defined %}
+                                   value="{{ content['conexion']['Servidor'] }}"
+                               {% endif %}
+                               >
+                        <label for="Servidor">{{ content['section_text']['sas_servidor'] }}</label>
+                    </div>
+                    <div class="col s6 m6 input-field">
+                        <input id="Soap" 
+                               name="Soap"
+                               type="text" 
+                               class="validate" 
+                               {% if content['conexion']['Soap'] is defined %}
+                                   value="{{ content['conexion']['Soap'] }}"
+                               {% endif %}
+                               >
+                        <label for="Soap">SOAP url</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="Base" 
+                               name="Base"
+                               type="text" 
+                               class="validate" 
+                               {% if content['conexion']['Base'] is defined %}
+                                   value="{{ content['conexion']['Base'] }}"
+                               {% endif %}
+                               >
+                        <label for="Base">{{ content['section_text']['sas_base'] }}</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="Usuario" 
+                               name="Usuario"
+                               type="text" 
+                               class="validate" 
+                               {% if content['conexion']['Usuario'] is defined %}
+                                   value="{{ content['conexion']['Usuario'] }}"
+                               {% endif %}
+                               >
+                        <label for="Servidor">{{ content['section_text']['sas_usuario'] }}</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="Password" 
+                               name="Password"
+                               type="text" 
+                               class="validate" 
+                               {% if content['conexion']['Password'] is defined %}
+                                   value="{{ content['conexion']['Password'] }}"
+                               {% endif %}
+                               >
+                        <label for="Password">{{ content['general_text']['sas_password'] }}</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="Puerto" 
+                               name="Puerto"
+                               type="text" 
+                               class="validate" 
+                               {% if content['conexion']['Puerto'] is defined %}
+                                   value="{{ content['conexion']['Puerto'] }}"
+                               {% endif %}
+                               >
+                        <label for="Puerto">{{ content['section_text']['sas_puerto'] }}</label>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    {% if content['conexion']['idConexion'] is defined %}
+                        <button type="button" class="btn waves-effect btn-flat red-text left ver-eliminar-conexion">
+                            <i class="material-icons left">delete_forever</i>
+                            {{ content['general_text']['sas_eliminar'] }} {{ content['section_text']['sas_configConexion'] }}
+                        </button>
+                    {% endif %}
+                    <button type="submit" class="btn waves-effect waves-light green">
+                        {{ content['general_text']['sas_guardar'] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if content['conexion']['idConexion'] is defined %}
+    <div id="modal-eliminar-conexion" class="modal">
+        <form id="frm-eliminar-conexion" action="{{ path("show_dashboard_ae_administracion_configuracion_conexion_eliminar") }}" method="post">
+            <input name="idConexion" type="hidden" value="{{ content['conexion']['idConexion'] }}">
+            <div class="modal-content">
+                <h4>{{ content['general_text']['sas_eliminar'] }} {{ content['section_text']['sas_configConexion'] }}</h4>
+                <p>{{ content['section_text']['sas_seguroEliminarConexion'] }} <b>{{ content['edicion']['Edicion_' ~ lang|upper] }}</b>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close waves-effect btn-flat left">{{ content['general_text']['sas_cancelar'] }}</button>
+                <button type="submit" class="modal-action btn waves-effect red show-loader-wrapper">{{ content['general_text']['sas_eliminar'] }}</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/conexionBD.js') }}"></script>
+{% endblock %}

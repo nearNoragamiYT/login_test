@@ -1,0 +1,34 @@
+.dg-section {
+    margin-bottom: 20px;
+}
+form .progress{
+    margin: 0px;
+    display: none;
+}
+
+.progress-estado,
+.progress-pecc{
+    display: block;
+    position: absolute;
+    width: calc(100% - 1.5rem);
+    height: 4px;
+    top: 45px;
+}
+
+form .autocomplete-content{
+    display: block;
+    position: absolute;
+    opacity: 1;
+    max-height: 250px;
+}
+
+form .autocomplete-content{
+    display: block;
+    position: absolute;
+    opacity: 1;
+    max-height: 250px;
+}
+
+select:disabled {
+    color: #222;
+}

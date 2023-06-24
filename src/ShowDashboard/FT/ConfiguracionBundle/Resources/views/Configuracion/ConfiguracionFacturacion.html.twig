@@ -1,0 +1,108 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/FT/ConfiguracionBundle/' %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/configuracion.css') }}" media="screen,projection">
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/dropzone.css') }}" media="screen,projection">
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/colorpicker.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+
+	<div class="col s12">
+		<div class="container">
+			<div class="row card-panel" style="width: 70%: align-content: center;">
+				<h4 class="header" style="text-align: center;">Configuración para portal facturación</h4>
+				<form
+					id="empresa-configuracion-form" class="col s12">
+					<!-- Switch -->
+					{% if content['configuracionFT']['idTipoUsuario'] == 1 %}
+						<div class="switch input-field col s6">
+							<label for="idTipoUsuario">
+								Prueba
+								<input id="idTipoUsuario" class="input-field col s6" name="idTipoUsuario" value="{{content['configuracionFT']['idTipoUsuario']}}" type="checkbox">
+								<span class="lever" for="idTipoUsuario"></span>
+								Producción
+							</label>
+						</div>
+					{% else %}
+						<div class="switch input-field col s6">
+							<label for="idTipoUsuario">
+								Prueba
+								<input id="idTipoUsuario" class="input-field col s6" name="idTipoUsuario" value="{{content['configuracionFT']['idTipoUsuario']}}" type="checkbox" checked>
+								<span class="lever" for="idTipoUsuario"></span>
+								Producción
+							</label>
+						</div>
+					{% endif %}
+					<div class="input-field col s3">
+						<input id="EventoUrl" name="EventoUrl" type="text" value="{{content['configuracionPortal']['URLPortal']}}" readonly>
+						<label for="EventoUrl">Evento Url</label>
+					</div>
+					<div class="input-field col s3">
+						<a target="_blank" href="{{content['configuracionPortal']['URLPortal']}}" class="waves-effect waves-light btn">
+							<i class="material-icons right">insert_link</i>
+							Portal facturación
+						</a>
+					</div>
+					<div class="col s6">
+						<span>Color header:
+							<b id="tituloColorHeader">{{content['configuracionFT']['colorHeader']}}</b>
+						</span>
+						<input id="colorHeader" name="colorHeader" type="color">
+					</div>
+					<div class="col s6">
+						<span>Color Portal:
+							<b id="tituloColorPortal">{{content['configuracionFT']['ColorPortal']}}</b>
+						</span>
+						<input id="ColorPortal" name="ColorPortal" type="color">
+					</div>
+					<div class="col s12 input-field">
+						<h6 class="edition-title-step">Logotipo:</h6>
+						<div class="content-image-preview col s12">
+							<img id="preview-image-1" {% if content['logo'] %} src="{{ asset('resources/images/logo-evento/' ~ content['logo']) }}" {% else %} src="{{ asset('resources/images/no-image.png') }}" {% endif %} alt="Logo" class="" style="max-height: 200px; max-width: 200px">
+						</div>
+						<div class="file-field input-field col s12">
+							<div class="btn btn-medium col s12 m3">
+								<span>Logotipo</span>
+								<input type="file" id="images" accept="image/png,image/jpeg" rel-preview="preview-image-1">
+							</div>
+							<div class="file-path-wrapper col s12 m9">
+								<input id="images_name" class="file-path validate" accept="image/png,image/jpeg" type="text">
+							</div>
+						</div>
+					</div>
+
+				</form>
+				<p>&nbsp;</p>
+				<div style="text-align: center;">
+					<a id="btnConfiguracion" class="waves-effect waves-light btn">
+						<i class="material-icons right">save</i>Guardar Configuracion</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}{% block javascripts %}
+{{ parent() }}
+
+<script type="text/javascript">
+	{# Scripts #}
+let configuracion = {{ content["configuracionFT"]|json_encode()|raw }}
+let url_insertar_configuracion = "{{ path("show_dashboard_facturacion_insertDatosConfiguracion") }}"
+let url_upload_files = "{{ path('show_dashboard_facturacion_subirimagen') }}"
+</script>
+<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+
+{# <script type="text/javascript" src="{{asset('js/colorpicker')}}"></script> #}
+<script type="text/javascript" src="{{ asset('js/dropzone.js')}}"></script>
+{# <script type="text/javascript" src="{{asset(ruta_asset ~ 'js/colorpicker.js')}}"></script> #}
+
+<script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/configuracion.js') }}"></script>
+{# <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/jscolor.js') }}"></script> #}
+
+{# <script>	var url_logos = "{{ app.request.getScheme ~ '://' ~ app.request.getHttpHost ~ asset('doc/ED/logos') ~ '/' }}",
+url_save_logo = "{{ path('exhibitor_formas_co_mkf_cargar_logo') }}"</script> #}{% endblock %}

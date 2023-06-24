@@ -1,0 +1,4 @@
+services:
+#    administracion_global_comite_organizador.example:
+#        class: AdministracionGlobal\ComiteOrganizadorBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

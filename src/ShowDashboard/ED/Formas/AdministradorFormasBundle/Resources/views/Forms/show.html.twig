@@ -1,0 +1,274 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/ED/Formas/AdministradorFormasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/dataTables.materialize.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/forms.css') }}">
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+{% endblock %}
+
+{% block title %}{{ content['section_text']['sas_formas'] }}{% endblock %}
+
+{% block content %}
+    {#--- filtros ---#}
+    <div id="forms-container" class="container white z-depth-1">
+        {#--- tabla de formas ---#}
+        <div id="forms-list">
+            <div class="row">
+                {#--- Selector de los tipos de status de las formas ---#}
+                <div class="col s5 input-field">
+                    <select id="filter-option" name="filter-option" class="browser-default">
+                        <option value="" data-icon="{{asset('images/iconos/filter.svg')}}" class="left" disabled selected> {{content['section_text']['sas_filtroStatus']}}</option>
+                        <option value="" data-icon="{{asset('images/iconos/list-alt.svg')}}" class="left"> {{content['section_text']['sas_filtroTodas']}}</option>
+                        <optgroup label="Status">
+                            <option value="red" data-icon="{{asset('images/iconos/exclamation-triangle.svg')}}" class="left circle">{{content['section_text']['sas_filtroAbiertaCaduca']}}</option>
+                            <option value="orange" data-icon="{{asset('images/iconos/exclamation-circle.svg')}}" class="left">{{content['section_text']['sas_filtroCerradaNoCaduca']}}</option>
+                            <option value="end" data-icon="{{asset('images/iconos/eye-slash.svg')}}" class="left">{{content['section_text']['sas_filtroVencidas']}}</option>
+                            <option value="time" data-icon="{{asset('images/iconos/eye.svg')}}" class="left">{{content['section_text']['sas_filtroDisponibles']}}</option>
+                            <option value="next-deadline" data-icon="{{asset('images/iconos/info-circle.svg')}}" class="left">{{content['section_text']['sas_filtroProximoAVencer']}}</option>
+                            <option value="no-deadline" data-icon="{{asset('images/iconos/calendar-times-o.svg')}}" class="left">{{content['section_text']['sas_filtroSinFecha']}}</option>
+                            <option value="obligatory" data-icon="{{asset('images/iconos/check-square-o.svg')}}" class="left">{{content['section_text']['sas_filtroObligatorias']}}</option>
+                            <option value="optional" data-icon="{{asset('images/iconos/square-o.svg')}}" class="left">{{content['section_text']['sas_filtroOpcionales']}}</option>
+                            <option value="form-open" data-icon="{{asset('images/iconos/unlock-alt.svg')}}" class="left">{{content['section_text']['sas_filtroAbiertas']}}</option>
+                            <option value="form-close" data-icon="{{asset('images/iconos/lock.svg')}}" class="left">{{content['section_text']['sas_filtroCerradas']}}</option>
+                            <option value="smart" data-icon="{{asset('images/iconos/link.svg')}}" class="left">{{content['section_text']['sas_filtroInteligentes']}}</option>
+                            <option value="link" data-icon="{{asset('images/iconos/external-link.svg')}}" class="left">{{content['section_text']['sas_filtroLinksExternos']}}</option>
+                            <option value="pdf" data-icon="{{asset('images/iconos/file-pdf-o.svg')}}" class="left">{{content['section_text']['sas_filtroPDF']}}</option>
+                        </optgroup>
+                        <optgroup label="{{content['section_text']['sas_secciones']}}">
+                            {% set pasa = true %}
+                            {% set sec = "" %}
+                            {% set sections = content['sections'] %}
+                            {% for form in content['forms'] %}
+                                {% if sec != form['idSeccionFormatos'] or pasa %}
+                                    {% set sec = form['idSeccionFormatos'] %}
+                                    <option data-id="{{sec}}" data-icon="{{asset('') ~ sections[sec]['Imagen']}}" class="circle left" value="section-{{sec}}">{{form['Nombre' ~ lang|upper]|raw}}</option>
+                                    {% set pasa = false %}
+                                {% endif %}
+                            {% endfor %}
+                        </optgroup>
+                    </select>
+                </div>
+                {#--- Buscador ---#}
+                <div id="seach-content" class="col s5 push-s2 input-field">
+                    <input id="filter-text" type="search" required>
+                    <label for="filter-text"><i class="material-icons">search</i> {{content['general_text']['sas_buscar']}}...</label>
+                    <i id="close-search" class="material-icons">close</i>
+                </div>
+            </div>
+            <div  class="col s12">
+                <table class="bordered highlight white" id="cover-forms-table">
+                    <thead class="blue-grey darken-3 white-text">
+                        <tr>
+                            <th class="">{{content['section_text']['sas_orden']}}</th>
+                            <th class="">{{content['section_text']['sas_forma']}}</th>
+                            <th class="">{{content['section_text']['sas_formasGuardadas']}}</th>
+                            <th class="">{{content['section_text']['sas_formasPendientes']}}</th>
+                            <th class="">{{content['section_text']['sas_formasSinInteres']}}</th>
+                            <th class="" style="width: 100px">{{content['section_text']['sas_fechaLimiteTH']|raw}}</th>
+                            <th class="">{{content['section_text']['sas_formaObligatoria']}}</th>
+                            <th class="">Status</th>
+                                {% for idiom in content['idioms'] %}
+                                    {% if idiom is defined and idiom != "" %}
+                                    <th width="10%" class="center">{{content['section_text']['sas_tipoForma']}}<br><img src='{{asset('images/idioma/' ~ idiom|lower ~ '.png')}}' atl='idiomas'></th>
+                                    {% endif %}
+                                {% endfor %}
+                            <th class="hide">{{content['section_text']['sas_reporteLlenado']}}</th>
+                            <th class="hide">{{content['section_text']['sas_grafica']}}</th>
+                            <th class="">{{content['general_text']['sas_editar']}}</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            {#--- Botones para agregar una nueva forma o una seccion ---#}
+            <div  class="fixed-action-btn vertical" style="right: 0px; bottom: 25px; z-index: 100; width: 60px;">
+                <a class="btn-floating btn-large green">
+                    <i class="tooltipped large fa fa-plus" data-tooltip="{{content['general_text']['sas_agregar']}}" data-position="left"></i>
+                </a>
+                <ul>
+                    <li><a id="new-section" class="tooltipped btn-floating teal" data-tooltip="{{content['section_text']['sas_agregarSeccion']}}" data-position="left"><i class="fa fa-list-alt"></i></a></li>
+                    <li><a id="new-form" class="tooltipped btn-floating cyan" data-tooltip="{{content['section_text']['sas_agregarForma']}}" data-position="left"><i class="fa fa-wpforms"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        {#--- tabla que muestra las empresas que llenaron y no sus formas ---#}
+        <div id="form-general-detail" class="col s12" style="display: none">
+            {#--- botones ---#}
+            <div class="row">
+                <div class="col s12  title-form">
+                    <h5 id="form-name"></h5>
+                    <div class="col s6">
+                        <p id="deadline-detail"><i class="fa fa-calendar"></i> {{content['section_text']['ed_fechaLimite']}}: <span id="deadline-status" class=""></span></p>
+                        <p id="obligatory-detail"><i class="fa"></i> {{content['section_text']['sas_estatusForma']}}: <span id="obligatory-status" class=""></span></p>
+                        <p id="form-detail"><i class="fa"></i> {{content['section_text']['sas_estatusForma']}}: <b id="form-status" class="darken-2"></b></p>
+                    </div>
+                    <div class="col s6">
+                        <p id="close-detail"><i class="fa"></i> {{content['section_text']['sas_estatusForma']}}: <span id="close-status"></span></p>
+                        <p id="type-detail"><i class="fa"></i> {{content['section_text']['sas_tipoForma']}}: <span id="type-status"></span></p>
+                        <p id="total-detail"><i class="fa fa-list-alt"></i> {{content['section_text']['sas_totalExpositores']}}: <b id="form-count-exhibitors"></b></p>
+                    </div>
+                    <input type="hidden" id="form-id">
+                    <input type="hidden" id="link-form">
+                    <div class="divider col s12 z-depth-1"></div>
+                </div>
+                <div class="col s12">
+                    <button id="edit-email" class="btn btn-flat blue-text waves-effect waves-light right"><i class="fa fa-edit"></i> {{ content['section_text']['sas_editarEmail'] }}</button>
+                </div>
+                <div class="col s12">
+                    <button class="btn waves-effect white-text blue-grey darken-1 back-to-forms-list"><i class="fa fa-arrow-left"></i> {{content['section_text']['sas_regresarFormas']}}</button>
+                    <button id="send-email-all" class="btn waves-effect green white-text right tooltipped" disabled="true" data-tooltip="{{content['section_text']['sas_eviarExpositoresSel']}}"><i class="fa fa-paper-plane"></i> {{ content['section_text']['sas_enviarEmail'] }}</button>
+                </div>
+                <div class="col s12">
+                    <div id="cover-exhibitors-table" class="col s12">
+                        <table id="exhibitors-table" class="datatable bordered highlight">
+                            <thead class="blue-grey darken-3 white-text">
+                                <tr>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'ShowDashboardEDFormasAdministradorFormasBundle:Modals:add_section.html.twig' %}
+    {% include 'ShowDashboardEDFormasAdministradorFormasBundle:Modals:update_deadline.html.twig' %}
+    {% include 'ShowDashboardEDFormasAdministradorFormasBundle:Modals:update_pdf.html.twig' %}
+    {% include 'ShowDashboardEDFormasAdministradorFormasBundle:Modals:update_link.html.twig' %}
+    {% include 'ShowDashboardEDFormasAdministradorFormasBundle:Modals:edit_email.html.twig' %}
+    {% include 'ShowDashboardEDFormasAdministradorFormasBundle:Modals:confirm_send.html.twig' %}
+    {% include 'ShowDashboardEDFormasAdministradorFormasBundle:Modals:confirm_delete.html.twig' %}
+    {% include 'ShowDashboardEDFormasAdministradorFormasBundle:Modals:update_form.html.twig' %}
+    {% include 'ShowDashboardEDFormasAdministradorFormasBundle:Modals:add_form.html.twig' %}
+    {#% include ':complementos:modal_confirmation.html.twig' with{idButton: "delete-section-confirm", idModal: "modal-delete-section"} %}
+    {% include ':complementos:modal_confirmation.html.twig' with{idButton: "delete-form-confirm", idModal: "modal-delete-form"} %}
+    {% include 'FormsBundle:Modals:charts.html.twig' %}
+    {% include 'FormsBundle:Modals:update_image.html.twig' %}
+    {% include 'FormsBundle:Forms:formdetail.html.twig' %}
+    {% include 'AdminExhibitorBundle:Main:confirm_modal.html.twig' %#}
+{% endblock %}
+{#% block mobile_menu %}
+    {% include '::mobile_menu.html.twig' with {'selected': 0 } %}
+{% endblock %#}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var forms = {{ content['forms']|json_encode()|raw }},
+                forms_table_metadata = {{ content['forms_table_metadata']|json_encode()|raw }},
+                sections = {{ content['sections']|json_encode()|raw }},
+                exhibitors_table_metadata = {{ content['exhibitors_table_metadata']|json_encode()|raw }},
+                idioms ={{content['idioms']|json_encode()|raw}} ,
+                user = {{ content['user']|json_encode()|raw }};
+        var table_lang = "{{asset('js/dataTablesLang/' ~ content['lang'] ~ '.json')}}",
+                textos_exhibitorTable = "{{ asset("DataTables/media/lang/formsTable." ~ lang ~ ".txt") }}",
+                viewer = "{{asset('js/pdf/web/viewer.html')}}?file=",
+                url_ed = "{{ content['url_ed'] }}",
+                url_public = "{{asset('')}}",
+                url_get_exhibitors_by_form_status = "{{ path('show_dashboard_ed_formas_administrador_formas_mostrar_tabla_EmpresaForma') }}",
+                url_show_not_interest_forms = "{{ path('show_dashboard_ed_formas_administrador_formas_mostrar_formas_sin_interes') }}",
+                url_save_email_html = "{{ path("show_dashboard_ed_formas_administrador_formas_editar_email") }}",
+                url_send_email_form = "{{ path("show_dashboard_ed_formas_administrador_formas_enviar_email_expositores") }}",
+                url_unlock_lock_form = "{{ path("show_dashboard_ed_formas_administrador_formas_desbloquear_bloquear_forma") }}",
+                url_deadline_update = "{{ path("show_dashboard_ed_formas_administrador_formas_actualizar_fecha") }}",
+                url_order_update = "{{ path("show_dashboard_ed_formas_administrador_formas_ordenar") }}",
+                url_save_pdf = "{{ path("show_dashboard_ed_formas_administrador_formas_actualizar_pdf") }}",
+                url_save_link = "{{ path("show_dashboard_ed_formas_administrador_formas_actualizar_link") }}",
+                url_get_charts = "{{ path("show_dashboard_ed_formas_administrador_formas_ver_graficas") }}",
+                url_save_image = "{{ path("show_dashboard_ed_formas_administrador_formas_agregar_imagen") }}",
+                url_save_section = "{{ path("show_dashboard_ed_formas_administrador_formas_agregar_seccion") }}",
+                url_delete_section = "{{ path("show_dashboard_ed_formas_administrador_formas_eliminar_seccion") }}",
+                url_edit_form = "{{ path("show_dashboard_ed_formas_administrador_formas_editar_forma") }}",
+                url_add_form = "{{ path("show_dashboard_ed_formas_administrador_formas_agregar_forma") }}",
+                url_delete_form = "{{ path("show_dashboard_ed_formas_administrador_formas_eliminar_forma") }}",
+                url_status_update = "{{ path("show_dashboard_ed_formas_administrador_formas_actualizar_estatus") }}";
+        /*{#
+                 url_delete = "{{ path("form_delete") }}",
+                 url_section = "{{ path("form_section") }}",
+                 textos_exhibitorTable = "{{ asset("DataTables/media/lang/formsTable." ~ lang ~ ".txt") }}",
+                 url_get_notifications = "{{ path('admin_get_notifications') }}",
+                 url_export_data = "{{ path("admin_exportar_datos_genericos") }}",
+                 url_form_data = "{{ path("admin_export_form_data") }}",
+                 url_save_not = "{{ path("admin_notification_save") }}",
+                 url_not_previous = "{{ path("admin_notification_save_previous") }}",
+                 links = {'url_form_data': "{{ path("admin_export_form_data") }}",
+                 'admin_export_video_data': "{{ path("admin_export_video_data") }}",
+                 'admin_export_dd_directory_data': "{{ path("admin_export_dd_directory_data") }}",
+                 'admin_export_product_data': "{{ path("admin_export_product_data") }}",
+                 'admin_export_category_data': "{{ path("admin_export_category_data") }}",
+                 'admin_export_badges_exhibitor': "{{ path("admin_export_badges_exhibitor") }}"
+                 };#}*/
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{asset('js/jquery-ui.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/jquery.floatThead.min.js')}}"></script>
+    {% if content['lang'] is defined and content['lang'] != "en" %}
+        <script type="text/javascript" src="{{asset('js/datepickerLang/' ~ content['lang'] ~ '.js')}}"></script>
+    {% endif %}
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{asset('js/dataTables.materialize.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/jqColorPicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/dropzone.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript">
+        //--- Configuracion para el editor de textos del correo ---//
+        var tiny_emial = {
+            selector: "#correo",
+            plugins: [
+                'advlist autolink lists link image anchor',
+                'searchreplace media table paste textcolor'
+            ],
+            toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify fontselect fontsizeselect',
+            toolbar2: 'bullist numlist outdent indent | link image | forecolor backcolor',
+            menubar: false
+        };
+        {% if content['lang'] == 'es' %}
+            {% set tinyLang = "es_MX" %}
+        {% elseif content['lang'] == 'fr' %}
+            {% set tinyLang = "fr_FR" %}
+        {% elseif content['lang'] == 'pt' %}
+            {% set tinyLang = "pt_BR" %}
+        {% endif %}
+        {% if tinyLang is defined %}
+            tiny_emial['language'] = "{{tinyLang}}";
+        {% endif %}
+            tinymce.init(tiny_emial);
+            //--- Configuracion para el editor de textos para editar el nombre de las secciones ---//
+            var tiny_section = [];
+            $.each(idioms, function (i, idiom) {
+                tiny_section[idiom] = {
+                    selector: "#Nombre" + idiom,
+                    plugins: [
+                        'advlist autolink lists link image searchreplace charmap anchor textcolor media paste'
+                    ],
+                    toolbar1: 'undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+                    toolbar2: 'link | forecolor backcolor | fontselect fontsizeselect',
+                    menubar: false,
+                    statusbar: false,
+                    setup: function (editor) {
+                        editor.on('change', function (e) {
+                            if (editor.targetElm.id === "Nombre" + lang.toLocaleUpperCase()) {
+                                $('#card-demo .card-title').html(editor.getContent());
+                            }
+                            $('#' + editor.targetElm.id).val(editor.getContent());
+                        });
+                    }
+                };
+        {% if tinyLang is defined %}
+                tiny_section[idiom]['language'] = "{{tinyLang}}";
+        {% endif %}
+                tinymce.init(tiny_section[idiom]);
+            });
+
+    </script>
+    <script type="text/javascript" src="{{asset( ruta_asset ~ 'js/snippet.js')}}"></script>
+    <script type="text/javascript" src="{{asset( ruta_asset ~ 'js/administrador-formas.js')}}"></script>
+{% endblock %}

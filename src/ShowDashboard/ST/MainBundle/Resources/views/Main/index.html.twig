@@ -1,0 +1,14 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/ST/MainBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#<link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/mainDashboard.css') }}">#}
+{% endblock %}
+{% block content %}
+    <h2 class="center-align grey-text">ST Dashboard</h2>
+    <h4 class="center-align grey-text">En construcción</h4>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaSolicitudModificacionBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/select2.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_solicitud_modificacion.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% include 'EmpresaEmpresaBundle:Empresa:menu_secciones.html.twig' %}
+    <div id="aditional-data" class="container">
+        {% include 'EmpresaEmpresaBundle:Empresa:detalle_empresa.html.twig' %}
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <h5 style="margin: 0px;">{{content["section_text"]["sas_solicitudesModificacion"]}}</h5>
+            <table id="modification-request-table" class="highlight bordered">
+                <thead class="grey lighten-4">
+                    <tr>
+                        {% for header in content["modif_request_metadata"] %}
+                            {% if header["is_visible"] == true %}
+                                <th>{{ header["text"] }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        <th style="width: 5%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in content["detalleForma"] %}
+                        <tr id="{{ entity["idSolicitudCambio"] }}">
+                            <td class="id">
+                                {{ content["detalleForma"][entity["idSolicitudCambio"]]["idSolicitudCambio"]}}
+                            </td>
+                            <td class="idCampoModificacion">
+                                {% set campo = content["detalleForma"][entity["idSolicitudCambio"]]["idCampoModificacion"]%}
+                                {% if campo  %}
+                                    {{ content["modif_request_metadata"]['idCampoModificacion']["values"][campo]}}
+                                {% endif %}
+                            </td>
+                            <td class="Observacion">
+                                {% set observacion = content["detalleForma"][entity["idSolicitudCambio"]]["Observacion"]%}
+                                {% set catPrincipal = content["detalleForma"][entity["idSolicitudCambio"]]["CategoriaPrincipal"]%}
+                                {% set catSecundaria = content["detalleForma"][entity["idSolicitudCambio"]]["CategoriaSecundaria"]%}
+                                {% set catOtra = content["detalleForma"][entity["idSolicitudCambio"]]["OtraCategoria"]%}
+
+                                {% if observacion %}
+                                    {{ observacion }}<br>
+                                    {% if catPrincipal != "" %}
+                                        <b> {{ content["section_text"]["sas_categoriaPrincipal"] ~ " : "}}</b>
+                                        {{ content["modif_request_metadata"]['CategoriaPrincipal']["values"][catPrincipal] }}
+                                        {% if catSecundaria != "" %}<br>
+                                            <b> {{ content["section_text"]["sas_categoriaSecundaria"] ~ " : " }}</b>{{ content["modif_request_metadata"]['CategoriaSecundaria']["values"][catSecundaria] }}
+                                            {% if catOtra != "" %}<br>
+                                                <b> {{ content["section_text"]["sas_categoriaOtra"] ~ " : " }}</b> {{ catOtra }}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td class="status">
+                                {% if content["detalleForma"][entity["idSolicitudCambio"]]["StatusSolicitudCambio"] ==0 %}
+                                    {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][0]}}
+                                {% elseif content["detalleForma"][entity["idSolicitudCambio"]]["StatusSolicitudCambio"] ==1 %}
+                                    {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][1]}}
+                                {% elseif content["detalleForma"][entity["idSolicitudCambio"]]["StatusSolicitudCambio"] == 2 %}
+                                    {{ content["modif_request_metadata"]['StatusSolicitudCambio']["values"][2] }}
+                                {% endif %}
+                            </td>
+
+                            <td class="ObservacionComite">
+                                {% set observacionComite = content["detalleForma"][entity["idSolicitudCambio"]]["ObservacionComite"]%}
+                                {% if observacionComite=="" %}
+                                    {{ content["section_text"]["sas_sinObservaciones"] }}
+                                {% else %}
+                                    {{ observacionComite }}
+                                {% endif %}
+                            </td>
+                            <td class="FechaSolicitudCambio">
+                                {{ content["detalleForma"][entity["idSolicitudCambio"]]["FechaSolicitudCambio"]}}
+                            </td>
+                            <td>
+                                <i class="material-icons edit-record tooltipped"
+                                   data-position="top"
+                                   data-delay="50"
+                                   data-tooltip="{{ content['section_text']['sas_editarSolicitud'] }}"
+                                   data-id="{{entity['idSolicitudCambio']}}">mode_edit</i>
+                                <a href="{{ path('empresa_empresa_comercial', {'idEmpresa': content['idEmpresa']}) }}"
+                                   style="display: inline-block;"
+                                   <i class="material-icons dp48 tooltipped"
+                                   class="tooltipped"
+                                   data-position="top"
+                                   data-delay="50"
+                                   data-tooltip="{{ content['section_text']['sas_editarInformacionComercial'] }}">open_in_new</i>
+                                </a>
+                                {#<i class="material-icons delete-record tooltipped"
+                                   data-position="right"
+                                   data-delay="50"
+                                   data-tooltip="{{ content['general_text']['sas_eliminar'] }}"
+                                   data-id="{{entity['idSolicitudCambio']}}">delete_forever</i>#}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div id="delete-record-modal" class="modal">
+        <div class="modal-content">
+            <h6>{{content['section_text']['sas_eliminarRegistro']}}</h6>
+            <p id="deleteText"></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-red btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+            <button id="delete-record" type="button" class="modal-action waves-effect waves-red btn-flat red white-text" data-action="delete">{{content['general_text']['sas_eliminar']}}</button>
+        </div>
+    </div>
+    {% include 'EmpresaEmpresaSolicitudModificacionBundle:SolicitudModificacion:request_edit.html.twig'%}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_modification_request_update = "{{ path('empresa_empresa_solicitud_modificacion_editar') }}";
+        var url_modification_request_delete = "{{ path('empresa_empresa_solicitud_modificacion_borrar') }}";
+    </script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                var general_text = {{ content['general_text']|json_encode()|raw }};
+                var section_text = {{ content['section_text']|json_encode()|raw }};
+                var modification_request = {{ content['detalleForma']|json_encode()|raw }};
+                var fieldsForm = {{ content['camposforma']|json_encode()|raw }};
+                var categories = {{ content['categories']|json_encode()|raw }};
+                var idEmpresa = {{content['idEmpresa']}};
+                var idUsuario = {{content['idUsuario']}};
+                var idForma = {{content['idForma']}};
+                var lang = {{ content["lang"]|json_encode()|raw }};
+                var token = {{ content["token"]|json_encode()|raw }};
+
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/across-tabs.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_solicitud_modificacion.js') }}"></script>
+{% endblock %}

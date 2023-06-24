@@ -1,0 +1,198 @@
+{% set ruta_logo = 'images/logos-co/header/245x67.png' %}
+{% block stylesheets %}
+    <style type="text/css">
+        @page {
+            size: A4 portrait;
+            margin: 5%;
+        }
+        .row{
+            display:block !important;
+            page-break-before: always !important;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 7px;
+            font-size: 12px
+        }
+        table{
+            font-family:"Times New Roman", Georgia, Serif;
+        }
+        td{
+            width: 20px !important;
+        }
+        .pie{
+            margin-top: 120px;
+            text-align: right;
+            height: 25px;
+            font-size: 1.2rem;
+        }
+        .title{
+            font-weight: bold;
+            text-align: center;
+        }
+        .paid{font-size: 1rem; font-weight: bold}
+    </style>
+{% endblock%}
+
+{% block content %}
+    {% for empresa in content['empresas'] %}
+        <div class="row">
+            <h1 class="title">{{content['section_text']['sas_entregaGafetes']|upper}}</h1>
+            <h3 style="text-align:right">{{content['section_text']['sas_fechaGafetes']|upper}}</h3>
+            <table cellspacing="3" width="1037" >
+                <tr>
+                    <td colspan="15">
+                        <div style="width: 100%; text-align: left;"><img src="{{asset(ruta_logo)}}" alt="Antad 2017" style="width: 80px" /></div>
+                        <h3 style="font-weight: bold; width: 100%; text-align: center;">{{content['section_text']['sas_datosExpositorPDF']}}</h3>
+                        <p style="font-size: 12px; text-align: left">
+                            {{content['section_text']['sas_razonSocialPDF']}} {{empresa['RazonSocial']}} <br />
+                            {{content['section_text']['sas_nombreComercialPDF']}} {{empresa['NombreComercial']}} <br />
+                            {{content['section_text']['sas_nombreContactoPDF']}} {{empresa['Nombre']}}
+                        </p>
+                    </td>
+                    <td colspan="5">
+                        <p style="font-size: 14px;  width: 100%; text-align: center;">{{content['section_text']['sas_CodigoCliente']}}</p>
+                        <div style="font-size: 3rem; font-weight: bold; text-align: center;">{{empresa['CodigoAntad']}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="10">{{content['section_text']['sas_asesorPDF']}} {{empresa['Vendedor']}}</td>
+                    <td colspan="10">
+                        {% set stands_array = empresa['ListadoStands']|split(',')%}
+                        {{content['section_text']['sas_cantidadStatndsPDF']}} {{stands_array|length}} <br />
+                        {{content['section_text']['sas_listadoStandsPDF']}} {{empresa['ListadoStands']}} <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4"><p style="font-size: 13px">{{content['section_text']['sas_gafetesTotalesPDF']}}</p></td>
+                    <td colspan="4"><p style="font-size: 13px">{{content['section_text']['sas_gafetesManualPDF']}}</p></td>
+                    <td colspan="4"><p style="font-size: 13px">{{content['section_text']['sas_gafetesCostoPDF']}}</p></td>
+                    <td colspan="4"><p style="font-size: 13px">{{content['section_text']['sas_gafetesSinCostoPDF']}}</p></td>
+                    <td colspan="4"><p style="font-size: 13px">{{content['section_text']['sas_gafetesRestantesPDF']}}</p></td>
+                </tr>
+                {#--- suma edecanes debido a que a veces trae null desde la vista ---#}
+                {% set total_edecanes = 0 %}
+                {% set edecanes = 0 %}
+                {% set edecanes_costo = 0 %}
+                {% if empresa['EdecanesED'] > 0 %}
+                    {% set edecanes = empresa['EdecanesED'] %}
+                {% endif %}
+                {% if empresa['EdecanesCostoED'] > 0 %}
+                    {% set edecanes_costo = empresa['EdecanesCostoED'] %}
+                {% endif %}
+                {% set total_edecanes = edecanes + edecanes_costo %}
+                {% set restantes = empresa['TotalGafetesAsignados'] - (total_edecanes + empresa['GafetesCapturadosED'])  %}
+                <tr>
+                    <td colspan="4" rowspan="2"><p style="text-align: center; font-size: 3.5rem">{% if empresa['TotalGafetesAsignados'] > 0 %}{{empresa['TotalGafetesAsignados']}}{% else %}0{% endif %}</p></td>
+                    <td colspan="2">
+                        <p style="font-size: 10px">{{content['section_text']['sas_expositor']|upper}}</p>
+                        <p style="font-size: 2rem; text-align: center;">{% if empresa['GafetesCostoED'] > 0 %}{{empresa['GafetesCostoED']}}{% else %}0{% endif %}</p>
+                    </td>
+                    <td colspan="2">
+                        <p style="font-size: 10px">{{content['section_text']['sas_edecanesPDF']}}</p>
+                        <p style="font-size: 2rem; text-align: center;">{% if empresa['EdecanesCostoED'] > 0 %}{{empresa['EdecanesCostoED']}}{% else %}0{% endif %}</p>
+                    </td>
+                    <td colspan="2">
+                        <p style="font-size: 10px">{{content['section_text']['sas_expositor']|upper}}</p>
+                        <p style="font-size: 2rem; text-align: center;">{% if empresa['GafetesED'] > 0 %}{{empresa['GafetesED']}}{% else %}0{% endif %}</p>
+                    </td>
+                    <td colspan="2">
+                        <p style="font-size: 10px">{{content['section_text']['sas_edecanesPDF']}}</p>
+                        <p style="font-size: 2rem; text-align: center;">{% if empresa['EdecanesED'] > 0 %}{{empresa['EdecanesED']}}{% else %}0{% endif %}</p>
+                    </td>
+                    <td colspan="2">
+                        <p style="font-size: 10px">{{content['section_text']['sas_expositor']|upper}}</p>
+                        <p style="font-size: 2rem; text-align: center;">0</p>
+                    </td>
+                    <td colspan="2">
+                        <p style="font-size: 10px">{{content['section_text']['sas_edecanesPDF']}}</p>
+                        <p style="font-size: 2rem; text-align: center;">0</p>
+                    </td>
+                    <td colspan="4" rowspan="2">
+                        <p style="text-align: center;  font-size: 3.5rem">
+                            {% if empresa['TotalGafetesAsignados'] > 0 %}{%set TotalGafetesAsignados = empresa['TotalGafetesAsignados']%}{% else %}{% set TotalGafetesAsignados = 0 %}{% endif %}
+                            {% if empresa['GafetesCostoED'] > 0 %}{%set GafetesCostoED = empresa['GafetesCostoED']%}{% else %}{% set GafetesCostoED = 0 %}{% endif %}
+                            {% if empresa['EdecanesCostoED'] > 0 %}{%set EdecanesCostoED = empresa['EdecanesCostoED']%}{% else %}{% set EdecanesCostoED = 0 %}{% endif %}
+                            {{ TotalGafetesAsignados - GafetesCostoED - EdecanesCostoED }}
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height: 15px;">
+                    <td colspan="4"><span style="font-size: 10px">{{content['section_text']['sas_Observaciones']|capitalize}}:</span><br /><br /><br /><br /><br /><br /><br /></td>
+                    <td colspan="4"><span style="font-size: 10px">
+                            <span style="font-size: 10px">{{content['section_text']['sas_Observaciones']|capitalize}}:</span>
+                            <br />
+                            {% if empresa['Pagados'] is defined and empresa['Pagados'] == true %}
+                                <span class="paid">{{content['section_text']['sas_gafetesPagados']|upper}}</span>
+                            {% endif %}
+                            <br /><br /><br /><br /><br /><br />
+                    </td>
+                    <td colspan="4"><span style="font-size: 10px">{{content['section_text']['sas_Observaciones']|capitalize}}:</span><br /><br /><br /><br /><br /><br /><br /></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p style="font-size: 12px; text-align: center; ">
+                            <span>{{content['section_text']['sas_fecha']|upper}}</span>
+                            <span style="font-size: 9px">{{content['section_text']['sas_instruccionesFechaPDF']|raw}}</span>
+                        </p>
+                    </td>
+                    <td colspan="2" style="font-size: 12px; text-align: center;">
+                        {{content['section_text']['sas_gaetesEntregadosPDF']}}
+                    </td>
+                    <td colspan="6" style="font-size: 12px; text-align: center;">
+                        {{content['section_text']['sas_nombrePDF']}}
+                    </td>
+                    <td colspan="6" style="font-size: 12px; text-align: center;">
+                        {{content['section_text']['sas_cargoPDF']}}
+                    </td>
+                    <td colspan="6" style="font-size: 12px; text-align: center;">
+                        {{content['section_text']['sas_firmaPDF']}}
+                    </td>
+                </tr>
+                {% for item in 1..4%}
+                    <tr style="height: 20px">
+                        <td colspan="2">
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </td>
+                        <td colspan="2">
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </td>
+                        <td colspan="6" >
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </td>
+                        <td colspan="6">
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </td>
+                        <td colspan="6">
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {{content['section_text']['sas_instruccionesFinalesPDF']|raw}}
+            <p class="pie">FON-07 Rev. 6</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">window.print();</script>
+{% endblock %}

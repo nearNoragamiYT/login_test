@@ -1,0 +1,69 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EMarketingBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/emarketing.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>
+{% endblock %}
+{% block content %}
+    <section>
+        <div class="row card-panel">
+            <h5>{{content['section_text']['sas_emarketing']}}</h5>
+            <table id="tbl-emarketing" class="highlight bordered">
+                <thead>
+                    <tr>
+                        <th>{{content['section_text']['sas_emarketing']}}</th>
+                        <th>{{content['section_text']['sas_asunto']}}</th>
+                        <th>{{content['section_text']['sas_totalEnvios']}}</th>
+                        <th>{{content['section_text']['sas_vistas']}}</th>
+                        <th>{{content['section_text']['sas_verEmarketing']}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in content['emarketing'] %}
+                        <tr>
+                            <td>{{item['Nombre']}}</td>
+                            <td>{{item['Asunto']}}</td>
+                            <td>{{item['TotalEnvios']}}</td>
+                            <td>{{item['NumeroVistas']}}</td>
+                            <td>
+                                <a href="{{path('empresa_emarketing_detail', {'idEMarketing' : item['idEMarketing']})}}">
+                                    <i class="material-icons edit-record tooltipped show-loader-top"
+                                       data-tooltip="{{content['section_text']['sas_verEmarketing']}}"
+                                       data-position="left"
+                                       data-delay="50"
+                                       id-record="{{ item['idEMarketing'] }}">view_module</i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="fixed-action-btn" style="bottom: 60px; right: 90px;">
+            <a id="btn-add-emarketing" class="btn-floating btn-large green tooltipped"
+               id="send-email-to-all"
+               data-tooltip="{{ content["general_text"]["sas_nuevo"] }}"
+               data-position="left"
+               data-delay="50"
+               >
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+    </section>
+    {% include 'EmpresaEMarketingBundle:EMarketing:nuevo_emarketing.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var url_insert = '{{path('empresa_emarketing_nuevo')}}';
+        var url_emarketing = '{{path('empresa_emarketing_detail')}}';
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/lista_emarketing.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+{% endblock %}

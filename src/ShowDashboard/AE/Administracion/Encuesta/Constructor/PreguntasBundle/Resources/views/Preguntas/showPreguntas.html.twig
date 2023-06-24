@@ -1,0 +1,193 @@
+{% extends 'ShowDashboardAEAdministracionConfiguracionBundle:Base:baseAdministracion.html.twig' %}
+{% set ruta_asset_main_ae = 'resources/ShowDashboard/AE/Administracion/ConfiguracionBundle/' %}
+{% set ruta_asset = 'resources/ShowDashboard/AE/Administracion/Encuesta/Constructor/PreguntasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/preguntas.css') }}">
+{% endblock %}
+{% block content %}
+    {% set lang = content['lang'] is defined ? content['lang'] : lang %}
+    <div class="container-fluid">
+        <h5>{{ content['section_text']['sas_constructorEncuesta'] }} <b>{{ content['encuesta']['Encabezado'] }}</b></h5>
+        <table class="bordered highlight responsive-table z-depth-1 white tbl-preguntas">
+            <thead>
+                <tr>
+                    <th class="th-icon"></th>
+                    <th class="right-align th-id">{{ content['general_text']['sas_ID'] }}</th>
+                    <th>{{ content['section_text']['sas_pregunta'] }}</th>
+                    <th class="th-icon"></th>
+                    <th class="th-icon"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pregunta in content['preguntas'] %}
+                    <tr {% if pregunta["Activa"] == "0" %}class="grey-text"{% endif %} id-pregunta="{{ pregunta["idPregunta"] }}">
+                        <td><i class="material-icons icon-drag">drag_handle</i></td>
+                        <td class="right-align">{{ pregunta["idPregunta"] }}</td>
+                        <td>{{ pregunta['PreguntaES'] }}</td>
+                        <td class="center-align">
+                            <i class="material-icons edit-record" id-pregunta="{{ pregunta['idPregunta'] }}">edit</i>
+                        </td>
+                        <td class="center-align">
+                            {% if pregunta['Respuestas'] is not defined %}
+                                <i class="material-icons delete-record" id-pregunta="{{ pregunta['idPregunta'] }}">delete_forever</i>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">{{ content['section_text']['sas_sinPreguntas'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="fixed-action-btn">
+            <button class="btn-floating btn-large green waves-effect waves-light add-record">
+                <i class="large material-icons">add</i>
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-delete-pregunta" class="modal">
+        <form id="frm-pregunta-eliminar" action="{{ path('show_dashboard_ae_administracion_encuesta_constructor_pregunta_eliminar', {"lang": content["lang"], "idEncuesta": content["encuesta"]["idEncuesta"]}) }}" method="post" >
+            <input type="hidden" id="delete_idPregunta" name="delete[idPregunta]">
+            <div class="modal-content">
+                <h4>{{ content['section_text']['sas_eliminarPregunta'] }}</h4>
+                <p>{{ content['section_text']['sas_eliminarPreguntaAdvertencia'] }} <b class="pregunta-id"></b>?</p>
+                <p class="pregunta-texto"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_descartar'] }}</button>
+                <button type="submit" class="btn waves-effect waves-light red show-loader-wrapper">{{ content['general_text']['sas_eliminar'] }}</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="modal-info-pregunta" class="modal modal-fixed-footer">
+        <form id="frm-pregunta" action="{{ path("show_dashboard_ae_administracion_encuesta_constructor_preguntas", {"lang": content['lang'], "idEncuesta": content['encuesta']["idEncuesta"]}) }}" method="post">
+            <div class="modal-content">
+                <h4>{{ content['section_text']['sas_informacionPregunta'] }}</h4>
+                <input id="idPregunta" name="idPregunta" type="hidden">
+                <input id="idEncuesta" name="idEncuesta" type="hidden">
+                <input id="idEvento" name="idEvento" type="hidden">
+                <input id="idEdicion" name="idEdicion" type="hidden">
+                <div class="row">
+                    <div class="col s12">
+                        <ul id="tabs-lang" class="tabs z-depth-1">
+                            <li class="tab" lang='es'><a class="active">{{ content['general_text']['sas_es'] }}</a></li>
+                            <li class="tab" lang='en'><a>{{ content['general_text']['sas_en'] }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row tab-lang" lang='es'>
+                    <div class="col s12 input-field">
+                        <input id="PreguntaES" name="PreguntaES" type="text" class="validate">
+                        <label for="PreguntaES">{{ content['section_text']['ae_pregunta'] }} ({{ content['general_text']['sas_es'] }})</label>
+                    </div>
+                    <div class="col s12 input-field auxiliar-pregunta">
+                        <input id="DescripcionES" name="DescripcionES" type="text" class="validate">
+                        <label for="DescripcionES">{{ content['section_text']['sas_preguntaAuxiliar'] }} ({{ content['general_text']['sas_es'] }})</label>
+                    </div>
+                </div>
+                <div class="row tab-lang" lang='en'>
+                    <div class="col s12 input-field">
+                        <input id="PreguntaEN" name="PreguntaEN" type="text" class="validate">
+                        <label for="PreguntaEN">{{ content['section_text']['ae_pregunta'] }} ({{ content['general_text']['sas_en'] }})</label>
+                    </div>
+                    <div class="col s12 input-field auxiliar-pregunta">
+                        <input id="DescripcionEN" name="DescripcionEN" type="text" class="validate">
+                        <label for="DescripcionEN">{{ content['section_text']['sas_preguntaAuxiliar'] }} ({{ content['general_text']['sas_en'] }})</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 m3 input-field">
+                        <label for="idPreguntaTipo" class="active">{{ content['section_text']['sas_preguntaTipo'] }}</label>
+                        <select class="browser-default" id="idPreguntaTipo" name="idPreguntaTipo">
+                            <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                            {% for preguntaTipo in content['preguntaTipo'] %}
+                                <option value="{{ preguntaTipo['idPreguntaTipo'] }}">{{ preguntaTipo['PreguntaTipo'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="Columnas" name="Columnas" type="number" class="validate">
+                        <label for="Columnas">{{ content['section_text']['sas_columnas'] }}</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input id="zzOrden" name="zzOrden" type="number" class="validate">
+                        <label for="zzOrden">{{ content['section_text']['sas_orden'] }}</label>
+                    </div>
+                    <div class="col s6 m3 input-field">
+                        <input type="checkbox" id="Obligatoria" name="Obligatoria" value="1">
+                        <label for="Obligatoria">{{ content['general_text']['sas_obligatoria'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 m3">
+                        <div class="switch">
+                            <label>
+                                {{ content['general_text']['sas_activa'] }}
+                                <input type="checkbox" id="Activa" name="Activa" value="1">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col s6 m6">
+                        <input type="checkbox" id="auxiliar-pregunta-input">
+                        <label for="auxiliar-pregunta-input">{{ content['section_text']['sas_preguntaAuxiliar'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <h5 class="light">{{ content['section_text']['sas_respuestas'] }}</h5>
+                    </div>
+                </div>
+                <table class="bordered z-depth-1 white respuestas">
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="left-align">
+                                <button type="button" class="btn btn-flat green-text add-respuesta">{{ content['section_text']['sas_agregarRespuesta'] }}</button>
+                                <a class="add-respuesta-otro">{{ content['section_text']['sas_opcionOtro'] }}</a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close waves-effect btn-flat left">{{ content['general_text']['sas_descartar'] }}</button>
+                <button type="submit" class="btn waves-effect waves-green green">{{content['general_text']['sas_guardar']}}</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="modal-delete-respuesta" class="modal">
+        <form id="frm-respuesta-eliminar" action="{{ path("show_dashboard_ae_administracion_encuesta_constructor_respuesta_eliminar") }}" method="post" >
+            <input type="hidden" id="delete_r_idPregunta" name="delete_r[idPregunta]">
+            <input type="hidden" id="delete_r_idRespuesta" name="delete_r[idRespuesta]">
+            <div class="modal-content">
+                <h4>{{ content['section_text']['sas_eliminarRespuesta'] }}</h4>
+                <p>{{ content['section_text']['sas_eliminarRespuestaAdvertencia'] }} <b class="respuesta-id"></b>?</p>
+                <p class="respuesta-texto"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_descartar'] }}</button>
+                <button type="submit" class="btn waves-effect waves-light red">{{ content['general_text']['sas_eliminar'] }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% set lang = content['lang'] is defined ? content['lang'] : lang %}
+    <script src="{{ asset("js/jquery-ui.min.js") }}"></script>
+    <script>
+        var preguntas = {{ content['preguntas'] is defined ? content['preguntas']|json_encode()|raw : '{}' }};
+        var encuesta = {{ content['encuesta'] is defined ? content['encuesta']|json_encode()|raw : '{}' }};
+        var url_reordenar = "{{ path("show_dashboard_ae_administracion_encuesta_constructor_reordenar") }}";
+    </script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/preguntas.js') }}"></script>
+{% endblock %}

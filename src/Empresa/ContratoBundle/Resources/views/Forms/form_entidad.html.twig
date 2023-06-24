@@ -1,0 +1,103 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "mdl-entidad", "fixed": true, "size": "modal-m", "color": "green", "idButton": "save-entity" } %}
+{% block title %}{{content['section_text']['sas_entidadFiscal']}}{% endblock %}
+{% block body %}
+    <form id="frm-entidad" class="col s12">
+        <div class="frm-entidad">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="RazonSocial" name="RazonSocial" type="text" class="validate" maxlength="100">
+                    <label for="RazonSocial">{{content['section_text']['sas_razonSocial']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="RFC" name="RFC" type="text" class="validate" maxlength="50">
+                    <label for="RFC">{{content['section_text']['sas_rfc']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="Calle" name="Calle" type="text" class="validate" maxlength="100">
+                    <label for="Calle">{{content['section_text']['sas_calle']}}</label>
+                </div>
+            </div>
+            {#---
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="NumeroExterior" name="NumeroExterior" type="text" class="validate" maxlength="20">
+                    <label for="NumeroExterior">{{content['section_text']['sas_numeroExterior']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="NumeroInterior" name="NumeroInterior" type="text" class="validate" maxlength="20">
+                    <label for="NumeroInterior">{{content['section_text']['sas_numeroInterior']}}</label>
+                </div>
+            </div>
+             ---#}
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="CodigoPostal" name="CodigoPostal" type="text" class="validate" maxlength="20">
+                    <label for="CodigoPostal">{{content['section_text']['sas_codigoPostal']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="Ciudad" name="Ciudad" type="text" class="validate" maxlength="20">
+                    <label for="Ciudad">{{content['section_text']['sas_ciudad']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <select id="idPais" name="idPais" class="browser-default validate" loader-element=".progress-estado">
+                        <option value="">{{ content['general_text']['sas_seleccionaOpcion'] }}</option>
+                        {% for pais in content['paises'] %}
+                            <option value="{{ pais['idPais'] }}"
+                                    {% if content['contrato']['idPais'] is defined and pais['idPais'] == content['contrato']['idPais']%}selected{% endif %}
+                                    >{{ pais['Pais_' ~ lang|upper] }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="Pais" class="active">{{ content['general_text']['sas_pais'] }}</label>
+                    <input type="hidden" id="Pais" name="Pais" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <div class="progress-estado">
+                        <div class="progress indigo lighten-4"><div class="indeterminate indigo lighten-1"></div></div>
+                    </div>
+                    <select id="idEstado" name="idEstado" class="browser-default validate">
+                        <option value="">{{ content['general_text']['sas_sinOpcion'] }}</option>
+                        {% for estado in content['estados'] %}
+                            <option value="{{ estado['idEstado'] }}"
+                                    {% if content['contrato']['idEstado'] is defined and estado['idEstado'] == content['contrato']['idEstado']%}selected{% endif %}
+                                    >{{ estado['Estado'] }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="Estado" class="active">{{ content['section_text']['sas_estado'] }}</label>
+                    <input type="hidden" id="Estado" name="Estado" />
+                </div>
+            </div>
+            {#---
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="RepresentanteLegal" name="RepresentanteLegal" type="text" class="validate" maxlength="100">
+                    <label for="RepresentanteLegal">{{content['section_text']['sas_representanteLegal']}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="Email" name="Email" type="text" class="validate" maxlength="100">
+                    <label for="Email">{{content['section_text']['sas_email']}}</label>
+                </div>
+            </div>
+             ---#}
+            <input type="hidden" id="idEmpresa" name="idEmpresa" value="{{content['empresa']['idEmpresa']}}" />
+        </div>
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock %}
+

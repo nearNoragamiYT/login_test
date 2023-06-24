@@ -1,0 +1,30 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-show-detalle", "fixed": true, "size": "modal-l", "color": "green", "idButton": "btn-send-licences" } %}
+{% block title %}{{content['section_text']['sas_listadoLicencias']}}: {{content['header']['DC_NombreComercial']}}{% endblock %}
+{% block body %}
+    <table id="tbl-detalle-licencia" class="highlight">
+        <thead>
+            <tr>
+                <th width="2%">
+                    <input type="checkbox" id="btn-select-all" />
+                </th>
+                <th width="18%">{{content['section_text']['sas_codigoLectora']~" ("~content['section_text']["sas_licencia"]~")"}}</th>
+                <th>{{content['section_text']['sas_estadoActivacion']}}</th>
+                <th>{{content['section_text']['sas_disponibilidad']}}</th>
+                <th>{{content['section_text']['sas_ultimoDispositivo']}}</th>
+                <th>{{content['section_text']['sass_fechaExpiracion']}}</th>
+                <th>{{content['section_text']['sas_correoEtiqueta']}} </th>
+                <th width="5%">{{content['section_text']['sas_mostrarQr']}}</th>
+                <th width="5%">{{content['section_text']['sas_liberacionEmergencia']}}</th>
+                <th width="5%">{{content['section_text']['sas_mail']}}</th>
+                <th width="5%">Actualizar<br>Fecha de Expiracion</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block button %}
+    {{content['section_text']['sas_enviarLicencias']}}
+{% endblock %}

@@ -1,0 +1,4 @@
+show_dashboard_facturacion_datosfiscales:
+  path: /facturacion/datosfiscales
+  defaults:
+    { _controller: ShowDashboardFTDatosFiscalesBundle:DatosFiscales:index }

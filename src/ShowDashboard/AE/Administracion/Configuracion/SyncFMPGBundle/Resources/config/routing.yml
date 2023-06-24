@@ -1,0 +1,19 @@
+visitante_sync:
+    path:     /show-dashboard/ae/administracion/configuracion/sync
+    defaults: { _controller: VisitanteSyncFMPGBundle:Sync:sync }
+    
+visitante_sync_fields_pg:
+    path:     /show-dashboard/ae/administracion/configuracion/sync/fields/pg
+    defaults: { _controller: VisitanteSyncFMPGBundle:Sync:fieldsPG }   
+    
+visitante_sync_fields_fm:
+    path:     /show-dashboard/ae/administracion/configuracion/sync/fields/fm
+    defaults: { _controller: VisitanteSyncFMPGBundle:Sync:fieldsFM }   
+    
+visitante_sync_update_json:
+    path:     /show-dashboard/ae/administracion/configuracion/sync/updatejson
+    defaults: { _controller: VisitanteSyncFMPGBundle:Sync:updateJson }   
+    
+visitante_sync_get_json:
+    path:     /show-dashboard/ae/administracion/configuracion/sync/getjson
+    defaults: { _controller: VisitanteSyncFMPGBundle:Sync:getJson }   

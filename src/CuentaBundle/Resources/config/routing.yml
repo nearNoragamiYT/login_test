@@ -1,0 +1,3 @@
+cuenta:
+    path:     /cuenta
+    defaults: { _controller: CuentaBundle:Cuenta:cuenta }

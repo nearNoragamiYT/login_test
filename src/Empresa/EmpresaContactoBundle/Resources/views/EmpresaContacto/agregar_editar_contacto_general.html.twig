@@ -1,0 +1,53 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "add-general-contact-modal",
+                "fixed": true,
+                "size": "modal-m",
+                "color": "green",
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "btn-add-contact"
+            }
+%}
+{% block title %}
+    <h6 id="contact-head"></h6>
+{% endblock %}
+{% block body %}
+    <form id="add-contact-form" class="col s12">
+        <input type="hidden" id="idEmprea" name="idEmpresa" value="{{ content['idEmpresa'] }}">
+        <div class="input-field col s12">
+            <input id="Nombre" name="Nombre" type="text" class="validate toUpper" maxlength="100">
+            <label for="Nombre">{{content['section_text']['sas_nombreContacto']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="ApellidoPaterno" name="ApellidoPaterno" type="text" class="validate toUpper" maxlength="100">
+            <label for="ApellidoPaterno">{{content['section_text']['sas_paternoContacto']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="ApellidoMaterno" name="ApellidoMaterno" type="text" class="validate toUpper" maxlength="100">
+            <label for="ApellidoMaterno">{{content['section_text']['sas_maternoContacto']}}</label>
+        </div>
+        <div class="input-field col s12" >
+            <input id="Puesto" name="Puesto" type="text" class="validate toUpper" maxlength="100">
+            <label for="Puesto">{{content['section_text']['sas_puestoContacto']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="Email" name="Email" type="text" class="validate" maxlength="100">
+            <label for="Email">{{content['section_text']['sas_emailContacto']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="EmailAlterno" name="EmailAlterno" type="text" class="validate" maxlength="100">
+            <label for="EmailAlterno">{{content['section_text']['sas_emailAlternoContacto']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="Telefono" name="Telefono" type="text" class="validate" >
+            <label for="Telefono">{{content['section_text']['sas_telefono']}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="Celular" name="Celular" type="text" class="validate" >
+            <label for="Celular">{{content['section_text']['sas_celular']}}</label>
+        </div>
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

@@ -1,0 +1,4 @@
+services:
+#    visitante_sync_fmpg.example:
+#        class: Visitante\SyncFMPGBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

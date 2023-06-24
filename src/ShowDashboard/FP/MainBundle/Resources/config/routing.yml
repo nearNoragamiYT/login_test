@@ -1,0 +1,3 @@
+show_dashboard_fp:
+    path:     /show-dashboard/fp
+    defaults: { _controller: ShowDashboardFPMainBundle:Main:index }

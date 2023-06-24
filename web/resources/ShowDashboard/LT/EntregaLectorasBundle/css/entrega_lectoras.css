@@ -1,0 +1,108 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Jun 12, 2017, 4:26:11 PM
+    Author     : Eduardo
+*/
+/*-- split plugin --*/
+.gutter {
+    background-color: #eee;
+
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+    cursor: ew-resize;
+}
+
+.gutter.gutter-vertical {
+    cursor: ns-resize;
+}
+.gutter.gutter-vertical {
+    background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=')
+}
+
+.gutter.gutter-horizontal {
+    background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==')
+}
+.split {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.split, .gutter.gutter-horizontal {
+    float: left;
+}
+.split {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#flex {
+    display: flex;
+    flex-direction: row;
+}
+/*-- fin del los estilos del plugin --*/
+/*-- selectores por id --*/
+#mostrar-pdf{
+    width: 100%;
+    height: 500px;
+}
+#flex h5{
+    padding-bottom: 15px;
+    margin: 0% 3% 0% 3%;
+}
+/*-- selectores con clase --*/
+.notificacion{
+    padding: .2rem .5rem;
+    font-size: 12px;
+    border-radius: 5px;
+    display: inline-block;
+}
+.pago{
+    margin-top: 10px;
+}
+.service-description{
+    font-size: 11px;
+    color: #222222;
+}
+.service-description > *{
+    margin: 0px !important;
+    padding: 0px !important;
+}
+.invalid > i{
+    margin-top: -30px !important;
+}
+.descripcion{
+    color: #222222;
+    font-size: 10px;
+}
+.collapsible-body p {
+    padding: 0px;
+}
+.collapsible-header > span{
+    line-height: 2;
+    margin-top: 7px;
+}
+.lectoras-devueltas + label{
+    font-weight: bold;
+}
+.collapsible-body{
+    padding: 0px !important;
+}
+/*-- selectores por tag --*/
+main > section{
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+thead{
+    border-bottom: 3px solid #d0d0d0;
+}
+input[type=text][readonly=readonly]{
+    color: #777;
+    border-bottom: 1px dotted rgba(0,0,0,0.26);
+}

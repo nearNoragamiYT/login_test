@@ -1,0 +1,9 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "modal-confirm-delete", "size": "modal-s", "color": "red darken-2", "idButton": "delete-info"} %}
+{% block title %}{{content['section_text']['sas_atencion']}}{% endblock %}
+{% block body %}
+    <p id="info-delete"></p>
+{% endblock%}
+{% block button %}
+    {{content['general_text']['sas_aceptar']}}
+{% endblock%}

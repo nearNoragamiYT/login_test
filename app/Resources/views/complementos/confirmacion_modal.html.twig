@@ -1,0 +1,15 @@
+<div id="cancel-modal" class="modal modal-m trigger-modal">
+    <div class="orange white-text" style="padding: 10px;">
+        <h6>
+            <a class="modal-action modal-close btn-flat left waves-gray right x-close white-text">X</a>
+            <div class="modal-title">{{content['general_text']['sas_confirmar']}}</div>
+        </h6>
+    </div>
+    <div class="modal-content">
+        <p>{{content['general_text']['sas_confirmarCancelar']}}</p>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close btn-link waves-effect btn-flat left">{{content['general_text']['sas_cancelar']}}</a>
+        <button id="confirm-cancel" type="button" class="modal-action waves-effect waves-white btn-flat red darken-3 white-text">{% block button %}{{content['general_text']['sas_aceptar']}}{% endblock %}</button>
+    </div>
+</div>

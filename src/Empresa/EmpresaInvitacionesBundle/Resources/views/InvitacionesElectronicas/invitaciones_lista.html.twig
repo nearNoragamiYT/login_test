@@ -1,0 +1,168 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaInvitacionesBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/select2-materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset~'css/empresa_invitaciones.css')}}">
+{% endblock %}
+
+{% block content %}
+    {% include 'EmpresaEmpresaBundle:Empresa:menu_secciones.html.twig' %}
+    <div id="aditional-data" class="container">
+        <div class="row card-panel" style="margin-bottom: 25px;">
+            <div class="col s7">
+                <h5>{{content["header"]["DC_NombreComercial"]}}</h5>
+                <h6>
+                    {% if not(content["header"]["idEtapa"] is defined) %}
+                        {{ content["section_text"]["sas_prospecto"] }}
+                    {% elseif content["header"]["idEtapa"] == 1 %}
+                        {{ content["section_text"]["sas_precontratos"] }}
+                    {% elseif content["header"]["idEtapa"] == 2 %}
+                        {{ content["section_text"]["sas_expositor"] }}
+                    {% endif %}    
+                </h6>
+                {% if content["header"]["EMSTDListadoStand"] is defined %}
+                    <h6>{{ "Stands: " ~ content["header"]["EMSTDListadoStand"] }}</h6>
+                {% endif %}
+            </div>
+            <div class="col s5" style="text-align:right;">
+                {% if content["header"]["idPaquete"] is defined and content["header"]["idPaquete"] != "" %}
+                    <h5>{{ content["packages"][content["header"]["idPaquete"]]["Paquete" ~ content["lang"]|upper] }}</h5>
+                {% endif %}                                
+            </div>           
+        </div>
+        <div class="row card-panel" style="margin-bottom: 25px;">                                   
+            <h5 style="margin: 0px;">{{ content["section_text"]["sas_invitaciones_electronicas"] }}</h5>
+            <br>
+            <div class="col s12" style="text-align:center;" >
+                <button id="created-codes" type="button" class="btn blue" style="border-radius: 15px"> {{content["section_text"]["sas_ed_Creadas"]}}</button>   
+                <button id="sended-codes" type="button" class="btn blue darken-3" style="border-radius: 15px"> {{content["section_text"]["sas_ed_Enviadas"]}}</button>   
+                <button id="used-codes" type="button" class="btn blue darken-3" style="border-radius: 15px"> {{content["section_text"]["sas_ed_Usadas"]}}</button>   
+                <button id="rejected-codes" type="button" class="btn yellow darken-3" style="border-radius: 15px"> {{content["section_text"]["sas_ed_Rechazadas"]}}</button>   
+                <button id="canceled-codes" type="button" class="btn red darken-3" style="border-radius: 15px"> {{content["section_text"]["sas_ed_Canceladas"]}}</button>   
+                <button id="free-codes" type="button" class="btn green" style="border-radius: 15px"> {{content["section_text"]["sas_ed_Disponibles"]}}</button>   
+            </div> 
+            <br>
+            <table id="invitations-table" class="highlight bordered">
+                <thead class="grey lighten-4">
+                    <tr>
+                        {% for header in content["invitations_table_metadata"] %}
+                            {% if header["is_visible"] == true %}
+                                <th>{{ header["text"] }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        <th style="width: 5%;"></th>
+                    </tr>                     
+                </thead>
+                <tbody>   
+                    {% set band = 1%}
+                    {% for code in content['codes'] %}                       
+                        <tr id="{{ code["idCupon"] }}">
+                            <td class="Numero">{{band}}</td>
+                            <td class="idCupon" style="width: 120px;">{{code["idCupon"]}}</td>
+                            <td class="Cupon" >{{code["Cupon"]}}</td>
+                            <td class="idVisitante">
+                                {%if content['codes_visitors'][code["idCupon"]] is defined %}
+                                    {% set visitor_code = content['codes_visitors'][code["idCupon"]]%}                                
+                                    {{  visitor_code['idVisitante']}}
+                                {%else%}
+                                    {{"Sin invitado"}}
+                                {% endif %}                                                                
+                            </td>
+                            <td class="StatusCupon">
+                                {%if content['codes_status'][code["idCuponStatus"]]["CuponStatusES"] is defined %}                                                                
+                                     {{content['codes_status'][code["idCuponStatus"]]["CuponStatusES"]}}                            
+                                {%else%}
+                                    {{"Sin Status"}}
+                                {% endif %}                                                             
+                            </td>  
+                            <td class="FechaCreacion" style="width: 230px;">
+                                {{code["FechaCreacion"]}}
+                            </td>                            
+                            <td class="Cancelar" style="text-align:center; width: 100px;" >
+                                {% if code["idCuponStatus"] == '2' %}
+                                   <i class="material-icons cancel-invitation tooltipped" 
+                                   data-position="right" 
+                                   data-delay="50" 
+                                   data-tooltip="{{ content['section_text']['sas_cancelarInvitacion'] }}" 
+                                   data-id="{{code['idCupon']}}"
+                                   id="{{'cancel-invitation-'~code['idCupon']}}">clear</i> 
+                                {% endif %} 
+                                {% if code["idCuponStatus"] == '1' %}
+                                   <i class="material-icons delete-record tooltipped" 
+                                   data-position="right" 
+                                   data-delay="50" 
+                                   data-tooltip="{{ content['section_text']['sas_eliminarInvitacion'] }}" 
+                                   data-id="{{code['idCupon']}}"
+                                   id="{{'delete-invitation-'~code['idCupon']}}">delete_forever</i> 
+                                {% endif %} 
+                                
+                            </td>
+                            
+                        </tr>                        
+                    {% set band = band + 1%}
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="fixed-action-btn" style="bottom: 60px; right: 30px;">
+        <a class="btn-floating btn-large green tooltipped"
+           id="generate-invitation"
+           data-tooltip="{{ content["section_text"]["sas_agregarInvitacion"] }}"
+           data-position="left"
+           data-delay="50"
+           >
+            <i class="material-icons">add</i>
+        </a>
+    </div>    
+    {% include 'EmpresaEmpresaInvitacionesBundle:InvitacionesElectronicas:invitaciones_generar.html.twig' %}
+    <div id="modal-cancel-invitation" class="modal modal-m">
+    <div class="modal-content">
+        <h4 id="head-cancel-invitation">{{content['section_text']["sas_cancelarInvitacion"]}}</h4>     
+        <p id='message-cancel-invitation'></p><br>
+         <b>{{content["section_text"]["sas_ed_nota"]~': '}}</b>{{content["section_text"]["sas_ed_notaCancelarInvitacion"]}}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="modal-close btn-link waves-effect btn-flat left"> {{content['general_text']['sas_cancelar']}}</button>
+        <a href class="btn waves-effect waves-light show-loader-processing btn-cancel green " id="btn-cancel-invitation">{{'Aceptar'}}</a>
+    </div>
+    {#% include 'EmpresaEmpresaSolicitudModificacionBundle:SolicitudModificacion:request_edit.html.twig'%#}
+    </div>
+    <div id="modal-delete-invitation" class="modal modal-m">
+    <div class="modal-content">
+        <h4 id="head-delete-invitation">{{content['section_text']['sas_eliminarInvitacion']}}</h4>     
+        <p id='message-delete-invitation'></p><br>
+         <b>{{content["section_text"]["sas_ed_nota"]~': '}}</b>{{content["section_text"]["sas_ed_notaEliminarInvitacion"]}}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="modal-close btn-link waves-effect btn-flat left"> {{content['general_text']['sas_cancelar']}}</button>
+        <a class="btn waves-effect waves-light show-loader-processing btn-delete green " id="btn-delete-invitation">{{'Aceptar'}}</a>
+    </div>
+    </div>
+    
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}    
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";      
+        var general_text = {{ content['general_text']|json_encode()|raw }};
+        var section_text = {{ content['section_text']|json_encode()|raw }}; 
+        var codes = {{ content['codes']|json_encode()|raw}};
+        var idEmpresa = {{ content['idEmpresa']}};
+        var lang = {{ content["lang"]|json_encode()|raw}};
+        var route_generate_invitations = "{{ path("empresa_empresa_invitaciones_generar", {"idEmpresa": content['idEmpresa']}) }}";
+        var route_cancel_invitation = "{{ path("empresa_empresa_invitaciones_cancelar", {"idEmpresa": content['idEmpresa']}) }}";
+        var route_delete_invitation = "{{ path("empresa_empresa_invitaciones_eliminar", {"idEmpresa": content['idEmpresa']}) }}";
+        
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_invitaciones.js') }}"></script>
+{% endblock %}

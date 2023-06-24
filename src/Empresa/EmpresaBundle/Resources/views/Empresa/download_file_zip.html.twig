@@ -1,0 +1,104 @@
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.min.css') }}" media="screen,projection"/>
+    <style>
+        .not-edit {
+            background: rgb(154, 144, 144) !important;
+            cursor: not-allowed;
+            width: 100%;
+            z-index: 2;
+            top: 0%;
+            left: 0px;
+            opacity: 0.5;
+            transition: opacity .5s linear;
+            text-decoration: none;
+        }
+        .not-cursor{
+            pointer-events: none;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% if content['status'] == true %}
+        <div class="row" style="margin-top: 100px;">
+            <div class="col s2"></div>
+            <div class="col s8">
+                <div class="card-panel white">
+                    <h5 id="adce" class="center-align" style="color:black!important;"></h5><br>
+                    <h6 id="sdca" class="center-align" style="color:black!important;"></h6>
+                    <h6 class="center-align"><a class="" id="url" href="" target="_blank" download style="color:black !important; text-align: center !important; text-decoration: underline;"></a></h6>
+                </div>
+                <h5 id="nota" class="center-align" style="color:black!important;font-weight: 300;"></h5><br>
+                <h5 id="number" class="center-align" style="color:black!important;font-weight: 300;"></h5><br>
+            </div>
+            <div class="col s2"></div>
+        </div>
+    {%else%}
+
+    {%endif%}
+{% endblock %}
+
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/jquery-3.0.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+    <script>
+        var url_exist_compress_log = "{{ path('empresa_exist_compress_logos') }}";
+        var status
+                = {{ content['status']|json_encode()|raw }};
+        var url
+                = {{ content['url']|json_encode()|raw }};
+        var name_file
+                = {{ content['name-file']|json_encode()|raw }};
+
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            if (status == "true") {
+                $("#nota")[0].innerHTML = "Nota: Tienes un minuto para poder hacer la descarga.";
+                $("#adce")[0].innerHTML = "Archivo comprimido, descargado con exito...";
+                $("#sdca")[0].innerHTML = "Si la descarga no comienza automaticamente, da click aquí";
+                $("#url")[0].innerHTML = "Link de Descarga";
+                $("#url")[0].href = url;
+                window.open(url, 'Download');
+                var n = 1;
+                var l = document.getElementById("number");
+                var setint = window.setInterval(function () {
+                    l.innerHTML = n;
+                    if (n == 60) {
+                        clearTimeout(setint);
+                        $('.card-panel').addClass('not-edit');
+                        $('#url').addClass('not-cursor');
+                        var name_file_ = "name=" + name_file;
+                        $.ajax({
+                            type: "post",
+                            url: url_exist_compress_log,
+                            dataType: 'json',
+                            data: name_file_,
+                            success: function (response) {
+                                if (!response['status']) {
+                                    Materialize.toast('Error, no se pudo eliminar el archivo del servidor, intente de nuevo más tarde', 4000);
+                                    return;
+                                }
+                                Materialize.toast('Archivo comprimido eliminado del servidor, vuelva hacer de nuevo la petición para poder descargarlo', 6000);
+
+                            },
+                            error: function (request, status, error) {
+                                Materialize.toast(request.responseText, 4000);
+                            }
+                        });
+
+
+
+                    }
+                    n++;
+                }, 1000);
+            }
+
+
+        });
+    </script>
+
+{% endblock %}

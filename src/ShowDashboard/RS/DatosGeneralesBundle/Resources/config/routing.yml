@@ -1,0 +1,23 @@
+visitante_datos_generales_rs:
+    path:     rs/visitante/datosgenerales/{idVisitante}
+    defaults: { _controller: ShowDashboardRSDatosGeneralesBundle:DatosGenerales:DatosGenerales, idVisitante: 0}
+
+visitante_datos_generales_update_rs:
+    path:     rs/visitante/update
+    defaults: { _controller: ShowDashboardRSDatosGeneralesBundle:DatosGenerales:updateGeneralData}
+
+visitante_perfil_rs:
+    path:     rs/visitante-perfil
+    defaults: { _controller: ShowDashboardRSDatosGeneralesBundle:DatosGenerales:VisitantePerfil }
+
+visitante_perfil_getdatatable_rs:
+    path:     rs/getdatatable
+    defaults: { _controller: ShowDashboardRSDatosGeneralesBundle:DatosGenerales:getDataTable }
+    
+visitante_perfil_stats_rs:
+    path:     rs/getperfil-stats
+    defaults: { _controller: ShowDashboardRSDatosGeneralesBundle:DatosGenerales:getStats }   
+    
+visitante_perfil_rs:
+    path:     rs/visitante/perfil/{idVisitante}
+    defaults: { _controller: ShowDashboardRSDatosGeneralesBundle:DatosGenerales:Perfil, idVisitante: 0}

@@ -1,0 +1,58 @@
+{% set contacto = content['contrato']['Contactos'][3] %}
+<tr>
+    <td colspan="4">
+        <table border="1" width="100%">
+            <tr style="background-color: #eee;">
+                <td colspan="5" style="color: black;font-size: 14px;">
+                    {{content['section_text']['sas_contacto']|upper}} - {{content['section_text']['sas_atencionEvento']|upper}}
+                </td>
+                <td  style="color: white;font-size: 14px; background-color: black; text-align: center;">
+                    3
+                </td>
+            </tr>
+            <tr>
+                <td  style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_nombreContacto']}}
+                </td>
+                <td colspan="2" style="color: black;font-size: 10px; text-align: left; ">
+                    {{contacto["Nombre"] ~ " " ~ contacto["ApellidoPaterno"] ~ " " ~ contacto["ApellidoMaterno"]}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_puestoContacto']}}
+                </td>
+                <td  colspan="2" style="color: black;font-size: 10px; text-align: left;">
+                    {{contacto["Puesto"]}}
+                </td>
+            </tr>
+            <tr>
+            <td style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_correo']}}
+                </td>
+                <td colspan="2" style="color: black;font-size: 10px; text-align: left;">
+                    {{contacto['Email']}}
+                </td>
+               
+                <td style="color: black;font-size: 10px; text-align: right; ">
+                    {{content['section_text']['sas_celular']}}
+                </td>
+                <td colspan="2" style="color: black;font-size: 10px; text-align: left;">
+                    {{contacto['Telefono']}}
+                </td>
+            </tr>
+            {#<tr>
+                <td style="color: black;font-size: 10px; text-align: left; ">
+                    {{content['section_text']['sas_email']}}
+                </td>
+                <td colspan="2" style="color: black;font-size: 10px; text-align: right; ">
+                    {{contacto['Email']}}
+                </td>
+                <td style="color: black;font-size: 10px; text-align: right; ">
+                    Email Alternativo
+                </td>
+                <td colspan="2" style="color: black;font-size: 10px; text-align: right; ">
+                    TEST
+                </td>
+            </tr>#}
+        </table>
+    </td>
+</tr>

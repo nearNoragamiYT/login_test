@@ -1,0 +1,22 @@
+empresa_solicitud_paquete_mostrar:
+    path:     /
+    defaults: { _controller: EmpresaSolicitudPaqueteBundle:SolicitudPaquete:mostrar }
+#cancela la solicitud
+empresa_solicitud_paquete_cancelar_solicitud:
+    path:     /cancelar-solicitud/{idSolicitud}
+    defaults: { _controller: EmpresaSolicitudPaqueteBundle:SolicitudPaquete:cancelarSolicitud, idSolicitud:0 }
+    methods: POST
+    requirements:
+        idSolicitud: \d+
+#aprueba la solicitud
+empresa_solicitud_paquete_aprobar_solicitud:
+    path:     /aprobar-solicitud/{idSolicitud}
+    defaults: { _controller: EmpresaSolicitudPaqueteBundle:SolicitudPaquete:aprobarSolicitud, idSolicitud:0 }
+    methods: POST
+    requirements:
+        idSolicitud: \d+
+#enviar un email al expositor
+empresa_solicitud_paquete_enviar_email:
+    path:     /enviar-email
+    defaults: { _controller: EmpresaSolicitudPaqueteBundle:SolicitudPaquete:enviarEmail }
+    methods: POST

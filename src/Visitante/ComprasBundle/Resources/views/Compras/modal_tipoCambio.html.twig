@@ -1,0 +1,27 @@
+{% extends ":complementos:base_modal.html.twig" %}
+{% set conf = { "id": "change-tipoCambio-modal", 
+                "fixed": true, 
+                "size": "modal-s", 
+                "color": "green", 
+                "textColor": "white-text",
+                "confirmCancel": true,
+                "idButton": "save-tipoCambio" 
+            } 
+%}
+{% block title %}
+    Actualizar el tipo de Cambio
+{% endblock %}
+{% block body %}
+    <form id="update-tasaCambio-form" class="col s12">
+        <div class="input-field col s12">
+            <p><b>Tipo de Cambio Actual:</b><span id="tipoCambioActual"></span></p>
+        </div>
+        <div class="input-field col s12">
+            <input type="text" id="TipoCambio" class="validate required" name="TipoCambio" value="">
+            <label for="TipoCambio">Nuevo Tipo de Cambio</label>
+        </div>
+    </form>
+{% endblock %}
+{% block button %}
+    {{content['general_text']['sas_guardar']}}
+{% endblock%}

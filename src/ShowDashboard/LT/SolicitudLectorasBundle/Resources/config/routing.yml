@@ -1,0 +1,37 @@
+show_dashboard_lt_solicitud_lectoras_mostrar:
+    path:     /{idEmpresa}
+    defaults: { _controller: ShowDashboardLTSolicitudLectorasBundle:SolicitudLectoras:mostrar, idEmpresa:0 }
+    methods: GET
+    requirements:
+        idEmpresa: \d+
+
+show_dashboard_lt_solicitud_lectoras_solicitar_lectoras:
+    path:     /solicitar-lectora/{idEmpresa}
+    defaults: { _controller: ShowDashboardLTSolicitudLectorasBundle:SolicitudLectoras:solicitarLectoras , idEmpresa:0 }
+    methods: POST
+    requirements:
+        idEmpresa: \d+
+show_dashboard_lt_solicitud_lectoras_actualizar_estatus_pago:
+    path:     /actualizar-estatus-pago
+    defaults: { _controller: ShowDashboardLTSolicitudLectorasBundle:SolicitudLectoras:actualizarEstatusPago }
+    methods: POST
+show_dashboard_lt_solicitud_lectoras_actualizar_forma_pago:
+    path:     /actualizar-forma-pago
+    defaults: { _controller: ShowDashboardLTSolicitudLectorasBundle:SolicitudLectoras:actualizarFormaPago }
+    methods: POST
+show_dashboard_lt_solicitud_lectoras_actualizar_fecha_pago:
+    path:     /actualizar-fecha-pago
+    defaults: { _controller: ShowDashboardLTSolicitudLectorasBundle:SolicitudLectoras:actualizarFechaPago }
+    methods: POST
+show_dashboard_lt_solicitud_lectoras_actualizar_detalle_pago:
+    path:     /actualizar-detalle-pago
+    defaults: { _controller: ShowDashboardLTSolicitudLectorasBundle:SolicitudLectoras:actualizarDetallePago }
+    methods: POST
+
+show_dashboard_lt_solicitud_lectoras_nueva_entidad_fiscal:
+    path:     /nueva-entidad-fiscal
+    defaults: { _controller: ShowDashboardLTSolicitudLectorasBundle:SolicitudLectoras:nuevaEntidadFiscal }
+
+show_dashboard_lt_solicitud_lectoras_guardar_entidad_fiscal:
+    path:     /guardar-entidad-fiscal
+    defaults: { _controller: ShowDashboardLTSolicitudLectorasBundle:SolicitudLectoras:guardarEntidaFiscal }

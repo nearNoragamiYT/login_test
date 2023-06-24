@@ -1,0 +1,140 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Empresa/EmpresaFormasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_formas.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% include 'EmpresaEmpresaBundle:Empresa:menu_secciones.html.twig' %}
+    <div id="comercial-company" class="container-fluid">
+        {% include 'EmpresaEmpresaBundle:Empresa:detalle_empresa.html.twig' %}
+        <div class="col s12 card">
+            <div class="card-content">
+                <table id="table-forms">
+                    <thead class="blue-grey darken-3 white-text">
+                        <tr>
+                            <th>{{content['section_text']['sas_forma']}}</th>
+                            <th>{{content['section_text']['sas_fechaLimiteTH']|raw}}</th>
+                            <th>{{content['section_text']['sas_ultimaActualizacionTH']|raw}}</th>
+                            <th>{{content['section_text']['sas_estatus']}}</th>
+                            <th>{{content['general_text']['sas_enlace']}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set idpqt = content["header"]["idPaquete"] %}
+                        {% for f in content['formas'] %}
+                            {% if f['idSeccionFormatos'] == 1000 %}
+                                {% for id,i in content['fopq'][idpqt] %}
+                                    {% if id == f['idForma'] %}
+                                        <tr id="form-{{f['idForma']}}">
+                                            <td>{{f['NombreForma' ~ content['lang']|upper]}}</td>
+                                            <td>
+                                                {% if f['FechaLimite'] is defined and f['FechaLimite'] != null%}
+                                                    {{f['FechaLimite']}}
+                                                {% else %}
+                                                    {{content['section_text']['sas_sinDefinir']}}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if f['FechaModificacionWeb'] is defined and f['FechaModificacionWeb'] != null and f['StatusForma'] == 1 %}
+                                                    {{f['FechaModificacionWeb']}}
+                                                {% else %}
+                                                    {{content['section_text']['sas_formaNoLlena']}}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% set cls = "green-text fa-unlock-alt" %}
+                                                {% if f['Bloqueado'] is defined and f['Bloqueado'] == 1 %}
+                                                    {% set cls = "amber-text fa-lock" %}
+                                                {% endif %}
+                                                <i class="tooltipped fa lock-status fa-2x {{cls}}" id="status-{{f['idForma']}}" data-id="{{f['idForma']}}" data-value="{{f['Bloqueado']}}" data-position="top" data-tooltip="{{content['section_text']['sas_cambiarEstatus']}}"></i>
+                                            </td>
+                                            <td>
+                                                {% set disabled = "" %}
+                                                {% if f['FormaPago' ~ content['lang']|upper] is defined and f['FormaPago' ~ content['lang']|upper] != null %}
+                                                    {% set disabled = "disabled" %}
+                                                {% endif %}
+                                                <a target="_blank" class="btn btn-flat waves-effect waves-grey {{disabled}}" href="{{f['LinkEDForma'] ~ content['user']['idUsuario'] ~ '/' ~ f['idForma'] ~ '/' ~ content['token'] ~ '/' ~ content['lang']}}">
+                                                    <i class="fa fa-pencil-square-o blue-text"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <tr id="form-{{f['idForma']}}">
+                                    <td>{{f['NombreForma' ~ content['lang']|upper]}}</td>
+                                    <td>
+                                        {% if f['FechaLimite'] is defined and f['FechaLimite'] != null%}
+                                            {{f['FechaLimite']}}
+                                        {% else %}
+                                            {{content['section_text']['sas_sinDefinir']}}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if f['FechaModificacionWeb'] is defined and f['FechaModificacionWeb'] != null and f['StatusForma'] == 1 %}
+                                            {{f['FechaModificacionWeb']}}
+                                        {% else %}
+                                            {{content['section_text']['sas_formaNoLlena']}}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% set cls = "green-text fa-unlock-alt" %}
+                                        {% if f['Bloqueado'] is defined and f['Bloqueado'] == 1 %}
+                                            {% set cls = "amber-text fa-lock" %}
+                                        {% endif %}
+                                        <i class="tooltipped fa lock-status fa-2x {{cls}}" id="status-{{f['idForma']}}" data-id="{{f['idForma']}}" data-value="{{f['Bloqueado']}}" data-position="top" data-tooltip="{{content['section_text']['sas_cambiarEstatus']}}"></i>
+                                    </td>
+                                    <td>
+                                        {% set disabled = "" %}
+                                        {% if f['FormaPago' ~ content['lang']|upper] is defined and f['FormaPago' ~ content['lang']|upper] != null %}
+                                            {% set disabled = "disabled" %}
+                                        {% endif %}
+                                        <a target="_blank" class="btn btn-flat waves-effect waves-grey {{disabled}}" href="{{f['LinkEDForma'] ~ content['user']['idUsuario'] ~ '/' ~ f['idForma'] ~ '/' ~ content['token'] ~ '/' ~ content['lang']}}">
+                                            <i class="fa fa-pencil-square-o blue-text"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+    </script>
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+                url_update_status = "{{path('empresa_empresa_formas_actualiza_bloqueo', {idEmpresa: content['idEmpresa']})}}";
+        {% if content['Adicional'] is defined and content['Adicional'] == true %}
+            $(document).find('input, textarea, button, select, option').not('#confirm-cancel, .x-close').attr('disabled', true);
+            $(document).find('.modal .waves-green, .delete-record, .green').addClass('no-action');
+            var items = document.getElementsByClassName('no-action');
+            $.each(items, function (i, v) {
+                var id = $(this).attr('id');
+                if (id !== undefined) {
+                    document.getElementById(id).addEventListener('click', function (e) {
+                        e.stopPropagation();
+                    }, true);
+                } else {
+                    v.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                    }, true);
+                }
+            });
+        {% endif %}
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_formas.js') }}"></script>
+{% endblock %}

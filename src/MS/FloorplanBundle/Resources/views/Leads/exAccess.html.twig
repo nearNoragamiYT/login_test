@@ -1,0 +1,103 @@
+{% extends 'MSFloorplanBundle:exAccess:base_main_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/MS/FloorplanBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}    
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/datatables.responsive.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/dynamic_table.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/> 
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/exhibitor.css') }}">  
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/exAccess.css') }}">  
+{% endblock %}
+
+{% block content %}
+    <div class="navbar-fixed">
+        <nav class="white">
+            <div class="nav-wrapper">
+                <h4 id="exName" class="header black-text"></h4>                        
+
+            </div>
+        </nav>
+    </div>
+    <div id="export" class="fixed-action-btn horizontal click-to-toggle">
+        <a class="btn-floating btn-large blue">
+            <i class="material-icons">file_download</i>
+        </a>
+        <ul id="user-export">
+        </ul>
+    </div>
+
+    <form method="POST" id="form-export" target="_blank" action="{{ path('ms_ex_export') }}">
+        <input type="hidden" value="{{ content['FechaIni'] }}" id="ini">
+        <input type="hidden" value="{{ content['FechaFin'] }}" id="fin">
+    </form>        
+    <div class="row valign-wrapper">
+        <div class="col s12 l5">
+            <label for="from" >{{ content["textos"]["ms_fechaInicio"]}}</label>
+            <input id="from" type="date" class="datepicker" value="{{ content['FechaIni']}}">
+        </div>
+        <div class="col s12 l5">
+            <label for="to">{{ content["textos"]["ms_fechaFin"]}}</label>
+            <input id="to" type="date" class="datepicker" value="{{ content['FechaFin']}}">
+        </div>
+        <div class="col s12 l2 ">
+            <a class=" valign btn update green darken-3">{{ content["textos"]["ms_textoAplicar"]}}</a>
+        </div>
+    </div>    
+    <div class="row white">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s4"><a class="blue-text" href="#tab_a">{{ content["textos"]["ms_textoGeneral"]}}</a></li>
+                <li class="tab col s4"><a class="blue-text" href="#tab_b">{{ content["textos"]["ms_textoVisitantes"]}}</a></li>                       
+                <div class="indicator blue darken-2"></div>
+            </ul>
+        </div>
+        <div id="tab_a" class="col s12">
+            {% include 'MSFloorplanBundle:ex:details.html.twig' %}
+        </div>
+        <div id="tab_b" class="col s12">
+            {% include 'MSFloorplanBundle:ex:visitors.html.twig' %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}  
+    <script>
+        var ms_lang={{ content['textos']|json_encode()|raw }};
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+                url_graph_ed_ex_details = "{{ path('ms_ex_detalles') }}",
+                url_graph_ed_ex_details_day = "{{ path('ms_ex_detalles_dia') }}",
+                url_graph_ed_ex_products = "{{ path('ms_productos') }}"
+        ,
+                idExpositor = "{{ content['idExpositor'] }}",
+                visitor_table_columns = {{ content['visitor_table_columns']|json_encode()|raw }},
+                visitor_table_column_categories = {{ content['visitor_table_column_categories']|json_encode()|raw }},
+        url_get_visitors = "{{ path("ms_ex_visitor_get") }}",
+                url_get_visitors_tour = "{{ path("ms_ex_visitor_get_tour") }}",
+                url_visitor_get_to_dt = "{{ path("ms_ex_visitor_get_to_datatable") }}",
+                url_export_general_data = "{{ path("ms_ex_visitor_export_general_data") }}";
+        var img_excel = "{{ asset(ruta_asset ~ "image/excel.png") }}";
+        var evName = "{{ content['NombreEvento'] }}";
+        {% if content['packages'] is defined %}
+            var packages = {{ content['packages']|json_encode()|raw }};
+        {% endif %} 
+    </script>
+    <script src="{{ asset(ruta_asset ~ 'js/default.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.responsive.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.columnFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/selectFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.customFilter.js') }}"></script>         
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.js') }}"></script>   
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/dynamic_table.js') }}"></script>
+    <script src="{{asset(ruta_asset ~ 'js/datepickerLang/' ~ lang ~ '.js')}}"></script>
+    <script src="{{ asset('js/dataTables.materialize.js') }}"></script> 
+    <script src="{{ asset( ruta_asset ~ 'js/exhibitor.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+    </script>
+    <script>
+        $('.datepicker').pickadate();
+    </script>    
+{% endblock %}

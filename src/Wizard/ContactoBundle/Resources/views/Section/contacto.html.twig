@@ -1,0 +1,205 @@
+{% extends 'WizardWizardBundle:Wizard:showWizard.html.twig' %}
+
+{% set ruta_asset_section = 'resources/Wizard/ContactoBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset_section ~ 'css/contacto.css') }}">
+{% endblock %}
+
+{% block content_step %}
+    <section id="wizard-contacto-comite-organizador">
+        <h5 class="wizard-title-step">{{ content['section_text']['sas_tituloPaso4'] }} <i class="comite-organizador">{% if content['comiteOrganizador']['ComiteOrganizador'] is defined %}{{ content['comiteOrganizador']['ComiteOrganizador'] }}{% endif %}</i></h5>
+        <div class="contactos" {% if content['contactos']|length == 0 %}style="display: none;"{% endif %}>
+            <div class="row">
+                {% for contacto in content['contactos'] %}
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="fixed-action-btn horizontal click-to-toggle right">
+                                    <a class="btn-floating waves-effect transparent z-depth-0">
+                                        <i class="material-icons black-text ">more_vert</i>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a class="btn-floating blue white-text">
+                                                <i class="material-icons edit" 
+                                                   id-contacto="{{ contacto['idContactoComiteOrganizador'] }}"
+                                                   title="{{ content['general_text']['sas_editar'] }}"
+                                                   >edit</i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn-floating red white-text">
+                                                <i class="material-icons delete" 
+                                                   id-contacto="{{ contacto['idContactoComiteOrganizador'] }}"
+                                                   title="{{ content['general_text']['sas_eliminar'] }}"
+                                                   >delete_forever</i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="card-title"><h5>{{ contacto['Nombre'] }}</h5></span>
+                                <p>
+                                    {{ contacto['Puesto'] }}
+                                    <br>
+                                    <a href="mailto: {{ contacto['Email'] }}">{{ contacto['Email'] }}</a>
+                                </p>
+                                <div class="bottom-info row">
+                                    <div class="col s12 m6 left-align">
+                                        <img class="logo-co" src="{{ asset('images/logos-co/' ~ contacto['Logo']) }}" alt="{{ contacto['Logo'] }}">
+                                    </div>
+                                    <div class="col s12 m6">
+                                        {{ contacto['Telefono'] }}
+                                        <br>
+                                        {{ contacto['RedSocial'] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if loop.last%}
+                            <button class="btn-floating btn-large waves-effect waves-light right green btn-new-ef" title="{{ content['section_text']['sas_nuevoContacto'] }}"><i class="material-icons">add</i></button>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="nav-buttons">
+                <a href="{{ path('wizard_entidad_fiscal') }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['general_text']['sas_atras'] }}</a>
+                <a href="{{ path('wizard_evento') }}" class="btn waves-effect waves-light green show-loader-top">{{ content['general_text']['sas_siguiente'] }}</a>
+            </div>
+        </div>
+        <div class="frm-contacto-comite-organizador" {% if content['contactos']|length > 0 %}style="display: none;"{% endif %}>
+            <form id="frm-contacto-comite-organizador" action="{{ path('wizard_contacto') }}" method="post">
+                <input type="hidden" 
+                       id="idContactoComiteOrganizador" 
+                       name="idContactoComiteOrganizador"
+                       {% if content['contacto']['idContactoComiteOrganizador'] is defined %}
+                           value="{{ content['contacto']['idContactoComiteOrganizador'] }}"
+                       {% endif %}
+                       >
+                <input type="hidden" 
+                       id="idComiteOrganizador" 
+                       name="idComiteOrganizador"
+                       {% if content['configuration']['idComiteOrganizador'] is defined %}
+                           value="{{ content['configuration']['idComiteOrganizador'] }}"
+                       {% endif %}
+                       >
+                <div class="row">
+                    <div class="input-field col s12 m12">
+                        <input id="Nombre" 
+                               name="Nombre"
+                               type="text" 
+                               class="validate" 
+                               {% if content['contacto']['Nombre'] is defined %}
+                                   value="{{ content['contacto']['Nombre'] }}"
+                               {% endif %}
+                               >
+                        <label for="Nombre">{{ content['general_text']['sas_nombre'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="Email" 
+                               name="Email"
+                               type="email" 
+                               class="validate" 
+                               {% if content['contacto']['Email'] is defined %}
+                                   value="{{ content['contacto']['Email'] }}"
+                               {% endif %}
+                               >
+                        <label for="Email">{{ content['general_text']['sas_email'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="Puesto" 
+                               name="Puesto"
+                               type="text" 
+                               class="validate" 
+                               {% if content['contacto']['Puesto'] is defined %}
+                                   value="{{ content['contacto']['Puesto'] }}"
+                               {% endif %}
+                               >
+                        <label for="Puesto">{{ content['general_text']['sas_puesto'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="Telefono" 
+                               name="Telefono"
+                               type="text" 
+                               class="validate" 
+                               {% if content['contacto']['Telefono'] is defined %}
+                                   value="{{ content['contacto']['Telefono'] }}"
+                               {% endif %}
+                               >
+                        <label for="Telefono">{{ content['general_text']['sas_telefono'] }}</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="RedSocial" 
+                               name="RedSocial"
+                               type="text" 
+                               class="validate" 
+                               {% if content['contacto']['RedSocial'] is defined %}
+                                   value="{{ content['contacto']['RedSocial'] }}"
+                               {% endif %}
+                               >
+                        <label for="RedSocial">{{ content['section_text']['sas_redSocial'] }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        {#<input id="Telefono" 
+                               name="Telefono"
+                               type="text" 
+                               class="validate" 
+                               {% if content['contacto']['Telefono'] is defined %}
+                                   value="{{ content['contacto']['Telefono'] }}"
+                               {% endif %}
+                               >
+                        <label for="Telefono">{{ content['general_text']['sas_telefono'] }}</label>#}
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    {% if content['contactos']|length > 0 %}
+                        <button type="button" class="btn-link waves-effect btn-flat left btn-cancel-submit">{{ content['general_text']['sas_cancelar'] }}</button>
+                    {% else %}
+                        <a href="{{ path('wizard_entidad_fiscal') }}" class="btn-link waves-effect btn-flat left show-loader-top">{{ content['general_text']['sas_atras'] }}</a>
+                        <a href="{{ path('wizard_contacto_omitir') }}" class="btn-link waves-effect btn-flat show-loader-top">{{ content['general_text']['sas_omitir'] }}</a>
+                    {% endif %}
+                    <button type="submit" class="btn waves-effect waves-light green">
+                        {% if content['contactos']|length > 0 %}
+                            {{ content['general_text']['sas_guardar'] }}
+                        {% else %}
+                            {{ content['general_text']['sas_siguiente'] }}
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <div id="modal-delete-contacto" class="modal">
+        <form id="frm-contacto-eliminar" action="{{ path('wizard_contacto_eliminar') }}" method="post">
+            <input type="hidden" id="idContactoComiteOrganizador" name="idContactoComiteOrganizador" value="" >
+            <div class="modal-content">
+                <h4>{{ content['section_text']['sas_eliminarContacto'] }}</h4>
+                <p>{{ content['section_text']['sas_eliminarContactoAdvertencia'] }} "<b class="contacto"></b>"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close btn-link waves-effect btn-flat left">{{ content['general_text']['sas_cancelar'] }}</button>
+                <button type="submit" class="btn waves-effect waves-light red show-loader-wrapper">{{ content['general_text']['sas_eliminar'] }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var contactos
+        = {{ content['contactos']|length ? content['contactos']|json_encode()|raw : '{}' }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset_section ~ 'js/contacto.js') }}"></script>
+{% endblock %}

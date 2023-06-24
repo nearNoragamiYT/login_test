@@ -1,0 +1,51 @@
+stat_link_estadistica_dia:
+    path:     /show-dashboard/st/dia
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaDia:index, userType: general }
+    
+stat_link_estadistica_semana:
+    path:     /show-dashboard/st/semana
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaSemana:index, userType: general }
+    
+stat_link_estadistica_estado:
+    path:     /show-dashboard/st/estado
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaEstado:index, userType: general }
+    
+stat_link_estadistica_pais:
+    path:     /show-dashboard/st/pais
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaPais:index, userType: general }
+
+stat_link_estadistica_asistencia:
+    path:     /show-dashboard/st/asistencia
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaAsistencia:index}
+
+stat_link_estadistica_idioma:
+    path:     /show-dashboard/st/idioma
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaIdioma:index}
+    
+stat_link_estadistica_campania:
+    path:     /show-dashboard/st/campania
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaCampania:index}
+    
+stat_link_estadistica_perfil:
+    path:     /show-dashboard/st/perfil
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaPerfil:index}
+    
+stat_link_estadistica_dia_elite:
+    path:     /show-dashboard/sl/dia
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaDia:index, userType: elite }
+    
+stat_link_estadistica_semana_elite:
+    path:     /show-dashboard/sl/semana
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaSemana:index, userType: elite }
+    
+stat_link_estadistica_estado_elite:
+    path:     /show-dashboard/sl/estado
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaEstado:index, userType: elite}
+    
+stat_link_estadistica_pais_elite:
+    path:     /show-dashboard/sl/pais
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaPais:index, userType: elite }
+    
+visitante_perfil_graficas:
+    path:     /show-dashboard/sl/graficas-perfil
+    defaults: { _controller: StatLinkEstadisticaBundle:EstadisticaCampania:getStats }

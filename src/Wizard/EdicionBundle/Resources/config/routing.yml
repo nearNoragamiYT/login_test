@@ -1,0 +1,7 @@
+wizard_edicion:
+    path:     /asistente/edicion
+    defaults: { _controller: WizardEdicionBundle:Edicion:edicion }
+
+wizard_edicion_eliminar:
+    path:     /asistente/edicion/eliminar
+    defaults: { _controller: WizardEdicionBundle:Edicion:edicionEliminar }

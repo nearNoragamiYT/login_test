@@ -1,0 +1,69 @@
+{% extends '::base.html.twig' %}
+{% set user = app.user.data %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+{% endblock %}
+
+{% block body %}
+    <header class="navbar-fixed">
+        <nav class="navbar-fixed primary-navbar">
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+            <div class="nav-wrapper">
+                {% block breadcrumbs %}
+                {% endblock %}
+            </div>
+        </nav>
+    </header>
+    <ul id="slide-out" class="side-nav fixed">
+        <li>
+            <nav class="transparent side-nav-header">
+                <a href="{{ path("dashboard") }}" class="waves-effect show-loader-top">
+                    {% if user['ComiteOrganizador'] is defined and user['ComiteOrganizador'] != "" %}
+                        <img src="{{ asset("images/logos-co/" ~ user['ComiteOrganizador']['Logo']) }}" alt="{{ user['ComiteOrganizador']['ComiteOrganizador'] }}">
+                    {% else %}
+                        <img src="{{ asset("images/infoexpo.png") }}" alt="Ixpo">
+                    {% endif %}
+                </a>    
+            </nav>
+        </li>
+
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="waves-effect collapsible-header {% if app.request.get('_route') == "cuenta" %}active{% endif %}">
+                        <i class="material-icons icon-user">account_circle</i>{{ user['Nombre'] }}<i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="{{ path("cuenta") }}" class="waves-effect show-loader-top {% if app.request.get('_route') == "cuenta" %}active selected{% endif %}">{{ content['general_text']['sas_miCuenta'] }}</a></li>
+                            <li><a href="{{ path("logout") }}" class="waves-effect show-loader-top">{{ content['general_text']['sas_salir'] }}</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <div class="divider"></div>
+        </li>
+
+        {% if user['idTipoUsuario'] in [1,2] %}
+            <li>
+                <a class="waves-effect show-loader-top" href="{{ path("wizard") }}">{{ content['general_text']['sas_wizard'] }}</a>
+            </li>
+            <li><div class="divider"></div></li>
+            {% endif %}
+            {% block sidenav %}
+            {% endblock %}
+    </ul>
+    <main>
+        {% include ':complementos:confirmacion_modal.html.twig' %}
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="page-footer">
+        <img class="right" src="{{ asset("images/infoexpo-min.png") }}" alt="Ixpo">
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

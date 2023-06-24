@@ -1,0 +1,44 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Visitante/AsociadoBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/asociado.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% include 'VisitanteVisitanteBundle:Visitante:menu_secciones.html.twig' %}
+    <div class="container">
+        <div class="card" style="overflow: auto;">
+            <div class="card-content">
+                <div  class="col s12" id="cover-perfil-data">
+                    <span class="card-title"> Listado de Socios Ingresados</span>
+                    <div class="row" style="margin-bottom: 25px;">
+                        <table id="socios-table" class="highlight responsive-table">
+                            <thead class="grey lighten-3"></thead>
+                            <tbody></tbody>
+                            <tfoot></tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'VisitanteAsociadoBundle:Asociado:cambioStatusModal.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}",
+        asociados ={{ content['asociados'] | json_encode() | raw }} ,
+        asociados_metadata= {{ content['asociadosMetaData']['fields'] | json_encode() | raw }},
+        status_asociados= {{ content['StatusAsociados'] | json_encode() | raw }},
+        url_update_asociado_status ="{{path("visitante_asociados_update_status")}}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/asociado.js') }}"></script>
+{% endblock %}

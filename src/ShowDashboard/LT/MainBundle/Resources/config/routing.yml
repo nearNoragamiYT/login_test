@@ -1,0 +1,3 @@
+show_dashboard_lt:
+    path:     /show-dashboard/lt
+    defaults: { _controller: ShowDashboardLTMainBundle:Main:index }

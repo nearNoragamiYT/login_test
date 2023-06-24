@@ -1,0 +1,57 @@
+{% extends ':main:base.html.twig' %}
+{% set navbar_type = 3 %}
+{# ------------   CSS   -------------- #}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+       
+       '@MSFloorplanBundle/Resources/public/css/kiosk.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+
+    {% endstylesheets %}
+    <link type="text/css" rel="stylesheet" href="{{ asset('public/css/menu.css') }}" />
+{% endblock stylesheets %}
+
+{% block body %}
+    <div class="content-ixpo">
+        <div class="content">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="section-head" style="height: 61px; max-height: 61px;">
+                        <div class="col-xs-10 ex-title"><h2>{{ content['textosGenerales']['lb_kioskos'] }}</h2></div>
+                        <div class="col-xs-2" style="text-align: right;">{#<u class="help" style="display: none;"><span class="glyphicon glyphicon-info-sign"></span> {{ content['textosGenerales']['lb_help'] }}</u>#}</div>
+                    </div>
+                    <div id="kMainEmpty"><div id="kEmpty"></div></div>
+                    <div id="kMainChart"><div id="kChart"></div></div>
+                    <div id="kMainTotal"><div id="kTotal"></div></div>
+                    <div class="panel-kiosk col-xs-12">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'MSFloorplanBundle:Floorplan:modal_error.html.twig'%}
+{% endblock %}
+
+{% block loader %}{% include '::loader.html.twig' with { visible : true } %}{% endblock %}
+
+{# ------------   JAVASCRIPTS   -------------- #}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts 
+        '@MSFloorplanBundle/Resources/public/js/kiosk.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script>google.load('visualization', '1.0', {'packages': ['corechart']});</script>    
+    <script>
+        var url_kiosk_details = "{{ path('ms_fp_kioskos') }}",
+                url_kiosk_dates = "{{ path('ms_fp_kioskos_fechas') }}",
+                idEdicion = "{{ content['idEdicion'] }}",
+                images_route = "{{ asset('public/images') }}";
+
+    </script>
+{% endblock %}

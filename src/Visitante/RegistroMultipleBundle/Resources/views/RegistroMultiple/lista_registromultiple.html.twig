@@ -1,0 +1,71 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/Visitante/RegistroMultipleBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}    
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/datatables.responsive.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('js/dynamicTable/css/dynamic_table.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}" media="screen,projection"/>    
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/registromultiple.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div id="multiple" class="container">
+        <div id="slide-list-div" style="margin-top: 20px">
+            <div class="row">
+                <div id="cover-RegistroMultiple-table" class="col-xs-12"></div>
+            </div>
+        </div>
+    </div>
+    {#<div class="fixed-action-btn" style="bottom: 60px; right: 90px;">
+        <a class="btn-floating btn-large green tooltipped" 
+           id="send-email-to-all"
+           data-tooltip="{{ content["section_text"]["sas_enviarBienvenidaEDTodos"] }}" 
+           data-position="left" 
+           data-delay="50" 
+           >
+            <i class="material-icons">mail</i>
+        </a>
+    </div>#}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var lang = {{ content['lang']|json_encode()|raw }},
+                url_lang = "{{asset('js/dataTablesLang/' ~ content['lang'] ~ '.json')}}",
+                RegistroMultiple_table_columns = {{ content['RegistroMultiple_table_columns']|json_encode()|raw }},
+                RegistroMultiple_table_column_categories = {{ content['RegistroMultiple_table_column_categories']|json_encode()|raw }};
+
+        var url_registromultiple_get_to_dt = "{{ path("registromultiple_get_to_datatable") }}",
+                url_registromultiple_get_to_dt_filtro = "{{ path("registromultiple_get_to_datatable_filtro") }}",
+                url_set_session = "{{ path("registromultiple_set_session") }}",
+                url_get_session = "{{ path("registromultiple_get_session") }}",
+                url_registromultiple_export_data = "{{ path("registromultiple_export_data") }}",
+                url_visitante_datos_generales = "{{ path('visitante_datos_generales') }}",
+                url_email_gafete_wallet = "{{ path('enviar_gafete_wallet') }}",
+                 url_download_gafete = "{{ path('download_gafete_multiple') }}",
+                img_excel = "{{ asset("images/excel.png") }}";
+        var Edicion
+                = {{ content['idEdicion']|json_encode()|raw }};
+
+        var Usuario
+                = {{ content['user']|json_encode()|raw }};
+        var idModuloIxpo
+                = {{ content['idModuloIxpo']|json_encode()|raw }};
+    </script>
+
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.responsive.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.columnFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/selectFilter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/jquery.dataTables.customFilter.js') }}"></script>         
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/datatables.js') }}"></script>   
+    <script type="text/javascript" src="{{ asset('js/dynamicTable/js/dynamic_table.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/datepickerLang/' ~ content['lang'] ~ '.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/registromultiple.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+show_dashboard_crm_asesores_comerciales_mostrar:
+    path:     /
+    defaults: { _controller: ShowDashboardCRMAsesoresComercialesBundle:AsesoresComerciales:mostrar }
+    methods: GET
+
+show_dashboard_crm_asesores_comerciales_agregar_editar:
+    path:     /agregar-editar
+    defaults: { _controller: ShowDashboardCRMAsesoresComercialesBundle:AsesoresComerciales:agregarEditar }
+    methods: POST
+
+show_dashboard_crm_asesores_comerciales_activar:
+    path:     /activar
+    defaults: { _controller: ShowDashboardCRMAsesoresComercialesBundle:AsesoresComerciales:activar }
+    methods: POST

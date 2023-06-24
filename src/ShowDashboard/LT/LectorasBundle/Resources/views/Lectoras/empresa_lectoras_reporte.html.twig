@@ -1,0 +1,69 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/ShowDashboard/LT/LectorasBundle/' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/empresa_lectoras_reporte.css') }}" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    <div id="reporte-empresa-lectoras" class="container">
+        <div class="col s12" style="margin-bottom: 15px;">
+            <div class="col s10">
+                <h5 style="margin: 0px;">{{content['section_text']['sas_lectorasAsignadas']}}</h5>
+            </div>
+            <div class="btn-export col s2" id="exp-Empresa-table" title="Export Excel">
+                <a  href="{{ path('empresa_lectoras_reporte', {status: "descargar"}) }}">
+                    <label class="lb-export">Exportar</label>
+                    <img src="{{ asset('/images/excel.png') }}"class="img-export">
+                </a>
+            </div>
+        </div>
+        <table id="reporte-empresa-lectoras-table" class="highlight bordered">
+            <thead class="grey lighten-4">
+                <tr>
+                    {% for header in content["empresa_lectoras_reporte_metadata"] %}
+                        {% if header["is_visible"] == true %}
+                            <th>{{ header["text"] }}</th>
+                            {% endif %}
+                        {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for lectora in content["empresa_lectoras_reporte"] %}
+                    <tr>
+                        {% for key, value in lectora %}
+                            {% if content["empresa_lectoras_reporte_metadata"][key] is defined and content["empresa_lectoras_reporte_metadata"][key]["is_visible"] == true %}
+                                {%if content["empresa_lectoras_reporte_metadata"][key]["values"] is defined%}
+                                    <td> {{ content["empresa_lectoras_reporte_metadata"][key]["values"][value]}} </td>
+                                {% else %}
+                                    <td> {{ value }} </td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+                var general_text = {{ content['general_text']|json_encode()|raw }};
+                var section_text = {{ content['section_text']|json_encode()|raw }};
+
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(ruta_asset ~ 'js/empresa_lectoras_reporte.js') }}"></script>
+{% endblock %}
+
+

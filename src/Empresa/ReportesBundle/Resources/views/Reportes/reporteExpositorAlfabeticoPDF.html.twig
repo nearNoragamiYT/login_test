@@ -1,0 +1,95 @@
+
+{% set ruta_asset = 'resources/Empresa/ReportesBundle/' %}
+{% set edicion = content['idEdicion'] %}
+{% set i=1%}
+
+{% block stylesheets %}
+    <style>
+
+        .container{
+            width: 215mm;
+            height: 282mm;
+            overflow: hidden;
+            margin-bottom: 0px;
+            margin-top: 0px;
+
+        }
+        .row{
+            width: 100mm;
+            height: 110mm;
+            font-size: 12px;
+            text-align: justify;
+            font-family: sans-serif;
+        }
+        .rowright{
+            float: right;
+        }
+        .rowleft{
+            float: left;
+        }
+        .pba {
+            page-break-before: always;
+        }
+
+        p{
+            font-size: 16px;
+        }
+        img{
+            margin-top: 0px;
+            margin-bottom: 0px;
+            float: left;
+            width: 100%;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+
+    {% for item in content['data'] %}
+    {% if i == 5 %}{% set i=1%}{% endif %}
+    {% if i == 1 %}
+        <div class="container pba" id="container" >
+            <img src="{{ asset('images/reportes/header_pdf_' ~ edicion ~ '.png') }}"/>
+        {% endif %}
+        {% if i == 2 or i==4 %}
+            <div class="row rowright">
+            {% else %}
+                <div class="row rowleft">
+                {% endif %}
+                <p><b>{{item['DC_NombreComercial']}}</b></p>
+                {{item['NombreCompletoTipo3']}}<br>
+                {{item['PuestoTipo3']}}<br>
+                {{item['DC_CalleNum']}}<br>
+                <b>COL: </b>{{item['DC_Colonia']}}<br>
+                <b>C.P.: </b>{{item['DC_CodigoPostal']}}<br>
+                <b>CIUDAD: </b>{{item['DC_Ciudad']}}<br>
+                <b>ESTADO: </b>{{item['DC_Estado']}}<br>
+                <b>PAIS: </b>{{item['DC_Pais']}}<br>
+                <b>TEL: </b>{{item['DC_Telefono']}}<br>
+                <b>E-MAIL: </b>{{item['mailtipo3']}}<br>
+                <b>WEB: </b>{{item['DD_PaginaWeb']}}<br>
+                <b>NO. DE STANDS: </b>{{item['EMSTDListadoStand']}}<br>
+                {{item['categorias']}}<br>
+                <b>DESCRIPCION: </b>{{item['DC_DescripcionES']}}
+            </div>
+            {% if i == 4 or loop.last  %}
+                {#<img src="{{ asset('images/reportes/footer_pdf_' ~ edicion ~ '.png') }}"/>#}
+            </div>
+        {% endif %}
+        {% set i=i+1 %}
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+        window.print();
+        setTimeout(function () {
+            window.history.back();
+        }, 3000);
+    </script>
+{% endblock %}
+

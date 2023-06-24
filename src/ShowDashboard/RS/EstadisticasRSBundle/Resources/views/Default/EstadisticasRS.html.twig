@@ -1,0 +1,101 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set asset_path = 'resources/ShowDashboard/RS/EstadisticasRSBundle/' %}
+{#{% extends '::base.html.twig' %}#}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <link type="text/css" rel="stylesheet" href="{{ asset(asset_path ~ 'css/estadisticas_rs.css') }}">
+{% endblock %}
+{% block content %}
+    <div style ="overflow-y: hidden; overflow-x: hidden;">
+        <div class="row">
+            <div class="right-align">
+                <a class="btn-primary btn-floating pulse tooltipped" id="all-grafic" data-position="left" data-tooltip="Descargar">
+                    <i class="material-icons" id="all-grafic">file_download</i>
+                </a>                      
+            </div>
+        </div>               
+        <div class="card active">           
+            <div class="row">               
+                <div class="col l6 m12 s12">
+                    <div class="row card medium">                               
+                        <div class="card-content">                            
+                            <span class="card-title">Asistencia por día</span>
+                            <div id="mydiv" style="margin-left: 632px;"></div>
+                            <div id="asistenciaDia"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col l6 m12 s12">
+                    <div class="row card medium">                          
+                        <div class="card-content">
+                            <span class="card-title">Comparativo de asistencia por día por edición</span>
+                            <div id="mydiv1" style="margin-left: 632px;"></div>      
+                            <div id="comparativo"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col l6 m12 s12">
+                    <div class="row card medium">                        
+                        <div class="card-content">
+                            <span class="card-title">Asociados y Generales</span>
+                            <div id="mydiv2" style="margin-left: 632px;"></div>
+                            <div id="asociados"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col l6 m12 s12">
+                    <div class="row card medium">                        
+                        <div class="card-content">
+                            <span class="card-title">Comportamiento preregistro</span>
+                            <div id="mydiv3" style="margin-left: 632px;"></div>
+                            <div id="comportamiento"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col l6 m12 s12">
+                    <div class="row card medium">                        
+                        <div class="card-content">
+                            <span class="card-title">Asistencia por hora</span>
+                            <div id="mydiv4" style="margin-left: 632px;"></div>
+                            <div id="asistenciaHora"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col l6 m12 s12">
+                    <div class="row card medium">                        
+                        <div class="card-content">
+                            <span class="card-title">Tabla asistencia por hora</span>
+                            <div id="mydiv5" style="margin-left: 632px;"></div>
+                            <div id="tablaHora"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}   
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/printGlobalPdf.js') }}"></script>
+    {#<script type="text/javascript" src="{{ asset(asset_path ~ 'js/AsistenciaDiaNew.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/AsistenciaHoraNew.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/ComparativoAsisNew.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(asset_path ~ 'js/ClubEliteNew.js') }}"></script>#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script> 
+    <script type="text/javascript">
+        var idEdicion = '{{ content['idEdicion'] }}';
+        var url_AsisDia = '{{path('show_dashboard_rs_estadisticas_rs_asistenciadia')}}';
+        var url_CompEd = '{{path('show_dashboard_rs_estadisticas_rs_comparacioasistencia')}}';
+        var url_estadisticas_hora = '{{path('show_dashboard_rs_estadisticas_rs_asistenciahora')}}';
+        {#var url_estadisticas_ce = '{{path('show_dashboard_rs_estadisticas_rs_clubelite')}}';#}
+    </script>
+{% endblock %}

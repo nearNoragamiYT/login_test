@@ -1,0 +1,48 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/StatLink/EstadisticaBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/estadistica.css') }}" media="screen,projection">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">    
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid ">
+        <div class="section">
+            <h5>{% block chartTitle %}{% endblock %}</h5>
+            <div class="white z-depth-1">
+                {% if content['chartType'] == 'Date' %}
+                    <div class="container">
+                        <div class="row">
+                            <div id="chartRef" class="col s12">
+                                <div id="chart">
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                {% else %}
+                    <div id="geochart">
+                    </div>
+                {% endif %}
+                <div class="container responsive-table">
+                    <table id="statistics" class="highlight">
+                    {% block table %}{% endblock %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}  
+    <script type="text/javascript" src="{{ asset(ruta_asset ~'js/chart.js') }}"></script>
+{% block textscript %}{% endblock %}
+<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.materialize.js') }}"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('upcoming', {'packages': ['corechart','bar', 'line', 'geochart']});
+</script>   
+{% block actionscript %}{% endblock %}
+{% endblock %}

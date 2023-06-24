@@ -1,0 +1,34 @@
+{% set lang = content['lang'] %}
+<table cellspacing="3" cellpadding="3">
+    <tr>
+        <td colspan="2">
+            <div style="padding-bottom: 9px;margin: 40px 0 20px;border-bottom: 1px solid #eee;color: black;font-size: 16px;">
+                <h3>{{content['section_text']['sas_productosAdicionales'] | raw }}</h3>
+            </div>
+        </td>
+    </tr>
+    {% for k,v in content['costo_adicional'] %}
+            {% if content['empresa_costo_adicional'][v['idCostoAdicional']] is defined %}
+                <tr>
+                    <td colspan="2">*{{v['Costo'~lang|upper] | raw}}
+                        {% if v['DescripcionCorta'~ lang|upper] is defined and v['DescripcionCorta'~ lang|upper] != "" %}
+                            <br>
+                            {% if content['empresa_costo_adicional'][v['idCostoAdicional']]['Cantidad'] != "" %}
+                                {%set cantidad=content['empresa_costo_adicional'][v['idCostoAdicional']]['Cantidad']%}
+                                {% else %}
+                                {%set cantidad=""%}
+                            {% endif %}
+                            {{v['DescripcionCorta' ~ lang|upper] |replace({"%input%":  cantidad })}}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+    {% endfor %}
+</table>
+<div style="width: 100%;display: inline-block;background: #ECECEC;padding-right: 8px;padding-top: 6px;padding-bottom: 2px;">
+    <table style="float: right;">
+        <tr><td></td><td></td><td align="right"><h4>{{content['section_text']['sas_subtotal'] | raw}}</h4></td><td align="right">{{content['contrato']['SubtotalCostoAdicional']|number_format(2, '.', ',')}}</td></tr>
+        <tr><td></td><td></td><td align="right"><h4>{{content['section_text']['sas_iva'] | raw}}</h4></td><td align="right">{{content['contrato']['IvaCostoAdicional']|number_format(2, '.', ',')}}</td></tr>
+        <tr><td></td><td></td><td align="right"><h3>{{content['section_text']['sas_total'] | raw}}</h3></td><td align="right">{{content['contrato']['TotalCostoAdicional']|number_format(2, '.', ',')}}</td></tr>
+    </table>
+</div>

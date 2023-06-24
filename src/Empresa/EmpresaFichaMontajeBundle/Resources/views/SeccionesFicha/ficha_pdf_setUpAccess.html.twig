@@ -1,0 +1,117 @@
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        SU EMPRESA TIENE EL INGRESO AUTORIZADO A EXPO ABIERTA A PARTIR DE:
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>INGRESO A ANDENES SÓLO PARA VEHICULOS MAYORES A 3 ½ TONS.<br>
+        <br>
+        {% if(ficha['MontajeDiaEntrada'] is defined) %}
+            {%if ficha['MontajeDiaEntrada']!= ''%}
+                {{'DÍA: '~ ficha['MontajeDiaEntrada']}}<br>
+            {% else %}
+                {{'DÍA: '~ 'no registró este dato'}}<br>
+            {% endif %}
+        {% endif %}
+        {% if(ficha['MontajeHorarioEntrada'] is defined) %}
+            {%if ficha['MontajeHorarioEntrada']!= ''%}
+                {{'HORARIO: '~ ficha['MontajeHorarioEntrada']}}<br>
+            {% else %}
+                {{'HORARIO: '~ 'no registró este dato'}}<br>
+            {% endif %}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>ACCESS TO “OPEN EXPO”  WAITING AREA  SCHEDULE:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>ONLY 3 ½ TONS TRUCKS AND TRAILERS CAN ENTER TO THE UNLOADING DOCK AREA<br>
+        <br>
+        {% if(ficha['MontajeDiaEntrada'] is defined) %}
+            {%if ficha['MontajeDiaEntrada']!= ''%}
+                {{'DAY: '~ ficha['MontajeDiaEntrada']}}<br>
+            {% else %}
+                {{'DAY: '~ 'no data register'}}<br>
+            {% endif %}
+        {% endif %}
+        {% if(ficha['MontajeHorarioEntrada'] is defined) %}
+            {%if ficha['MontajeHorarioEntrada']!= ''%}
+                {{'HOUR: '~ ficha['MontajeHorarioEntrada']}}<br>
+            {% else %}
+                {{'HOUR: '~ 'no data register'}}<br>
+            {% endif %}
+        {% endif %}    
+    </td>
+</tr>
+<tr>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>PUERTA DE ANDEN AL INGRESO:</td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['MontajeAndenEntrada'] is defined) %}
+            {%if ficha['MontajeAndenEntrada']!= ''%}
+                {{ficha['MontajeAndenEntrada']}}
+            {% else %}
+                {{'no registró este dato'}}
+            {% endif %}
+        {% endif %}
+    </td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}><i>DOCKING DOOR ASSIGNED:</i></td>
+    <td colspan="6" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        {% if(ficha['MontajeAndenEntrada'] is defined) %}
+            {%if ficha['MontajeAndenEntrada']!= ''%}
+                {{ficha['MontajeAndenEntrada']}}
+            {% else %}
+                {{'no data register'}}
+            {% endif %}
+        {% endif %}
+    </td>
+</tr>
+<tr class="page-break" {%if content['without_print'] is defined %} style="{{pagebreak}}" {%endif%}>
+    <td colspan="24" {%if content['without_print'] is defined %} style="{{pagebreaktd}}" {%endif%}>
+    </td>
+</tr>
+<tr>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>MONTAJE GENERAL:
+        <ul>
+            <li>Domingo 15 y lunes 16 de mayo de 8:00 hrs. a 22:00 hrs.</li>
+        </ul>
+    </td>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>GENERAL INSTALLATION SCHEDULE:
+        <ul>
+            <li>Sunday May 15 and Monday May 16 from 8:00 hrs. to 22:00 hrs.</li>
+        </ul>
+    </td>
+</tr>
+<tr>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <strong>Instrucciones para el Ingreso del Personal:</strong>
+        <ul>
+            <li><strong>TODO EL PERSONAL QUE INGRESE AL PISO DE EXPOSICIÓN DURANTE LOS DÍAS DE MONTAJE DEBERÁ PORTAR CASCO</strong> </li>
+            <li>Si su empresa <ins>si</ins> aparece registrada en esta ficha favor de presentarse en el Módulo de Seguridad con su ficha para su registro.</li>
+            <li>Deberá traer lista del personal que estará registrando para su ingreso, si no cuenta con la lista deberá anotar a todas las personas en el formato que le entregará el módulo de seguridad. </li>
+            <li>Si su empresa <ins>no</ins> aparece registrada en esta ficha, deberá presentarse en el Modulo de Seguridad con una carta membretada del expositor autorizando su ingreso a montaje.</li>
+            <li><ins>Todos</ins> las personas que ingresen durante el Montaje deberán vestir playera con el logotipo de la empresa, usar el equipo de seguridad debido.</li>
+        </ul>
+    </td>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <strong>Instructions for registration of staff:</strong>
+        <ul>
+            <li>If your company IS registered in this form, please proceed to the Security Desk located in Salon Guadalajara Hal loading dock, to get your access.</li>
+            <li>Contractors must show a list of their personnel registered to have access to the exhibit Hall ; otherwise they will have to register them in the Security Desk.</li>
+            <li><strong>All personnel (contractors)  are required to wear shirts with the logo of their company and some safety elements: Helmet, Boots and Harness.</strong></li>
+            <li>If your company IS <strong>NOT</strong> registered in this form, please proceed to the Security Desk with a letterhead of the exhibitor company giving you the authorization to access to the Exhibit Hall.</li>
+        </ul>
+    </td>
+</tr>
+<tr>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <strong>DURANTE LOS DÍAS DEL EVENTO</strong>
+        <ul>
+            <li>El Personal de Apoyo que cuente con su gafete no podrá ingresar con Mochilas, Maletas o paquetes de ningún tipo en su caso deberá depositarlas en el guarda equipaje; deberá presentarse con vestimenta con acorde al evento.</li>
+            <li><strong>TODOS Sin excepción deberÃ¡n presentar su Identificación con Fotografía que deberá coincidir con el nombre del gafete electrónico.</strong></li>
+            <li>El Reabastecimiento de Producto es de 8:00 a 9:30 a.m. después de este horario si requiere ingresar mercancías a su stand solo podrá hacerlo contratando al personal de Acarreo Transmal sujeto a horarios establecidos , localizados en la Puerta 1 de Andenes.</li>
+        </ul>
+    </td>
+    <td colspan="12" {%if content['without_print'] is defined %} style="{{td}}" {%endif%}>
+        <strong>DURING THE EVENT DAYS</strong>
+        <ul>
+            <li>Support Personnel who have their badge  will not be able to enter with Backpacks, Suitcases or packages of any kind, if applicable, they must deposit them in the luggage room; Must be presented with clothing according to the event.</li>
+            <li><strong>EVERYBODY without exception must present their Photo ID, which must match the name on the electronic badge.</strong></li>
+            <li>Product Replenishment is from 8:00 to 9:00 a.m. After these hours, if you need to enter merchandise at your stand, you can only do so by hiring Acarreo Transmal staff subject to established schedules, located at Gate 1 of the Platforms.</li>
+        </ul>
+    </td>
+</tr>

@@ -1,0 +1,3 @@
+wizard_producto:
+    path:     /asistente/producto
+    defaults: { _controller: WizardProductoBundle:Producto:producto }

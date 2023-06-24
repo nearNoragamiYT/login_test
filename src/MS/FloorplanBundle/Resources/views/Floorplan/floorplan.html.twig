@@ -1,0 +1,106 @@
+{% extends '::base_dashboard.html.twig' %}
+{% set ruta_asset = 'resources/MS/FloorplanBundle/' %}
+{% block stylesheets %}
+    {{ parent() }}
+    {#<link type="text/css" rel="stylesheet" href="{{ asset(ruta_asset ~ 'css/estadistica.css') }}" media="screen,projection"> #}
+    <link type="text/css" rel="stylesheet" href="{{ asset('resources/MS/FloorplanBundle/css/floorplan.css') }}">  
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dataTables.materialize.css') }}">    
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col s12 m9 l10">
+            <div id="export" class="fixed-action-btn horizontal click-to-toggle">
+                <a class="btn-floating btn-large blue">
+                    <i class="material-icons">file_download</i>
+                </a>
+                <ul id="user-export">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <form method="POST" id="form-export" target="_blank" action="{{ path('ms_fp_export') }}">
+            <input type="hidden" value="{{ content['FechaIni'] }}" id="ini">
+            <input type="hidden" value="{{ content['FechaFin'] }}" id="fin">
+        </form>        
+        <div class="section">
+            <div class="row">
+                <div class="col s5">
+                    <label for="from" >Fecha de Inicio</label>
+                    <input id="from" type="date" class="datepicker" value="{{ content['FechaIni']}}">
+                </div>
+                <div class="col s5">
+                    <label for="to">Fecha de Termino</label>
+                    <input id="to" type="date" class="datepicker" value="{{ content['FechaFin']}}">
+                </div>
+                <div class="col s2">
+                    <a class="btn update green darken-3">Aplicar</a>
+                </div>
+            </div>
+            {#<div class="container">
+                <h5>Plano Interactivo</h5>
+            </div>#}
+            <div class="row white">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a class="blue-text" href="#tab_a">Gráfica</a></li>
+                        <li class="tab col s3"><a class="blue-text" href="#tab_b">Expositores</a></li>
+                        <li class="tab col s3"><a class="blue-text" href="#tab_c">Búsquedas</a></li>
+                        {#<li class="tab col s3"><a class="blue-text" href="#tab_d">Categorias</a></li>#}
+                            {#<li class="tab col s3"><a class="blue-text" href="#tab_e">Directorio de Productos</a></li>#}
+                        <div class="indicator blue darken-2"></div>
+                    </ul>
+                </div>
+                <div id="tab_a" class="col s12">
+                    {% include 'MSFloorplanBundle:fp:details.html.twig' %}
+                </div>
+                <div id="tab_b" class="col s12">
+                    {% include 'MSFloorplanBundle:fp:exhibitors.html.twig' %}
+                </div>
+                <div id="tab_c" class="col s12">
+                    {% include 'MSFloorplanBundle:fp:searches.html.twig' %}
+                </div>
+{#                <div id="tab_d" class="col s12">
+                    {% include 'MSFloorplanBundle:fp:categories.html.twig' %}
+                </div>#}
+                {#<div id="tab_e" class="col s12">
+                    {% include 'MSFloorplanBundle:fp:products.html.twig' %}
+                </div>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}  
+    <script>
+        var url_lang = "{{asset('js/dataTablesLang/' ~ lang ~ '.json')}}";
+        var url_graph_ex_details = "{{ path('ms_fp_ex_detalles') }}",
+                url_graph_get_clicks = "{{ path('ms_fp_cantidad_clicks') }}",
+                url_graph_get_search = "{{ path('ms_fp_busquedas') }}",
+                url_graph_get_visitors = "{{ path('ms_fp_visitantes') }}",
+                url_graph_get_tour = "{{ path('ms_fp_tour') }}",
+                url_graph_get_dates = "{{ path('ms_fp_fechas') }}",
+                url_graph_get_products = "{{ path('ms_fp_productos') }}",
+                url_exhibitor_path = "{{ path('ms_fp_expositores_base', {'idExpositor': 'idexhibitor'}) }}",
+                url_kiosk_path = "{{ path('ms_fp_general_kioskos') }}",
+                url_graph_get_bookmark_refresh = "{{ path('ms_fp_ex_bookmark_refresh') }}";
+        var evName = "{{ content['NombreEvento'] }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{asset('resources/MS/FloorplanBundle/js/datepickerLang/' ~ lang ~ '.js')}}"></script>
+    <script src="{{ asset('js/dataTables.materialize.js') }}"></script>
+    <script src="{{ asset('resources/MS/FloorplanBundle/js/default.js') }}"></script>
+    <script src="{{ asset('resources/MS/FloorplanBundle/js/export.js') }}"></script>
+    <script src="{{ asset('resources/MS/FloorplanBundle/js/floorplan.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+    </script>
+    <script>
+        $('.datepicker').pickadate();
+    </script>    
+{% endblock %}
+
+
